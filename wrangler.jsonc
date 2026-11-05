@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nr-enterprises",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://qjpjltaiazwybhsmnkve.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqcGpsdGFpYXp3eWJoc21ua3ZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MzE1MjQsImV4cCI6MjEwMjUwNzUyNH0.2BiNade49az4aGj2keveLF78kQLLk3VG2Rql5GubQWw",
+    "NEXT_PUBLIC_ADMIN_PASSWORD": "nrenterprises@2026",
+    "NEXT_PUBLIC_GA_ID": "G-TMBV1DFTDK",
+    "R2_ACCOUNT_ID": "4fc87588e31c447f26579ef025832963",
+    "R2_ACCESS_KEY_ID": "af598e80d0c53ce2d94c264f47ac8fc3",
+    "R2_SECRET_ACCESS_KEY": "e9a07da94f427b9552aaf15bb32841663be8bf8de296cc8a275b8ba7bd4de991",
+    "R2_BUCKET_NAME": "nr-enterprises-images",
+    "R2_PUBLIC_URL": "https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev"
+  }
+}

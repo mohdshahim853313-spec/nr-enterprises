@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-lato), "Lato", system-ui, -apple-system, sans-serif;
+  --font-lato: var(--font-lato), "Lato", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-jakarta: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-serif), "Cormorant Garamond", var(--font-playfair), Georgia, serif;
+}
+
+/* =========================================
+   TYPOGRAPHY HIERARCHY
+   - Plus Jakarta Sans: Headings & Buttons
+   - Lato: Body, Normal & Small text
+========================================= */
+h1, h2, h3, h4, h5, h6, .font-heading, .font-jakarta {
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+button, [role="button"], a.btn, .btn, input[type="button"], input[type="submit"] {
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+body, p, span, a, input, textarea, select, label, .font-lato, .font-sans {
+  font-family: var(--font-lato), "Lato", system-ui, sans-serif;
+}
+
+/* =========================================
+   SCROLL ENGINE PRODUCTION OPTIMIZATIONS
+========================================= */
+html {
+  scroll-behavior: auto !important;
+  touch-action: manipulation;
+}
+
+@media (min-width: 1024px) {
+  body {
+    zoom: 1.20;
+  }
+}
+
+@layer base {
+  body {
+    background-color: #F8F9FA;
+    color: #1F1A17;
+    width: 100%;
+    touch-action: manipulation;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* =========================================
+   SCROLLBAR STYLING & FIXES
+========================================= */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F5F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C19A6B;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3A332C;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #C19A6B #F8F5F0;
+}
+
+
+/* Smooth hardware-accelerated rendering & Ghost Drag Prevention */
+img, picture {
+  text-indent: -9999px;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Allow intentional re-ordering in Admin */
+[draggable="true"], [draggable="true"] img {
+  -webkit-user-drag: element !important;
+  user-drag: element !important;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+/* =========================================
+   LUXURY SKELETON SHIMMER ANIMATION
+========================================= */
+@keyframes rz-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #ECE7DE 0%, #F6F3ED 50%, #ECE7DE 100%);
+  background-size: 200% 100%;
+  animation: rz-shimmer 1.5s ease-in-out infinite;
+}
+
+
+
