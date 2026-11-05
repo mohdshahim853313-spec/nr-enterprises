@@ -19,7 +19,6 @@ import { CurrencyProvider } from "../context/CurrencyContext";
 
 const jakarta = Plus_Jakarta_Sans({ 
   subsets: ["latin"], 
-  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jakarta", 
   display: "swap" 
 });
@@ -33,7 +32,6 @@ const lato = Lato({
 
 const cormorant = Cormorant_Garamond({ 
   subsets: ["latin"], 
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-serif", 
   display: "swap" 
 });
