@@ -67,7 +67,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF5EB;
+  background: #FAF8F5;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -79,10 +79,22 @@ html {
   background: #8E6518;
 }
 
-/* Firefox */
-* {
+/* Firefox root scrollbar */
+html {
   scrollbar-width: thin;
-  scrollbar-color: #C59B27 #FAF5EB;
+  scrollbar-color: #D4AF37 #FAF8F5;
+}
+
+/* Completely hide scrollbars on targeted elements cross-browser */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 

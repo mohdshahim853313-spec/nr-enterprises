@@ -1207,10 +1207,10 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
   }, [heroSlides.length]);
 
   return (
-    <div className="w-full flex flex-col bg-[#F8F9FA] overflow-x-hidden font-sans text-[#2B2520]">
+    <div className="w-full flex flex-col bg-[#FAF8F5] overflow-x-hidden font-sans text-[#0A1F17]">
       
       {/* =========================================================================
-          🌟 HERO SHOWCASE: FULL-WIDTH ATELIER EDITORIAL
+          🌟 HERO SHOWCASE: FULL-WIDTH ATELIER EDITORIAL (Royal Emerald & Imperial Gold)
          ========================================================================= */}
       <section className="w-full px-[5px] sm:px-6 md:px-10 pt-2 sm:pt-3 pb-2">
         <div className="max-w-[1500px] mx-auto relative">
@@ -1220,7 +1220,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
             onTouchStart={handleHeroTouchStart}
             onTouchMove={handleHeroTouchMove}
             onTouchEnd={handleHeroTouchEnd}
-            className="relative min-h-[520px] sm:min-h-[540px] lg:h-[580px] rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent border border-[#EAEAEB] flex flex-col justify-center p-4 sm:p-10 lg:p-14 select-none group isolate [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] [mask-image:-webkit-radial-gradient(white,black)]"
+            className="relative min-h-[520px] sm:min-h-[560px] lg:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0A1F17] border border-[#D4AF37]/35 shadow-[0_12px_45px_rgba(10,31,23,0.18)] flex flex-col justify-center p-4 sm:p-10 lg:p-14 select-none group isolate [transform:translateZ(0)] [-webkit-mask-image:-webkit-radial-gradient(white,black)] [mask-image:-webkit-radial-gradient(white,black)]"
           >
             
             {/* 🌟 Big Hero Banner Top Right Corner: Shop on Etsy Floating Button */}
@@ -1229,7 +1229,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 href={etsyConfig.url || "https://www.etsy.com/shop/NREnterprises"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute top-3.5 sm:top-6 lg:top-8 right-3.5 sm:right-6 lg:right-8 z-20 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4.5 py-1.5 sm:py-2.5 bg-[#F1641E] hover:bg-[#D95314] text-white text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs"
+                className="absolute top-3.5 sm:top-6 lg:top-8 right-3.5 sm:right-6 lg:right-8 z-20 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2.5 bg-[#F1641E] hover:bg-[#D95314] text-white text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs border border-white/20"
                 title="Shop NR Enterprises on Etsy"
               >
                 <span>{etsyConfig.btnText || "Shop on Etsy"}</span>
@@ -1266,8 +1266,8 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               </AnimatePresence>
             </div>
 
-            {/* Soft Ambient Left Contrast for Text Legibility (Hidden on mobile for 100% clean, vibrant rug image) */}
-            <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent pointer-events-none z-[2] rounded-3xl" />
+            {/* Soft Ambient Left Contrast for Text Legibility with Regal Emerald tint */}
+            <div className="hidden sm:block absolute inset-0 bg-gradient-to-r from-[#0A1F17]/90 via-[#0A1F17]/45 to-transparent pointer-events-none z-[2] rounded-3xl" />
 
             {/* Hero Main Copy & Action Buttons - Desktop Only (Hidden on Mobile for completely clean hero image) */}
             <div className="hidden sm:flex relative z-10 max-w-xl sm:max-w-2xl lg:max-w-4xl flex-col justify-center mt-14 sm:mt-0">
@@ -1281,40 +1281,41 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   className="flex flex-col"
                 >
                   {/* Tag Pill - Desktop Only (Hidden on Mobile) */}
-                  <div className="hidden sm:flex h-7 mb-2 items-center">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-black/50 backdrop-blur-xs text-[#E5C158] border border-white/20 text-[11px] sm:text-xs font-heading font-bold uppercase tracking-[0.25em]">
-                      {activeSlide.tag}
+                  <div className="hidden sm:flex h-8 mb-3 items-center">
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0A1F17]/85 backdrop-blur-md text-[#F3E5AB] border border-[#D4AF37]/50 shadow-[0_2px_12px_rgba(0,0,0,0.35)] text-[11px] sm:text-xs font-heading font-semibold uppercase tracking-[0.25em]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+                      {activeSlide.tag || "HERITAGE CRAFT • DIRECT FROM BHADOHI"}
                     </span>
                   </div>
 
-                  <div className="h-[40px] sm:h-[52px] md:h-[62px] lg:h-[72px] flex items-center mb-2.5">
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[58px] font-bold font-heading text-white leading-[1.08] tracking-tight sm:whitespace-nowrap">
+                  <div className="min-h-[50px] sm:min-h-[64px] md:min-h-[76px] lg:min-h-[88px] flex items-center mb-3">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
                       {activeSlide.title}
                     </h1>
                   </div>
 
                   {/* Description - Desktop Only (Hidden on Mobile) */}
-                  <div className="hidden sm:flex h-[64px] sm:h-[76px] md:h-[86px] items-start mb-5 sm:mb-6 max-w-xl overflow-hidden">
-                    <p className="text-xs sm:text-sm md:text-base text-white font-medium leading-relaxed line-clamp-3">
+                  <div className="hidden sm:flex min-h-[60px] sm:min-h-[70px] md:min-h-[80px] items-start mb-6 sm:mb-8 max-w-xl">
+                    <p className="text-xs sm:text-sm md:text-base text-[#E4EDE8] font-normal leading-relaxed line-clamp-3 drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">
                       {activeSlide.description}
                     </p>
                   </div>
 
                   {/* Action Buttons (Primary on Mobile, Both on Desktop) */}
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-3.5 min-h-[36px] sm:min-h-[44px] h-auto shrink-0 mb-1 sm:mb-0">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 min-h-[44px] h-auto shrink-0 mb-1 sm:mb-0">
                     <Link
                       href={activeSlide.ctaLink || "/collections"}
-                      className="inline-flex items-center justify-center gap-1.5 sm:gap-2 min-w-[130px] sm:min-w-[210px] h-[36px] sm:h-[48px] px-3.5 sm:px-6 bg-[#1F1A17] hover:bg-[#C19A6B] text-white border border-white/30 hover:border-[#C19A6B] rounded-lg text-[10.5px] sm:text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer hover:shadow-lg text-center shrink-0"
+                      className="inline-flex items-center justify-center gap-2 min-w-[150px] sm:min-w-[230px] h-[42px] sm:h-[50px] px-5 sm:px-8 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] rounded-full text-xs sm:text-[13px] font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_22px_rgba(212,175,55,0.45)] hover:shadow-[0_6px_28px_rgba(212,175,55,0.65)] text-center shrink-0 hover:scale-[1.02] active:scale-98"
                     >
-                      <span>{activeSlide.ctaText || "Shop the Collection"}</span>
-                      <span className="text-xs sm:text-sm font-bold">›</span>
+                      <span>{activeSlide.ctaText || "Explore Luxury Knots"}</span>
+                      <span className="text-sm font-bold">›</span>
                     </Link>
 
                     {/* Secondary Button - Desktop Only (Hidden on Mobile) */}
                     {activeSlide.secText && (
                       <Link
                         href={activeSlide.secLink || "/legacy"}
-                        className="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 min-w-[130px] sm:min-w-[210px] h-[36px] sm:h-[48px] px-3.5 sm:px-6 bg-black/60 hover:bg-black/80 text-white border border-white/40 hover:border-white rounded-lg text-[10.5px] sm:text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 backdrop-blur-xs shadow-md text-center"
+                        className="hidden sm:inline-flex items-center justify-center gap-2 min-w-[140px] sm:min-w-[210px] h-[42px] sm:h-[50px] px-5 sm:px-7 bg-[#0A1F17]/85 hover:bg-[#0F2A1E] text-[#F3E5AB] border border-[#D4AF37]/50 hover:border-[#D4AF37] rounded-full text-xs sm:text-[13px] font-heading font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer shrink-0 backdrop-blur-md shadow-lg text-center hover:scale-[1.02] active:scale-98"
                       >
                         <span>{activeSlide.secText}</span>
                       </Link>
@@ -1325,23 +1326,25 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
             </div>
 
-            {/* Floating Swatch / Texture Selector (Positioned comfortably in bottom-left, well clear of bottom cards) - Only shown if more than 1 slide */}
+            {/* Floating Swatch / Texture Selector (Luxury Emerald Glass & Gold Ring) - Only shown if more than 1 slide */}
             {heroSlides.length > 1 && (
-              <div className="absolute bottom-10 sm:bottom-12 left-3.5 sm:left-10 lg:left-14 z-20 bg-[#FAFAFA]/95 backdrop-blur-md rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-4 sm:py-2.5 shadow-2xl border border-white/50 inline-flex items-center gap-2 sm:gap-3 shrink-0 max-w-[calc(100%-28px)] overflow-x-auto overflow-y-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                <span className="text-[10px] sm:text-xs font-heading font-bold text-[#7A7065] px-1 tabular-nums select-none shrink-0 tracking-wider">
+              <div className="absolute bottom-6 sm:bottom-10 left-3.5 sm:left-10 lg:left-14 z-20 bg-[#0A1F17]/90 backdrop-blur-md rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_35px_rgba(0,0,0,0.55)] border border-[#D4AF37]/40 inline-flex items-center gap-2.5 sm:gap-3.5 shrink-0 max-w-[calc(100%-28px)] overflow-x-auto overflow-y-hidden no-scrollbar">
+                <span className="text-[11px] sm:text-xs font-heading font-bold text-[#F3E5AB] px-1 tabular-nums select-none shrink-0 tracking-widest">
                   {`0${(currentHeroSlide % heroSlides.length) + 1} / 0${heroSlides.length}`}
                 </span>
 
-                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 py-0.5">
+                <div className="w-px h-5 bg-[#D4AF37]/35 shrink-0" />
+
+                <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 py-0.5">
                   {heroSlides.map((slide: any, idx: number) => (
                     <button
                       key={slide.id || idx}
                       type="button"
                       onClick={() => setCurrentHeroSlide(idx)}
-                      className={`relative w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer transition-all duration-300 shrink-0 ${
+                      className={`relative w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl overflow-hidden cursor-pointer transition-all duration-300 shrink-0 ${
                         idx === currentHeroSlide
-                          ? "ring-2 ring-[#C19A6B] ring-offset-2 ring-offset-white scale-105 shadow-md opacity-100"
-                          : "opacity-60 hover:opacity-100 scale-95"
+                          ? "ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#0A1F17] scale-105 shadow-[0_0_14px_rgba(212,175,55,0.7)] opacity-100"
+                          : "opacity-45 hover:opacity-90 scale-95 border border-white/20"
                       }`}
                       aria-label={`Select ${slide.thumbLabel || slide.title || `Slide ${idx + 1}`}`}
                     >
@@ -1365,10 +1368,11 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 EDITORIAL USP TICKER STRIP (Royal Emerald & Imperial Gold Marquee)
+          🌟 EDITORIAL USP TICKER STRIP (Royal Emerald & Imperial Gold Ribbon)
+          Zero Scrollbar Guaranteed: overflow-hidden + no-scrollbar flex container
          ========================================================================= */}
-      <section className="w-full bg-[#0A1F17] border-y border-[#D4AF37]/30 py-3 sm:py-3.5 px-4 overflow-hidden relative shadow-[0_4px_25px_rgba(2,15,10,0.35)]">
-        <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4 md:gap-8 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <section className="w-full bg-[#0A1F17] border-y border-[#D4AF37]/30 py-3 sm:py-3.5 px-4 overflow-hidden relative shadow-[0_4px_25px_rgba(2,15,10,0.35)] select-none">
+        <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4 md:gap-8 overflow-x-auto no-scrollbar">
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[#F3E5AB]">
             <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span className="font-heading font-bold text-xs sm:text-[13px] uppercase tracking-[0.2em] text-white">400+ Master Looms</span>
