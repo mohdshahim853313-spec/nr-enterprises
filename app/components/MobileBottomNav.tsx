@@ -129,7 +129,7 @@ export default function MobileBottomNav() {
   return (
     <aside
       aria-label="Mobile Navigation Bar"
-      className={`lg:hidden fixed bottom-3 left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] z-[90] bg-white/95 backdrop-blur-md border border-[#E2E4E8] shadow-[0_10px_30px_rgba(43,37,32,0.18)] rounded-full p-1.5 px-3 flex justify-around items-center select-none transition-transform duration-300 ease-in-out ${
+      className={`lg:hidden fixed bottom-3.5 left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] z-[90] bg-[#0A1F17]/95 backdrop-blur-xl border border-[#D4AF37]/35 shadow-[0_12px_36px_rgba(2,15,10,0.6)] rounded-full p-1.5 px-3 flex justify-around items-center select-none transition-transform duration-300 ease-in-out ${
         scrollDirection === "down" ? "translate-y-[130px]" : "translate-y-0"
       }`}
     >
@@ -141,13 +141,13 @@ export default function MobileBottomNav() {
               href={item.href}
               className={`group relative flex flex-col items-center justify-center flex-1 py-1 px-1 rounded-full transition-all duration-200 cursor-pointer active:scale-95 ${
                 item.isActive
-                  ? "text-[#C19A6B]"
-                  : "text-[#7A7065] hover:text-[#2B2520]"
+                  ? "text-[#F3E5AB]"
+                  : "text-[#8FAFA2] hover:text-[#F3E5AB]"
               }`}
             >
               {/* Active ambient glow pill */}
               {item.isActive && (
-                <span className="absolute inset-0 bg-[#C19A6B]/12 rounded-full pointer-events-none" />
+                <span className="absolute inset-0 bg-[#D4AF37]/20 border border-[#D4AF37]/30 rounded-full pointer-events-none" />
               )}
 
               <div className="relative flex items-center justify-center mb-0.5 z-10">
@@ -155,7 +155,7 @@ export default function MobileBottomNav() {
               </div>
               <span
                 className={`text-[10px] tracking-[0.14em] uppercase leading-tight font-heading transition-colors z-10 ${
-                  item.isActive ? "font-bold text-[#2B2520]" : "font-semibold text-[#8C7A63]"
+                  item.isActive ? "font-bold text-[#F3E5AB]" : "font-semibold text-[#8FAFA2]"
                 }`}
               >
                 {item.name}

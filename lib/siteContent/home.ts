@@ -101,7 +101,7 @@ export const homeContent = {
   // 🌟 4. Collections Grid Section (8 Unique Category Images)
   collectionsSection: {
     tag: "HANDCRAFTED WEAVES",
-    title: "NR Enterprises Collections",
+    title: "NR Collections",
     desc: "Explore our signature curation of 3D hand-tufted wool rugs, organic braided jute, runners, and heritage flatweaves.",
     ctaText: "VIEW ALL COLLECTIONS",
     ctaLink: "/collections",

@@ -258,13 +258,13 @@ export default function StackedCardsDeck({
                       onToggleWishlist(card.id);
                     }}
                     aria-label="Save to Wishlist"
-                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 border border-white/30 flex items-center justify-center text-white active:scale-95 transition-transform shadow-sm z-40 cursor-pointer"
+                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#0A1F17]/70 border border-[#D4AF37]/40 flex items-center justify-center text-[#F3E5AB] active:scale-95 transition-transform shadow-md z-40 cursor-pointer"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      fill={wishlist.includes(card.id) ? "#C19A6B" : "none"}
-                      stroke={wishlist.includes(card.id) ? "#C19A6B" : "currentColor"}
+                      fill={wishlist.includes(card.id) ? "#D4AF37" : "none"}
+                      stroke={wishlist.includes(card.id) ? "#D4AF37" : "currentColor"}
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -274,9 +274,9 @@ export default function StackedCardsDeck({
                     </svg>
                   </button>
 
-                  {/* Top-Left Badge */}
+                  {/* Top-Left Sharp Royal Ribbon Badge */}
                   {card.badge && (
-                    <span className="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/30 shadow-xs pointer-events-none">
+                    <span className="absolute top-4 left-4 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37] shadow-md pointer-events-none">
                       {card.badge}
                     </span>
                   )}

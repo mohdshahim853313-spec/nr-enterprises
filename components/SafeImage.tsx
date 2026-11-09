@@ -48,29 +48,29 @@ export default function SafeImage({
   if (!isValidSrc || hasError) {
     return (
       <div
-        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#F5F2EB] via-[#ECE5D8] to-[#F5F2EB] select-none ${className}`}
+        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#0A1F17] via-[#0F2A1E] to-[#06140E] select-none ${className}`}
         title={alt}
       >
         {/* Animated luxury shimmer pulse */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/10 to-transparent animate-pulse pointer-events-none" />
 
-        {/* NR Enterprises Splash Emblem */}
+        {/* NR Enterprises Splash Gold Emblem */}
         <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/85 backdrop-blur-xs border border-[#D4AF37]/35 shadow-xs flex items-center justify-center p-2 mb-2">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0A1F17]/90 backdrop-blur-md border border-[#D4AF37]/50 shadow-[0_4px_20px_rgba(212,175,55,0.25)] flex items-center justify-center p-2 mb-2">
             <img
               src="/logo.webp"
               alt="NR Enterprises"
-              className="w-full h-full object-contain opacity-85 brightness-95"
+              className="w-full h-full object-contain"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
           </div>
-          <span className="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#8F671E] drop-shadow-2xs">
-            NR Enterprises Atelier
+          <span className="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#F3E5AB] drop-shadow-sm">
+            NR Enterprises
           </span>
-          <span className="text-[9px] text-[#A89A88] font-serif italic mt-0.5">
-            Artisanal Masterpiece
+          <span className="text-[9px] text-[#A6C0B3] font-serif italic mt-0.5">
+            Bespoke Carpet Atelier
           </span>
         </div>
       </div>
@@ -81,15 +81,15 @@ export default function SafeImage({
     <>
       {/* Background Skeleton while image is downloading */}
       {!isLoaded && (
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#F5F2EB] via-[#ECE5D8] to-[#F5F2EB] flex flex-col items-center justify-center p-4 animate-pulse select-none">
-          <div className="w-10 h-10 rounded-xl bg-white/60 border border-[#D4AF37]/30 flex items-center justify-center p-2 mb-1.5">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0A1F17] via-[#0F2A1E] to-[#06140E] flex flex-col items-center justify-center p-4 animate-pulse select-none">
+          <div className="w-10 h-10 rounded-xl bg-[#0A1F17]/60 border border-[#D4AF37]/30 flex items-center justify-center p-2 mb-1.5">
             <img
               src="/logo.webp"
               alt="NR Enterprises"
-              className="w-full h-full object-contain opacity-40"
+              className="w-full h-full object-contain opacity-50"
             />
           </div>
-          <span className="text-[9px] font-heading font-bold uppercase tracking-[0.2em] text-[#8C7A63]/60">
+          <span className="text-[9px] font-heading font-bold uppercase tracking-[0.2em] text-[#D4AF37]/70">
             NR Enterprises
           </span>
         </div>

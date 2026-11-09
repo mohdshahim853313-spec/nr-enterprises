@@ -778,7 +778,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
   const collectionsSection = siteData?.collectionsSection || {
     tag: "HANDCRAFTED WEAVES",
-    title: "NR Enterprises Collections",
+    title: "NR Collections",
     desc: "Explore our signature curation of handcrafted area rugs, runners, and heritage flatweaves.",
     ctaText: "VIEW ALL COLLECTIONS",
     ctaLink: "/collections",
@@ -1361,94 +1361,101 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           </div>
 
-          {/* Floating 2 Highlight Cards (Bottom Tray - Balanced Centered Dimensions) */}
-          <div className="flex flex-wrap sm:flex-nowrap justify-center items-center gap-2.5 sm:gap-4 -mt-5 sm:-mt-8 relative z-30 px-[5px] sm:px-6 w-full max-w-[1500px] mx-auto">
-            {heroHighlights.map((card: any, idx: number) => (
-              <Link
-                key={idx}
-                href={card.link || "/collections"}
-                className="bg-white p-3 sm:p-3.5 rounded-2xl border border-[#EAEAEB] shadow-lg hover:shadow-xl hover:border-[#C19A6B] transition-all duration-300 flex items-center gap-3 w-full sm:flex-1 sm:max-w-[360px] h-[88px] sm:h-[98px] group cursor-pointer"
-              >
-                <div className="w-15 h-15 sm:w-18 sm:h-18 rounded-xl overflow-hidden relative shrink-0 bg-[#FAFAFA] border border-[#EAEAEB]">
-                  <SafeImage src={card.img} alt={card.title} fill
-                    quality={90}
-                    sizes="256px"
-                    className="object-cover group-hover:scale-108 transition-transform duration-500"
-                  />
-                </div>
-                <div className="flex-1 min-w-0 overflow-hidden">
-                  <h4 className="font-heading font-bold text-sm sm:text-base text-[#2B2520] group-hover:text-[#C19A6B] transition-colors leading-tight truncate" title={card.title}>
-                    {card.title}
-                  </h4>
-                  <p className="hidden sm:block text-[11px] sm:text-xs text-[#7A7065] mt-0.5 truncate" title={card.desc}>
-                    {card.desc}
-                  </p>
-                  <span className="font-heading font-bold text-xs text-[#2B2520] mt-0.5 sm:mt-1 block truncate">
-                    From {formatPrice(card.price, 1)}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+        </div>
+      </section>
 
+      {/* =========================================================================
+          🌟 EDITORIAL USP TICKER STRIP (Royal Emerald & Imperial Gold Marquee)
+         ========================================================================= */}
+      <section className="w-full bg-[#0A1F17] border-y border-[#D4AF37]/30 py-3 sm:py-3.5 px-4 overflow-hidden relative shadow-[0_4px_25px_rgba(2,15,10,0.35)]">
+        <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4 md:gap-8 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[#F3E5AB]">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span className="font-heading font-bold text-xs sm:text-[13px] uppercase tracking-[0.2em] text-white">400+ Master Looms</span>
+            <span className="text-[11px] text-[#A6C0B3] hidden md:inline">Generational Artisans</span>
+          </div>
+          <span className="text-[#D4AF37]/40 shrink-0 font-serif">✦</span>
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[#F3E5AB]">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span className="font-heading font-bold text-xs sm:text-[13px] uppercase tracking-[0.2em] text-white">100% Handcrafted</span>
+            <span className="text-[11px] text-[#A6C0B3] hidden md:inline">Pure NZ Wool & Silk</span>
+          </div>
+          <span className="text-[#D4AF37]/40 shrink-0 font-serif">✦</span>
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[#F3E5AB]">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span className="font-heading font-bold text-xs sm:text-[13px] uppercase tracking-[0.2em] text-white">Direct From Bhadohi</span>
+            <span className="text-[11px] text-[#A6C0B3] hidden md:inline">No Middlemen Atelier</span>
+          </div>
+          <span className="text-[#D4AF37]/40 shrink-0 font-serif">✦</span>
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 text-[#F3E5AB]">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span className="font-heading font-bold text-xs sm:text-[13px] uppercase tracking-[0.2em] text-white">Worldwide Delivery</span>
+            <span className="text-[11px] text-[#A6C0B3] hidden md:inline">Doorstep White-Glove</span>
+          </div>
         </div>
       </section>
 
 
       {/* =========================================================================
-          🌟 1. NR ENTERPRISES COLLECTIONS (Luminous Luxury Frosted Glass Capsules)
+          🌟 1. NR COLLECTIONS (Gold-Framed High-Fashion Editorial Tiles)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-10 md:py-16 bg-[#FCFAF6]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#FAF8F5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
-            {collectionsSection.tag}
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
+            {collectionsSection.tag || "HANDCRAFTED WEAVES"}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
-            {collectionsSection.title}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#0A1F17] mb-3 tracking-tight">
+            {collectionsSection.title?.replace("NR Enterprises Collections", "NR Collections").replace("RugZora Collections", "NR Collections") || "NR Collections"}
           </h2>
           {collectionsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#52635B] font-medium max-w-lg mx-auto mb-10 sm:mb-12 leading-relaxed">
               {collectionsSection.desc}
             </p>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-4 md:gap-5 xl:gap-6 mb-10 text-left">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 md:gap-6 mb-12 text-left">
             {categoriesList.map((cat: any) => (
               <Link
                 key={cat.id || cat.title}
                 href={cat.link || "/collections"}
-                className="group relative w-full aspect-[4/5] min-h-[250px] sm:min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#ECE7DE] border border-[#EBDCC5] shadow-xs sm:hover:shadow-2xl sm:hover:border-[#D4AF37] transition-all duration-300 flex flex-col justify-between p-2 sm:p-3 xl:p-3.5 cursor-pointer transform-gpu [contain:paint]"
+                className="group relative w-full aspect-[4/5] min-h-[260px] sm:min-h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0A1F17] border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-sm hover:shadow-[0_16px_45px_rgba(10,31,23,0.35)] transition-all duration-500 flex flex-col justify-between p-3.5 sm:p-5 cursor-pointer transform-gpu [contain:paint]"
               >
                 {/* Background Carpet Image */}
-                <SafeImage src={cat.img} alt={cat.title} fill
-                  quality={75}
+                <SafeImage
+                  src={cat.img}
+                  alt={cat.title}
+                  fill
+                  quality={85}
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 35vw, 320px"
-                  className="object-cover object-center sm:group-hover:scale-105 sm:transition-transform sm:duration-500 brightness-[0.97]"
+                  className="object-cover object-center group-hover:scale-108 transition-transform duration-700 brightness-[0.92] group-hover:brightness-100"
                 />
 
-                {/* Top Translucent Frosted Badge */}
+                {/* Ambient Deep Emerald Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F17]/95 via-[#0A1F17]/35 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-90" />
+
+                {/* Top Sharp Royal Ribbon Badge */}
                 {cat.badge && (
                   <div className="relative z-10 self-start">
-                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/95 text-[#8F671E] border border-[#E6D4B2] shadow-xs">
+                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#0A1F17]/90 text-[#F3E5AB] border-l-2 border-[#D4AF37] shadow-md">
                       {cat.badge}
                     </span>
                   </div>
                 )}
 
-                {/* Bottom Luminous Luxury Capsule (Smooth 60FPS Native Scroll) */}
-                <div className="relative z-10 bg-white/98 sm:bg-white/95 sm:backdrop-blur-xs py-2 px-2.5 sm:py-2.5 sm:px-3.5 rounded-xl sm:rounded-2xl border border-[#E8DCBE] group-hover:border-[#D4AF37] shadow-sm flex items-center justify-between gap-1.5 transition-all duration-200">
+                {/* Bottom Editorial Content with Gold Arrow */}
+                <div className="relative z-10 flex items-end justify-between gap-2 pt-6">
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-[13px] sm:text-[14.5px] xl:text-[15.5px] font-bold font-heading text-[#2B231D] leading-snug group-hover:text-[#B8860B] transition-colors truncate" title={cat.title}>
+                    {cat.tagline && (
+                      <span className="block text-[10.5px] sm:text-[11.5px] text-[#D4AF37] font-serif italic mb-0.5 truncate tracking-wide">
+                        {cat.tagline}
+                      </span>
+                    )}
+                    <h3 className="text-[15px] sm:text-lg xl:text-xl font-bold font-serif text-white leading-snug group-hover:text-[#F3E5AB] transition-colors truncate" title={cat.title}>
                       {cat.title}
                     </h3>
-                    {cat.tagline && (
-                      <p className="hidden sm:block text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#6B5A49] mt-0.5 font-medium truncate" title={cat.tagline}>
-                        {cat.tagline}
-                      </p>
-                    )}
                   </div>
-                  <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#1A1612] group-hover:bg-gradient-to-r group-hover:from-[#D4AF37] group-hover:to-[#B8860B] text-white group-hover:text-[#14110E] flex items-center justify-center text-[11px] font-bold transition-all duration-200 shadow-xs shrink-0 ml-1">
+                  <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0A1F17]/80 border border-[#D4AF37]/50 group-hover:bg-[#D4AF37] group-hover:text-[#0A1F17] text-[#F3E5AB] flex items-center justify-center text-xs font-bold transition-all duration-300 shadow-md shrink-0 group-hover:scale-110 group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -1458,7 +1465,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={collectionsSection.ctaLink || "/collections"}
-            className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-8 py-3.5 text-xs uppercase font-heading font-bold tracking-[0.22em] rounded-full transition-all duration-300 shadow-[0_6px_22px_rgba(184,134,11,0.32)] hover:shadow-[0_8px_28px_rgba(212,175,55,0.45)] hover:scale-[1.02] active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-8 sm:px-10 py-3.5 sm:py-4 text-xs uppercase font-heading font-bold tracking-[0.22em] rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(212,175,55,0.4)] hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <span>{collectionsSection.ctaText || "VIEW ALL COLLECTIONS"}</span>
             <span className="text-sm font-bold">→</span>
@@ -1552,19 +1559,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                           />
                         </Link>
 
-                        {/* Smooth Fading Gold Border & Soft Ambient Shadow (Silky Fade, Zero Pop) */}
+                        {/* Smooth Fading Gold Border & Soft Ambient Shadow */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-white shadow-[0_18px_40px_rgba(184,134,11,0.22)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#FAF8F5] shadow-[0_20px_45px_rgba(10,31,23,0.3)] z-10 ${
                             isTuftedCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
 
-                        {/* Top Badge (Smooth Fade & Color Transition) */}
+                        {/* Top Sharp Royal Ribbon Badge */}
                         {product.badge && (
-                          <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full pointer-events-none transition-all duration-700 ${
+                          <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 pointer-events-none transition-all duration-500 shadow-md ${
                             isTuftedCenter
-                              ? "bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/40 shadow-sm"
-                              : "bg-[#2B2520] text-white border border-white/10 shadow-xs"
+                              ? "bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37]"
+                              : "bg-[#0A1F17]/90 text-[#F3E5AB] border-l-2 border-[#D4AF37]/60"
                           }`}>
                             {product.badge}
                           </span>
@@ -1578,7 +1585,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                             toggleWishlist(product.id);
                           }}
                           aria-label="Save to wishlist"
-                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EBDCC5] flex items-center justify-center text-[#2B231D] hover:text-[#B8860B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
+                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 border border-[#D4AF37]/35 flex items-center justify-center text-[#0A1F17] hover:text-[#D4AF37] hover:scale-110 transition-all shadow-sm z-10 cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -1767,19 +1774,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                           />
                         </Link>
 
-                        {/* Smooth Fading Gold Border & Soft Ambient Shadow (Silky Fade, Zero Pop) */}
+                        {/* Smooth Fading Gold Border & Soft Ambient Shadow */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-white shadow-[0_18px_40px_rgba(184,134,11,0.22)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#FAF8F5] shadow-[0_20px_45px_rgba(10,31,23,0.3)] z-10 ${
                             isCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
 
-                        {/* Top Badge (Smooth Fade & Color Transition) */}
+                        {/* Top Sharp Royal Ribbon Badge */}
                         {product.badge && (
-                          <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full pointer-events-none transition-all duration-700 ${
+                          <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 pointer-events-none transition-all duration-500 shadow-md ${
                             isCenter
-                              ? "bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/40 shadow-sm"
-                              : "bg-[#2B2520] text-white border border-white/10 shadow-xs"
+                              ? "bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37]"
+                              : "bg-[#0A1F17]/90 text-[#F3E5AB] border-l-2 border-[#D4AF37]/60"
                           }`}>
                             {product.badge}
                           </span>
@@ -1793,7 +1800,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                             toggleWishlist(product.id);
                           }}
                           aria-label="Save to wishlist"
-                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EBDCC5] flex items-center justify-center text-[#2B231D] hover:text-[#B8860B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
+                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 border border-[#D4AF37]/35 flex items-center justify-center text-[#0A1F17] hover:text-[#D4AF37] hover:scale-110 transition-all shadow-sm z-10 cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
