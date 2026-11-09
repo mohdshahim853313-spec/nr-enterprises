@@ -188,7 +188,7 @@ export const homeContent = {
         rating: 5,
         price: 8499,
         originalPrice: 16999,
-        img: "https://images.unsplash.com/photo-1540518614846-7ede433c4576?auto=format&fit=crop&w=600&q=80",
+        img: "/uploads/ai_rug_tufted_modern_minimalist_v1.webp",
         colors: ["#4A0E17", "#E86F2C", "#F4EFE6", "#141414"],
         link: "/collections?category=Tufted",
         tagline: "Retro-futuristic cosmic vortex with deep 3D carved rings",
@@ -578,12 +578,12 @@ export const homeContent = {
     products: [
       {
         id: "excl-1",
-        name: "Irregular Shaped Driftic Beige Hand-Tufted Carpet",
+        name: "Generational Master-Knot Royal Maroon Rug",
         rating: 5,
-        price: 9999,
-        originalPrice: 18999,
-        img: "https://images.unsplash.com/photo-1560448075-bb485b067938?auto=format&fit=crop&w=600&q=80",
-        link: "/collections?category=Irregular",
+        price: 14999,
+        originalPrice: 28999,
+        img: "/heritage-artisan.jpg",
+        link: "/collections?category=Heirloom",
       },
       {
         id: "excl-2",
@@ -591,7 +591,7 @@ export const homeContent = {
         rating: 5,
         price: 9999,
         originalPrice: 19999,
-        img: "https://images.unsplash.com/photo-1600585153490-76fb20a32601?auto=format&fit=crop&w=600&q=80",
+        img: "/uploads/rug_irregular_contour.webp",
         link: "/collections?category=Irregular",
       },
       {
@@ -600,7 +600,7 @@ export const homeContent = {
         rating: 5,
         price: 11999,
         originalPrice: 22999,
-        img: "https://images.unsplash.com/photo-1600566753086-2d87185b9fd2?auto=format&fit=crop&w=600&q=80",
+        img: "/uploads/rug_hand_tufted.webp",
         link: "/collections?category=Irregular",
       },
       {
@@ -609,7 +609,7 @@ export const homeContent = {
         rating: 5,
         price: 7999,
         originalPrice: 15999,
-        img: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=600&q=80",
+        img: "/uploads/rug_hand_knotted_luxury.webp",
         link: "/collections?category=Irregular",
       },
     ],

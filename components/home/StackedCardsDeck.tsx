@@ -250,7 +250,7 @@ export default function StackedCardsDeck({
                     className="object-cover object-center pointer-events-none"
                   />
 
-                  {/* Top-Right Wishlist Heart Button (GPU-Friendly translucent circle) */}
+                  {/* Top-Right Wishlist Heart Button */}
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -258,13 +258,13 @@ export default function StackedCardsDeck({
                       onToggleWishlist(card.id);
                     }}
                     aria-label="Save to Wishlist"
-                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#0A1F17]/70 border border-[#D4AF37]/40 flex items-center justify-center text-[#F3E5AB] active:scale-95 transition-transform shadow-md z-40 cursor-pointer"
+                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-white/30 flex items-center justify-center text-white active:scale-95 transition-transform shadow-md z-40 cursor-pointer"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      fill={wishlist.includes(card.id) ? "#D4AF37" : "none"}
-                      stroke={wishlist.includes(card.id) ? "#D4AF37" : "currentColor"}
+                      fill={wishlist.includes(card.id) ? "#E8C86A" : "none"}
+                      stroke={wishlist.includes(card.id) ? "#E8C86A" : "currentColor"}
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -274,9 +274,9 @@ export default function StackedCardsDeck({
                     </svg>
                   </button>
 
-                  {/* Top-Left Sharp Royal Ribbon Badge */}
+                  {/* Top-Left Sharp Royal Maroon Ribbon Badge */}
                   {card.badge && (
-                    <span className="absolute top-4 left-4 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37] shadow-md pointer-events-none">
+                    <span className="absolute top-4 left-4 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#4A1017] text-[#FAF5EB] border-l-2 border-[#E8C86A] shadow-md pointer-events-none">
                       {card.badge}
                     </span>
                   )}
@@ -353,7 +353,7 @@ export default function StackedCardsDeck({
               <span
                 key={item.id || i}
                 className={`h-1.5 rounded-full transition-all duration-200 ${
-                  isActive ? "w-5 bg-gradient-to-r from-[#B8860B] to-[#D4AF37]" : "w-1.5 bg-[#E0D3BE]"
+                  isActive ? "w-5 bg-gradient-to-r from-[#4A1017] to-[#7A1D27]" : "w-1.5 bg-[#E0D3BE]"
                 }`}
               />
             );

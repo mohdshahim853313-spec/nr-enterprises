@@ -48,29 +48,29 @@ export default function SafeImage({
   if (!isValidSrc || hasError) {
     return (
       <div
-        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#0A1F17] via-[#0F2A1E] to-[#06140E] select-none ${className}`}
+        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#F5F2EB] via-[#FAF8F5] to-[#EAE6DF] border border-[#EAE6DF] select-none ${className}`}
         title={alt}
       >
-        {/* Animated luxury shimmer pulse */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/10 to-transparent animate-pulse pointer-events-none" />
+        {/* Subtle luxury shimmer */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C5A880]/10 to-transparent animate-pulse pointer-events-none" />
 
-        {/* NR Enterprises Splash Gold Emblem */}
+        {/* NR Enterprises Gold Emblem Placeholder */}
         <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center">
           <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center p-1 mb-2">
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
-              className="w-full h-full object-contain drop-shadow-[0_4px_16px_rgba(212,175,55,0.45)]"
+              className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(197,168,128,0.35)]"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
           </div>
-          <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-[0.25em] text-[#F3E5AB] drop-shadow-sm">
+          <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-[0.25em] text-[#1A1715] drop-shadow-xs">
             NR Enterprises
           </span>
-          <span className="text-[9.5px] text-[#A6C0B3] font-serif italic mt-0.5">
-            Bespoke Carpet Atelier
+          <span className="text-[9.5px] text-[#7A1D27] font-serif italic mt-0.5">
+            Bespoke Carpet Atelier • Bhadohi
           </span>
         </div>
       </div>
@@ -81,15 +81,15 @@ export default function SafeImage({
     <>
       {/* Background Skeleton while image is downloading */}
       {!isLoaded && (
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0A1F17] via-[#0F2A1E] to-[#06140E] flex flex-col items-center justify-center p-4 animate-pulse select-none">
+        <div className="absolute inset-0 z-0 bg-[#F5F2EB] flex flex-col items-center justify-center p-4 animate-pulse select-none">
           <div className="w-12 h-12 flex items-center justify-center p-1 mb-1.5">
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
-              className="w-full h-full object-contain opacity-50"
+              className="w-full h-full object-contain opacity-60"
             />
           </div>
-          <span className="text-[9px] font-heading font-bold uppercase tracking-[0.2em] text-[#D4AF37]/70">
+          <span className="text-[9px] font-heading font-bold uppercase tracking-[0.2em] text-[#7A1D27]/80">
             NR Enterprises
           </span>
         </div>
