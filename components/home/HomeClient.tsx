@@ -1537,7 +1537,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   >
                     <div className="flex flex-col group items-center w-full">
                       {/* Seamless Image Container with Silky Smooth 3D Depth */}
-                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
+                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#240609] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
                         isTuftedCenter
                           ? "scale-[1.08] sm:scale-[1.10] z-20"
                           : isTuftedNeighbor
@@ -1752,7 +1752,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   >
                     <div className="flex flex-col group items-center w-full">
                       {/* Seamless Image Container with Silky Smooth 3D Depth */}
-                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
+                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#240609] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
                         isCenter
                           ? "scale-[1.08] sm:scale-[1.10] z-20"
                           : isNeighbor
@@ -2050,7 +2050,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 key={item.id || item.name}
                 className="flex flex-col group items-center last:odd:col-span-2 last:odd:w-[calc(50%-8px)] last:odd:mx-auto sm:last:odd:col-span-1 sm:last:odd:w-full"
               >
-                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] border border-[#EAE6DF] shadow-xs group-hover:border-[#C5A880] group-hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer">
+                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#240609] border border-[#EAE6DF] shadow-xs group-hover:border-[#C5A880] group-hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer">
                   <Link href={item.link || "/collections?category=Jute"} prefetch={true} className="block w-full h-full">
                     <SafeImage src={item.img} alt={item.name} fill
                       quality={90}
@@ -2115,7 +2115,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 className="flex flex-col group items-center"
               >
                 {/* Seamless Image Container */}
-                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] border border-[#EAE6DF] shadow-xs group-hover:border-[#C5A880] group-hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer">
+                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#240609] border border-[#EAE6DF] shadow-xs group-hover:border-[#C5A880] group-hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer">
                   <Link href={item.link || "/collections?category=Irregular"} prefetch={true} className="block w-full h-full">
                     <SafeImage src={item.img} alt={item.name} fill
                       quality={90}
