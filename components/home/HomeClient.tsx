@@ -1436,10 +1436,10 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   className="object-cover object-center group-hover:scale-106 transition-transform duration-500 brightness-100 contrast-[1.02]"
                 />
 
-                {/* Top Translucent Frosted Badge */}
+                {/* Top Royal Maroon Badge */}
                 {cat.badge && (
                   <div className="relative z-10 self-start">
-                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/95 text-[#1A1715] border border-[#EAE6DF] shadow-xs">
+                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#4A1017] text-[#FAF5EB] border border-[#E8C86A]/40 shadow-xs">
                       {cat.badge}
                     </span>
                   </div>
@@ -1453,11 +1453,11 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {cat.tagline}
                       </span>
                     )}
-                    <h3 className="text-[13.5px] sm:text-[15px] font-bold font-heading text-[#1A1715] leading-snug group-hover:text-[#8C6D3F] transition-colors truncate" title={cat.title}>
+                    <h3 className="text-[13.5px] sm:text-[15px] font-bold font-heading text-[#1A1715] leading-snug group-hover:text-[#4A1017] transition-colors truncate" title={cat.title}>
                       {cat.title}
                     </h3>
                   </div>
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1A1715] text-white group-hover:bg-[#C5A880] group-hover:text-white flex items-center justify-center text-xs font-bold transition-all duration-300 shadow-xs shrink-0 group-hover:translate-x-0.5">
+                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#4A1017] text-white group-hover:bg-[#E8C86A] group-hover:text-[#240609] flex items-center justify-center text-xs font-bold transition-all duration-300 shadow-xs shrink-0 group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -1563,7 +1563,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                         {/* Smooth Fading Gold Border & Soft Ambient Shadow */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#C5A880] ring-offset-2 ring-offset-white shadow-[0_20px_45px_rgba(0,0,0,0.1)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#4A1017] ring-offset-2 ring-offset-white shadow-[0_20px_45px_rgba(74,16,23,0.18)] z-10 ${
                             isTuftedCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
@@ -1572,8 +1572,8 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {product.badge && (
                           <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 pointer-events-none transition-all duration-500 shadow-xs rounded-full ${
                             isTuftedCenter
-                              ? "bg-white text-[#1A1715] border border-[#EBDCC5]"
-                              : "bg-white/90 text-[#1A1715] border border-[#EBDCC5]"
+                              ? "bg-[#4A1017] text-[#FAF5EB] border border-[#E8C86A]/40"
+                              : "bg-[#4A1017]/90 text-[#FAF5EB] border border-[#E8C86A]/30"
                           }`}>
                             {product.badge}
                           </span>
@@ -1778,7 +1778,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                         {/* Smooth Fading Gold Border & Soft Ambient Shadow */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#C5A880] ring-offset-2 ring-offset-[#FAF8F5] shadow-[0_20px_45px_rgba(0,0,0,0.08)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#4A1017] ring-offset-2 ring-offset-[#FAF8F5] shadow-[0_20px_45px_rgba(74,16,23,0.18)] z-10 ${
                             isCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
@@ -1787,8 +1787,8 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {product.badge && (
                           <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 pointer-events-none transition-all duration-500 shadow-xs rounded-full ${
                             isCenter
-                              ? "bg-white text-[#1A1715] border border-[#EBDCC5]"
-                              : "bg-white/90 text-[#1A1715] border border-[#EBDCC5]"
+                              ? "bg-[#4A1017] text-[#FAF5EB] border border-[#E8C86A]/40"
+                              : "bg-[#4A1017]/90 text-[#FAF5EB] border border-[#E8C86A]/30"
                           }`}>
                             {product.badge}
                           </span>
@@ -2059,7 +2059,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     />
                   </Link>
                   {item.badge && (
-                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-white/95 text-[#1A1715] border border-[#EAE6DF] text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 shadow-xs rounded-full pointer-events-none">
+                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#4A1017] text-[#FAF5EB] border border-[#E8C86A]/40 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 shadow-xs rounded-full pointer-events-none">
                       {item.badge}
                     </span>
                   )}
@@ -2124,9 +2124,9 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     />
                   </Link>
 
-                  {/* Top Badge */}
+                  {/* Top Royal Maroon Badge */}
                   {item.badge && (
-                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-white/95 text-[#1A1715] border border-[#EAE6DF] shadow-xs rounded-full pointer-events-none">
+                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#4A1017] text-[#FAF5EB] border border-[#E8C86A]/40 shadow-xs rounded-full pointer-events-none">
                       {item.badge}
                     </span>
                   )}
