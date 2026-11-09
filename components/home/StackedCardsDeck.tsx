@@ -222,7 +222,7 @@ export default function StackedCardsDeck({
                 style={{
                   cursor: isFront ? "grab" : "pointer",
                 }}
-                className={`absolute inset-0 w-full h-full rounded-[28px] overflow-hidden bg-[#240609] border border-[#52131A] shadow-[0_12px_28px_-6px_rgba(0,0,0,0.6)] origin-bottom transform-gpu will-change-transform ${
+                className={`absolute inset-0 w-full h-full rounded-[28px] overflow-hidden bg-[#ECE7DE] border border-white/60 shadow-[0_12px_28px_-6px_rgba(20,15,10,0.32)] origin-bottom transform-gpu will-change-transform ${
                   isFront ? "active:cursor-grabbing" : ""
                 }`}
                 onClick={() => {
@@ -340,7 +340,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handlePrev}
           aria-label="Previous Rug Card"
-          className="w-9 h-9 rounded-full bg-white/95 border border-[#EAE6DF] shadow-xs active:bg-[#4A1017] active:text-white text-[#1A1715] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           ←
         </button>
@@ -353,7 +353,7 @@ export default function StackedCardsDeck({
               <span
                 key={item.id || i}
                 className={`h-1.5 rounded-full transition-all duration-200 ${
-                  isActive ? "w-5 bg-[#4A1017]" : "w-1.5 bg-[#D8C9C5]"
+                  isActive ? "w-5 bg-gradient-to-r from-[#4A1017] to-[#7A1D27]" : "w-1.5 bg-[#E0D3BE]"
                 }`}
               />
             );
@@ -363,7 +363,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handleNext}
           aria-label="Next Rug Card"
-          className="w-9 h-9 rounded-full bg-white/95 border border-[#EAE6DF] shadow-xs active:bg-[#4A1017] active:text-white text-[#1A1715] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           →
         </button>

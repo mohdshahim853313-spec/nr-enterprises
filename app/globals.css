@@ -33,6 +33,12 @@ html {
   touch-action: manipulation;
 }
 
+@media (min-width: 1024px) {
+  body {
+    zoom: 1.20;
+  }
+}
+
 @layer base {
   body {
     background-color: #FAF8F5;
@@ -42,14 +48,6 @@ html {
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  img {
-    image-rendering: auto;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
   }
 
   ::selection {
