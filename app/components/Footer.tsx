@@ -65,7 +65,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center space-x-3 mb-4 group cursor-pointer">
               <div className="relative w-10 h-10 shrink-0 drop-shadow-[0_2px_12px_rgba(212,175,55,0.4)]">
                 <Image
-                  src="/logo.png"
+                  src="/nr-logo.png"
                   alt="NR Enterprises Logo"
                   fill
                   sizes="40px"

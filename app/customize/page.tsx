@@ -461,7 +461,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
           <div className="w-16 h-16 rounded-full border-2 border-[#DFD8CC] border-t-[#C19A6B] animate-spin" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-9 h-9 rounded-full bg-white/90 border border-[#DFD8CC] flex items-center justify-center shadow-xs">
-              <img src="/logo.png" alt="NR Enterprises Atelier" className="w-6 h-6 object-contain opacity-70" />
+              <img src="/nr-logo.png" alt="NR Enterprises Atelier" className="w-6 h-6 object-contain opacity-80" />
             </div>
           </div>
         </div>
@@ -1611,7 +1611,7 @@ export default function CustomizePage() {
             <div className="w-16 h-16 rounded-full border-2 border-[#DFD8CC] border-t-[#C19A6B] animate-spin" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-9 h-9 rounded-full bg-white/90 border border-[#DFD8CC] flex items-center justify-center shadow-xs">
-                <img src="/logo.png" alt="NR Enterprises Atelier" className="w-6 h-6 object-contain opacity-70" />
+                <img src="/nr-logo.png" alt="NR Enterprises Atelier" className="w-6 h-6 object-contain opacity-80" />
               </div>
             </div>
           </div>

@@ -1475,19 +1475,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 TUFTED RUGS (Seamless 2-Second Sliding Showcase in Infinite Loop)
+          🌟 TUFTED RUGS (Deep Emerald Jade & Radiant Gold Sliding Showcase)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#0A1F17] text-white border-y border-[#D4AF37]/30 shadow-2xl">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {tuftedSection.tag || "SIGNATURE HAND-TUFTED"}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-white mb-3 tracking-tight">
             {tuftedSection.title || "Tufted Rugs"}
           </h2>
           {tuftedSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#A6C0B3] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
               {tuftedSection.desc}
             </p>
           )}
@@ -1535,7 +1535,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   >
                     <div className="flex flex-col group items-center w-full">
                       {/* Seamless Image Container with Silky Smooth 3D Depth */}
-                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
+                      <div className={`relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#06140E] transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center opacity-100 ${
                         isTuftedCenter
                           ? "scale-[1.08] sm:scale-[1.10] z-20"
                           : isTuftedNeighbor
@@ -1561,7 +1561,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                         {/* Smooth Fading Gold Border & Soft Ambient Shadow */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#FAF8F5] shadow-[0_20px_45px_rgba(10,31,23,0.3)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#0A1F17] shadow-[0_25px_50px_rgba(0,0,0,0.6)] z-10 ${
                             isTuftedCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
@@ -1570,8 +1570,8 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {product.badge && (
                           <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 pointer-events-none transition-all duration-500 shadow-md ${
                             isTuftedCenter
-                              ? "bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37]"
-                              : "bg-[#0A1F17]/90 text-[#F3E5AB] border-l-2 border-[#D4AF37]/60"
+                              ? "bg-[#06140E] text-[#F3E5AB] border-l-2 border-[#D4AF37]"
+                              : "bg-[#06140E]/90 text-[#F3E5AB] border-l-2 border-[#D4AF37]/60"
                           }`}>
                             {product.badge}
                           </span>
@@ -1585,7 +1585,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                             toggleWishlist(product.id);
                           }}
                           aria-label="Save to wishlist"
-                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 border border-[#D4AF37]/35 flex items-center justify-center text-[#0A1F17] hover:text-[#D4AF37] hover:scale-110 transition-all shadow-sm z-10 cursor-pointer"
+                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0A1F17]/90 border border-[#D4AF37]/40 flex items-center justify-center text-[#F3E5AB] hover:text-white hover:scale-110 transition-all shadow-md z-10 cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -1604,7 +1604,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         </button>
                       </div>
 
-                      {/* Product Details (Smooth downward glide to prevent image overlap) */}
+                      {/* Product Details */}
                       <div className={`w-full flex flex-col items-center pt-3 sm:pt-4 min-h-[96px] sm:min-h-[105px] justify-start transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                         isTuftedCenter ? "translate-y-4 sm:translate-y-5" : "translate-y-0"
                       }`}>
@@ -1613,10 +1613,10 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                           prefetch={true} 
                           className="w-full block"
                         >
-                          <h3 className={`font-heading text-[13px] sm:text-[14px] line-clamp-2 leading-snug transition-colors duration-500 mb-1.5 text-center ${
+                          <h3 className={`font-serif text-[14px] sm:text-[15px] line-clamp-2 leading-snug transition-colors duration-500 mb-1.5 text-center ${
                             isTuftedCenter
-                              ? "text-[#1F1813] font-bold"
-                              : "text-[#6B5A49] font-medium hover:text-[#1F1813]"
+                              ? "text-[#F3E5AB] font-bold"
+                              : "text-[#D3E3DA] font-medium hover:text-white"
                           }`}>
                             {product.name}
                           </h3>
@@ -1627,27 +1627,27 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                           {"★".repeat(product.rating || 5)}
                         </div>
 
-                        {/* Price & Original Price - Constant height */}
+                        {/* Price & Original Price */}
                         <div className="flex items-baseline justify-center gap-2 h-5">
                           <span className={`font-heading font-bold text-[14px] sm:text-[15px] transition-colors duration-500 ${
-                            isTuftedCenter ? "text-[#B8860B]" : "text-[#1F1813]"
+                            isTuftedCenter ? "text-[#F3E5AB] font-bold" : "text-white"
                           }`}>
                             {formatPrice(product.price, 1)}
                           </span>
                           {product.originalPrice && (
-                            <span className="text-[11px] sm:text-[12px] text-[#9E9488] line-through font-normal">
+                            <span className="text-[11px] sm:text-[12px] text-[#7A988D] line-through font-normal">
                               {formatPrice(product.originalPrice, 1)}
                             </span>
                           )}
                         </div>
 
-                        {/* Color Swatches - Constant height */}
+                        {/* Color Swatches */}
                         <div className="h-5 flex items-center justify-center gap-1.5 pt-1">
                           {product.colors && (Array.isArray(product.colors) ? product.colors.length > 0 : String(product.colors).trim().length > 0) && (
                             (Array.isArray(product.colors) ? product.colors : String(product.colors).split(",").map((c: string) => c.trim()).filter(Boolean)).map((c: string, i: number) => (
                               <span
                                 key={i}
-                                className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-2xs transition-transform hover:scale-115"
+                                className="w-3.5 h-3.5 rounded-full border border-[#D4AF37]/30 shadow-xs transition-transform hover:scale-115"
                                 style={{ backgroundColor: c }}
                               />
                             ))
@@ -1660,12 +1660,12 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               })}
             </div>
 
-            {/* Left & Right Interactive Navigation Controls (Hidden on Mobile) */}
+            {/* Left & Right Interactive Navigation Controls */}
             <button
               type="button"
               onClick={handlePrevTufted}
               aria-label="Previous Tufted Rug"
-              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0F2A1E]/95 backdrop-blur-md border border-[#D4AF37]/40 shadow-lg items-center justify-center text-[#F3E5AB] hover:bg-[#D4AF37] hover:text-[#0A1F17] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:-translate-x-0.5">←</span>
             </button>
@@ -1673,7 +1673,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               type="button"
               onClick={handleNextTufted}
               aria-label="Next Tufted Rug"
-              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0F2A1E]/95 backdrop-blur-md border border-[#D4AF37]/40 shadow-lg items-center justify-center text-[#F3E5AB] hover:bg-[#D4AF37] hover:text-[#0A1F17] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>
             </button>
@@ -1681,7 +1681,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={tuftedSection.ctaLink || "/collections?category=Tufted"}
-            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-9 py-3 text-xs font-heading font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_6px_25px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {tuftedSection.ctaText || "View All"}
           </Link>
@@ -1690,19 +1690,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 2. TRENDING (Seamless Cards + Centered Details + View All)
+          🌟 2. TRENDING (Silk Alabaster & Royal Emerald Jade)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-y border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#FAF8F5] border-y border-[#D4AF37]/25">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {trendingSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#0A1F17] mb-3 tracking-tight">
             {trendingSection.title}
           </h2>
           {trendingSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#52635B] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {trendingSection.desc}
             </p>
           )}
@@ -1896,7 +1896,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={trendingSection.ctaLink || "/collections"}
-            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-9 py-3 text-xs font-heading font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_6px_25px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {trendingSection.ctaText || "View All"}
           </Link>
@@ -1905,19 +1905,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 3. COLLECTIONS BY COLOR (Bold Title + Interactive Disks)
+          🌟 3. COLLECTIONS BY COLOR (Deep Emerald Jade & Gold Interactive Disks)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#0A1F17] text-white border-y border-[#D4AF37]/30 shadow-2xl">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {colorSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-white mb-3 tracking-tight">
             {colorSection.title}
           </h2>
           {colorSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#A6C0B3] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {colorSection.desc}
             </p>
           )}
@@ -1929,9 +1929,9 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 href={`/collections?color=${swatch.code}`}
                 className="group flex flex-col items-center cursor-pointer"
               >
-                <div className="w-22 h-22 sm:w-26 sm:h-26 rounded-full bg-white border border-[#EBDCC5] shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-[0_8px_24px_rgba(184,134,11,0.25)] group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2 mb-2.5">
+                <div className="w-22 h-22 sm:w-26 sm:h-26 rounded-full bg-[#0F2A1E] border border-[#D4AF37]/40 shadow-md group-hover:border-[#D4AF37] group-hover:shadow-[0_8px_25px_rgba(212,175,55,0.4)] group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2 mb-2.5">
                   <div
-                    className="w-full h-full rounded-full relative overflow-hidden border border-black/15 shadow-[inset_0_2px_5px_rgba(255,255,255,0.35),inset_0_-3px_6px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-102"
+                    className="w-full h-full rounded-full relative overflow-hidden border border-black/25 shadow-[inset_0_2px_5px_rgba(255,255,255,0.35),inset_0_-3px_6px_rgba(0,0,0,0.4)] transition-transform duration-300 group-hover:scale-102"
                     style={{
                       backgroundColor: swatch.hex,
                       backgroundImage: `
@@ -1955,7 +1955,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     />
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#1F1813] group-hover:text-[#B8860B] transition-colors">
+                <span className="text-xs font-bold text-[#E4EDE8] group-hover:text-[#F3E5AB] transition-colors">
                   {swatch.name}
                 </span>
               </Link>
@@ -1966,29 +1966,29 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 4. MODERN HOMES
+          🌟 4. MODERN HOMES (Silk Alabaster & Gold Framed Vignettes)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-y border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#FAF8F5] border-y border-[#D4AF37]/25">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {roomsSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#0A1F17] mb-3 tracking-tight">
             {roomsSection.title}
           </h2>
           {roomsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#52635B] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {roomsSection.desc}
             </p>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-5 mb-8 text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6 mb-8 text-left">
             {roomsList.map((room: any) => (
               <Link
                 key={room.id || room.name}
                 href={room.link || "/collections"}
-                className="group relative w-full aspect-[4/5] min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1F1A17] border border-[#EBDCC5] shadow-xs hover:shadow-xl transition-all duration-500 flex flex-col justify-between p-4 sm:p-5 cursor-pointer"
+                className="group relative w-full aspect-[4/5] min-h-[290px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#0A1F17] border border-[#D4AF37]/35 hover:border-[#D4AF37] shadow-sm hover:shadow-[0_16px_40px_rgba(10,31,23,0.35)] transition-all duration-500 flex flex-col justify-between p-4 sm:p-5 cursor-pointer"
               >
                 <SafeImage src={room.img} alt={room.name} fill
                   quality={90}
@@ -1996,23 +1996,23 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
 
-                {/* Dark shadow gradient localized ONLY behind bottom text & button, leaving upper room photo 100% bright & clear */}
-                <div className="absolute inset-x-0 bottom-0 h-44 sm:h-48 bg-gradient-to-t from-black/90 via-black/55 to-transparent z-[5] pointer-events-none" />
+                {/* Dark shadow gradient localized behind text */}
+                <div className="absolute inset-x-0 bottom-0 h-44 sm:h-48 bg-gradient-to-t from-[#0A1F17]/95 via-[#0A1F17]/60 to-transparent z-[5] pointer-events-none" />
 
                 <div className="relative z-10 self-end">
-                  <span className="text-xs font-bold text-white bg-black/55 backdrop-blur-md px-3 py-1 rounded-full border border-white/25 shadow-xs">
+                  <span className="text-xs font-bold text-[#F3E5AB] bg-[#0A1F17]/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#D4AF37]/40 shadow-xs">
                     {room.stylesCount}
                   </span>
                 </div>
 
                 <div className="relative z-10">
-                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-1.5 drop-shadow-md">
+                  <h3 className="text-xl sm:text-2xl font-bold font-serif text-white mb-1.5 drop-shadow-md">
                     {room.name}
                   </h3>
-                  <p className="text-[13px] sm:text-xs text-white/95 font-medium leading-relaxed mb-3 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] line-clamp-2">
+                  <p className="text-[13px] sm:text-xs text-[#D3E3DA] font-medium leading-relaxed mb-3 line-clamp-2">
                     {room.tagline}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-wider px-4 py-2 bg-white/95 hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#B8860B] text-[#1F1813] hover:text-[#14110E] rounded-full transition-all shadow-sm">
+                  <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-wider px-4 py-2 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] text-[#0A1F17] rounded-full transition-all shadow-md group-hover:brightness-110">
                     <span>EXPLORE STYLES</span>
                     <span className="text-xs font-bold">↗</span>
                   </span>
@@ -2025,30 +2025,30 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 5. MATERIALS GLANCE
+          🌟 5. MATERIALS GLANCE (Deep Emerald & Handcrafted Jute/Silk Textures)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#0A1F17] text-white border-y border-[#D4AF37]/30 shadow-2xl">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {materialsSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-white mb-3 tracking-tight">
             {materialsSection.title}
           </h2>
           {materialsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#A6C0B3] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {materialsSection.desc}
             </p>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 mb-12 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 mb-12 text-center">
             {materialsProducts.map((item: any) => (
               <div
                 key={item.id || item.name}
                 className="flex flex-col group items-center last:odd:col-span-2 last:odd:w-[calc(50%-8px)] last:odd:mx-auto sm:last:odd:col-span-1 sm:last:odd:w-full"
               >
-                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] shadow-xs group-hover:shadow-lg active:scale-[0.98] transition-all duration-300 cursor-pointer">
+                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#06140E] border border-[#D4AF37]/30 shadow-sm group-hover:border-[#D4AF37] group-hover:shadow-[0_12px_30px_rgba(212,175,55,0.3)] active:scale-[0.98] transition-all duration-300 cursor-pointer">
                   <Link href={item.link || "/collections?category=Jute"} prefetch={true} className="block w-full h-full">
                     <SafeImage src={item.img} alt={item.name} fill
                       quality={90}
@@ -2057,7 +2057,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     />
                   </Link>
                   {item.badge && (
-                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#2B2520] text-white border border-white/10 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full shadow-xs pointer-events-none">
+                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#06140E] text-[#F3E5AB] border-l-2 border-[#D4AF37] text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 shadow-md pointer-events-none">
                       {item.badge}
                     </span>
                   )}
@@ -2065,7 +2065,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                 <div className="w-full flex flex-col items-center pt-3 sm:pt-3.5">
                   <Link href={item.link || "/collections?category=Jute"} prefetch={true} className="w-full">
-                    <h3 className="font-heading font-semibold text-[13.5px] sm:text-[14.5px] text-[#1F1813] line-clamp-2 leading-snug hover:text-[#B8860B] transition-colors mb-1 text-center">
+                    <h3 className="font-serif font-semibold text-[13.5px] sm:text-[14.5px] text-[#E4EDE8] line-clamp-2 leading-snug hover:text-[#F3E5AB] transition-colors mb-1 text-center">
                       {item.name}
                     </h3>
                   </Link>
@@ -2080,7 +2080,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
           <Link
             href={materialsSection.ctaLink || "/collections?category=Jute"}
             prefetch={true}
-            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-9 py-3 text-xs font-heading font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_6px_25px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {materialsSection.ctaText || "View All"}
           </Link>
@@ -2089,31 +2089,31 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 6. OUR LEGACY (Bold Title + Atelier Masterpieces)
+          🌟 6. OUR LEGACY (Silk Alabaster & Royal Gold Atelier Masterpieces)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-t border-[#EBDCC5]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-20 bg-[#FAF8F5] border-t border-[#D4AF37]/25">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#D4AF37] block mb-2">
             {legacySection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#0A1F17] mb-3 tracking-tight">
             {legacySection.title}
           </h2>
           {legacySection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#52635B] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {legacySection.desc}
             </p>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 mb-12 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12 text-center">
             {legacyProducts.map((item: any) => (
               <div
                 key={item.id || item.name}
                 className="flex flex-col group items-center"
               >
                 {/* Seamless Image Container */}
-                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] shadow-xs group-hover:shadow-lg active:scale-[0.98] transition-all duration-300 cursor-pointer">
+                <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#0A1F17] border border-[#D4AF37]/35 shadow-sm group-hover:border-[#D4AF37] group-hover:shadow-[0_12px_30px_rgba(10,31,23,0.3)] active:scale-[0.98] transition-all duration-300 cursor-pointer">
                   <Link href={item.link || "/collections?category=Irregular"} prefetch={true} className="block w-full h-full">
                     <SafeImage src={item.img} alt={item.name} fill
                       quality={90}
@@ -2124,7 +2124,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                   {/* Top Badge */}
                   {item.badge && (
-                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full shadow-xs bg-[#2B2520] text-white border border-white/10 pointer-events-none">
+                    <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[9.5px] sm:text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#0A1F17] text-[#F3E5AB] border-l-2 border-[#D4AF37] shadow-md pointer-events-none">
                       {item.badge}
                     </span>
                   )}
@@ -2133,7 +2133,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 {/* Product Details (Clean & Centered) */}
                 <div className="w-full flex flex-col items-center pt-3 sm:pt-3.5">
                   <Link href={item.link || "/collections?category=Irregular"} prefetch={true} className="w-full">
-                    <h3 className="font-heading font-semibold text-[13px] sm:text-[14px] text-[#1F1813] line-clamp-2 leading-snug hover:text-[#B8860B] transition-colors mb-1.5 text-center">
+                    <h3 className="font-serif font-semibold text-[13.5px] sm:text-[14.5px] text-[#0A1F17] line-clamp-2 leading-snug hover:text-[#D4AF37] transition-colors mb-1.5 text-center">
                       {item.name}
                     </h3>
                   </Link>
@@ -2141,11 +2141,11 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     {"★".repeat(item.rating || 5)}
                   </div>
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className="font-heading font-bold text-[14px] sm:text-[15px] text-[#1F1813]">
+                    <span className="font-heading font-bold text-[14px] sm:text-[15px] text-[#0A1F17]">
                       {formatPrice(item.price, 1)}
                     </span>
                     {item.originalPrice && (
-                      <span className="text-[11px] sm:text-[12px] text-[#9E9488] line-through font-normal">
+                      <span className="text-[11px] sm:text-[12px] text-[#859890] line-through font-normal">
                         {formatPrice(item.originalPrice, 1)}
                       </span>
                     )}
@@ -2170,7 +2170,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={legacySection.ctaLink || "/collections?category=Irregular"}
-            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-9 py-3 text-xs font-heading font-bold tracking-[0.2em] uppercase rounded-full transition-all duration-300 shadow-[0_6px_25px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {legacySection.ctaText || "View All"}
           </Link>
@@ -2179,39 +2179,39 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          PRE-FOOTER CONCIERGE BAR: WITH HANDCRAFTED CUSTOM SVGS
+          PRE-FOOTER CONCIERGE BAR: (Royal Emerald & Imperial Gold Atelier Bar)
          ========================================================================= */}
       <section className="w-full px-[5px] sm:px-6 md:px-10 pb-10">
-        <div className="max-w-[1500px] mx-auto bg-gradient-to-r from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] text-[#1F1813] p-6 sm:p-8 rounded-2xl shadow-sm border border-[#EBDCC5] flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1500px] mx-auto bg-[#0A1F17] text-white p-6 sm:p-8 rounded-2xl shadow-[0_12px_40px_rgba(2,15,10,0.5)] border border-[#D4AF37]/35 flex flex-col lg:flex-row items-center justify-between gap-6">
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left flex-1">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#0F2A1E] text-[#D4AF37] flex items-center justify-center shrink-0 border border-[#D4AF37]/30 shadow-sm">
                 <CustomLoomIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">{concierge.feature1Title}</h4>
-                <p className="text-xs text-[#6B5A49] mt-0.5">{concierge.feature1Desc}</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3E5AB]">{concierge.feature1Title}</h4>
+                <p className="text-xs text-[#A6C0B3] mt-0.5">{concierge.feature1Desc}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#0F2A1E] text-[#D4AF37] flex items-center justify-center shrink-0 border border-[#D4AF37]/30 shadow-sm">
                 <GlobalShippingIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">{concierge.feature2Title}</h4>
-                <p className="text-xs text-[#6B5A49] mt-0.5">{concierge.feature2Desc}</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3E5AB]">{concierge.feature2Title}</h4>
+                <p className="text-xs text-[#A6C0B3] mt-0.5">{concierge.feature2Desc}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#0F2A1E] text-[#D4AF37] flex items-center justify-center shrink-0 border border-[#D4AF37]/30 shadow-sm">
                 <ConciergeSupportIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">Atelier Concierge</h4>
-                <p className="text-xs text-[#6B5A49] mt-0.5">Quick email & custom support</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3E5AB]">Atelier Concierge</h4>
+                <p className="text-xs text-[#A6C0B3] mt-0.5">Quick email & bespoke support</p>
               </div>
             </div>
           </div>
@@ -2230,10 +2230,10 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 );
               }
             }}
-            className="inline-flex items-center gap-2.5 bg-[#14110E] hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#B8860B] text-white hover:text-[#14110E] px-6 py-3 text-xs uppercase font-bold tracking-wider rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+            className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] hover:brightness-110 text-[#0A1F17] px-6 py-3 text-xs uppercase font-bold tracking-wider rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer shrink-0"
           >
-            <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            <svg className="w-4 h-4 text-[#0A1F17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <span>Quick Inquire</span>
           </button>

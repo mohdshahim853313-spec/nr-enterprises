@@ -12,7 +12,7 @@ export const collectionsContent = {
     tag: "THE PREMIUM NR ENTERPRISES PRODUCTS",
     title: "Artisanal Floor Sculptures",
     description: "Browse our hand-braided rPET area rugs, runners, and custom silhouettes. 100% reversible, stain-resistant, and woven for mindful living.",
-    bgImage: "https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/image-d3001c-is-high-quality-logo-ko-business-card-mockup-par-l-1792210320018.webp",
+    bgImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
   },
   banner: {
     title: "Need Custom Architectural Dimensions?",

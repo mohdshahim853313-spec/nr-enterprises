@@ -366,7 +366,7 @@ export default function CheckoutPage() {
           currency: orderData.currency || "INR",
           name: "NR Enterprises Carpets",
           description: `Bespoke Rug Order #${orderId}`,
-          image: "/logo.png",
+          image: "/nr-logo.png",
           order_id: orderData.id,
           handler: async function (response: any) {
             try {

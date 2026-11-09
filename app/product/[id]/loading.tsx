@@ -30,7 +30,7 @@ export default function ProductDetailLoading() {
               {/* Rounded NR Enterprises Brand Logo in Center of Skeleton (Subtle Luxury Watermark) */}
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-white/50 backdrop-blur-xs border border-[#EAEAEB]/50 shadow-xs flex items-center justify-center p-3.5 overflow-hidden">
                 <Image
-                  src="/logo.png"
+                  src="/nr-logo.png"
                   alt="NR Enterprises"
                   width={96}
                   height={96}

@@ -41,13 +41,18 @@ html {
 
 @layer base {
   body {
-    background-color: #FAF7F0;
-    color: #1F1A17;
+    background-color: #FAF8F5;
+    color: #0A1F17;
     width: 100%;
     touch-action: manipulation;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #0A1F17;
+    color: #F3E5AB;
   }
 }
 

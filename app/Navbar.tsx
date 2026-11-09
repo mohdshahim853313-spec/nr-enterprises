@@ -417,7 +417,7 @@ export default function Navbar() {
               >
                 <div className="relative w-9 h-9 sm:w-11 sm:h-11 shrink-0 drop-shadow-[0_2px_12px_rgba(212,175,55,0.4)] transition-transform group-hover:scale-105 duration-200">
                   <Image
-                    src="/logo.png"
+                    src="/nr-logo.png"
                     alt="NR Enterprises Logo"
                     fill
                     sizes="48px"
@@ -675,7 +675,7 @@ export default function Navbar() {
               <div className="px-5 py-4 border-b border-[#D4AF37]/20 flex items-center justify-between bg-[#0A1F17]">
                 <div className="flex items-center space-x-2.5">
                   <div className="relative w-8 h-8 shrink-0">
-                    <Image src="/logo.png" alt="NR Enterprises Logo" fill sizes="32px" priority className="object-contain" />
+                    <Image src="/nr-logo.png" alt="NR Enterprises Logo" fill sizes="32px" priority className="object-contain" />
                   </div>
                   <div>
                     <span className={`text-xl font-serif font-bold text-white leading-none ${playfair.className}`}>NR Enterprises</span>

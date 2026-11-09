@@ -13,7 +13,7 @@ export default function CustomizeLoading() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-9 h-9 rounded-full bg-white/90 border border-[#DFD8CC] flex items-center justify-center shadow-xs">
             <Image
-              src="/logo.png"
+              src="/nr-logo.png"
               alt="NR Enterprises Atelier"
               width={24}
               height={24}

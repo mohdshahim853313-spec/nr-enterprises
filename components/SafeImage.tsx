@@ -56,20 +56,20 @@ export default function SafeImage({
 
         {/* NR Enterprises Splash Gold Emblem */}
         <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0A1F17]/90 backdrop-blur-md border border-[#D4AF37]/50 shadow-[0_4px_20px_rgba(212,175,55,0.25)] flex items-center justify-center p-2 mb-2">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center p-1 mb-2">
             <img
-              src="/logo.webp"
+              src="/nr-logo.png"
               alt="NR Enterprises"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain drop-shadow-[0_4px_16px_rgba(212,175,55,0.45)]"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
           </div>
-          <span className="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#F3E5AB] drop-shadow-sm">
+          <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-[0.25em] text-[#F3E5AB] drop-shadow-sm">
             NR Enterprises
           </span>
-          <span className="text-[9px] text-[#A6C0B3] font-serif italic mt-0.5">
+          <span className="text-[9.5px] text-[#A6C0B3] font-serif italic mt-0.5">
             Bespoke Carpet Atelier
           </span>
         </div>
@@ -82,9 +82,9 @@ export default function SafeImage({
       {/* Background Skeleton while image is downloading */}
       {!isLoaded && (
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#0A1F17] via-[#0F2A1E] to-[#06140E] flex flex-col items-center justify-center p-4 animate-pulse select-none">
-          <div className="w-10 h-10 rounded-xl bg-[#0A1F17]/60 border border-[#D4AF37]/30 flex items-center justify-center p-2 mb-1.5">
+          <div className="w-12 h-12 flex items-center justify-center p-1 mb-1.5">
             <img
-              src="/logo.webp"
+              src="/nr-logo.png"
               alt="NR Enterprises"
               className="w-full h-full object-contain opacity-50"
             />
