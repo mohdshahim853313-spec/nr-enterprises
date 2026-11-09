@@ -276,7 +276,7 @@ export default function StackedCardsDeck({
 
                   {/* Top-Left Badge */}
                   {card.badge && (
-                    <span className="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#C19A6B] text-white border border-white/20 shadow-xs pointer-events-none">
+                    <span className="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/30 shadow-xs pointer-events-none">
                       {card.badge}
                     </span>
                   )}
@@ -340,7 +340,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handlePrev}
           aria-label="Previous Rug Card"
-          className="w-9 h-9 rounded-full bg-white border border-[#EAEAEB] shadow-sm active:bg-[#2B2520] active:text-white text-[#2B2520] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           ←
         </button>
@@ -353,7 +353,7 @@ export default function StackedCardsDeck({
               <span
                 key={item.id || i}
                 className={`h-1.5 rounded-full transition-all duration-200 ${
-                  isActive ? "w-5 bg-[#C19A6B]" : "w-1.5 bg-[#D1C9BE]"
+                  isActive ? "w-5 bg-gradient-to-r from-[#B8860B] to-[#D4AF37]" : "w-1.5 bg-[#E0D3BE]"
                 }`}
               />
             );
@@ -363,7 +363,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handleNext}
           aria-label="Next Rug Card"
-          className="w-9 h-9 rounded-full bg-white border border-[#EAEAEB] shadow-sm active:bg-[#2B2520] active:text-white text-[#2B2520] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           →
         </button>

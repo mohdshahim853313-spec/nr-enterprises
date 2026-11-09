@@ -56,7 +56,7 @@ export default function SafeImage({
 
         {/* NR Enterprises Splash Emblem */}
         <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/85 backdrop-blur-xs border border-[#C19A6B]/30 shadow-xs flex items-center justify-center p-2 mb-2">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/85 backdrop-blur-xs border border-[#D4AF37]/35 shadow-xs flex items-center justify-center p-2 mb-2">
             <img
               src="/logo.webp"
               alt="NR Enterprises"
@@ -66,7 +66,7 @@ export default function SafeImage({
               }}
             />
           </div>
-          <span className="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#8C7A63] drop-shadow-2xs">
+          <span className="text-[10px] sm:text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#8F671E] drop-shadow-2xs">
             NR Enterprises Atelier
           </span>
           <span className="text-[9px] text-[#A89A88] font-serif italic mt-0.5">
@@ -82,7 +82,7 @@ export default function SafeImage({
       {/* Background Skeleton while image is downloading */}
       {!isLoaded && (
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#F5F2EB] via-[#ECE5D8] to-[#F5F2EB] flex flex-col items-center justify-center p-4 animate-pulse select-none">
-          <div className="w-10 h-10 rounded-xl bg-white/60 border border-[#C19A6B]/20 flex items-center justify-center p-2 mb-1.5">
+          <div className="w-10 h-10 rounded-xl bg-white/60 border border-[#D4AF37]/30 flex items-center justify-center p-2 mb-1.5">
             <img
               src="/logo.webp"
               alt="NR Enterprises"

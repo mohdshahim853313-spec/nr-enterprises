@@ -41,7 +41,7 @@ html {
 
 @layer base {
   body {
-    background-color: #F8F9FA;
+    background-color: #FAF7F0;
     color: #1F1A17;
     width: 100%;
     touch-action: manipulation;
@@ -62,22 +62,22 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F8F5F0;
+  background: #FAF5EB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C19A6B;
+  background: linear-gradient(180deg, #D4AF37 0%, #B8860B 100%);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A332C;
+  background: #8E6518;
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #C19A6B #F8F5F0;
+  scrollbar-color: #C59B27 #FAF5EB;
 }
 
 

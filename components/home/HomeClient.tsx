@@ -1398,17 +1398,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 1. NR ENTERPRISES COLLECTIONS (Luminous Luxury Frosted Glass Capsules)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-10 md:py-16 bg-[#F8F9FA]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-10 md:py-16 bg-[#FCFAF6]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.22em] text-[#9E6E38] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-heading font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {collectionsSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {collectionsSection.title}
           </h2>
           {collectionsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
               {collectionsSection.desc}
             </p>
           )}
@@ -1418,7 +1418,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               <Link
                 key={cat.id || cat.title}
                 href={cat.link || "/collections"}
-                className="group relative w-full aspect-[4/5] min-h-[250px] sm:min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#ECE7DE] border border-[#EAEAEB] shadow-xs sm:hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between p-2 sm:p-3 xl:p-3.5 cursor-pointer transform-gpu [contain:paint]"
+                className="group relative w-full aspect-[4/5] min-h-[250px] sm:min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#ECE7DE] border border-[#EBDCC5] shadow-xs sm:hover:shadow-2xl sm:hover:border-[#D4AF37] transition-all duration-300 flex flex-col justify-between p-2 sm:p-3 xl:p-3.5 cursor-pointer transform-gpu [contain:paint]"
               >
                 {/* Background Carpet Image */}
                 <SafeImage src={cat.img} alt={cat.title} fill
@@ -1430,25 +1430,25 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 {/* Top Translucent Frosted Badge */}
                 {cat.badge && (
                   <div className="relative z-10 self-start">
-                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/95 text-[#2B2520] border border-white/80 shadow-xs">
+                    <span className="inline-block text-[9.5px] font-heading font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/95 text-[#8F671E] border border-[#E6D4B2] shadow-xs">
                       {cat.badge}
                     </span>
                   </div>
                 )}
 
                 {/* Bottom Luminous Luxury Capsule (Smooth 60FPS Native Scroll) */}
-                <div className="relative z-10 bg-white/98 sm:bg-white/95 sm:backdrop-blur-xs py-2 px-2.5 sm:py-2.5 sm:px-3.5 rounded-xl sm:rounded-2xl border border-white/90 group-hover:border-[#C19A6B] shadow-sm flex items-center justify-between gap-1.5 transition-colors duration-200">
+                <div className="relative z-10 bg-white/98 sm:bg-white/95 sm:backdrop-blur-xs py-2 px-2.5 sm:py-2.5 sm:px-3.5 rounded-xl sm:rounded-2xl border border-[#E8DCBE] group-hover:border-[#D4AF37] shadow-sm flex items-center justify-between gap-1.5 transition-all duration-200">
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-[13px] sm:text-[14.5px] xl:text-[15.5px] font-bold font-heading text-[#2B2520] leading-snug group-hover:text-[#C19A6B] transition-colors truncate" title={cat.title}>
+                    <h3 className="text-[13px] sm:text-[14.5px] xl:text-[15.5px] font-bold font-heading text-[#2B231D] leading-snug group-hover:text-[#B8860B] transition-colors truncate" title={cat.title}>
                       {cat.title}
                     </h3>
                     {cat.tagline && (
-                      <p className="hidden sm:block text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#52483E] mt-0.5 font-medium truncate" title={cat.tagline}>
+                      <p className="hidden sm:block text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#6B5A49] mt-0.5 font-medium truncate" title={cat.tagline}>
                         {cat.tagline}
                       </p>
                     )}
                   </div>
-                  <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#2B2520] group-hover:bg-[#C19A6B] text-white flex items-center justify-center text-[11px] font-bold transition-colors duration-200 shadow-xs shrink-0 ml-1">
+                  <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#1A1612] group-hover:bg-gradient-to-r group-hover:from-[#D4AF37] group-hover:to-[#B8860B] text-white group-hover:text-[#14110E] flex items-center justify-center text-[11px] font-bold transition-all duration-200 shadow-xs shrink-0 ml-1">
                     →
                   </span>
                 </div>
@@ -1458,10 +1458,10 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={collectionsSection.ctaLink || "/collections"}
-            className="inline-flex items-center gap-2 bg-[#C19A6B] hover:bg-[#2B2520] text-white px-8 py-3.5 text-xs uppercase font-heading font-bold tracking-[0.2em] rounded-full transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer"
+            className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-8 py-3.5 text-xs uppercase font-heading font-bold tracking-[0.22em] rounded-full transition-all duration-300 shadow-[0_6px_22px_rgba(184,134,11,0.32)] hover:shadow-[0_8px_28px_rgba(212,175,55,0.45)] hover:scale-[1.02] active:scale-95 cursor-pointer"
           >
             <span>{collectionsSection.ctaText || "VIEW ALL COLLECTIONS"}</span>
-            <span>→</span>
+            <span className="text-sm font-bold">→</span>
           </Link>
 
         </div>
@@ -1470,17 +1470,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 TUFTED RUGS (Seamless 2-Second Sliding Showcase in Infinite Loop)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FAF6F0] border-y border-[#F0EBE1]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#A87B45] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {tuftedSection.tag || "SIGNATURE HAND-TUFTED"}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {tuftedSection.title || "Tufted Rugs"}
           </h2>
           {tuftedSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
               {tuftedSection.desc}
             </p>
           )}
@@ -1554,7 +1554,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                         {/* Smooth Fading Gold Border & Soft Ambient Shadow (Silky Fade, Zero Pop) */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#C19A6B]/80 shadow-[0_20px_45px_rgba(43,37,32,0.22)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-white shadow-[0_18px_40px_rgba(184,134,11,0.22)] z-10 ${
                             isTuftedCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
@@ -1563,7 +1563,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {product.badge && (
                           <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full pointer-events-none transition-all duration-700 ${
                             isTuftedCenter
-                              ? "bg-[#C19A6B] text-white border border-[#C19A6B]/40 shadow-sm"
+                              ? "bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/40 shadow-sm"
                               : "bg-[#2B2520] text-white border border-white/10 shadow-xs"
                           }`}>
                             {product.badge}
@@ -1578,13 +1578,13 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                             toggleWishlist(product.id);
                           }}
                           aria-label="Save to wishlist"
-                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EAEAEB] flex items-center justify-center text-[#2B2520] hover:text-[#C19A6B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
+                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EBDCC5] flex items-center justify-center text-[#2B231D] hover:text-[#B8860B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            fill={wishlist.includes(product.id) ? "#C19A6B" : "none"}
-                            stroke={wishlist.includes(product.id) ? "#C19A6B" : "currentColor"}
+                            fill={wishlist.includes(product.id) ? "#D4AF37" : "none"}
+                            stroke={wishlist.includes(product.id) ? "#D4AF37" : "currentColor"}
                             strokeWidth="2"
                             className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                           >
@@ -1608,22 +1608,22 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         >
                           <h3 className={`font-heading text-[13px] sm:text-[14px] line-clamp-2 leading-snug transition-colors duration-500 mb-1.5 text-center ${
                             isTuftedCenter
-                              ? "text-[#2B2520] font-bold"
-                              : "text-[#7A7065] font-medium hover:text-[#2B2520]"
+                              ? "text-[#1F1813] font-bold"
+                              : "text-[#6B5A49] font-medium hover:text-[#1F1813]"
                           }`}>
                             {product.name}
                           </h3>
                         </Link>
 
                         {/* Gold Star Ratings - Constant height */}
-                        <div className="flex items-center justify-center text-[#E5A83B] text-[12px] tracking-widest mb-1.5 font-bold h-4 opacity-100">
+                        <div className="flex items-center justify-center text-[#D4AF37] text-[12px] tracking-widest mb-1.5 font-bold h-4 opacity-100">
                           {"★".repeat(product.rating || 5)}
                         </div>
 
                         {/* Price & Original Price - Constant height */}
                         <div className="flex items-baseline justify-center gap-2 h-5">
                           <span className={`font-heading font-bold text-[14px] sm:text-[15px] transition-colors duration-500 ${
-                            isTuftedCenter ? "text-[#C19A6B]" : "text-[#2B2520]"
+                            isTuftedCenter ? "text-[#B8860B]" : "text-[#1F1813]"
                           }`}>
                             {formatPrice(product.price, 1)}
                           </span>
@@ -1658,7 +1658,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               type="button"
               onClick={handlePrevTufted}
               aria-label="Previous Tufted Rug"
-              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EAEAEB] shadow-lg items-center justify-center text-[#2B2520] hover:bg-[#2B2520] hover:text-white hover:border-[#2B2520] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:-translate-x-0.5">←</span>
             </button>
@@ -1666,7 +1666,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               type="button"
               onClick={handleNextTufted}
               aria-label="Next Tufted Rug"
-              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EAEAEB] shadow-lg items-center justify-center text-[#2B2520] hover:bg-[#2B2520] hover:text-white hover:border-[#2B2520] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>
             </button>
@@ -1674,7 +1674,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={tuftedSection.ctaLink || "/collections?category=Tufted"}
-            className="inline-flex items-center justify-center bg-[#B89258] hover:bg-[#2B2520] text-white px-9 py-2.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {tuftedSection.ctaText || "View All"}
           </Link>
@@ -1685,17 +1685,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 2. TRENDING (Seamless Cards + Centered Details + View All)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#F8F9FA] border-y border-[#EAEAEB]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-y border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#9E6E38] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {trendingSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {trendingSection.title}
           </h2>
           {trendingSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {trendingSection.desc}
             </p>
           )}
@@ -1769,7 +1769,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                         {/* Smooth Fading Gold Border & Soft Ambient Shadow (Silky Fade, Zero Pop) */}
                         <div
-                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#C19A6B]/80 shadow-[0_20px_45px_rgba(43,37,32,0.22)] z-10 ${
+                          className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-white shadow-[0_18px_40px_rgba(184,134,11,0.22)] z-10 ${
                             isCenter ? "opacity-100" : "opacity-0"
                           }`}
                         />
@@ -1778,7 +1778,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         {product.badge && (
                           <span className={`absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full pointer-events-none transition-all duration-700 ${
                             isCenter
-                              ? "bg-[#C19A6B] text-white border border-[#C19A6B]/40 shadow-sm"
+                              ? "bg-gradient-to-r from-[#B8860B] to-[#D4AF37] text-white border border-amber-200/40 shadow-sm"
                               : "bg-[#2B2520] text-white border border-white/10 shadow-xs"
                           }`}>
                             {product.badge}
@@ -1793,13 +1793,13 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                             toggleWishlist(product.id);
                           }}
                           aria-label="Save to wishlist"
-                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EAEAEB] flex items-center justify-center text-[#2B2520] hover:text-[#C19A6B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
+                          className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#EBDCC5] flex items-center justify-center text-[#2B231D] hover:text-[#B8860B] hover:scale-110 transition-all shadow-xs z-10 cursor-pointer"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            fill={wishlist.includes(product.id) ? "#C19A6B" : "none"}
-                            stroke={wishlist.includes(product.id) ? "#C19A6B" : "currentColor"}
+                            fill={wishlist.includes(product.id) ? "#D4AF37" : "none"}
+                            stroke={wishlist.includes(product.id) ? "#D4AF37" : "currentColor"}
                             strokeWidth="2"
                             className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                           >
@@ -1823,22 +1823,22 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                         >
                           <h3 className={`font-heading text-[13px] sm:text-[14px] line-clamp-2 leading-snug transition-colors duration-500 mb-1.5 text-center ${
                             isCenter
-                              ? "text-[#2B2520] font-bold"
-                              : "text-[#7A7065] font-medium hover:text-[#2B2520]"
+                              ? "text-[#1F1813] font-bold"
+                              : "text-[#6B5A49] font-medium hover:text-[#1F1813]"
                           }`}>
                             {product.name}
                           </h3>
                         </Link>
 
                         {/* Gold Star Ratings - Constant height */}
-                        <div className="flex items-center justify-center text-[#E5A83B] text-[12px] tracking-widest mb-1.5 font-bold h-4 opacity-100">
+                        <div className="flex items-center justify-center text-[#D4AF37] text-[12px] tracking-widest mb-1.5 font-bold h-4 opacity-100">
                           {"★".repeat(product.rating || 5)}
                         </div>
 
                         {/* Price & Original Price - Constant height */}
                         <div className="flex items-baseline justify-center gap-2 h-5">
                           <span className={`font-heading font-bold text-[14px] sm:text-[15px] transition-colors duration-500 ${
-                            isCenter ? "text-[#C19A6B]" : "text-[#2B2520]"
+                            isCenter ? "text-[#B8860B]" : "text-[#1F1813]"
                           }`}>
                             {formatPrice(product.price, 1)}
                           </span>
@@ -1873,7 +1873,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               type="button"
               onClick={handlePrevTrending}
               aria-label="Previous Trending Rug"
-              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EAEAEB] shadow-lg items-center justify-center text-[#2B2520] hover:bg-[#2B2520] hover:text-white hover:border-[#2B2520] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute left-1 sm:left-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:-translate-x-0.5">←</span>
             </button>
@@ -1881,7 +1881,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               type="button"
               onClick={handleNextTrending}
               aria-label="Next Trending Rug"
-              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EAEAEB] shadow-lg items-center justify-center text-[#2B2520] hover:bg-[#2B2520] hover:text-white hover:border-[#2B2520] transition-all cursor-pointer z-30 group active:scale-90"
+              className="hidden sm:flex absolute right-1 sm:right-4 top-[38%] -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 backdrop-blur-md border border-[#EBDCC5] shadow-lg items-center justify-center text-[#2B231D] hover:bg-[#1A1612] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all cursor-pointer z-30 group active:scale-90"
             >
               <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>
             </button>
@@ -1889,7 +1889,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={trendingSection.ctaLink || "/collections"}
-            className="inline-flex items-center justify-center bg-[#B89258] hover:bg-[#2B2520] text-white px-9 py-2.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {trendingSection.ctaText || "View All"}
           </Link>
@@ -1900,17 +1900,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 3. COLLECTIONS BY COLOR (Bold Title + Interactive Disks)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FAF6F0] border-y border-[#F0EBE1]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#A87B45] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {colorSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {colorSection.title}
           </h2>
           {colorSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {colorSection.desc}
             </p>
           )}
@@ -1922,7 +1922,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 href={`/collections?color=${swatch.code}`}
                 className="group flex flex-col items-center cursor-pointer"
               >
-                <div className="w-22 h-22 sm:w-26 sm:h-26 rounded-full bg-white border border-[#EAEAEB] shadow-xs group-hover:border-[#C19A6B] group-hover:shadow-xl group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2 mb-2.5">
+                <div className="w-22 h-22 sm:w-26 sm:h-26 rounded-full bg-white border border-[#EBDCC5] shadow-xs group-hover:border-[#D4AF37] group-hover:shadow-[0_8px_24px_rgba(184,134,11,0.25)] group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2 mb-2.5">
                   <div
                     className="w-full h-full rounded-full relative overflow-hidden border border-black/15 shadow-[inset_0_2px_5px_rgba(255,255,255,0.35),inset_0_-3px_6px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-102"
                     style={{
@@ -1948,7 +1948,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     />
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#2B2520] group-hover:text-[#C19A6B] transition-colors">
+                <span className="text-xs font-bold text-[#1F1813] group-hover:text-[#B8860B] transition-colors">
                   {swatch.name}
                 </span>
               </Link>
@@ -1961,17 +1961,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 4. MODERN HOMES
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#F8F9FA] border-y border-[#EAEAEB]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-y border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#9E6E38] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {roomsSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {roomsSection.title}
           </h2>
           {roomsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {roomsSection.desc}
             </p>
           )}
@@ -1981,7 +1981,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
               <Link
                 key={room.id || room.name}
                 href={room.link || "/collections"}
-                className="group relative w-full aspect-[4/5] min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1F1A17] border border-[#EAEAEB] shadow-xs hover:shadow-xl transition-all duration-500 flex flex-col justify-between p-4 sm:p-5 cursor-pointer"
+                className="group relative w-full aspect-[4/5] min-h-[280px] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#1F1A17] border border-[#EBDCC5] shadow-xs hover:shadow-xl transition-all duration-500 flex flex-col justify-between p-4 sm:p-5 cursor-pointer"
               >
                 <SafeImage src={room.img} alt={room.name} fill
                   quality={90}
@@ -2005,9 +2005,9 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                   <p className="text-[13px] sm:text-xs text-white/95 font-medium leading-relaxed mb-3 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)] line-clamp-2">
                     {room.tagline}
                   </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-wider px-4 py-2 bg-white/95 hover:bg-[#C19A6B] text-[#2B2520] hover:text-white rounded-full transition-colors shadow-sm">
+                  <span className="inline-flex items-center gap-1.5 text-xs uppercase font-bold tracking-wider px-4 py-2 bg-white/95 hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#B8860B] text-[#1F1813] hover:text-[#14110E] rounded-full transition-all shadow-sm">
                     <span>EXPLORE STYLES</span>
-                    <span className="text-xs">↗</span>
+                    <span className="text-xs font-bold">↗</span>
                   </span>
                 </div>
               </Link>
@@ -2020,17 +2020,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 5. MATERIALS GLANCE
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FAF6F0] border-y border-[#F0EBE1]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-gradient-to-b from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] border-y border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#A87B45] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {materialsSection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {materialsSection.title}
           </h2>
           {materialsSection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {materialsSection.desc}
             </p>
           )}
@@ -2058,11 +2058,11 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
                 <div className="w-full flex flex-col items-center pt-3 sm:pt-3.5">
                   <Link href={item.link || "/collections?category=Jute"} prefetch={true} className="w-full">
-                    <h3 className="font-heading font-semibold text-[13.5px] sm:text-[14.5px] text-[#2B2520] line-clamp-2 leading-snug hover:text-[#C19A6B] transition-colors mb-1 text-center">
+                    <h3 className="font-heading font-semibold text-[13.5px] sm:text-[14.5px] text-[#1F1813] line-clamp-2 leading-snug hover:text-[#B8860B] transition-colors mb-1 text-center">
                       {item.name}
                     </h3>
                   </Link>
-                  <div className="flex items-center justify-center text-[#E5A83B] text-[12px] tracking-widest font-bold">
+                  <div className="flex items-center justify-center text-[#D4AF37] text-[12px] tracking-widest font-bold">
                     {"★".repeat(item.rating || 5)}
                   </div>
                 </div>
@@ -2073,7 +2073,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
           <Link
             href={materialsSection.ctaLink || "/collections?category=Jute"}
             prefetch={true}
-            className="inline-flex items-center justify-center bg-[#B89258] hover:bg-[#2B2520] text-white px-9 py-2.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {materialsSection.ctaText || "View All"}
           </Link>
@@ -2084,17 +2084,17 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       {/* =========================================================================
           🌟 6. OUR LEGACY (Bold Title + Atelier Masterpieces)
          ========================================================================= */}
-      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#F8F9FA] border-t border-[#EAEAEB]">
+      <section className="w-full px-[5px] sm:px-6 md:px-10 py-12 md:py-16 bg-[#FCFAF6] border-t border-[#EBDCC5]">
         <div className="max-w-[1500px] mx-auto text-center">
           
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.22em] text-[#9E6E38] block mb-1.5">
+          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#B8860B] block mb-1.5">
             {legacySection.tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1A17] mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#1F1813] mb-3">
             {legacySection.title}
           </h2>
           {legacySection.desc && (
-            <p className="text-[13.5px] sm:text-[15px] text-[#4A4036] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
+            <p className="text-[13.5px] sm:text-[15px] text-[#524538] font-medium max-w-lg mx-auto mb-10 leading-relaxed">
               {legacySection.desc}
             </p>
           )}
@@ -2126,15 +2126,15 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 {/* Product Details (Clean & Centered) */}
                 <div className="w-full flex flex-col items-center pt-3 sm:pt-3.5">
                   <Link href={item.link || "/collections?category=Irregular"} prefetch={true} className="w-full">
-                    <h3 className="font-heading font-semibold text-[13px] sm:text-[14px] text-[#2B2520] line-clamp-2 leading-snug hover:text-[#C19A6B] transition-colors mb-1.5 text-center">
+                    <h3 className="font-heading font-semibold text-[13px] sm:text-[14px] text-[#1F1813] line-clamp-2 leading-snug hover:text-[#B8860B] transition-colors mb-1.5 text-center">
                       {item.name}
                     </h3>
                   </Link>
-                  <div className="flex items-center justify-center text-[#E5A83B] text-[12px] tracking-widest mb-1.5 font-bold">
+                  <div className="flex items-center justify-center text-[#D4AF37] text-[12px] tracking-widest mb-1.5 font-bold">
                     {"★".repeat(item.rating || 5)}
                   </div>
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className="font-heading font-bold text-[14px] sm:text-[15px] text-[#2B2520]">
+                    <span className="font-heading font-bold text-[14px] sm:text-[15px] text-[#1F1813]">
                       {formatPrice(item.price, 1)}
                     </span>
                     {item.originalPrice && (
@@ -2163,7 +2163,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
 
           <Link
             href={legacySection.ctaLink || "/collections?category=Irregular"}
-            className="inline-flex items-center justify-center bg-[#B89258] hover:bg-[#2B2520] text-white px-9 py-2.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#A67C28] hover:from-[#C59B27] hover:to-[#8E6518] text-[#14110E] px-9 py-2.5 text-xs font-heading font-bold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(184,134,11,0.25)] hover:shadow-[0_6px_22px_rgba(212,175,55,0.4)] cursor-pointer"
           >
             {legacySection.ctaText || "View All"}
           </Link>
@@ -2175,36 +2175,36 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
           PRE-FOOTER CONCIERGE BAR: WITH HANDCRAFTED CUSTOM SVGS
          ========================================================================= */}
       <section className="w-full px-[5px] sm:px-6 md:px-10 pb-10">
-        <div className="max-w-[1500px] mx-auto bg-[#FAFAFA] text-[#2B2520] p-6 sm:p-8 rounded-2xl shadow-sm border border-[#E5DDD2] flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1500px] mx-auto bg-gradient-to-r from-[#FAF5EB] via-[#FDFBF7] to-[#FAF5EB] text-[#1F1813] p-6 sm:p-8 rounded-2xl shadow-sm border border-[#EBDCC5] flex flex-col lg:flex-row items-center justify-between gap-6">
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left flex-1">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#EFE8DD] text-[#9E7848] flex items-center justify-center shrink-0 border border-[#E5DDD2]">
+              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
                 <CustomLoomIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B2520]">{concierge.feature1Title}</h4>
-                <p className="text-xs text-[#7A7065] mt-0.5">{concierge.feature1Desc}</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">{concierge.feature1Title}</h4>
+                <p className="text-xs text-[#6B5A49] mt-0.5">{concierge.feature1Desc}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#EFE8DD] text-[#9E7848] flex items-center justify-center shrink-0 border border-[#E5DDD2]">
+              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
                 <GlobalShippingIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B2520]">{concierge.feature2Title}</h4>
-                <p className="text-xs text-[#7A7065] mt-0.5">{concierge.feature2Desc}</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">{concierge.feature2Title}</h4>
+                <p className="text-xs text-[#6B5A49] mt-0.5">{concierge.feature2Desc}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-[#EFE8DD] text-[#9E7848] flex items-center justify-center shrink-0 border border-[#E5DDD2]">
+              <div className="w-10 h-10 rounded-xl bg-[#F5ECE0] text-[#B8860B] flex items-center justify-center shrink-0 border border-[#EBDCC5] shadow-2xs">
                 <ConciergeSupportIcon />
               </div>
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#2B2520]">Atelier Concierge</h4>
-                <p className="text-xs text-[#7A7065] mt-0.5">Quick email & custom support</p>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#1F1813]">Atelier Concierge</h4>
+                <p className="text-xs text-[#6B5A49] mt-0.5">Quick email & custom support</p>
               </div>
             </div>
           </div>
@@ -2223,9 +2223,9 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                 );
               }
             }}
-            className="inline-flex items-center gap-2.5 bg-[#2B2520] hover:bg-[#3A332C] text-[#FAF8F5] px-6 py-3 text-xs uppercase font-bold tracking-wider rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+            className="inline-flex items-center gap-2.5 bg-[#14110E] hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#B8860B] text-white hover:text-[#14110E] px-6 py-3 text-xs uppercase font-bold tracking-wider rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer shrink-0"
           >
-            <svg className="w-4 h-4 text-[#C19A6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <span>Quick Inquire</span>

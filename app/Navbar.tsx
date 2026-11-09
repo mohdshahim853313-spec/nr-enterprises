@@ -382,19 +382,19 @@ export default function Navbar() {
         }`}
       >
         {/* 🌟 1. TOP ANNOUNCEMENT STRIP (Warm Luxury Espresso & Champagne Gold Tone) */}
-        <div className="w-full bg-[#1F1A17] text-[#FAFAFA] text-[11px] sm:text-xs py-2 px-4 tracking-wider uppercase flex items-center justify-center text-center relative border-b border-[#352D26]">
-  <div className="w-full md:w-auto font-semibold tracking-wide">
-    GET 25% OFF FOR YOUR FIRST ORDER.{" "}
-    <Link href="/signup" className="underline font-bold text-[#E5C158] hover:text-[#FAFAFA] transition-colors ml-1">
-      SIGN UP NOW
-    </Link>
-  </div>
-</div>
+        <div className="w-full bg-[#14110E] text-[#F5EADB] text-[11px] sm:text-xs py-2 px-4 tracking-wider uppercase flex items-center justify-center text-center relative border-b border-[#B8860B]/30">
+          <div className="w-full md:w-auto font-semibold tracking-wide">
+            GET 25% OFF FOR YOUR FIRST ORDER.{" "}
+            <Link href="/signup" className="underline font-bold text-[#E5C158] hover:text-[#FFFFFF] transition-colors ml-1">
+              SIGN UP NOW
+            </Link>
+          </div>
+        </div>
 
 
         <header
           ref={headerRef}
-          className="w-full bg-[#F8F9FA]/98 backdrop-blur-md border-b border-[#EAEAEB] shadow-xs"
+          className="w-full bg-[#FCFAF6]/98 backdrop-blur-md border-b border-[#EBDCC5] shadow-xs"
         >
           {/* 🌟 2. UPPER MAIN NAV (Logo, Search/Contact, Currency, Icons) */}
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2 flex items-center justify-between gap-4">
@@ -403,7 +403,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-1 text-[#3A332C] hover:text-[#C19A6B] transition-colors rounded-sm"
+                className="lg:hidden p-1 text-[#3A332C] hover:text-[#B8860B] transition-colors rounded-sm"
                 aria-label="Open Navigation Menu"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -411,9 +411,9 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              <div className="hidden lg:flex items-center gap-3 text-[11px] text-[#6B6054]">
-                <a href="mailto:nrenterprises@gmail.com" className="flex items-center gap-1.5 hover:text-[#C19A6B] transition-colors font-medium">
-                  <svg className="w-3.5 h-3.5 text-[#C19A6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="hidden lg:flex items-center gap-3 text-[11px] text-[#6B5A49]">
+                <a href="mailto:nrenterprises@gmail.com" className="flex items-center gap-1.5 hover:text-[#B8860B] transition-colors font-medium">
+                  <svg className="w-3.5 h-3.5 text-[#C59B27]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <span>nrenterprises@gmail.com</span>
@@ -437,7 +437,7 @@ export default function Navbar() {
                 className="object-contain rounded-sm w-7 h-7 sm:w-8 sm:h-8 transition-transform active:scale-95 duration-150"
               />
               <div className="flex flex-col text-left">
-                <span className={`text-xl sm:text-2xl lg:text-[25px] tracking-wide text-[#3A332C] font-semibold leading-none ${playfair.className}`}>
+                <span className={`text-xl sm:text-2xl lg:text-[25px] tracking-wide text-[#1C1713] group-hover:text-[#8F671E] font-semibold leading-none transition-colors ${playfair.className}`}>
                   NR Enterprises
                 </span>
                
@@ -445,14 +445,14 @@ export default function Navbar() {
             </Link>
 
             {/* Right: Currency Switcher, Search, Wishlist, Cart, Account */}
-            <div className="flex items-center space-x-2 sm:space-x-3.5 text-[#3A332C]">
+            <div className="flex items-center space-x-2 sm:space-x-3.5 text-[#2B231D]">
               
               {/* Admin Dev Pill */}
               {mounted && isLocalhost && (
                 <div className="hidden sm:flex items-center mr-0.5">
                   <Link
                     href="/admin"
-                    className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-[#3A332C] border border-[#DFD8CC] hover:border-[#C19A6B] hover:text-[#C19A6B] rounded-full transition-colors"
+                    className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-[#8F671E] border border-[#DFCA9B] bg-[#FAF5EB] hover:border-[#B8860B] hover:text-[#14110E] hover:bg-[#D4AF37] rounded-full transition-all"
                   >
                     Admin
                   </Link>
@@ -463,7 +463,7 @@ export default function Navbar() {
               <div ref={currencyDropdownRef} className="relative hidden sm:block">
                 <button
                   onClick={() => setIsCurrencyDropdownOpen(!isCurrencyDropdownOpen)}
-                  className="flex items-center space-x-1 text-xs font-bold text-[#3A332C] hover:text-[#C19A6B] transition-colors p-1"
+                  className="flex items-center space-x-1 text-xs font-bold text-[#2B231D] hover:text-[#B8860B] transition-colors p-1"
                   aria-label="Select Currency"
                 >
                   <span suppressHydrationWarning>{selectedCurrency}</span>
@@ -479,7 +479,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       data-lenis-prevent="true"
-                      className="absolute right-0 top-full mt-2 w-64 max-h-80 overflow-y-auto bg-white/98 backdrop-blur-md border border-[#EAE6DF] shadow-2xl rounded-2xl z-[100] flex flex-col p-1.5 space-y-0.5 divide-y-0 [scrollbar-width:thin] scrollbar-thumb-[#DFD8CC]"
+                      className="absolute right-0 top-full mt-2 w-64 max-h-80 overflow-y-auto bg-white/98 backdrop-blur-md border border-[#EBDCC5] shadow-2xl rounded-2xl z-[100] flex flex-col p-1.5 space-y-0.5 divide-y-0 [scrollbar-width:thin] scrollbar-thumb-[#DFCA9B]"
                     >
                       {currencies.map((currency) => {
                         const isSelected = selectedCurrency === currency.code;
@@ -489,7 +489,7 @@ export default function Navbar() {
                             type="button"
                             onClick={() => handleCurrencyChange(currency.code, currency.country)}
                             className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs uppercase tracking-wider text-left transition-all rounded-xl cursor-pointer ${
-                              isSelected ? "text-[#C19A6B] font-bold bg-[#FAF6F0] shadow-2xs" : "text-[#2B2520] hover:bg-[#F5F2EC]"
+                              isSelected ? "text-[#B8860B] font-bold bg-[#FAF5EB] shadow-2xs" : "text-[#2B2520] hover:bg-[#FAF6EE]"
                             }`}
                           >
                             <span className="font-semibold">{currency.symbol} - {currency.code}</span>
@@ -510,7 +510,7 @@ export default function Navbar() {
                   setIsSearchOpen(!isSearchOpen);
                   if (isSearchOpen) setSearchQuery("");
                 }}
-                className="p-1.5 hover:text-[#C19A6B] transition-colors rounded-sm cursor-pointer"
+                className="p-1.5 hover:text-[#B8860B] transition-colors rounded-sm cursor-pointer"
                 aria-label="Search"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -519,26 +519,26 @@ export default function Navbar() {
               </button>
 
               {/* Wishlist */}
-              <Link href="/wishlist" className="p-1.5 hover:text-[#C19A6B] transition-colors relative" aria-label="Wishlist">
+              <Link href="/wishlist" className="p-1.5 hover:text-[#B8860B] transition-colors relative" aria-label="Wishlist">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </Link>
 
               {/* Cart Button */}
-              <button onClick={() => setIsCartOpen(true)} className="p-1.5 hover:text-[#C19A6B] transition-colors relative cursor-pointer" aria-label="Shopping Cart">
+              <button onClick={() => setIsCartOpen(true)} className="p-1.5 hover:text-[#B8860B] transition-colors relative cursor-pointer" aria-label="Shopping Cart">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 {cartItems.length > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-[#C19A6B] text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  <span className="absolute top-0.5 right-0.5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#14110E] text-[9px] font-extrabold w-4 h-4 flex items-center justify-center rounded-full shadow-xs">
                     {cartItems.length}
                   </span>
                 )}
               </button>
 
               {/* Account Profile Icon (Desktop) */}
-              <Link href="/account" className="hidden lg:flex items-center p-1.5 hover:text-[#C19A6B] transition-colors" aria-label="My Account">
+              <Link href="/account" className="hidden lg:flex items-center p-1.5 hover:text-[#B8860B] transition-colors" aria-label="My Account">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
@@ -547,7 +547,7 @@ export default function Navbar() {
           </div>
 
           {/* 🌟 3. LOWER NAV TIER (Perfectly Centered Navigation Tabs) */}
-          <div className="hidden lg:block border-t border-[#EAEAEB] bg-[#F8F9FA]">
+          <div className="hidden lg:block border-t border-[#EBDCC5] bg-[#FCFAF6]">
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-1.5 sm:py-2 flex items-center justify-center">
               
               {/* Centered Navigation Links */}
@@ -559,12 +559,12 @@ export default function Navbar() {
                       key={link.name}
                       href={link.href}
                       className={`relative py-1 transition-colors duration-300 ${
-                        isActive ? "text-[#C19A6B] font-bold" : "text-[#5C5247] hover:text-[#C19A6B]"
+                        isActive ? "text-[#B8860B] font-bold" : "text-[#524538] hover:text-[#B8860B]"
                       }`}
                     >
                       {link.name}
                       <span
-                        className={`absolute left-0 bottom-0 h-[2px] bg-[#C19A6B] transition-all duration-300 ${
+                        className={`absolute left-0 bottom-0 h-[2.5px] bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#B8860B] rounded-full shadow-[0_2px_8px_rgba(212,175,55,0.45)] transition-all duration-300 ${
                           isActive ? "w-full opacity-100" : "w-0 opacity-0 hover:w-full"
                         }`}
                       />
@@ -575,10 +575,10 @@ export default function Navbar() {
                 {dynamicCurrentPage && (
                   <Link
                     href={dynamicCurrentPage.href}
-                    className="relative py-1 transition-colors duration-300 text-[#C19A6B] font-bold"
+                    className="relative py-1 transition-colors duration-300 text-[#B8860B] font-bold"
                   >
                     {dynamicCurrentPage.name}
-                    <span className="absolute left-0 bottom-0 h-[2px] bg-[#C19A6B] w-full opacity-100" />
+                    <span className="absolute left-0 bottom-0 h-[2.5px] bg-gradient-to-r from-[#B8860B] via-[#D4AF37] to-[#B8860B] rounded-full shadow-[0_2px_8px_rgba(212,175,55,0.45)] w-full opacity-100" />
                   </Link>
                 )}
               </nav>
@@ -592,7 +592,7 @@ export default function Navbar() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="absolute top-full left-0 w-full bg-[#F8F9FA] border-b border-[#DFD8CC] shadow-2xl overflow-hidden z-50"
+                className="absolute top-full left-0 w-full bg-[#FCFAF6] border-b border-[#EBDCC5] shadow-2xl overflow-hidden z-50"
               >
                 <div className="max-w-3xl mx-auto px-6 py-8">
                   <div className="relative">
@@ -603,21 +603,21 @@ export default function Navbar() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search for carpets, colors, styles..."
                       aria-label="Search for carpets, colors, styles"
-                      className="w-full bg-transparent border-b-2 border-[#C19A6B] text-2xl md:text-3xl font-serif text-[#3A332C] placeholder-[#8C7A63]/50 focus:outline-none pb-3"
+                      className="w-full bg-transparent border-b-2 border-[#C59B27] text-2xl md:text-3xl font-serif text-[#1C1713] placeholder-[#8C7A63]/50 focus:outline-none pb-3"
                     />
                     {isSearching && (
-                      <div className="absolute right-2 bottom-4 w-5 h-5 border-2 border-[#C19A6B] border-t-transparent rounded-full animate-spin" />
+                      <div className="absolute right-2 bottom-4 w-5 h-5 border-2 border-[#C59B27] border-t-transparent rounded-full animate-spin" />
                     )}
                   </div>
 
                   <div className="mt-6">
                     {searchQuery.length < 1 ? (
                       <div className="flex items-center gap-4 text-xs text-[#8C7A63]">
-                        <span className="font-bold uppercase tracking-widest text-[10px] text-[#C19A6B]">Popular:</span>
-                        <span className="hover:text-[#C19A6B] cursor-pointer font-medium" onClick={() => setSearchQuery("Hand Tufted")}>Hand Tufted</span>
-                        <span className="hover:text-[#C19A6B] cursor-pointer font-medium" onClick={() => setSearchQuery("Shaggy")}>Shaggy</span>
-                        <span className="hover:text-[#C19A6B] cursor-pointer font-medium" onClick={() => setSearchQuery("Jute")}>Jute</span>
-                        <span className="hover:text-[#C19A6B] cursor-pointer font-medium" onClick={() => setSearchQuery("Irregular")}>Irregular</span>
+                        <span className="font-bold uppercase tracking-widest text-[10px] text-[#B8860B]">Popular:</span>
+                        <span className="hover:text-[#B8860B] cursor-pointer font-medium" onClick={() => setSearchQuery("Hand Tufted")}>Hand Tufted</span>
+                        <span className="hover:text-[#B8860B] cursor-pointer font-medium" onClick={() => setSearchQuery("Shaggy")}>Shaggy</span>
+                        <span className="hover:text-[#B8860B] cursor-pointer font-medium" onClick={() => setSearchQuery("Jute")}>Jute</span>
+                        <span className="hover:text-[#B8860B] cursor-pointer font-medium" onClick={() => setSearchQuery("Irregular")}>Irregular</span>
                       </div>
                     ) : searchResults.length > 0 ? (
                       <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto pr-2">
@@ -626,18 +626,18 @@ export default function Navbar() {
                             key={item.id}
                             href={`/product/${item.id}`}
                             onClick={() => setIsSearchOpen(false)}
-                            className="flex items-center gap-4 p-3 bg-white hover:bg-[#F3EFEA] border border-[#EAEAEB] rounded-2xl shadow-2xs transition-colors"
+                            className="flex items-center gap-4 p-3 bg-white hover:bg-[#FAF5EB] border border-[#EBDCC5] rounded-2xl shadow-2xs transition-colors"
                           >
-                            <div className="w-16 h-16 bg-[#DFD8CC] rounded-xl overflow-hidden shrink-0 relative">
+                            <div className="w-16 h-16 bg-[#DFCA9B]/30 rounded-xl overflow-hidden shrink-0 relative">
                               {item.images?.[0] && (
                                 <Image src={item.images[0]} alt={item.name} fill sizes="64px" className="object-cover" />
                               )}
                             </div>
                             <div className="flex flex-col">
-                              <span className="text-[10px] text-[#C19A6B] uppercase tracking-widest font-bold">{item.category}</span>
-                              <span className="text-base font-serif text-[#3A332C] font-semibold">{item.name}</span>
+                              <span className="text-[10px] text-[#B8860B] uppercase tracking-widest font-bold">{item.category}</span>
+                              <span className="text-base font-serif text-[#1C1713] font-semibold">{item.name}</span>
                             </div>
-                            <div className="ml-auto text-[#C19A6B] font-bold text-sm">{formatPrice(item.price, 1)}</div>
+                            <div className="ml-auto text-[#B8860B] font-bold text-sm">{formatPrice(item.price, 1)}</div>
                           </Link>
                         ))}
                       </div>
