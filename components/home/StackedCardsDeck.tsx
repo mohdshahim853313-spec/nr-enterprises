@@ -340,7 +340,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handlePrev}
           aria-label="Previous Rug Card"
-          className="w-9 h-9 rounded-full bg-[#3D0C12] border border-[#52131A] shadow-sm active:bg-[#E8C86A] active:text-[#240609] text-[#FAF5EB] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white/95 border border-[#EAE6DF] shadow-xs active:bg-[#4A1017] active:text-white text-[#1A1715] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           ←
         </button>
@@ -353,7 +353,7 @@ export default function StackedCardsDeck({
               <span
                 key={item.id || i}
                 className={`h-1.5 rounded-full transition-all duration-200 ${
-                  isActive ? "w-5 bg-gradient-to-r from-[#E8C86A] to-[#D4AF37]" : "w-1.5 bg-[#52131A]"
+                  isActive ? "w-5 bg-[#4A1017]" : "w-1.5 bg-[#D8C9C5]"
                 }`}
               />
             );
@@ -363,7 +363,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handleNext}
           aria-label="Next Rug Card"
-          className="w-9 h-9 rounded-full bg-[#3D0C12] border border-[#52131A] shadow-sm active:bg-[#E8C86A] active:text-[#240609] text-[#FAF5EB] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white/95 border border-[#EAE6DF] shadow-xs active:bg-[#4A1017] active:text-white text-[#1A1715] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           →
         </button>
