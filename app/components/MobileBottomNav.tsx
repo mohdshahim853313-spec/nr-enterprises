@@ -129,7 +129,7 @@ export default function MobileBottomNav() {
   return (
     <aside
       aria-label="Mobile Navigation Bar"
-      className={`lg:hidden fixed bottom-3.5 left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] z-[90] bg-[#240609]/95 backdrop-blur-xl border border-[#4A1017] shadow-[0_12px_36px_rgba(42,8,12,0.6)] rounded-none p-1.5 px-3 flex justify-around items-center select-none transition-transform duration-300 ease-in-out ${
+      className={`lg:hidden fixed bottom-3.5 left-1/2 -translate-x-1/2 w-[90%] max-w-[340px] z-[90] bg-[#240609]/95 backdrop-blur-xl border border-[#4A1017] shadow-[0_12px_36px_rgba(42,8,12,0.6)] rounded-full p-1.5 px-3 flex justify-around items-center select-none transition-transform duration-300 ease-in-out ${
         scrollDirection === "down" ? "translate-y-[130px]" : "translate-y-0"
       }`}
     >
@@ -139,7 +139,7 @@ export default function MobileBottomNav() {
             <Link
               key={item.name}
               href={item.href}
-              className={`group relative flex flex-col items-center justify-center flex-1 py-1 px-1 rounded-none transition-all duration-200 cursor-pointer active:scale-95 ${
+              className={`group relative flex flex-col items-center justify-center flex-1 py-1.5 px-1 rounded-full transition-all duration-200 cursor-pointer active:scale-95 ${
                 item.isActive
                   ? "text-[#FAF5EB]"
                   : "text-[#D8C9C5] hover:text-[#FAF5EB]"
@@ -147,7 +147,7 @@ export default function MobileBottomNav() {
             >
               {/* Active ambient glow pill */}
               {item.isActive && (
-                <span className="absolute inset-0 bg-[#4A1017]/40 border border-[#FAF5EB]/30 rounded-none pointer-events-none" />
+                <span className="absolute inset-0 bg-[#4A1017]/60 border border-[#FAF5EB]/25 rounded-full pointer-events-none shadow-xs" />
               )}
 
               <div className="relative flex items-center justify-center mb-0.5 z-10">

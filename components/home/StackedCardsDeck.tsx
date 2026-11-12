@@ -149,7 +149,7 @@ export default function StackedCardsDeck({
   return (
     <div
       ref={containerRef}
-      className="relative w-full flex flex-col items-center select-none py-4"
+      className="relative w-full max-w-full flex flex-col items-center select-none py-4 overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={() => setIsPaused(true)}

@@ -26,11 +26,16 @@ body, p, span, a, input, textarea, select, label, .font-lato, .font-sans {
 }
 
 /* =========================================
-   SCROLL ENGINE PRODUCTION OPTIMIZATIONS
+   SCROLL ENGINE & MOBILE RESPONSIVE OPTIMIZATIONS
+   - Prevents horizontal viewport drift / fisalna
+   - Prevents unwanted mobile zoom
 ========================================= */
 html {
   scroll-behavior: auto !important;
-  touch-action: manipulation;
+  touch-action: pan-y;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -44,15 +49,27 @@ html {
     background-color: #FAF8F5;
     color: #1A1715;
     width: 100%;
-    touch-action: manipulation;
-    overflow-x: clip;
+    max-width: 100vw !important;
+    touch-action: pan-y;
+    overflow-x: hidden !important;
+    position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
   }
 
   ::selection {
     background-color: #4A1017;
     color: #FAF5EB;
+  }
+}
+
+/* 📱 Prevent mobile Safari/Chrome auto-zoom on input focus */
+@media screen and (max-width: 768px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }
 

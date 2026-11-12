@@ -137,12 +137,12 @@ export default function QuickInquireDrawer() {
           />
 
           {/* Inquire Card */}
-          <div className="relative w-full sm:max-w-md bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-2xl z-10 overflow-hidden max-h-[92vh] flex flex-col">
+          <div className="relative w-full sm:max-w-md bg-[#FAF8F5] border border-[#4A1017] rounded-t-3xl sm:rounded-3xl shadow-2xl z-10 overflow-hidden max-h-[92vh] flex flex-col">
             {/* Header */}
             <div className="bg-[#240609] text-[#FAF5EB] p-5 sm:p-6 relative flex items-start justify-between border-b border-[#4A1017]">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-none bg-[#4A1017] text-[#FAF5EB] text-[10px] font-bold uppercase tracking-widest mb-1.5 border border-[#FAF5EB]/30">
-                  <span className="w-1.5 h-1.5 rounded-none bg-[#FAF5EB]"></span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#4A1017] text-[#FAF5EB] text-[10px] font-bold uppercase tracking-widest mb-1.5 border border-[#FAF5EB]/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FAF5EB]"></span>
                   Atelier Concierge Desk
                 </div>
                 <h3 className="font-heading font-bold text-lg sm:text-xl text-[#FAF5EB]">
@@ -237,7 +237,7 @@ export default function QuickInquireDrawer() {
                     <select
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-none bg-white border border-[#4A1017]/25 focus:border-[#4A1017] text-xs sm:text-sm text-[#2B070B] outline-none transition-all cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#4A1017]/25 focus:border-[#4A1017] text-xs sm:text-sm text-[#2B070B] outline-none transition-all cursor-pointer"
                     >
                       <option value="Custom Rug Sizing & Quotes">Custom Rug Sizing & Quotes</option>
                       <option value="Product & Material Inquiry">Product & Material Inquiry</option>
@@ -259,7 +259,7 @@ export default function QuickInquireDrawer() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Tell us about dimensions, specific designs, or any questions..."
-                      className="w-full px-3.5 py-2.5 rounded-none bg-white border border-[#4A1017]/25 focus:border-[#4A1017] text-xs sm:text-sm text-[#2B070B] outline-none transition-all placeholder:text-[#8C7A63] resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#4A1017]/25 focus:border-[#4A1017] text-xs sm:text-sm text-[#2B070B] outline-none transition-all placeholder:text-[#8C7A63] resize-none"
                     />
                   </div>
 
@@ -267,7 +267,7 @@ export default function QuickInquireDrawer() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-none font-heading font-bold text-xs uppercase tracking-wider bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017] transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full py-3.5 px-6 rounded-full font-heading font-bold text-xs uppercase tracking-wider bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017] transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>

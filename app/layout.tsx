@@ -47,6 +47,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -226,7 +227,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <body 
         suppressHydrationWarning
-        className={`${jakarta.variable} ${lato.variable} ${cormorant.variable} ${playfair.variable} font-sans min-h-screen flex flex-col bg-[#F8F9FA] text-[#1F1A17] selection:bg-[#C19A6B] selection:text-white`}
+        className={`${jakarta.variable} ${lato.variable} ${cormorant.variable} ${playfair.variable} font-sans min-h-screen flex flex-col bg-[#FAF8F5] text-[#1A1715] selection:bg-[#4A1017] selection:text-[#FAF5EB]`}
       >
         <Suspense fallback={null}>
           <TopProgressBar />
