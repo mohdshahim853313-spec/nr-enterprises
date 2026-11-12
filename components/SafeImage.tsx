@@ -20,22 +20,19 @@ export default function SafeImage({
   fill,
   ...rest
 }: SafeImageProps) {
-  const isEager = Boolean(rest.priority || rest.loading === "eager");
   const isCached = typeof src === "string" ? loadedUrlsCache.has(src) : false;
 
   const [hasError, setHasError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(() => isEager || isCached);
+  const [isLoaded, setIsLoaded] = useState(() => isCached);
 
   useEffect(() => {
     setHasError(false);
     if (typeof src === "string" && loadedUrlsCache.has(src)) {
       setIsLoaded(true);
-    } else if (isEager) {
-      setIsLoaded(true);
     } else {
       setIsLoaded(false);
     }
-  }, [src, isEager]);
+  }, [src]);
 
   const isValidSrc =
     typeof src === "string"
@@ -48,28 +45,28 @@ export default function SafeImage({
   if (!isValidSrc || hasError) {
     return (
       <div
-        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#3D0C12] via-[#2A080C] to-[#1A0407] border border-[#C5A880]/30 select-none ${className}`}
+        className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#3D0C12] via-[#2A080C] to-[#1A0407] border border-[#4A1017] select-none ${className}`}
         title={alt}
       >
-        {/* Subtle royal gold glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,200,106,0.12),transparent_70%)] pointer-events-none" />
+        {/* Subtle glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(250,245,235,0.06),transparent_70%)] pointer-events-none" />
 
-        {/* NR Enterprises Royal Gold Emblem Placeholder */}
+        {/* NR Enterprises Emblem Placeholder */}
         <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center w-full max-w-[320px]">
           <div className="w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-1 mb-2">
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
-              className="w-full h-full object-contain drop-shadow-[0_4px_20px_rgba(232,200,106,0.5)]"
+              className="w-full h-full object-contain drop-shadow-[0_4px_20px_rgba(74,16,23,0.5)]"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
           </div>
-          <span className="text-xs sm:text-sm font-heading font-bold uppercase tracking-[0.25em] text-[#F3E5AB] drop-shadow-sm">
+          <span className="text-xs sm:text-sm font-heading font-bold uppercase tracking-[0.25em] text-[#FAF5EB] drop-shadow-sm">
             NR Enterprises
           </span>
-          <span className="text-[10px] sm:text-[11.5px] text-[#E8C86A] font-serif italic mt-0.5">
+          <span className="text-[10px] sm:text-[11.5px] text-[#FAF5EB]/80 font-serif italic mt-0.5">
             Bespoke Carpet Atelier • Bhadohi
           </span>
         </div>
@@ -86,20 +83,22 @@ export default function SafeImage({
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
-              className="w-full h-full object-contain opacity-75 drop-shadow-[0_2px_12px_rgba(232,200,106,0.35)]"
+              className="w-full h-full object-contain opacity-75 drop-shadow-[0_2px_12px_rgba(74,16,23,0.35)]"
             />
           </div>
-          <span className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-[0.2em] text-[#E8C86A]/80">
+          <span className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-[0.2em] text-[#FAF5EB]/80">
             NR Enterprises
           </span>
         </div>
       )}
 
-      {/* Main Next.js Image */}
+      {/* Main Next.js Image with Crystal-Clear Full-Definition Support */}
       <Image
         src={src}
         alt={alt}
         fill={fill}
+        quality={rest.quality || 95}
+        unoptimized={Boolean(rest.unoptimized || (typeof src === "string" && (src.includes(".r2.dev") || src.startsWith("/uploads/"))))}
         className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
         onLoad={() => {
           if (typeof src === "string") loadedUrlsCache.add(src);

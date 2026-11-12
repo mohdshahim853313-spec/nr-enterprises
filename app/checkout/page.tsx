@@ -476,7 +476,7 @@ export default function CheckoutPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-[#F5F5F7] pt-40 pb-40 text-center text-[#C19A6B] font-serif text-lg animate-pulse">
+      <div className="min-h-screen bg-[#FAF8F5] pt-40 pb-40 text-center text-[#8C6B38] font-serif text-lg animate-pulse">
         Initializing Checkout Atelier...
       </div>
     );
@@ -484,26 +484,26 @@ export default function CheckoutPage() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-[#F5F5F7] pt-40 pb-32 px-6 flex flex-col items-center justify-center text-center font-sans">
-        <div className="w-20 h-20 bg-[#EAEAEB] rounded-full flex items-center justify-center text-[#C19A6B] mb-6">
+      <div className="min-h-screen bg-[#FAF8F5] pt-40 pb-32 px-6 flex flex-col items-center justify-center text-center font-sans">
+        <div className="w-20 h-20 bg-[#FAF5EB] rounded-none border border-[#4A1017]/30 flex items-center justify-center text-[#8C6B38] mb-6">
           <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
         </div>
-        <h1 className="text-3xl font-serif text-[#3A332C] mb-3">Your Cart is Empty</h1>
-        <p className="text-[#7A7065] text-sm max-w-md mb-8">
+        <h1 className="text-3xl font-serif text-[#2B070B] mb-3">Your Cart is Empty</h1>
+        <p className="text-[#5A4E42] text-sm max-w-md mb-8">
           You need at least one rug in your shopping bag before proceeding to checkout.
         </p>
         <div className="flex gap-4">
           <Link
             href="/collections"
-            className="bg-[#3A332C] text-[#F5F5F7] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#C19A6B] transition-colors rounded-full shadow-sm"
+            className="bg-[#2B070B] text-[#FAF5EB] hover:text-white border border-[#4A1017] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#3D0C12] transition-colors rounded-none shadow-sm"
           >
             Shop Collections
           </Link>
           <Link
             href="/customize"
-            className="border border-[#3A332C] text-[#3A332C] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#3A332C] hover:text-white transition-colors rounded-full"
+            className="border border-[#4A1017]/40 text-[#2B070B] bg-[#FAF5EB] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#2B070B] hover:text-white transition-colors rounded-none"
           >
             Bespoke Studio
           </Link>
@@ -520,23 +520,23 @@ export default function CheckoutPage() {
         strategy="lazyOnload"
       />
 
-      <div className="bg-[#F5F5F7] min-h-screen pt-3 sm:pt-4 pb-16 sm:pb-24 font-sans">
+      <div className="bg-[#FAF8F5] min-h-screen pt-3 sm:pt-4 pb-16 sm:pb-24 font-sans text-[#2B070B]">
         <div className="max-w-[1300px] mx-auto px-1.5 sm:px-6">
           
           {/* TOP BREADCRUMB */}
-          <div className="flex items-center justify-between border-b border-[#DFD8CC] pb-5 mb-6 sm:mb-8">
+          <div className="flex items-center justify-between border-b border-[#4A1017]/15 pb-5 mb-6 sm:mb-8">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#C19A6B] font-bold block mb-1">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8C6B38] font-bold block mb-1">
                 Secure In-House Atelier Checkout
               </span>
-              <h1 className="text-3xl font-serif text-[#3A332C]">Finalize Your Order</h1>
+              <h1 className="text-3xl font-serif text-[#2B070B]">Finalize Your Order</h1>
             </div>
             {!user && (
-              <div className="text-xs text-[#7A7065]">
+              <div className="text-xs text-[#5A4E42]">
                 Already a patron?{" "}
                 <Link
                   href="/login?redirect=/checkout"
-                  className="text-[#C19A6B] font-bold uppercase tracking-wider underline hover:text-[#3A332C]"
+                  className="text-[#8C6B38] font-bold uppercase tracking-wider underline hover:text-[#2B070B]"
                 >
                   Sign In
                 </Link>
@@ -563,9 +563,9 @@ export default function CheckoutPage() {
             <div className="w-full lg:w-7/12 space-y-10">
               
               {/* 1. CONTACT INFO */}
-              <div className="bg-white p-5 sm:p-8 border border-[#EAEAEB] rounded-3xl shadow-sm">
-                <h2 className="text-base uppercase tracking-widest text-[#3A332C] font-bold mb-6 flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-[#3A332C] text-white flex items-center justify-center text-xs">
+              <div className="bg-white p-5 sm:p-8 border border-[#4A1017]/20 rounded-none shadow-sm">
+                <h2 className="text-base uppercase tracking-widest text-[#2B070B] font-bold mb-6 flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-none bg-[#2B070B] text-[#FAF5EB] border border-[#4A1017] flex items-center justify-center text-xs">
                     1
                   </span>
                   Contact Information
@@ -573,7 +573,7 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                       Email Address *
                     </label>
                     <input
@@ -582,15 +582,15 @@ export default function CheckoutPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="patron@example.com"
-                      className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                      className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                     />
-                    <span className="text-[10px] text-[#8C7A63] mt-1 block">
+                    <span className="text-[10px] text-[#5A4E42] mt-1 block">
                       Order confirmation & dispatch tracking will be sent here.
                     </span>
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                       Phone Number *
                     </label>
                     <input
@@ -599,9 +599,9 @@ export default function CheckoutPage() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                      className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                     />
-                    <span className="text-[10px] text-[#8C7A63] mt-1 block">
+                    <span className="text-[10px] text-[#5A4E42] mt-1 block">
                       For courier delivery coordination.
                     </span>
                   </div>
@@ -609,9 +609,9 @@ export default function CheckoutPage() {
               </div>
 
               {/* 2. SHIPPING ADDRESS */}
-              <div className="bg-white p-5 sm:p-8 border border-[#EAEAEB] rounded-3xl shadow-sm">
-                <h2 className="text-base uppercase tracking-widest text-[#3A332C] font-bold mb-6 flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-[#3A332C] text-white flex items-center justify-center text-xs">
+              <div className="bg-white p-5 sm:p-8 border border-[#4A1017]/20 rounded-none shadow-sm">
+                <h2 className="text-base uppercase tracking-widest text-[#2B070B] font-bold mb-6 flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-none bg-[#2B070B] text-[#FAF5EB] border border-[#4A1017] flex items-center justify-center text-xs">
                     2
                   </span>
                   Shipping Address
@@ -620,7 +620,7 @@ export default function CheckoutPage() {
                 <div className="space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                         First Name *
                       </label>
                       <input
@@ -629,11 +629,11 @@ export default function CheckoutPage() {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="Aarav"
-                        className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                        className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                         Last Name *
                       </label>
                       <input
@@ -642,13 +642,13 @@ export default function CheckoutPage() {
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Sharma"
-                        className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                        className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                       Street Address *
                     </label>
                     <input
@@ -657,12 +657,12 @@ export default function CheckoutPage() {
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       placeholder="House / Flat No., Building, Street Name"
-                      className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                      className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                       Apartment, Suite, Landmark (Optional)
                     </label>
                     <input
@@ -670,13 +670,13 @@ export default function CheckoutPage() {
                       value={apartment}
                       onChange={(e) => setApartment(e.target.value)}
                       placeholder="e.g. Near Royal Palms"
-                      className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                      className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                         City *
                       </label>
                       <input
@@ -685,11 +685,11 @@ export default function CheckoutPage() {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder="Mumbai"
-                        className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                        className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                         State / Province
                       </label>
                       <input
@@ -697,11 +697,11 @@ export default function CheckoutPage() {
                         value={stateName}
                         onChange={(e) => setStateName(e.target.value)}
                         placeholder="Maharashtra"
-                        className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                        className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                         PIN / Postal Code *
                       </label>
                       <input
@@ -710,13 +710,13 @@ export default function CheckoutPage() {
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
                         placeholder="400001"
-                        className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                        className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#8C7A63] font-bold mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-[#8C6B38] font-bold mb-1.5">
                       Country / Territory
                     </label>
                     <select
@@ -751,7 +751,7 @@ export default function CheckoutPage() {
                           setCurrency(countryMap[newCountry]);
                         }
                       }}
-                      className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl cursor-pointer"
+                      className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none cursor-pointer"
                     >
                       <option value="Australia">Australia</option>
                       <option value="Canada">Canada</option>
@@ -780,9 +780,9 @@ export default function CheckoutPage() {
               </div>
 
               {/* 3. SHIPPING METHOD */}
-              <div className="bg-white p-5 sm:p-8 border border-[#EAEAEB] rounded-3xl shadow-sm">
-                <h2 className="text-base uppercase tracking-widest text-[#3A332C] font-bold mb-6 flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-[#3A332C] text-white flex items-center justify-center text-xs">
+              <div className="bg-white p-5 sm:p-8 border border-[#4A1017]/20 rounded-none shadow-sm">
+                <h2 className="text-base uppercase tracking-widest text-[#2B070B] font-bold mb-6 flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-none bg-[#2B070B] text-[#FAF5EB] border border-[#4A1017] flex items-center justify-center text-xs">
                     3
                   </span>
                   Delivery Method
@@ -791,10 +791,10 @@ export default function CheckoutPage() {
                 <div className="space-y-3">
                   <label
                     onClick={() => setShippingMethod("standard")}
-                    className={`flex items-center justify-between p-4 border rounded-2xl cursor-pointer transition-all ${
+                    className={`flex items-center justify-between p-4 border rounded-none cursor-pointer transition-all ${
                       shippingMethod === "standard"
-                        ? "border-[#C19A6B] bg-[#F5F5F7]/60 ring-1 ring-[#C19A6B]"
-                        : "border-[#DFD8CC] hover:border-[#C19A6B]"
+                        ? "border-[#4A1017] bg-[#FAF5EB] ring-1 ring-[#4A1017]"
+                        : "border-[#4A1017]/20 hover:border-[#4A1017]"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -803,28 +803,28 @@ export default function CheckoutPage() {
                         name="shipping"
                         checked={shippingMethod === "standard"}
                         onChange={() => setShippingMethod("standard")}
-                        className="text-[#C19A6B]"
+                        className="accent-[#4A1017]"
                       />
                       <div>
-                        <span className="text-sm font-semibold text-[#3A332C] block">
+                        <span className="text-sm font-semibold text-[#2B070B] block">
                           Complimentary Tracked Delivery
                         </span>
-                        <span className="text-xs text-[#7A7065]">
+                        <span className="text-xs text-[#5A4E42]">
                           Dispatched from our Bhadohi loom. 5–8 business days.
                         </span>
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">
                       Free
                     </span>
                   </label>
 
                   <label
                     onClick={() => setShippingMethod("express")}
-                    className={`flex items-center justify-between p-4 border rounded-2xl cursor-pointer transition-all ${
+                    className={`flex items-center justify-between p-4 border rounded-none cursor-pointer transition-all ${
                       shippingMethod === "express"
-                        ? "border-[#C19A6B] bg-[#F5F5F7]/60 ring-1 ring-[#C19A6B]"
-                        : "border-[#DFD8CC] hover:border-[#C19A6B]"
+                        ? "border-[#4A1017] bg-[#FAF5EB] ring-1 ring-[#4A1017]"
+                        : "border-[#4A1017]/20 hover:border-[#4A1017]"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -833,18 +833,18 @@ export default function CheckoutPage() {
                         name="shipping"
                         checked={shippingMethod === "express"}
                         onChange={() => setShippingMethod("express")}
-                        className="text-[#C19A6B]"
+                        className="accent-[#4A1017]"
                       />
                       <div>
-                        <span className="text-sm font-semibold text-[#3A332C] block">
+                        <span className="text-sm font-semibold text-[#2B070B] block">
                           Express Insured Artisan Courier
                         </span>
-                        <span className="text-xs text-[#7A7065]">
+                        <span className="text-xs text-[#5A4E42]">
                           Priority air courier with tailored package handling. 3–5 days.
                         </span>
                       </div>
                     </div>
-                    <span className="text-xs font-semibold text-[#3A332C]">
+                    <span className="text-xs font-semibold text-[#2B070B]">
                       {formatPrice(2000)}
                     </span>
                   </label>
@@ -852,9 +852,9 @@ export default function CheckoutPage() {
               </div>
 
               {/* 4. PAYMENT OPTIONS WITH RAZORPAY & PAYONEER */}
-              <div className="bg-white p-5 sm:p-8 border border-[#EAEAEB] rounded-3xl shadow-sm">
-                <h2 className="text-base uppercase tracking-widest text-[#3A332C] font-bold mb-6 flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-[#3A332C] text-white flex items-center justify-center text-xs">
+              <div className="bg-white p-5 sm:p-8 border border-[#4A1017]/20 rounded-none shadow-sm">
+                <h2 className="text-base uppercase tracking-widest text-[#2B070B] font-bold mb-6 flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-none bg-[#2B070B] text-[#FAF5EB] border border-[#4A1017] flex items-center justify-center text-xs">
                     4
                   </span>
                   Select Payment Method
@@ -864,31 +864,31 @@ export default function CheckoutPage() {
                   {/* Razorpay Option */}
                   <div
                     onClick={() => setPaymentMethod("razorpay")}
-                    className={`p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                    className={`p-5 rounded-none border-2 cursor-pointer transition-all flex flex-col justify-between ${
                       paymentMethod === "razorpay"
-                        ? "border-[#C19A6B] bg-[#FAFAFA] shadow-md ring-1 ring-[#C19A6B]"
-                        : "border-[#DFD8CC] bg-white hover:border-[#C19A6B]/60"
+                        ? "border-[#4A1017] bg-[#FAF5EB] shadow-md ring-1 ring-[#4A1017]"
+                        : "border-[#4A1017]/20 bg-white hover:border-[#4A1017]/60"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-serif text-lg font-bold text-[#3A332C]">Razorpay</span>
-                          <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                          <span className="font-serif text-lg font-bold text-[#2B070B]">Razorpay</span>
+                          <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-none uppercase tracking-wider">
                             Instant Popup
                           </span>
                         </div>
-                        <span className="text-xs text-[#7A7065] block mt-1">
+                        <span className="text-xs text-[#5A4E42] block mt-1">
                           UPI, Cards, NetBanking & Wallets
                         </span>
                       </div>
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        paymentMethod === "razorpay" ? "border-[#C19A6B] bg-[#C19A6B]" : "border-[#DFD8CC]"
+                      <div className={`w-5 h-5 rounded-none border-2 flex items-center justify-center ${
+                        paymentMethod === "razorpay" ? "border-[#4A1017] bg-[#4A1017]" : "border-[#4A1017]/30"
                       }`}>
-                        {paymentMethod === "razorpay" && <div className="w-2 h-2 rounded-full bg-white" />}
+                        {paymentMethod === "razorpay" && <div className="w-2 h-2 rounded-none bg-white" />}
                       </div>
                     </div>
-                    <div className="text-[11px] text-[#8C7A63] border-t border-[#EAEAEB] pt-2 mt-2 flex flex-wrap gap-1.5">
+                    <div className="text-[11px] text-[#8C6B38] border-t border-[#4A1017]/15 pt-2 mt-2 flex flex-wrap gap-1.5">
                       <span className="font-semibold">GPay</span> • 
                       <span className="font-semibold">PhonePe</span> • 
                       <span className="font-semibold">Paytm</span> • 
@@ -899,33 +899,33 @@ export default function CheckoutPage() {
                   {/* Payoneer Option */}
                   <div
                     onClick={() => setPaymentMethod("payoneer")}
-                    className={`p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                    className={`p-5 rounded-none border-2 cursor-pointer transition-all flex flex-col justify-between ${
                       paymentMethod === "payoneer"
-                        ? "border-[#C19A6B] bg-[#FAFAFA] shadow-md ring-1 ring-[#C19A6B]"
-                        : "border-[#DFD8CC] bg-white hover:border-[#C19A6B]/60"
+                        ? "border-[#4A1017] bg-[#FAF5EB] shadow-md ring-1 ring-[#4A1017]"
+                        : "border-[#4A1017]/20 bg-white hover:border-[#4A1017]/60"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-serif text-lg font-bold text-[#3A332C]">Payoneer</span>
-                          <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                          <span className="font-serif text-lg font-bold text-[#2B070B]">Payoneer</span>
+                          <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-none uppercase tracking-wider">
                             Global USD / EUR
                           </span>
                         </div>
-                        <span className="text-xs text-[#7A7065] block mt-1">
+                        <span className="text-xs text-[#5A4E42] block mt-1">
                           International Transfer & Balance
                         </span>
                       </div>
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        paymentMethod === "payoneer" ? "border-[#C19A6B] bg-[#C19A6B]" : "border-[#DFD8CC]"
+                      <div className={`w-5 h-5 rounded-none border-2 flex items-center justify-center ${
+                        paymentMethod === "payoneer" ? "border-[#4A1017] bg-[#4A1017]" : "border-[#4A1017]/30"
                       }`}>
-                        {paymentMethod === "payoneer" && <div className="w-2 h-2 rounded-full bg-white" />}
+                        {paymentMethod === "payoneer" && <div className="w-2 h-2 rounded-none bg-white" />}
                       </div>
                     </div>
-                    <div className="text-[11px] text-[#8C7A63] border-t border-[#EAEAEB] pt-2 mt-2 flex items-center justify-between">
-                      <span>Exact rate: <strong className="text-[#3A332C]">{getForeignAmountString(grandTotalINR)}</strong></span>
-                      <span className="text-[#C19A6B] font-bold">Popup Transfer</span>
+                    <div className="text-[11px] text-[#8C6B38] border-t border-[#4A1017]/15 pt-2 mt-2 flex items-center justify-between">
+                      <span>Exact rate: <strong className="text-[#2B070B]">{getForeignAmountString(grandTotalINR)}</strong></span>
+                      <span className="text-[#8C6B38] font-bold">Popup Transfer</span>
                     </div>
                   </div>
                 </div>
@@ -998,8 +998,8 @@ export default function CheckoutPage() {
               </div>
 
               {/* 5. NOTES */}
-              <div className="bg-white p-5 sm:p-8 border border-[#EAEAEB] rounded-3xl shadow-sm">
-                <label className="block text-xs uppercase tracking-widest text-[#8C7A63] font-bold mb-2">
+              <div className="bg-white p-5 sm:p-8 border border-[#4A1017]/20 rounded-none shadow-sm">
+                <label className="block text-xs uppercase tracking-widest text-[#8C6B38] font-bold mb-2">
                   Special Delivery Notes (Optional)
                 </label>
                 <textarea
@@ -1007,7 +1007,7 @@ export default function CheckoutPage() {
                   value={orderNotes}
                   onChange={(e) => setOrderNotes(e.target.value)}
                   placeholder="Gate code, landmark direction, or preferred delivery timing..."
-                  className="w-full bg-[#F5F5F7] border border-[#DFD8CC] p-3.5 text-sm text-[#3A332C] outline-none focus:border-[#C19A6B] rounded-2xl"
+                  className="w-full bg-[#FAF8F5] border border-[#4A1017]/20 p-3.5 text-sm text-[#2B070B] outline-none focus:border-[#4A1017] rounded-none"
                 />
               </div>
 
@@ -1015,16 +1015,16 @@ export default function CheckoutPage() {
 
             {/* RIGHT: ORDER SUMMARY */}
             <div className="w-full lg:w-5/12">
-              <div className="sticky top-32 bg-white p-5 sm:p-8 border border-[#EAEAEB] shadow-xl rounded-3xl">
-                <h2 className="text-base uppercase tracking-widest text-[#3A332C] font-bold pb-4 border-b border-[#DFD8CC] mb-6">
+              <div className="sticky top-32 bg-white p-5 sm:p-8 border border-[#4A1017]/25 shadow-xl rounded-none">
+                <h2 className="text-base uppercase tracking-widest text-[#2B070B] font-bold pb-4 border-b border-[#4A1017]/15 mb-6">
                   Order Summary ({cartItems.length})
                 </h2>
 
                 {/* Items List */}
-                <div className="divide-y divide-[#EAEAEB] max-h-72 overflow-y-auto custom-scrollbar mb-6 pr-1">
+                <div className="divide-y divide-[#4A1017]/10 max-h-72 overflow-y-auto custom-scrollbar mb-6 pr-1">
                   {cartItems.map((item, idx) => (
                     <div key={idx} className="py-4 first:pt-0 last:pb-0 flex items-center gap-4">
-                      <div className="w-16 h-16 bg-[#FAFAFA] rounded-2xl overflow-hidden relative shrink-0 border border-[#DFD8CC] p-1 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-[#FAF8F5] rounded-none overflow-hidden relative shrink-0 border border-[#4A1017]/20 p-1 flex items-center justify-center">
                         {item.image && (
                           item.image.startsWith("data:") ? (
                             <img
@@ -1045,26 +1045,26 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         {item.isCustom && (
-                          <span className="bg-[#C19A6B] text-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-full inline-block mb-1">
+                          <span className="bg-[#4A1017] text-[#FAF5EB] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-none inline-block mb-1 border border-[#FAF5EB]/40">
                             CUSTOM ORDER
                           </span>
                         )}
-                        <h4 className="text-sm font-serif font-medium text-[#3A332C] truncate">
+                        <h4 className="text-sm font-serif font-medium text-[#2B070B] truncate">
                           {item.name}
                         </h4>
-                        <div className="text-xs text-[#7A7065] mt-0.5 leading-snug">
+                        <div className="text-xs text-[#5A4E42] mt-0.5 leading-snug">
                           <span>Size: {item.size}{item.color ? ` • Color: ${item.color}` : ""}</span>
                         </div>
                         {item.isCustom && item.customDetails && (
-                          <div className="flex items-center gap-1.5 mt-1 text-[10px] text-[#8C7A63]">
+                          <div className="flex items-center gap-1.5 mt-1 text-[10px] text-[#8C6B38]">
                             <span>Fibers:</span>
-                            <span className="w-2.5 h-2.5 rounded-full border border-black/20" style={{ backgroundColor: item.customDetails.brownFiberColor }} title="1st Fiber" />
-                            <span className="w-2.5 h-2.5 rounded-full border border-black/20" style={{ backgroundColor: item.customDetails.whiteFiberColor }} title="2nd Fiber" />
+                            <span className="w-2.5 h-2.5 rounded-none border border-black/20" style={{ backgroundColor: item.customDetails.brownFiberColor }} title="1st Fiber" />
+                            <span className="w-2.5 h-2.5 rounded-none border border-black/20" style={{ backgroundColor: item.customDetails.whiteFiberColor }} title="2nd Fiber" />
                           </div>
                         )}
-                        <div className="text-xs text-[#8C7A63] mt-1">Qty: {item.quantity || 1}</div>
+                        <div className="text-xs text-[#8C6B38] mt-1">Qty: {item.quantity || 1}</div>
                       </div>
-                      <div className="text-sm font-semibold text-[#3A332C] shrink-0">
+                      <div className="text-sm font-semibold text-[#2B070B] shrink-0">
                         {formatPrice(
                           parseFloat((item.price || "0").toString().replace(/[^0-9.]/g, "")) *
                             (item.quantity || 1)
@@ -1075,18 +1075,18 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Price Breakdown */}
-                <div className="space-y-3 pt-4 border-t border-[#DFD8CC] text-sm text-[#7A7065]">
+                <div className="space-y-3 pt-4 border-t border-[#4A1017]/15 text-sm text-[#5A4E42]">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span className="text-[#3A332C] font-semibold">{formatPrice(cartSubtotalINR)}</span>
+                    <span className="text-[#2B070B] font-semibold">{formatPrice(cartSubtotalINR)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
                     <span>
                       {shippingMethod === "express" ? (
-                        <span className="text-[#3A332C] font-semibold">{formatPrice(shippingCostINR)}</span>
+                        <span className="text-[#2B070B] font-semibold">{formatPrice(shippingCostINR)}</span>
                       ) : (
-                        <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">
+                        <span className="text-emerald-700 font-bold uppercase tracking-wider text-xs">
                           Free
                         </span>
                       )}
@@ -1094,16 +1094,16 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between">
                     <span>Estimated Taxes</span>
-                    <span className="text-xs text-[#8C7A63]">Included</span>
+                    <span className="text-xs text-[#8C6B38]">Included</span>
                   </div>
-                  <div className="pt-4 border-t border-[#DFD8CC] flex justify-between items-baseline text-[#3A332C]">
+                  <div className="pt-4 border-t border-[#4A1017]/15 flex justify-between items-baseline text-[#2B070B]">
                     <span className="text-base uppercase tracking-wider font-bold">Total</span>
                     <div className="text-right">
-                      <span className="text-3xl font-serif font-bold text-[#C19A6B] block">
+                      <span className="text-3xl font-serif font-bold text-[#2B070B] block">
                         {formatPrice(grandTotalINR)}
                       </span>
                       {currency !== "INR" && (
-                        <span className="text-[11px] text-[#8C7A63] block mt-0.5">
+                        <span className="text-[11px] text-[#8C6B38] block mt-0.5">
                           (₹{grandTotalINR.toLocaleString("en-IN")} INR)
                         </span>
                       )}
@@ -1111,15 +1111,15 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* Place Order CTA */}
+                {/* Place Order CTA in Royal Maroon */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-8 bg-[#3A332C] text-[#F5F5F7] py-4.5 px-6 text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#C19A6B] transition-colors duration-300 rounded-full shadow-xl disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full mt-8 bg-[#4A1017] hover:bg-[#380C11] text-[#FAF5EB] hover:text-white border border-[#FAF5EB]/40 py-4.5 px-6 text-xs tracking-[0.2em] uppercase font-bold transition-all duration-300 rounded-none shadow-xl disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-none animate-spin" />
                       <span>Processing Atelier Order...</span>
                     </>
                   ) : paymentMethod === "razorpay" ? (
@@ -1132,17 +1132,17 @@ export default function CheckoutPage() {
                 </button>
 
                 {/* Trust Badges */}
-                <div className="mt-8 pt-6 border-t border-[#DFD8CC] space-y-3 text-[11px] text-[#8C7A63]">
+                <div className="mt-8 pt-6 border-t border-[#4A1017]/15 space-y-3 text-[11px] text-[#5A4E42]">
                   <div className="flex items-center gap-2">
-                    <span className="text-[#C19A6B]">✓</span>
+                    <span className="text-[#8C6B38]">✓</span>
                     <span>Direct Loom Delivery from Bhadohi, India</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[#C19A6B]">✓</span>
+                    <span className="text-[#8C6B38]">✓</span>
                     <span>100% Recycled PET • Shed-Resistant Weave</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[#C19A6B]">✓</span>
+                    <span className="text-[#8C6B38]">✓</span>
                     <span>256-Bit SSL Encrypted Seamless Checkout</span>
                   </div>
                 </div>

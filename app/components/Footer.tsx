@@ -18,7 +18,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
     links: [
       { label: "All Collections", href: "/collections" },
       { label: "Hand-Braided Weaves", href: "/collections" },
-      { label: "Bespoke Studio", href: "/customize" },
+      { label: "Our Story", href: "/legacy" },
       { label: "Artisanal Process", href: "/process" },
       { label: "Blogs", href: "/blog" },
     ],
@@ -61,9 +61,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-12 mb-10 md:mb-16 text-left">
           
           {/* Brand & Heritage */}
-          <div className="pb-4 md:pb-0 border-b border-[#C5A880]/20 md:border-b-0">
+          <div className="pb-4 md:pb-0 border-b border-[#4A1017] md:border-b-0">
             <Link href="/" className="inline-flex items-center space-x-3 mb-4 group cursor-pointer">
-              <div className="relative w-10 h-10 shrink-0 drop-shadow-[0_2px_12px_rgba(212,175,55,0.4)]">
+              <div className="relative w-10 h-10 shrink-0 drop-shadow-[0_2px_12px_rgba(250,245,235,0.2)]">
                 <Image
                   src="/nr-logo.png"
                   alt="NR Enterprises Logo"
@@ -73,20 +73,20 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <h4 className="text-2xl sm:text-3xl font-serif tracking-tight font-bold bg-gradient-to-r from-[#FFF5D6] via-[#E8C86A] to-[#D4AF37] bg-clip-text text-transparent">
+              <h4 className="text-2xl sm:text-3xl font-serif tracking-tight font-bold text-white group-hover:text-[#FAF5EB] transition-colors">
                 NR Enterprises
               </h4>
             </Link>
             <p className="text-sm text-[#D8C9C5] leading-relaxed max-w-xs">
-              Bringing the golden touch of Bhadohi&apos;s master craftsmanship directly to your modern living spaces with sustainable fibers.
+              Bringing the authentic touch of Bhadohi&apos;s master craftsmanship directly to your modern living spaces with sustainable fibers.
             </p>
-            <div className="mt-4 text-xs text-[#E8C86A] font-bold tracking-wider uppercase">
+            <div className="mt-4 text-xs text-[#FAF5EB] font-bold tracking-wider uppercase">
               Bhadohi, Uttar Pradesh, India
             </div>
 
             {/* Direct Contact Information (Always Visible, Clear & Prominent) */}
-            <div className="mt-6 pt-5 border-t border-[#C5A880]/20 space-y-3">
-              <div className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#F3E5AB]">
+            <div className="mt-6 pt-5 border-t border-[#4A1017] space-y-3">
+              <div className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#FAF5EB]">
                 Atelier Concierge
               </div>
               <div className="text-sm sm:text-[15px] text-[#FAF5EB] font-medium leading-snug">
@@ -99,30 +99,30 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-[#25D366] transition-colors"
                 >
-                  <span className="font-bold text-[#F3E5AB]">WhatsApp:</span>
+                  <span className="font-bold text-[#FAF5EB]">WhatsApp:</span>
                   <span>+91 8874585277</span>
                 </a>
                 <a
                   href="tel:+918874585277"
-                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-[#F3E5AB] transition-colors"
+                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
-                  <span className="font-bold text-[#F3E5AB]">Phone:</span>
+                  <span className="font-bold text-[#FAF5EB]">Phone:</span>
                   <span>+91 8874585277</span>
                 </a>
                 <a
                   href="mailto:nrenterprises@gmail.com"
-                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-[#F3E5AB] transition-colors"
+                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
-                  <span className="font-bold text-[#F3E5AB]">Email:</span>
+                  <span className="font-bold text-[#FAF5EB]">Email:</span>
                   <span>nrenterprises@gmail.com</span>
                 </a>
                 <a
                   href="https://instagram.com/nrenterprises"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-[#F3E5AB] transition-colors"
+                  className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
-                  <span className="font-bold text-[#F3E5AB]">Instagram:</span>
+                  <span className="font-bold text-[#FAF5EB]">Instagram:</span>
                   <span>@nrenterprises</span>
                 </a>
               </div>
@@ -130,7 +130,7 @@ export default function Footer() {
           </div>
 
           {/* Mobile Accordion Dropdowns (< md) */}
-          <div className="md:hidden flex flex-col divide-y divide-[#C5A880]/20 border-b border-[#C5A880]/20 -mt-2">
+          <div className="md:hidden flex flex-col divide-y divide-[#4A1017] border-b border-[#4A1017] -mt-2">
             {FOOTER_SECTIONS.map((sec) => {
               const isOpen = !!openSections[sec.id];
               return (
@@ -141,12 +141,12 @@ export default function Footer() {
                     className="w-full py-3.5 flex items-center justify-between text-left group"
                     aria-expanded={isOpen}
                   >
-                    <span className="text-[#F3E5AB] font-bold tracking-widest uppercase text-xs">
+                    <span className="text-[#FAF5EB] font-bold tracking-widest uppercase text-xs">
                       {sec.title}
                     </span>
                     <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center bg-[#3D0C12] text-[#F3E5AB] border border-[#C5A880]/30 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 bg-[#C5A880] text-[#240609]" : ""
+                      className={`w-6 h-6 rounded-full flex items-center justify-center bg-[#3D0C12] text-[#FAF5EB] border border-[#4A1017] transition-transform duration-300 ${
+                        isOpen ? "rotate-180 bg-[#4A1017] text-white" : ""
                       }`}
                     >
                       <svg
@@ -171,7 +171,7 @@ export default function Footer() {
                         <Link
                           key={link.label}
                           href={link.href}
-                          className="text-[13.5px] text-[#D8C9C5] hover:text-[#F3E5AB] transition-colors font-medium py-1"
+                          className="text-[13.5px] text-[#D8C9C5] hover:text-white transition-colors font-medium py-1"
                         >
                           {link.label}
                         </Link>
@@ -186,7 +186,7 @@ export default function Footer() {
           {/* Desktop Static Columns (>= md) */}
           {FOOTER_SECTIONS.map((sec) => (
             <div key={sec.id} className="hidden md:flex flex-col space-y-3 text-sm text-[#D8C9C5]">
-              <span className="text-[#F3E5AB] font-bold tracking-widest uppercase mb-2 text-xs">
+              <span className="text-[#FAF5EB] font-bold tracking-widest uppercase mb-2 text-xs">
                 {sec.title}
               </span>
               {sec.links.map((link) => (
@@ -204,18 +204,18 @@ export default function Footer() {
         </div>
 
         {/* Payment Methods & Secure Checkout Bar */}
-        <div className="w-full py-6 border-t border-[#C5A880]/20 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="w-full py-6 border-t border-[#4A1017] flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5 text-xs text-[#D8C9C5]">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#3D0C12] text-[#E8C86A] border border-[#C5A880]/35">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#3D0C12] text-[#FAF5EB] border border-[#4A1017]">
               <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
               </svg>
             </span>
-            <span className="font-bold tracking-wider uppercase text-[11px] text-[#F3E5AB]">
+            <span className="font-bold tracking-wider uppercase text-[11px] text-[#FAF5EB]">
               100% Secure Checkout
             </span>
-            <span className="text-[#C5A880]/50">•</span>
+            <span className="text-[#FAF5EB]/40">•</span>
             <span className="text-[11px] text-[#D8C9C5]">
               Powered by Razorpay &amp; Payoneer
             </span>
@@ -226,11 +226,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright & Heritage Motto */}
-        <div className="w-full pt-6 border-t border-[#C5A880]/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#D8C9C5] text-center md:text-left">
+        <div className="w-full pt-6 border-t border-[#4A1017] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#D8C9C5] text-center md:text-left">
           <div className="font-medium tracking-wide">
             © 2026 NR ENTERPRISES ATELIER. ALL RIGHTS RESERVED.
           </div>
-          <div className="text-[11px] tracking-widest uppercase font-bold text-[#E8C86A]">
+          <div className="text-[11px] tracking-widest uppercase font-bold text-[#FAF5EB]">
             CRAFTED WITH CARE IN BHADOHI, INDIA
           </div>
         </div>

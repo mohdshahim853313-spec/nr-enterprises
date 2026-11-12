@@ -1,320 +1,410 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import SafeImage from "@/components/SafeImage";
-import { legacyContent as defaultLegacyContent } from "@/lib/siteContent/legacy";
 
-interface LegacyClientProps {
-  initialData: any;
+interface StoryProps {
+  initialData?: any;
 }
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
+export default function LegacyClient({ initialData }: StoryProps) {
+  const [activeMediaFilter, setActiveMediaFilter] = useState<"all" | "looms" | "artisan" | "fibers">("all");
+  const [selectedGalleryItem, setSelectedGalleryItem] = useState<any | null>(null);
+
+  // 📖 Chapter Milestones Data (Bhadohi Roots -> Today)
+  const chapters = [
+    {
+      era: "CHAPTER I • 1970s",
+      year: "1972",
+      title: "The Solitary Pit Loom of Bhadohi",
+      tagline: "Where the ancestral rhythm of wool and wooden shuttles began.",
+      story:
+        "In the quiet labyrinthine lanes of Bhadohi, Uttar Pradesh, our grandfather anchored a single wooden pit-loom in the shaded courtyard of our ancestral home. Here, master weaving was never treated as automated commerce—it was sacred prayer. Every skein of hand-spun raw wool was hand-graded by touch, and every knot honored a lineage spanning over four centuries of Mughal court weavers.",
+      quote: "A true carpet is not merely laid upon a floor; it holds the silent patience of hands that refused to hurry.",
+      img: "/uploads/ai_rug_hand_knotted_luxury_v1.webp",
+      badge: "Ancestral Origins",
+      stats: { primary: "1 Loom", secondary: "Pure Hand-Knotted" },
     },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+    {
+      era: "CHAPTER II • 1990s",
+      year: "1994",
+      title: "Mastery of Natural Herbs & Solar Patina",
+      tagline: "The alchemy of sun, river water, and sacred vegetable dyes.",
+      story:
+        "As the atelier expanded, we pioneered traditional herb-infused textile cleansing and sun-curing across open brick terraces. Pure rainwater and organic plant infusions unlocked an iridescent natural luster in long-staple New Zealand wool that synthetic chemical washes could never replicate. International patrons began discovering our private workshop through word of mouth.",
+      quote: "The sun in Bhadohi doesn't merely dry wool; it sets the immortal soul into every fiber.",
+      img: "/uploads/braided_rug_closeup-1790142830679.webp",
+      badge: "Solar Patina Alchemy",
+      stats: { primary: "40+ Looms", secondary: "100% Organic Dyes" },
     },
-  },
-};
+    {
+      era: "CHAPTER III • 2010s",
+      year: "2012",
+      title: "Architectural 3D Shearing & Organic Jute",
+      tagline: "Sculpting tactile landscapes for avant-garde interior spaces.",
+      story:
+        "With architectural minimalism transforming modern homes, our generational weavers mastered tactile 3D relief carving using specialized curved hand-shears. Braided organic golden jute from Bengal and sustainable plant fibers were woven into concentric spirals and organic contours—redefining rugs as sculptural flooring.",
+      quote: "We do not simply make rugs; we sculpt architectural grounding for mindful living.",
+      img: "/uploads/ai_rug_tufted_geometric_relief_v1.webp",
+      badge: "Sculptural Innovation",
+      stats: { primary: "150+ Artisans", secondary: "Hand-Carved Relief" },
+    },
+    {
+      era: "CHAPTER IV • PRESENT DAY",
+      year: "2026",
+      title: "Direct from the Loom to Global Sanctuaries",
+      tagline: "Eliminating the 800% middleman markup with absolute maker transparency.",
+      story:
+        "Today, NR Enterprises brings authentic museum-grade Bhadohi craftsmanship directly to homes worldwide. By cutting out luxury boutiques, distributors, and importer markups, we ensure fair master artisan compensation, certified sustainable rPET and organic fibers, and unmatched bespoke tailoring for your home.",
+      quote: "Direct maker integrity: Honest pricing, fair artisan wages, and carpets built to outlive generations.",
+      img: "https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/modern-luxury-hall-rug-1791629806105.webp",
+      badge: "Maker to Sanctuary",
+      stats: { primary: "400+ Master Looms", secondary: "Zero Middlemen" },
+    },
+  ];
 
-export default function LegacyClient({ initialData }: LegacyClientProps) {
-  const legacyData = initialData;
+  // 🖼️ Interactive Gallery Items
+  const galleryItems = [
+    {
+      category: "looms",
+      title: "Traditional Wooden Pit-Loom",
+      subtitle: "Where generational tension and hand-knotting unfold",
+      img: "/uploads/ai_rug_hand_knotted_luxury_v1.webp",
+      tag: "Heritage Craft",
+    },
+    {
+      category: "artisan",
+      title: "Precision 3D Pile Sculpting",
+      subtitle: "Curved shearing scissors creating high-low relief",
+      img: "/uploads/ai_rug_tufted_geometric_relief_v1.webp",
+      tag: "Artisan Hands",
+    },
+    {
+      category: "fibers",
+      title: "Organic Bengal Golden Jute",
+      subtitle: "Hand-braided sustainable plant cords with organic tensile strength",
+      img: "/uploads/ai_rug_artisan_jute_v1.webp",
+      tag: "Natural Fibers",
+    },
+    {
+      category: "artisan",
+      title: "Solar Patio Textile Curing",
+      subtitle: "Natural courtyard curing under the warm Indian sun",
+      img: "/uploads/braided_rug_closeup-1790142830679.webp",
+      tag: "Ancient Alchemy",
+    },
+    {
+      category: "looms",
+      title: "Reversible Dhurrie Weft Tightening",
+      subtitle: "Heavy wooden combs striking each weft into tight alignment",
+      img: "/uploads/ai_rug_flatweave_dhurrie_v1.webp",
+      tag: "Heritage Weft",
+    },
+    {
+      category: "fibers",
+      title: "Recycled Eco-PET & Pure NZ Wool",
+      subtitle: "Plush, stain-resistant yarns spun for mindful luxury living",
+      img: "/uploads/pet_fiber_yarn_hand-1789701082880.webp",
+      tag: "Conscious Materials",
+    },
+  ];
 
-  const hero = {
-    title:
-      legacyData?.hero?.title &&
-      legacyData?.hero?.title !== "Emerald Premium " &&
-      legacyData?.hero?.title !== "Emerald Premium."
-        ? legacyData.hero.title
-        : defaultLegacyContent.hero.title,
-    subtitle: legacyData?.hero?.subtitle || defaultLegacyContent.hero.subtitle,
-    bgImage:
-      legacyData?.hero?.bgImage &&
-      typeof legacyData.hero.bgImage === "string" &&
-      !legacyData.hero.bgImage.includes("images.unsplash.com/photo-1600166898405")
-        ? legacyData.hero.bgImage
-        : defaultLegacyContent.hero.bgImage,
-    stats: Array.isArray(legacyData?.hero?.stats) && legacyData.hero.stats.length > 0
-      ? legacyData.hero.stats
-      : defaultLegacyContent.hero.stats,
-  };
-
-  const intro = {
-    tag: legacyData?.intro?.tag || defaultLegacyContent.intro.tag,
-    quote: legacyData?.intro?.quote || defaultLegacyContent.intro.quote,
-    description: legacyData?.intro?.description || defaultLegacyContent.intro.description,
-  };
-
-  const craftsmanship = {
-    tag: legacyData?.craftsmanship?.tag || defaultLegacyContent.craftsmanship.tag,
-    title: legacyData?.craftsmanship?.title || defaultLegacyContent.craftsmanship.title,
-    subtitle: legacyData?.craftsmanship?.subtitle || defaultLegacyContent.craftsmanship.subtitle,
-    stages: Array.isArray(legacyData?.craftsmanship?.stages) && legacyData.craftsmanship.stages.length > 0
-      ? legacyData.craftsmanship.stages
-      : defaultLegacyContent.craftsmanship.stages,
-  };
-
-  const disciplines = {
-    tag: legacyData?.disciplines?.tag || defaultLegacyContent.disciplines.tag,
-    title: legacyData?.disciplines?.title || defaultLegacyContent.disciplines.title,
-    subtitle: legacyData?.disciplines?.subtitle || defaultLegacyContent.disciplines.subtitle,
-    items: Array.isArray(legacyData?.disciplines?.items) && legacyData.disciplines.items.length > 0
-      ? legacyData.disciplines.items
-      : defaultLegacyContent.disciplines.items,
-  };
-
-  const promise = {
-    tag: legacyData?.promise?.tag || defaultLegacyContent.promise.tag,
-    title: legacyData?.promise?.title || defaultLegacyContent.promise.title,
-    subtitle: legacyData?.promise?.subtitle || defaultLegacyContent.promise.subtitle,
-    retailPoints: Array.isArray(legacyData?.promise?.retailPoints) && legacyData.promise.retailPoints.length > 0
-      ? legacyData.promise.retailPoints
-      : defaultLegacyContent.promise.retailPoints,
-    nrEnterprisesPoints: Array.isArray(legacyData?.promise?.nrEnterprisesPoints) && legacyData.promise.nrEnterprisesPoints.length > 0
-      ? legacyData.promise.nrEnterprisesPoints
-      : defaultLegacyContent.promise.nrEnterprisesPoints,
-  };
-
-  const bespokeCta = {
-    tag: legacyData?.bespokeCta?.tag || defaultLegacyContent.bespokeCta.tag,
-    title: legacyData?.bespokeCta?.title || defaultLegacyContent.bespokeCta.title,
-    description: legacyData?.bespokeCta?.description || defaultLegacyContent.bespokeCta.description,
-    btnText: legacyData?.bespokeCta?.btnText || defaultLegacyContent.bespokeCta.btnText,
-    btnLink: legacyData?.bespokeCta?.btnLink || defaultLegacyContent.bespokeCta.btnLink,
-    whatsappText: legacyData?.bespokeCta?.whatsappText || defaultLegacyContent.bespokeCta.whatsappText,
-    whatsappNumber: legacyData?.bespokeCta?.whatsappNumber || defaultLegacyContent.bespokeCta.whatsappNumber,
-  };
-
-  const heroBg = hero.bgImage;
+  const filteredGallery = galleryItems.filter((item) =>
+    activeMediaFilter === "all" ? true : item.category === activeMediaFilter
+  );
 
   return (
-    <div className="bg-[#FAF8F5] min-h-screen font-sans text-[#1F1A17] overflow-x-hidden selection:bg-[#C19A6B] selection:text-white">
+    <div className="bg-[#FAF8F5] min-h-screen font-sans text-[#2B070B] overflow-x-hidden selection:bg-[#4A1017] selection:text-[#FAF5EB]">
       {/* =========================================================================
-          🌟 1. CINEMATIC ATELIER HERO (Luminous Warm Editorial)
+          🌟 1. HERO SHOWCASE: THE STORY OF SACRED THREADS
          ========================================================================= */}
-      <section className="relative w-full min-h-[70vh] md:min-h-[78vh] flex items-center justify-center overflow-hidden bg-[#221D1A]">
-        {heroBg && (
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={heroBg}
-              alt={hero.title}
-              fill
-              priority
-              quality={92}
-              sizes="100vw"
-              className="object-cover object-center brightness-[0.92] contrast-[1.02]"
-            />
-            {/* Soft, Balanced Ambient Overlay - No heavy dark shadow */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/55" />
-          </div>
-        )}
+      <section className="relative w-full min-h-[75vh] md:min-h-[82vh] flex items-center justify-center overflow-hidden bg-[#240609] border-b border-[#4A1017]">
+        {/* Background Ambience */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/modern-luxury-hall-rug-1791629806105.webp"
+            alt="NR Enterprises Bhadohi Heritage"
+            fill
+            priority
+            quality={92}
+            sizes="100vw"
+            className="object-cover object-center brightness-[0.78] contrast-[1.05]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#240609]/85 via-[#2B070B]/70 to-[#240609]/95" />
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-16 sm:py-20 flex flex-col items-center"
-        >
-          {/* Majestic Hero Headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-6xl md:text-7xl font-bold font-heading text-white mb-4 tracking-tight leading-[1.06] drop-shadow-md"
+        <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-20 flex flex-col items-center">
+          {/* Warm Ivory Eyebrow Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#350A10]/90 border border-[#FAF5EB]/30 text-[#FAF5EB] text-[10.5px] sm:text-xs font-heading font-bold uppercase tracking-[0.28em] mb-4 shadow-lg backdrop-blur-md"
           >
-            {hero.title}
+            <span>✦</span>
+            <span>FOUR DECADES OF DEVOTION</span>
+            <span>✦</span>
+          </motion.div>
+
+          {/* Grand Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-4xl sm:text-6xl md:text-7xl font-bold font-heading text-white mb-5 tracking-tight leading-[1.08] drop-shadow-lg"
+          >
+            Our Story. <br />
+            <span className="font-serif italic font-normal text-[#FAF5EB]">Born at the Loom.</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            variants={itemVariants}
-            className="text-white/90 font-normal tracking-[0.03em] text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-sm"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-[#FAF5EB]/90 font-normal text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            {hero.subtitle}
+            How a humble pit-loom in Bhadohi evolved into an internationally revered atelier crafting
+            honest, sustainable floor sculptures for the modern world.
           </motion.p>
 
-          {/* Provenance Key Pillars - Clean White & Neutral without yellow */}
+          {/* Key Provenance Metrics */}
           <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 w-full max-w-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-3xl"
           >
-            {hero.stats.map((stat: any, idx: number) => (
+            {[
+              { val: "1972", label: "Founded at the Loom" },
+              { val: "400+", label: "Master Pit Looms" },
+              { val: "100%", label: "Fair Maker Wages" },
+              { val: "Zero", label: "Middlemen Markups" },
+            ].map((stat, idx) => (
               <div
                 key={idx}
-                className="bg-black/35 backdrop-blur-md border border-white/20 rounded-2xl py-3.5 px-3 text-center shadow-sm"
+                className="bg-[#2D080C]/85 backdrop-blur-md border border-[#4A1017] rounded-2xl py-4 px-3 text-center shadow-md hover:border-[#FAF5EB]/40 transition-colors"
               >
-                <span className="block text-base sm:text-xl font-bold font-heading text-white">
-                  {stat.value}
+                <span className="block text-xl sm:text-2xl font-bold font-heading text-[#FAF5EB] mb-0.5">
+                  {stat.val}
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-white/80 uppercase tracking-wider font-medium">
+                <span className="text-[10px] sm:text-[11px] text-[#FAF5EB]/80 uppercase tracking-wider font-semibold block">
                   {stat.label}
                 </span>
               </div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* =========================================================================
-          🌟 2. THE ATELIER MANIFESTO (Warm Editorial Storytelling)
+          🌟 2. THE ATELIER MANIFESTO (Editorial Quote & Philosophy)
          ========================================================================= */}
-      <section className="relative w-full py-14 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          className="text-center"
-        >
-          <span className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.25em] text-[#C19A6B] block mb-3 font-heading">
-            {intro.tag}
+      <section className="relative w-full py-16 sm:py-24 px-4 sm:px-6 max-w-5xl mx-auto">
+        <div className="text-center">
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6B38] block mb-3 font-heading">
+            THE ATELIER PHILOSOPHY
           </span>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-[#1F1A17] mb-6 leading-snug tracking-tight max-w-3xl mx-auto"
-          >
-            &ldquo;{intro.quote}&rdquo;
-          </motion.h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading text-[#2B070B] mb-6 leading-snug tracking-tight max-w-3xl mx-auto">
+            &ldquo;In a world of automated fast-furnishings, we choose the deliberate, unhurried
+            cadence of human hands and natural fibers.&rdquo;
+          </h2>
 
-          <motion.div
-            variants={itemVariants}
-            className="w-16 h-[2px] bg-[#C19A6B] mx-auto mb-6 rounded-full"
-          />
+          <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#4A1017] to-transparent mx-auto mb-8" />
 
-          <motion.p
-            variants={itemVariants}
-            className="text-[#4A4036] text-[15px] sm:text-[17px] leading-[1.85] font-normal max-w-3xl mx-auto whitespace-pre-line text-justify sm:text-center"
-          >
-            {intro.description}
-          </motion.p>
-        </motion.div>
+          <p className="text-[#5A4E42] text-[15px] sm:text-[17px] leading-[1.85] font-normal max-w-3xl mx-auto text-justify sm:text-center">
+            For generations, the weavers of Bhadohi have carried an ancestral intuition for wool tension,
+            fiber elasticity, and sacred geometric rhythm. At NR Enterprises, we reject the industrialization
+            that turns floor textiles into disposable commodities. Every creation begins with virgin fibers,
+            patient hands, and an unyielding commitment to longevity.
+          </p>
+        </div>
       </section>
 
       {/* =========================================================================
-          🌟 3. THE 4 STAGES OF CRAFTSMANSHIP (Step-by-Step Artisanal Journey)
+          🌟 3. CHAPTER TIMELINE: FROM 1972 TO THE MODERN SANCTUARY
          ========================================================================= */}
-      <section className="w-full bg-[#F4EEE6] py-14 sm:py-20 px-4 sm:px-6 md:px-10 border-y border-[#E9E0D4]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-10 sm:mb-14 max-w-4xl mx-auto">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#A87B45] block mb-2 font-heading">
-              {craftsmanship.tag}
+      <section className="w-full bg-[#FAF5EB] py-16 sm:py-24 px-4 sm:px-6 md:px-10 border-y border-[#4A1017]/15">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Heading */}
+          <div className="text-center mb-14 sm:mb-20 max-w-3xl mx-auto">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6B38] block mb-2 font-heading">
+              A GENERATIONAL ODYSSEY
             </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1F1A17] mb-3 tracking-tight">
-              {craftsmanship.title}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#2B070B] mb-3 tracking-tight">
+              Chapters of Our Craft
             </h2>
-            <p className="text-sm sm:text-base text-[#5C5247] leading-relaxed max-w-2xl mx-auto">
-              {craftsmanship.subtitle}
+            <p className="text-sm sm:text-base text-[#5A4E42] leading-relaxed">
+              Trace the evolution of our Bhadohi loom atelier from a humble courtyard pit-loom to a
+              direct-to-patron global movement.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            {craftsmanship.stages.map((item: any, idx: number) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DEC0]/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group"
-              >
-                {/* Visual Step Image */}
-                <div className="relative aspect-4/3 w-full rounded-xl overflow-hidden bg-[#ECE7DE] mb-4">
-                  <SafeImage
-                    src={item.img}
-                    alt={item.title}
-                    fill
-                    quality={85}
-                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
-                  />
-                  <span className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white font-heading font-bold text-[11px] px-2.5 py-1 rounded-full border border-white/10">
-                    STAGE {item.step}
-                  </span>
-                </div>
+          {/* Timeline Vertical Track with Alternating Editorial Cards */}
+          <div className="relative space-y-12 sm:space-y-20">
+            {/* Center Timeline Track (Desktop) */}
+            <div className="hidden md:block absolute left-1/2 top-4 bottom-8 -translate-x-1/2 w-[2px] bg-gradient-to-b from-[#FAF5EB]/40 via-[#4A1017]/50 to-[#FAF5EB]/40" />
 
-                <h3 className="font-heading font-bold text-base sm:text-lg text-[#1F1A17] mb-2 leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-[#5C5247] text-xs sm:text-[13px] leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
+            {chapters.map((chapter, idx) => {
+              const isEven = idx % 2 === 0;
+
+              return (
+                <div
+                  key={idx}
+                  className={`relative flex flex-col md:flex-row items-center gap-8 lg:gap-14 ${
+                    isEven ? "md:flex-row-reverse" : ""
+                  }`}
+                >
+                  {/* Timeline Central Year Marker Pill */}
+                  <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#2B070B] text-[#FAF5EB] border-2 border-[#FAF5EB]/60 items-center justify-center font-heading font-bold text-xs shadow-md">
+                    {chapter.year}
+                  </div>
+
+                  {/* Left / Right 1: Visual Image Card */}
+                  <div className="w-full md:w-1/2">
+                    <div className="group relative aspect-[4/3] rounded-3xl overflow-hidden bg-[#ECE7DE] border border-[#4A1017]/20 shadow-md hover:shadow-xl transition-all duration-500">
+                      <SafeImage
+                        src={chapter.img}
+                        alt={chapter.title}
+                        fill
+                        quality={90}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#240609]/75 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Top Badges */}
+                      <span className="absolute top-4 left-4 bg-[#2B070B]/90 backdrop-blur-md text-[#FAF5EB] border border-[#4A1017] text-[10px] font-heading font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs">
+                        {chapter.badge}
+                      </span>
+
+                      {/* Bottom Metric Pill */}
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-[#FAF5EB] font-heading font-semibold bg-[#240609]/80 backdrop-blur-md px-4 py-2 rounded-2xl border border-[#4A1017]">
+                        <span className="text-[#FAF5EB] font-bold">{chapter.stats.primary}</span>
+                        <span className="text-[#FAF5EB]/80">{chapter.stats.secondary}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Left / Right 2: Editorial Story Text */}
+                  <div className="w-full md:w-1/2 text-left space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-heading font-bold uppercase tracking-[0.2em] text-[#4A1017]">
+                        {chapter.era}
+                      </span>
+                      <span className="md:hidden text-xs bg-[#2B070B] text-[#FAF5EB] px-2 py-0.5 rounded-full font-bold border border-[#4A1017]">
+                        {chapter.year}
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-heading font-bold text-[#2B070B] leading-tight">
+                      {chapter.title}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm font-medium text-[#8C6B38] italic">
+                      {chapter.tagline}
+                    </p>
+
+                    <p className="text-sm sm:text-[15px] text-[#5A4E42] leading-relaxed">
+                      {chapter.story}
+                    </p>
+
+                    {/* Pull Quote Box */}
+                    <div className="p-4 bg-white rounded-2xl border-l-4 border-[#4A1017] shadow-xs text-xs sm:text-[13px] text-[#2B070B] italic font-serif leading-relaxed">
+                      &ldquo;{chapter.quote}&rdquo;
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          🌟 4. THE 4 SACRED LOOM TECHNIQUES (High-End Gallery Grid)
+          🌟 4. THE ATELIER WORKSHOP: INTERACTIVE GALLERY & CRAFT
          ========================================================================= */}
-      <section className="w-full py-14 sm:py-20 px-4 sm:px-6 md:px-10 max-w-[1440px] mx-auto">
-        <div className="text-center mb-10 sm:mb-14 max-w-4xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#C19A6B] block mb-2 font-heading">
-            {disciplines.tag}
+      <section className="w-full py-16 sm:py-24 px-4 sm:px-6 md:px-10 max-w-[1440px] mx-auto">
+        <div className="text-center mb-10 sm:mb-12 max-w-3xl mx-auto">
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#8C6B38] block mb-2 font-heading">
+            BEHIND THE LOOM
           </span>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-heading text-[#1F1A17] mb-3 tracking-tight">
-            {disciplines.title}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#2B070B] mb-3 tracking-tight">
+            The Living Workshop Gallery
           </h2>
-          <p className="text-sm sm:text-base text-[#5C5247] leading-relaxed max-w-2xl mx-auto">
-            {disciplines.subtitle}
+          <p className="text-sm sm:text-base text-[#5A4E42] leading-relaxed">
+            Witness the intricate processes that transform virgin plant and woolen fibers into heirloom floor pieces.
           </p>
+
+          {/* Media Category Filter Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+            {[
+              { id: "all", label: "All Insights" },
+              { id: "looms", label: "Master Looms" },
+              { id: "artisan", label: "Artisan Hands" },
+              { id: "fibers", label: "Sustainable Fibers" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveMediaFilter(tab.id as any)}
+                className={`px-4 py-1.5 rounded-full text-xs font-heading font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                  activeMediaFilter === tab.id
+                    ? "bg-[#2B070B] text-[#FAF5EB] shadow-xs border border-[#4A1017]"
+                    : "bg-white text-[#5A4E42] hover:text-[#2B070B] border border-[#4A1017]/20"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {disciplines.items.map((tech: any, idx: number) => (
+        {/* 6-Item Masonry/Grid Showcase */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {filteredGallery.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: idx * 0.12 }}
-              className="relative group rounded-2xl overflow-hidden h-[390px] sm:h-[420px] lg:h-[450px] bg-[#ECE7DE] border border-[#E5DACB] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35 }}
+              onClick={() => setSelectedGalleryItem(item)}
+              className="group relative h-[320px] sm:h-[360px] rounded-3xl overflow-hidden bg-[#240609] border border-[#4A1017]/25 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
             >
               <SafeImage
-                src={tech.img}
-                alt={tech.title}
+                src={item.img}
+                alt={item.title}
                 fill
                 quality={88}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[0.82]"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out brightness-[0.9]"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/45 to-transparent pointer-events-none" />
+              {/* Dark Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#240609]/95 via-[#240609]/40 to-transparent pointer-events-none" />
 
-              <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-10 flex flex-col justify-end">
-                <span className="inline-block self-start bg-[#C19A6B] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-2.5 shadow-xs">
-                  {tech.badge}
-                </span>
+              {/* Tag Badge */}
+              <span className="absolute top-4 left-4 bg-[#2B070B]/90 backdrop-blur-md text-[#FAF5EB] text-[10px] font-heading font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-[#4A1017]">
+                {item.tag}
+              </span>
 
-                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-2 leading-tight">
-                  {tech.title}
+              {/* Bottom Info */}
+              <div className="absolute bottom-5 left-5 right-5 z-10 flex flex-col justify-end">
+                <h3 className="text-lg sm:text-xl font-heading font-bold text-white mb-1 leading-snug">
+                  {item.title}
                 </h3>
-
-                <p className="text-[#EADCC7] text-xs leading-relaxed mb-3 line-clamp-3">
-                  {tech.desc}
+                <p className="text-[#FAF5EB]/80 text-xs line-clamp-2 mb-2 font-normal">
+                  {item.subtitle}
                 </p>
-
-                <Link
-                  href={tech.link}
-                  className="inline-flex items-center gap-1.5 text-xs font-heading font-bold uppercase tracking-wider text-white hover:text-[#C19A6B] transition-colors pt-1"
-                >
-                  <span>Explore Styles</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
+                <span className="text-[11px] font-heading font-bold text-[#FAF5EB] inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span>View Details</span>
+                  <span>→</span>
+                </span>
               </div>
             </motion.div>
           ))}
@@ -322,62 +412,73 @@ export default function LegacyClient({ initialData }: LegacyClientProps) {
       </section>
 
       {/* =========================================================================
-          🌟 5. DIRECT ATELIER PROMISE (Transparent Maker Luxury)
+          🌟 5. PROVENANCE COMPARISON: DIRECT MAKER VS RETAIL MARKUP
          ========================================================================= */}
-      <section className="w-full bg-[#1F1A17] text-white py-14 sm:py-20 px-4 sm:px-6 md:px-10">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-10 sm:mb-14">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#C19A6B] block mb-2 font-heading">
-              {promise.tag}
+      <section className="w-full bg-[#240609] text-white py-16 sm:py-24 px-4 sm:px-6 md:px-10 border-t border-[#4A1017]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#FAF5EB]/80 block mb-2 font-heading">
+              FAIR PROVENANCE
             </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-heading text-white mb-3 tracking-tight">
-              {promise.title}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-white mb-3 tracking-tight">
+              Direct from the Loom to Your Sanctuary
             </h2>
-            <p className="text-[#D8C4A9] text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-              {promise.subtitle}
+            <p className="text-[#FAF5EB]/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+              Why traditional luxury stores charge 5x to 8x the price, and how NR Enterprises ensures
+              direct maker pricing without compromising master quality.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Traditional Retail */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 backdrop-blur-xs flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Traditional Retail Card */}
+            <div className="bg-[#2D080C]/60 border border-[#4A1017] rounded-3xl p-6 sm:p-8 backdrop-blur-xs flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-2 font-heading">
-                  TRADITIONAL LUXURY RETAIL
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FAF5EB]/60 block mb-2 font-heading">
+                  TRADITIONAL BOUTIQUE MODEL
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-4">
-                  Multiple Middlemen Markups
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-5">
+                  Layered Middlemen Markups
                 </h3>
-                <ul className="space-y-3 text-sm text-[#D8C4A9]">
-                  {promise.retailPoints.map((point: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <span className="text-red-400 font-bold">✕</span>
-                      <span>{point}</span>
+                <ul className="space-y-3.5 text-sm text-[#FAF5EB]/70">
+                  {[
+                    "500% to 800% importer, distributor & boutique retail markup",
+                    "Mass warehouse storage with months of aged inventory",
+                    "Unknown artisan origin and synthetic fiber blending",
+                    "Aggressive sales overhead pass-through to customer",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="text-red-400 font-bold text-base shrink-0">✕</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
-            {/* NR Enterprises Atelier */}
-            <div className="bg-[#C19A6B]/15 border-2 border-[#C19A6B] rounded-2xl p-6 sm:p-8 backdrop-blur-xs flex flex-col justify-between shadow-xl">
+            {/* NR Enterprises Maker Card */}
+            <div className="bg-gradient-to-b from-[#2D080C] via-[#350A10] to-[#240609] border-2 border-[#FAF5EB]/40 rounded-3xl p-6 sm:p-8 backdrop-blur-xs flex flex-col justify-between shadow-2xl relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#C19A6B] font-heading">
-                    THE NR ENTERPRISES PROMISE
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#FAF5EB] font-heading">
+                    THE NR ENTERPRISES ATELIER
                   </span>
-                  <span className="bg-[#C19A6B] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">
+                  <span className="bg-[#4A1017] text-[#FAF5EB] text-[10px] font-bold px-3 py-0.5 rounded-full uppercase border border-[#FAF5EB]/30">
                     100% Direct
                   </span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-4">
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-5">
                   Artisan Maker Transparency
                 </h3>
-                <ul className="space-y-3 text-sm text-white/90">
-                  {(promise.nrEnterprisesPoints || []).map((point: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <span className="text-[#C19A6B] font-bold">✓</span>
-                      <span>{point}</span>
+                <ul className="space-y-3.5 text-sm text-white/95">
+                  {[
+                    "Direct weaver pricing with zero retail markup",
+                    "Handcrafted on-demand in Bhadohi, India with sustainable fibers",
+                    "100% certified fair wages and authentic craft preservation",
+                    "Direct line of communication with our master loom team",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="text-[#FAF5EB] font-bold text-base shrink-0">✓</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -388,40 +489,88 @@ export default function LegacyClient({ initialData }: LegacyClientProps) {
       </section>
 
       {/* =========================================================================
-          🌟 6. BESPOKE COMMISSION CTA (Private Atelier Concierge)
+          🌟 6. ATELIER INQUIRY / CONCIERGE BANNER
          ========================================================================= */}
-      <section className="w-full bg-[#1A1613] py-16 sm:py-24 px-4 sm:px-6 text-center border-t border-white/10">
+      <section className="w-full bg-[#1F0508] py-16 sm:py-24 px-4 sm:px-6 text-center border-t border-[#4A1017]">
         <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <span className="text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#C19A6B] block mb-3">
-            {bespokeCta.tag}
+          <span className="text-[11px] font-heading font-bold uppercase tracking-[0.25em] text-[#FAF5EB]/80 block mb-3">
+            PRIVATE CONCIERGE
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-white mb-4 tracking-tight">
-            {bespokeCta.title}
+            Bring a Sacred Piece to Your Home
           </h2>
-          <p className="text-[#D8C4A9] text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
-            {bespokeCta.description}
+          <p className="text-[#FAF5EB]/80 text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
+            Whether selecting an artisanal creation from our collection or inquiring about loom
+            availability, our Bhadohi atelier concierge is at your service.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
-              href={bespokeCta.btnLink || "/customize"}
-              className="bg-[#C19A6B] hover:bg-white text-white hover:text-[#1F1A17] px-9 py-3.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-lg hover:shadow-2xl cursor-pointer w-full sm:w-auto"
+              href="/collections"
+              className="bg-[#FAF5EB] hover:bg-white text-[#240609] px-9 py-3.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-lg hover:shadow-2xl cursor-pointer w-full sm:w-auto"
             >
-              {bespokeCta.btnText || "Start Custom Sizing"}
+              Explore In-Stock Rugs
             </Link>
 
             <a
-              href={`https://wa.me/${bespokeCta.whatsappNumber || "918874585277"}?text=Hello%20NR Enterprises%20Atelier,%20I%20would%20like%20to%20discuss%20a%20bespoke%20rug%20commission.`}
+              href="https://wa.me/918874585277?text=Hello%20NR%20Enterprises%20Atelier,%20I%20am%20interested%20in%20learning%20more%20about%20your%20story%20and%20handcrafted%20rugs."
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-transparent hover:bg-white/10 text-white border border-white/25 px-8 py-3.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 cursor-pointer w-full sm:w-auto inline-flex items-center justify-center gap-2"
+              className="bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017] px-8 py-3.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 cursor-pointer w-full sm:w-auto inline-flex items-center justify-center gap-2"
             >
-              <span>{bespokeCta.whatsappText || "WhatsApp Concierge"}</span>
+              <span>WhatsApp Concierge</span>
               <span>💬</span>
             </a>
           </div>
         </div>
       </section>
+
+      {/* 🌟 LIGHTBOX MODAL FOR GALLERY ITEM */}
+      <AnimatePresence>
+        {selectedGalleryItem && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm"
+            onClick={() => setSelectedGalleryItem(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-[#240609] border border-[#4A1017] rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl text-white"
+            >
+              <div className="relative aspect-4/3 w-full bg-[#1A0406]">
+                <SafeImage
+                  src={selectedGalleryItem.img}
+                  alt={selectedGalleryItem.title}
+                  fill
+                  quality={95}
+                  sizes="600px"
+                  className="object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => setSelectedGalleryItem(null)}
+                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#2B070B]/90 text-white border border-[#4A1017] flex items-center justify-center cursor-pointer hover:bg-[#FAF5EB] hover:text-[#240609] transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="p-6">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-heading font-bold text-[#FAF5EB] block mb-1">
+                  {selectedGalleryItem.tag}
+                </span>
+                <h3 className="text-xl font-heading font-bold text-white mb-2">
+                  {selectedGalleryItem.title}
+                </h3>
+                <p className="text-sm text-[#FAF5EB]/80 leading-relaxed">
+                  {selectedGalleryItem.subtitle}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

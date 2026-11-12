@@ -222,7 +222,7 @@ export default function StackedCardsDeck({
                 style={{
                   cursor: isFront ? "grab" : "pointer",
                 }}
-                className={`absolute inset-0 w-full h-full rounded-[28px] overflow-hidden bg-[#ECE7DE] border border-white/60 shadow-[0_12px_28px_-6px_rgba(20,15,10,0.32)] origin-bottom transform-gpu will-change-transform ${
+                className={`absolute inset-0 w-full h-full rounded-[28px] md:rounded-none overflow-hidden bg-[#ECE7DE] border border-white/60 shadow-[0_12px_28px_-6px_rgba(20,15,10,0.32)] origin-bottom transform-gpu will-change-transform ${
                   isFront ? "active:cursor-grabbing" : ""
                 }`}
                 onClick={() => {
@@ -263,8 +263,8 @@ export default function StackedCardsDeck({
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
-                      fill={wishlist.includes(card.id) ? "#E8C86A" : "none"}
-                      stroke={wishlist.includes(card.id) ? "#E8C86A" : "currentColor"}
+                      fill={wishlist.includes(card.id) ? "#FAF5EB" : "none"}
+                      stroke={wishlist.includes(card.id) ? "#FAF5EB" : "currentColor"}
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -276,7 +276,7 @@ export default function StackedCardsDeck({
 
                   {/* Top-Left Sharp Royal Maroon Ribbon Badge */}
                   {card.badge && (
-                    <span className="absolute top-4 left-4 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#4A1017] text-[#FAF5EB] border-l-2 border-[#E8C86A] shadow-md pointer-events-none">
+                    <span className="absolute top-4 left-4 text-[9.5px] font-bold uppercase tracking-widest px-2.5 py-0.5 bg-[#4A1017] text-[#FAF5EB] border-l-2 border-[#FAF5EB] shadow-md pointer-events-none">
                       {card.badge}
                     </span>
                   )}
@@ -299,7 +299,7 @@ export default function StackedCardsDeck({
 
                     {/* Star Ratings & Review Count */}
                     <div className="flex items-center gap-1.5 mt-0.5 text-xs text-white/90">
-                      <span className="text-[#FBBF24] text-[12px]">★</span>
+                      <span className="text-[#FAF5EB] text-[12px]">★</span>
                       <span className="font-semibold text-white">5.0</span>
                       <span className="text-white/60 text-[10.5px] font-normal">(120+ reviews)</span>
                     </div>
@@ -340,7 +340,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handlePrev}
           aria-label="Previous Rug Card"
-          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#FAF5EB] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           ←
         </button>
@@ -363,7 +363,7 @@ export default function StackedCardsDeck({
         <button
           onClick={handleNext}
           aria-label="Next Rug Card"
-          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#D4AF37] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
+          className="w-9 h-9 rounded-full bg-white border border-[#EBDCC5] shadow-sm active:bg-[#14110E] active:text-[#FAF5EB] text-[#1F1813] flex items-center justify-center text-xs transition-colors cursor-pointer"
         >
           →
         </button>

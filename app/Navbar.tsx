@@ -145,8 +145,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Collections", href: "/collections" },
-    { name: "Customise Rug", href: "/customize" },
-    { name: "Our Legacy", href: "/legacy" },
+    // { name: "Customise Rug", href: "/customize" },
+    { name: "Our Story", href: "/legacy" },
     { name: "Blogs", href: "/blog" },
     { name: "About Us", href: "/about" },
     { name: "Contact", href: "/contact" },
@@ -385,16 +385,16 @@ export default function Navbar() {
         <div className="w-full bg-[#4A1017] text-[#FAF5EB] text-[11px] sm:text-xs py-1.5 px-4 tracking-wider uppercase flex items-center justify-center text-center relative border-b border-[#380C11] font-medium shadow-xs">
           <div className="w-full md:w-auto font-heading tracking-widest flex items-center justify-center gap-2">
             <span>GET 25% OFF FOR YOUR FIRST ORDER.</span>
-            <Link href="/signup" className="underline font-bold text-[#E8C86A] hover:text-white transition-colors">
+            <Link href="/signup" className="underline font-bold text-white hover:text-[#FAF5EB] transition-colors">
               SIGN UP NOW
             </Link>
           </div>
         </div>
 
-        {/* 🌟 2. ULTRA-CLEAN LUMINOUS FLOATING HEADER (Single-Tier Modern Atelier) */}
+        {/* 🌟 2. ROYAL PERSIAN MAROON HEADER */}
         <header
           ref={headerRef}
-          className="w-full bg-white/95 backdrop-blur-xl border-b border-[#EAE6DF] shadow-xs transition-all duration-300"
+          className="w-full bg-[#2B070B] border-b border-[#4A1017] shadow-md transition-all duration-300 text-white"
         >
           <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] sm:h-[76px] flex items-center justify-between gap-3 lg:gap-6">
             
@@ -402,7 +402,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-2 text-[#1A1715] hover:text-[#8C6D3F] transition-colors rounded-lg border border-[#EAE6DF] hover:border-[#C5A880] bg-white cursor-pointer"
+                className="lg:hidden p-2 text-[#FAF5EB] hover:text-white transition-colors rounded-lg border border-[#4A1017] hover:border-[#FAF5EB] bg-[#3D0C12] cursor-pointer"
                 aria-label="Open Navigation Menu"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -415,7 +415,7 @@ export default function Navbar() {
                 className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer text-left select-none shrink-0"
                 aria-label="NR Enterprises Atelier Home"
               >
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 shrink-0 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-transform group-hover:scale-105 duration-200">
+                <div className="relative w-9 h-9 sm:w-11 sm:h-11 shrink-0 drop-shadow-[0_2px_12px_rgba(232,200,106,0.35)] transition-transform group-hover:scale-105 duration-200">
                   <Image
                     src="/nr-logo.png"
                     alt="NR Enterprises Logo"
@@ -426,10 +426,10 @@ export default function Navbar() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className={`text-lg sm:text-xl lg:text-[22px] tracking-wide font-serif font-bold leading-none text-[#1A1715] group-hover:text-[#8C6D3F] transition-colors ${playfair.className}`}>
+                  <span className={`text-lg sm:text-xl lg:text-[22px] tracking-wide font-serif font-bold leading-none text-white group-hover:text-[#FAF5EB] transition-colors ${playfair.className}`}>
                     NR Enterprises
                   </span>
-                  <span className="hidden sm:block text-[8.5px] uppercase tracking-[0.26em] text-[#8C7A6B] font-sans font-semibold mt-1">
+                  <span className="hidden sm:block text-[8.5px] uppercase tracking-[0.26em] text-[#FAF5EB] font-sans font-semibold mt-1">
                     Bespoke Carpet Atelier
                   </span>
                 </div>
@@ -445,12 +445,12 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     className={`relative py-1.5 transition-colors duration-200 group ${
-                      isActive ? "text-[#1A1715] font-extrabold" : "text-[#5A5046] hover:text-[#1A1715]"
+                      isActive ? "text-white font-extrabold" : "text-[#E6D7D4] hover:text-[#FAF5EB]"
                     }`}
                   >
                     <span>{link.name}</span>
                     <span
-                      className={`absolute left-0 bottom-0 h-[2.5px] bg-[#4A1017] rounded-full transition-all duration-300 ${
+                      className={`absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full transition-all duration-300 ${
                         isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
                       }`}
                     />
@@ -461,23 +461,23 @@ export default function Navbar() {
               {dynamicCurrentPage && (
                 <Link
                   href={dynamicCurrentPage.href}
-                  className="relative py-1.5 transition-colors duration-200 text-[#1A1715] font-extrabold"
+                  className="relative py-1.5 transition-colors duration-200 text-white font-extrabold"
                 >
                   <span>{dynamicCurrentPage.name}</span>
-                  <span className="absolute left-0 bottom-0 h-[2.5px] bg-[#4A1017] rounded-full w-full opacity-100" />
+                  <span className="absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full w-full opacity-100" />
                 </Link>
               )}
             </nav>
 
             {/* Right: Currency Switcher, Search, Wishlist, Cart, Account */}
-            <div className="flex items-center space-x-2 sm:space-x-3 text-[#1A1715] shrink-0">
+            <div className="flex items-center space-x-2 sm:space-x-3 text-white shrink-0">
               
               {/* Admin Dev Pill */}
               {mounted && isLocalhost && (
                 <div className="hidden sm:flex items-center mr-0.5">
                   <Link
                     href="/admin"
-                    className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-[#1A1715] border border-[#EAE6DF] bg-[#F5F2EB] hover:bg-[#1A1715] hover:text-white rounded-full transition-all"
+                    className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-[#FAF5EB] border border-[#FAF5EB]/30 bg-[#3D0C12] hover:bg-[#FAF5EB] hover:text-[#240609] rounded-full transition-all shadow-xs"
                   >
                     Admin
                   </Link>
@@ -488,11 +488,11 @@ export default function Navbar() {
               <div ref={currencyDropdownRef} className="relative hidden sm:block">
                 <button
                   onClick={() => setIsCurrencyDropdownOpen(!isCurrencyDropdownOpen)}
-                  className="flex items-center space-x-1 text-xs font-bold text-[#1A1715] hover:text-[#8C6D3F] transition-colors p-1.5 rounded-lg border border-[#EAE6DF] hover:border-[#C5A880] bg-white shadow-xs"
+                  className="flex items-center space-x-1 text-xs font-bold text-[#FAF5EB] hover:text-white transition-colors p-1.5 rounded-lg border border-[#4A1017] hover:border-[#FAF5EB]/50 bg-[#3D0C12] shadow-xs cursor-pointer"
                   aria-label="Select Currency"
                 >
-                  <span suppressHydrationWarning className="text-[#1A1715]">{selectedCurrency}</span>
-                  <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${isCurrencyDropdownOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span suppressHydrationWarning className="text-[#FAF5EB]">{selectedCurrency}</span>
+                  <svg className={`w-3.5 h-3.5 text-[#FAF5EB] transition-transform duration-200 ${isCurrencyDropdownOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -504,7 +504,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       data-lenis-prevent="true"
-                      className="absolute right-0 top-full mt-2 w-64 max-h-80 overflow-y-auto bg-white border border-[#EAE6DF] shadow-[0_20px_45px_rgba(0,0,0,0.12)] rounded-2xl z-[100] flex flex-col p-1.5 space-y-0.5"
+                      className="absolute right-0 top-full mt-2 w-64 max-h-80 overflow-y-auto bg-[#2B070B] border border-[#4A1017] shadow-[0_20px_45px_rgba(0,0,0,0.5)] rounded-2xl z-[100] flex flex-col p-1.5 space-y-0.5 text-white"
                     >
                       {currencies.map((currency) => {
                         const isSelected = selectedCurrency === currency.code;
@@ -514,11 +514,11 @@ export default function Navbar() {
                             type="button"
                             onClick={() => handleCurrencyChange(currency.code, currency.country)}
                             className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs uppercase tracking-wider text-left transition-all rounded-xl cursor-pointer ${
-                              isSelected ? "text-[#1A1715] font-bold bg-[#F5F2EB]" : "text-[#5A5046] hover:bg-[#FAF8F5] hover:text-[#1A1715]"
+                              isSelected ? "text-white font-bold bg-[#4A1017]" : "text-[#D8C9C5] hover:bg-[#3D0C12] hover:text-white"
                             }`}
                           >
                             <span className="font-semibold">{currency.symbol} - {currency.code}</span>
-                            <span className="text-[11px] text-[#8C7A6B] font-normal normal-case ml-2 truncate">
+                            <span className="text-[11px] text-[#A89895] font-normal normal-case ml-2 truncate">
                               {currency.label}
                             </span>
                           </button>
@@ -535,7 +535,7 @@ export default function Navbar() {
                   setIsSearchOpen(!isSearchOpen);
                   if (isSearchOpen) setSearchQuery("");
                 }}
-                className="p-2 text-[#1A1715] hover:text-[#8C6D3F] transition-colors rounded-lg border border-transparent hover:border-[#EAE6DF] hover:bg-[#FAF8F5] cursor-pointer"
+                className="p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] cursor-pointer"
                 aria-label="Search"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -546,7 +546,7 @@ export default function Navbar() {
               {/* Wishlist */}
               <Link
                 href="/wishlist"
-                className="p-2 text-[#1A1715] hover:text-[#8C6D3F] transition-colors rounded-lg border border-transparent hover:border-[#EAE6DF] hover:bg-[#FAF8F5] relative"
+                className="p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] relative"
                 aria-label="Wishlist"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -557,14 +557,14 @@ export default function Navbar() {
               {/* Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-2 text-[#1A1715] hover:text-[#8C6D3F] transition-colors rounded-lg border border-[#EAE6DF] hover:border-[#C5A880] bg-white relative cursor-pointer shadow-xs"
+                className="p-2 text-[#FAF5EB] hover:text-white transition-colors rounded-lg border border-[#4A1017] hover:border-[#FAF5EB] bg-[#3D0C12] relative cursor-pointer shadow-xs"
                 aria-label="Shopping Cart"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 {cartItems.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#4A1017] text-white text-[9.5px] font-extrabold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
+                  <span className="absolute -top-1 -right-1 bg-[#FAF5EB] text-[#240609] text-[9.5px] font-extrabold w-4 h-4 flex items-center justify-center rounded-full shadow-sm">
                     {cartItems.length}
                   </span>
                 )}
@@ -573,7 +573,7 @@ export default function Navbar() {
               {/* Account Profile Icon (Desktop) */}
               <Link
                 href="/account"
-                className="hidden lg:flex items-center p-2 text-[#1A1715] hover:text-[#8C6D3F] transition-colors rounded-lg border border-transparent hover:border-[#EAE6DF] hover:bg-[#FAF8F5]"
+                className="hidden lg:flex items-center p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017]"
                 aria-label="My Account"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -590,7 +590,7 @@ export default function Navbar() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="absolute top-full left-0 w-full bg-[#2A080C]/98 backdrop-blur-2xl border-b border-[#C5A880]/35 shadow-2xl overflow-hidden z-50 text-white"
+                className="absolute top-full left-0 w-full bg-[#2A080C]/98 backdrop-blur-2xl border-b border-[#4A1017] shadow-2xl overflow-hidden z-50 text-white"
               >
                 <div className="max-w-3xl mx-auto px-6 py-8">
                   <div className="relative">
@@ -601,24 +601,24 @@ export default function Navbar() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search for bespoke carpets, silk weaves, styles..."
                       aria-label="Search for carpets, colors, styles"
-                      className="w-full bg-transparent border-b-2 border-[#E8C86A] text-2xl md:text-3xl font-serif text-[#F3E5AB] placeholder-[#D8C9C5]/50 focus:outline-none pb-3"
+                      className="w-full bg-transparent border-b-2 border-[#FAF5EB]/50 text-2xl md:text-3xl font-serif text-white placeholder-[#D8C9C5]/50 focus:outline-none pb-3 focus:border-[#FAF5EB]"
                     />
                     {isSearching && (
-                      <div className="absolute right-2 bottom-4 w-5 h-5 border-2 border-[#E8C86A] border-t-transparent rounded-full animate-spin" />
+                      <div className="absolute right-2 bottom-4 w-5 h-5 border-2 border-[#FAF5EB] border-t-transparent rounded-full animate-spin" />
                     )}
                   </div>
 
                   <div className="mt-6">
                     {searchQuery.length < 1 ? (
                       <div className="flex flex-wrap items-center gap-3 text-xs text-[#D8C9C5]">
-                        <span className="font-bold uppercase tracking-widest text-[10px] text-[#F3E5AB]">Curated:</span>
-                        <span className="hover:text-[#F3E5AB] cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Hand Tufted")}>Hand Tufted</span>
-                        <span className="text-[#C5A880]/40">•</span>
-                        <span className="hover:text-[#F3E5AB] cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Shaggy")}>Shaggy</span>
-                        <span className="text-[#C5A880]/40">•</span>
-                        <span className="hover:text-[#F3E5AB] cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Jute")}>Jute</span>
-                        <span className="text-[#C5A880]/40">•</span>
-                        <span className="hover:text-[#F3E5AB] cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Irregular")}>Irregular</span>
+                        <span className="font-bold uppercase tracking-widest text-[10px] text-[#FAF5EB]">Curated:</span>
+                        <span className="hover:text-white cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Hand Tufted")}>Hand Tufted</span>
+                        <span className="text-[#FAF5EB]/40">•</span>
+                        <span className="hover:text-white cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Shaggy")}>Shaggy</span>
+                        <span className="text-[#FAF5EB]/40">•</span>
+                        <span className="hover:text-white cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Jute")}>Jute</span>
+                        <span className="text-[#FAF5EB]/40">•</span>
+                        <span className="hover:text-white cursor-pointer font-medium transition-colors" onClick={() => setSearchQuery("Irregular")}>Irregular</span>
                       </div>
                     ) : searchResults.length > 0 ? (
                       <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto pr-2 [scrollbar-width:thin] scrollbar-thumb-[#4A1017]">
@@ -627,18 +627,18 @@ export default function Navbar() {
                             key={item.id}
                             href={`/product/${item.id}`}
                             onClick={() => setIsSearchOpen(false)}
-                            className="flex items-center gap-4 p-3 bg-[#3D0C12] hover:bg-[#4A1017] border border-[#C5A880]/30 hover:border-[#E8C86A] rounded-2xl shadow-xs transition-all"
+                            className="flex items-center gap-4 p-3 bg-[#3D0C12] hover:bg-[#4A1017] border border-[#4A1017] hover:border-[#FAF5EB]/40 rounded-2xl shadow-xs transition-all"
                           >
-                            <div className="w-16 h-16 bg-[#240609] rounded-xl overflow-hidden shrink-0 relative border border-[#C5A880]/30">
+                            <div className="w-16 h-16 bg-[#240609] rounded-xl overflow-hidden shrink-0 relative border border-[#4A1017]">
                               {item.images?.[0] && (
                                 <Image src={item.images[0]} alt={item.name} fill sizes="64px" className="object-cover" />
                               )}
                             </div>
                             <div className="flex flex-col">
-                              <span className="text-[10px] text-[#C5A880] uppercase tracking-widest font-bold">{item.category}</span>
-                              <span className="text-base font-serif text-[#F3E5AB] font-semibold">{item.name}</span>
+                              <span className="text-[10px] text-[#FAF5EB]/70 uppercase tracking-widest font-bold">{item.category}</span>
+                              <span className="text-base font-serif text-[#FAF5EB] font-semibold">{item.name}</span>
                             </div>
-                            <div className="ml-auto text-[#E8C86A] font-bold text-sm">{formatPrice(item.price, 1)}</div>
+                            <div className="ml-auto text-[#FAF5EB] font-bold text-sm">{formatPrice(item.price, 1)}</div>
                           </Link>
                         ))}
                       </div>
@@ -680,13 +680,13 @@ export default function Navbar() {
                     <Image src="/nr-logo.png" alt="NR Enterprises Logo" fill sizes="32px" priority className="object-contain" />
                   </div>
                   <div>
-                    <span className={`text-xl font-serif font-bold bg-gradient-to-r from-[#FFF5D6] via-[#E8C86A] to-[#D4AF37] bg-clip-text text-transparent leading-none ${playfair.className}`}>NR Enterprises</span>
-                    <span className="text-[8.5px] uppercase tracking-[0.25em] text-[#C5A880] font-bold block mt-0.5 font-heading">Bespoke Atelier</span>
+                    <span className={`text-xl font-serif font-bold text-white leading-none ${playfair.className}`}>NR Enterprises</span>
+                    <span className="text-[8.5px] uppercase tracking-[0.25em] text-[#FAF5EB] font-bold block mt-0.5 font-heading">Bespoke Atelier</span>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-8 h-8 rounded-full bg-[#3D0C12] border border-[#C5A880]/35 flex items-center justify-center text-[#F3E5AB] hover:bg-[#E8C86A] hover:text-[#240609] transition-all cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-[#3D0C12] border border-[#4A1017] flex items-center justify-center text-[#FAF5EB] hover:bg-[#FAF5EB] hover:text-[#240609] transition-all cursor-pointer"
                   aria-label="Close menu"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -698,16 +698,16 @@ export default function Navbar() {
               {/* User Profile Card */}
               <div className="p-4 bg-[#2A080C] border-b border-[#4A1017]">
                 {user ? (
-                  <div className="bg-[#350A10] p-3.5 rounded-2xl border border-[#C5A880]/30 shadow-xs">
+                  <div className="bg-[#350A10] p-3.5 rounded-2xl border border-[#4A1017] shadow-xs">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 aspect-square shrink-0 rounded-full bg-[#E8C86A] text-[#240609] flex items-center justify-center font-serif text-lg font-bold uppercase overflow-hidden shadow-xs">
+                      <div className="w-10 h-10 aspect-square shrink-0 rounded-full bg-[#FAF5EB] text-[#240609] flex items-center justify-center font-serif text-lg font-bold uppercase overflow-hidden shadow-xs">
                         {userFullName.charAt(0)}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <span className="text-[8.5px] uppercase tracking-[0.22em] text-[#C5A880] font-bold block truncate font-heading">
+                        <span className="text-[8.5px] uppercase tracking-[0.22em] text-[#FAF5EB]/80 font-bold block truncate font-heading">
                           NR Enterprises Patron
                         </span>
-                        <h3 className="text-sm font-serif text-[#F3E5AB] truncate font-bold leading-tight">{userFullName}</h3>
+                        <h3 className="text-sm font-serif text-white truncate font-bold leading-tight">{userFullName}</h3>
                         <p className="text-[10.5px] text-[#D8C9C5] truncate mt-0.5">
                           {user.email}
                         </p>
@@ -717,7 +717,7 @@ export default function Navbar() {
                       <Link
                         href="/account?tab=profile"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex-1 text-center py-2 text-[10px] uppercase tracking-wider font-bold bg-[#3D0C12] border border-[#C5A880]/35 text-[#F3E5AB] hover:bg-[#E8C86A] hover:text-[#240609] transition-all rounded-xl"
+                        className="flex-1 text-center py-2 text-[10px] uppercase tracking-wider font-bold bg-[#3D0C12] border border-[#4A1017] text-[#FAF5EB] hover:bg-[#FAF5EB] hover:text-[#240609] transition-all rounded-xl"
                       >
                         Profile
                       </Link>
@@ -730,32 +730,32 @@ export default function Navbar() {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-[#350A10] p-3.5 rounded-2xl border border-[#C5A880]/30 shadow-xs">
+                  <div className="bg-[#350A10] p-3.5 rounded-2xl border border-[#4A1017] shadow-xs">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 shrink-0 rounded-full bg-[#3D0C12] border border-[#C5A880]/30 text-[#F3E5AB] flex items-center justify-center">
-                        <svg className="w-5 h-5 text-[#F3E5AB]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-10 h-10 shrink-0 rounded-full bg-[#3D0C12] border border-[#4A1017] text-[#FAF5EB] flex items-center justify-center">
+                        <svg className="w-5 h-5 text-[#FAF5EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.7} d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                         </svg>
                       </div>
                       <div className="min-w-0 flex-1">
-                        <span className="text-[8.5px] uppercase tracking-[0.22em] text-[#C5A880] font-bold block font-heading">
+                        <span className="text-[8.5px] uppercase tracking-[0.22em] text-[#FAF5EB]/80 font-bold block font-heading">
                           Welcome to NR Enterprises
                         </span>
-                        <h3 className="text-sm font-serif text-[#F3E5AB] font-bold truncate">Sign in to Atelier</h3>
+                        <h3 className="text-sm font-serif text-white font-bold truncate">Sign in to Atelier</h3>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Link
                         href="/login"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex-1 text-center py-2.5 text-[10px] uppercase tracking-wider font-bold bg-[#E8C86A] text-[#240609] rounded-xl hover:brightness-110 transition-colors shadow-xs"
+                        className="flex-1 text-center py-2.5 text-[10px] uppercase tracking-wider font-bold bg-[#FAF5EB] text-[#240609] rounded-xl hover:bg-white transition-colors shadow-xs"
                       >
                         Sign In
                       </Link>
                       <Link
                         href="/signup"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex-1 text-center py-2.5 text-[10px] uppercase tracking-wider font-bold bg-[#3D0C12] border border-[#C5A880]/35 text-[#F3E5AB] rounded-xl hover:bg-[#E8C86A] hover:text-[#240609] transition-colors"
+                        className="flex-1 text-center py-2.5 text-[10px] uppercase tracking-wider font-bold bg-[#3D0C12] border border-[#4A1017] text-[#FAF5EB] rounded-xl hover:bg-[#FAF5EB] hover:text-[#240609] transition-colors"
                       >
                         Register
                       </Link>
@@ -765,11 +765,11 @@ export default function Navbar() {
               </div>
 
               {/* Navigation Links & Categories */}
-              <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6 [scrollbar-width:thin] scrollbar-thumb-[#C5A880]/30">
+              <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6 [scrollbar-width:thin] scrollbar-thumb-[#4A1017]">
                 {/* Explore Links */}
                 <div>
                   <div className="flex items-center justify-between mb-2.5 px-1">
-                    <span className="text-[9.5px] uppercase tracking-[0.22em] text-[#E8C86A] font-bold font-heading">
+                    <span className="text-[9.5px] uppercase tracking-[0.22em] text-[#FAF5EB] font-bold font-heading">
                       Explore Atelier
                     </span>
                     <a
@@ -795,15 +795,15 @@ export default function Navbar() {
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`group flex items-center justify-between px-3 py-2.5 rounded-xl font-heading text-[14px] font-semibold transition-all ${
                             isActive
-                              ? "bg-[#3D0C12] text-[#F3E5AB] border-l-2 border-[#E8C86A] shadow-xs font-bold"
-                              : "text-[#D8C9C5] hover:bg-[#350A10] hover:text-[#F3E5AB]"
+                              ? "bg-[#3D0C12] text-white border-l-2 border-[#FAF5EB] shadow-xs font-bold"
+                              : "text-[#D8C9C5] hover:bg-[#350A10] hover:text-[#FAF5EB]"
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#E8C86A]" />}
+                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FAF5EB]" />}
                             <span>{link.name}</span>
                           </div>
-                          <span className={`text-xs transition-transform group-hover:translate-x-0.5 ${isActive ? "text-[#E8C86A]" : "text-[#C5A880]"}`}>
+                          <span className={`text-xs transition-transform group-hover:translate-x-0.5 ${isActive ? "text-[#FAF5EB]" : "text-[#D8C9C5]"}`}>
                             ›
                           </span>
                         </Link>
@@ -814,7 +814,7 @@ export default function Navbar() {
 
                 {/* Categories as Modern Luxury Tag Chips */}
                 <div className="pt-4 border-t border-[#4A1017]">
-                  <span className="text-[9.5px] uppercase tracking-[0.22em] text-[#E8C86A] font-bold font-heading block mb-3 px-1">
+                  <span className="text-[9.5px] uppercase tracking-[0.22em] text-[#FAF5EB] font-bold font-heading block mb-3 px-1">
                     Shop By Category
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -823,9 +823,9 @@ export default function Navbar() {
                         key={cat.name}
                         href={cat.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#350A10] border border-[#C5A880]/30 hover:border-[#E8C86A] text-[#FAF5EB] hover:text-[#F3E5AB] text-xs font-semibold shadow-2xs transition-all cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#350A10] border border-[#4A1017] hover:border-[#FAF5EB]/50 text-[#FAF5EB] hover:text-white text-xs font-semibold shadow-2xs transition-all cursor-pointer"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#E8C86A] shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FAF5EB] shrink-0" />
                         <span className="whitespace-nowrap">{cat.name}</span>
                       </Link>
                     ))}
@@ -834,7 +834,7 @@ export default function Navbar() {
 
                 {/* Currency in Mobile Menu */}
                 <div className="pt-5 border-t border-[#4A1017] pb-4">
-                  <label className="text-[9.5px] uppercase tracking-[0.22em] text-[#E8C86A] font-bold font-heading block mb-2 px-1">
+                  <label className="text-[9.5px] uppercase tracking-[0.22em] text-[#FAF5EB] font-bold font-heading block mb-2 px-1">
                     Regional Currency
                   </label>
                   <div className="relative">
@@ -845,7 +845,7 @@ export default function Navbar() {
                         const found = currencies.find(c => c.code === e.target.value);
                         handleCurrencyChange(e.target.value, found?.country);
                       }}
-                      className="w-full bg-[#350A10] border border-[#C5A880]/35 text-[#F3E5AB] text-xs font-bold py-3 pl-4 pr-10 rounded-xl shadow-xs outline-none focus:border-[#E8C86A] appearance-none cursor-pointer transition-colors"
+                      className="w-full bg-[#350A10] border border-[#4A1017] text-[#FAF5EB] text-xs font-bold py-3 pl-4 pr-10 rounded-xl shadow-xs outline-none focus:border-[#FAF5EB] appearance-none cursor-pointer transition-colors"
                     >
                       {currencies.map((c) => (
                         <option key={c.code} value={c.code} className="bg-[#240609] text-[#FAF5EB]">
@@ -853,7 +853,7 @@ export default function Navbar() {
                         </option>
                       ))}
                     </select>
-                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#E8C86A] text-xs">
+                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#FAF5EB] text-xs">
                       ▾
                     </div>
                   </div>
@@ -864,7 +864,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* 🌟 6. CART DRAWER (Deep Emerald Glass & Radiant Gold Accent) */}
+      {/* 🌟 6. CART DRAWER (Deep Royal Maroon Glass & Ivory Accent) */}
       <AnimatePresence>
         {isCartOpen && (
           <>
@@ -880,15 +880,15 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 right-0 h-full w-full max-w-md bg-[#240609] text-[#FAF5EB] shadow-2xl z-[101] flex flex-col border-l border-[#4A1017] sm:rounded-l-3xl overflow-hidden"
+              className="fixed top-0 right-0 h-full w-full max-w-md bg-[#FAF8F5] text-[#2B070B] shadow-2xl z-[101] flex flex-col border-l border-[#4A1017]/20 sm:rounded-l-3xl overflow-hidden"
             >
-              <div className="px-6 py-5 border-b border-[#4A1017] flex justify-between items-center bg-[#2A080C]">
-                <h2 className="text-xl font-serif text-[#F3E5AB] font-semibold">
-                  Your Atelier Bag <span className="text-[#C5A880] text-sm font-sans font-normal">({cartItems.length})</span>
+              <div className="px-6 py-5 border-b border-[#4A1017]/15 flex justify-between items-center bg-white">
+                <h2 className="text-xl font-serif text-[#2B070B] font-semibold">
+                  Your Atelier Bag <span className="text-[#8C6B38] text-sm font-sans font-normal">({cartItems.length})</span>
                 </h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-[#3D0C12] border border-[#C5A880]/35 text-[#F3E5AB] hover:bg-[#E8C86A] hover:text-[#240609] transition-all cursor-pointer"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-[#FAF5EB] border border-[#4A1017]/20 text-[#2B070B] hover:bg-[#2B070B] hover:text-[#FAF5EB] transition-all cursor-pointer"
                   aria-label="Close Cart"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -897,22 +897,22 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <div className="flex-1 p-6 overflow-y-auto [scrollbar-width:thin] scrollbar-thumb-[#C5A880]/30">
+              <div className="flex-1 p-6 overflow-y-auto [scrollbar-width:thin] scrollbar-thumb-[#4A1017]/30">
                 {cartItems.length === 0 ? (
                   <div className="flex flex-col items-center justify-center text-center h-full">
-                    <div className="w-20 h-20 bg-[#350A10] border border-[#C5A880]/30 rounded-full flex items-center justify-center text-[#F3E5AB] mb-6 shadow-xs">
+                    <div className="w-20 h-20 bg-[#FAF5EB] border border-[#4A1017]/20 rounded-full flex items-center justify-center text-[#2B070B] mb-6 shadow-xs">
                       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-bold font-sans text-[#F3E5AB] mb-2">Your shopping bag is empty</h3>
-                    <p className="text-sm text-[#D8C9C5] mb-8">Discover our handcrafted masterpieces made with heirloom artistry.</p>
+                    <h3 className="text-lg font-bold font-sans text-[#2B070B] mb-2">Your shopping bag is empty</h3>
+                    <p className="text-sm text-[#5A4E42] mb-8">Discover our handcrafted masterpieces made with heirloom artistry.</p>
                     <button
                       onClick={() => {
                         setIsCartOpen(false);
                         router.push("/collections");
                       }}
-                      className="bg-[#E8C86A] hover:brightness-110 text-[#240609] px-8 py-3.5 text-xs tracking-widest uppercase font-bold transition-all rounded-full shadow-md cursor-pointer"
+                      className="bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white px-8 py-3.5 text-xs tracking-widest uppercase font-bold transition-all rounded-full shadow-md cursor-pointer"
                     >
                       Explore Collections
                     </button>
@@ -920,17 +920,17 @@ export default function Navbar() {
                 ) : (
                   <div className="flex flex-col gap-4">
                     {cartItems.map((item, idx) => (
-                      <div key={idx} className="flex gap-4 bg-[#2E080D] p-4 rounded-2xl border border-[#C5A880]/30 shadow-xs relative">
+                      <div key={idx} className="flex gap-4 bg-white p-4 rounded-2xl border border-[#4A1017]/15 shadow-xs relative">
                         <button
                           onClick={() => removeFromCart(idx)}
-                          className="absolute top-2 right-2 text-[#C5A880] hover:text-red-400 transition-colors cursor-pointer"
+                          className="absolute top-2.5 right-2.5 text-[#5A4E42] hover:text-red-600 transition-colors cursor-pointer"
                           aria-label="Remove item"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </button>
-                        <div className="w-20 h-20 bg-[#1F0609] rounded-xl overflow-hidden shrink-0 relative border border-[#C5A880]/30 p-1 flex items-center justify-center">
+                        <div className="w-20 h-20 bg-[#FAF8F5] rounded-xl overflow-hidden shrink-0 relative border border-[#4A1017]/15 p-1 flex items-center justify-center">
                           {item.image &&
                             (item.image.startsWith("data:") ? (
                               <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
@@ -940,17 +940,17 @@ export default function Navbar() {
                         </div>
                         <div className="flex flex-col flex-1 min-w-0">
                           {item.isCustom ? (
-                            <span className="bg-[#E8C86A] text-[#240609] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-full self-start mb-1">
+                            <span className="bg-[#4A1017] text-[#FAF5EB] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-full self-start mb-1">
                               CUSTOM ORDER
                             </span>
                           ) : (
-                            <span className="text-[10px] text-[#C5A880] uppercase tracking-[0.1em] font-bold">{item.category}</span>
+                            <span className="text-[10px] text-[#8C6B38] uppercase tracking-[0.1em] font-bold">{item.category}</span>
                           )}
-                          <span className="text-sm text-[#F3E5AB] font-bold font-sans leading-tight mb-1 truncate">{item.name}</span>
-                          <span className="text-xs text-[#D8C9C5]">Size: {item.size}{item.color ? ` • Color: ${item.color}` : ""}</span>
+                          <span className="text-sm text-[#2B070B] font-bold font-sans leading-tight mb-1 truncate">{item.name}</span>
+                          <span className="text-xs text-[#5A4E42]">Size: {item.size}{item.color ? ` • Color: ${item.color}` : ""}</span>
                           <div className="flex items-center justify-between mt-auto pt-2">
-                            <span className="text-xs text-[#D8C9C5]">Qty: {item.quantity}</span>
-                            <span className="text-sm font-bold text-[#E8C86A]">{formatPrice(item.price, item.quantity)}</span>
+                            <span className="text-xs text-[#8C6B38]">Qty: {item.quantity}</span>
+                            <span className="text-sm font-bold text-[#2B070B]">{formatPrice(item.price, item.quantity)}</span>
                           </div>
                         </div>
                       </div>
@@ -959,19 +959,19 @@ export default function Navbar() {
                 )}
               </div>
 
-              <div className="p-6 bg-[#2A080C] border-t border-[#4A1017]">
-                <div className="flex justify-between mb-2 text-[#F3E5AB] font-bold text-lg font-serif">
+              <div className="p-6 bg-white border-t border-[#4A1017]/15">
+                <div className="flex justify-between mb-2 text-[#2B070B] font-bold text-lg font-serif">
                   <span>Subtotal</span>
-                  <span className="text-[#E8C86A]">{formatPrice(cartSubtotalINR)}</span>
+                  <span className="text-[#2B070B]">{formatPrice(cartSubtotalINR)}</span>
                 </div>
-                <p className="text-xs text-[#D8C9C5]/80 mb-4 text-center">Shipping & taxes calculated at checkout</p>
+                <p className="text-xs text-[#5A4E42] mb-4 text-center">Shipping & taxes calculated at checkout</p>
                 <button
                   disabled={cartItems.length === 0}
                   onClick={() => {
                     setIsCartOpen(false);
                     router.push("/checkout");
                   }}
-                  className="w-full bg-[#E8C86A] hover:brightness-110 text-[#240609] py-4 text-xs tracking-[0.2em] uppercase font-bold transition-all rounded-full disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-[0_4px_20px_rgba(232,200,106,0.35)]"
+                  className="w-full bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white py-4 text-xs tracking-[0.2em] uppercase font-bold transition-all rounded-full disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-md hover:shadow-lg"
                 >
                   Proceed To Checkout
                 </button>

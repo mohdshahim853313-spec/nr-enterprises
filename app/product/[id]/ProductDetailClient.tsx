@@ -54,7 +54,7 @@ export default function ProductDetailClient({
 
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<any>(initialMapped?.variants?.[0] || null);
-  
+
   // 🎨 Linked Color Variants (Etsy / Shopify style with photo preview)
   const activeColorVariants: ColorVariant[] = useMemo(() => {
     return getColorVariants(product);
@@ -128,7 +128,7 @@ export default function ProductDetailClient({
 
     return list;
   }, [product?.color, activeColorVariants]);
-  
+
   const getInitialActiveImg = (prod: any) => {
     if (!prod) return "";
     const cvs = getColorVariants(prod);
@@ -155,12 +155,12 @@ export default function ProductDetailClient({
       }
     }
   };
-  
+
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
-  
+
   // 🔍 Interactive Image Zoom & Pan States
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -258,12 +258,12 @@ export default function ProductDetailClient({
       const { data, error: dbError } = await supabase.from("products").select("*").eq("id", id).maybeSingle();
 
       if (dbError) throw dbError;
-      if (!data) { 
+      if (!data) {
         if (!product) {
-          setError("Product not found."); 
-          setProduct(null); 
+          setError("Product not found.");
+          setProduct(null);
         }
-        return; 
+        return;
       }
 
       let mappedVariants = data.variants;
@@ -271,7 +271,7 @@ export default function ProductDetailClient({
         const fallbackSizes = Array.isArray(data.sizes) && data.sizes.length > 0 ? data.sizes : ["Standard Size"];
         mappedVariants = fallbackSizes.map((sz: string) => ({ size: sz, price: data.price || "0" }));
       }
-      
+
       data.variants = mappedVariants;
 
       let studioImg = data.studio_image || data.variants?.[0]?.studio_image || null;
@@ -288,7 +288,7 @@ export default function ProductDetailClient({
             if (!studioImg && sReg?.data?.[id]) studioImg = sReg.data[id];
             if (!colorVariants && cReg?.data?.[id]) colorVariants = cReg.data[id];
           }
-        } catch {}
+        } catch { }
       }
       data.studio_image = studioImg;
       data.color_variants = colorVariants || [];
@@ -353,13 +353,13 @@ export default function ProductDetailClient({
       } catch {
         // ignore
       }
-    } catch (err: any) { 
+    } catch (err: any) {
       if (!product) {
-        setError("Product not found."); 
-        setProduct(null); 
+        setError("Product not found.");
+        setProduct(null);
       }
-    } finally { 
-      setIsLoading(false); 
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -377,8 +377,8 @@ export default function ProductDetailClient({
     if (!product || !Array.isArray(product.images) || product.images.length <= 1) return;
     const currentIndex = product.images.indexOf(activeImage);
     const total = product.images.length;
-    const nextIndex = direction === "next" 
-      ? (currentIndex + 1) % total 
+    const nextIndex = direction === "next"
+      ? (currentIndex + 1) % total
       : (currentIndex - 1 + total) % total;
     setActiveImage(product.images[nextIndex]);
   };
@@ -546,7 +546,7 @@ export default function ProductDetailClient({
     setTimeout(() => {
       setIsAddingToCart(false);
       setIsInCart(true);
-      window.dispatchEvent(new Event("open_cart")); 
+      window.dispatchEvent(new Event("open_cart"));
     }, 400);
   };
 
@@ -606,18 +606,18 @@ export default function ProductDetailClient({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-[#C19A6B] border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-[#4A1017] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="min-h-[70vh] bg-[#FAFAFA] flex flex-col items-center justify-center px-4 text-center">
-        <h2 className="text-3xl font-heading font-bold text-[#2B2520] mb-3">Product Not Found</h2>
-        <p className="text-[#7A7065] text-base mb-8 max-w-md">The bespoke silhouette or handcrafted carpet you are looking for is currently unavailable or has been archived.</p>
-        <Link href="/collections" className="bg-[#2B2520] hover:bg-[#C19A6B] text-white px-8 py-3.5 text-xs uppercase tracking-widest font-heading font-semibold rounded-full transition-all">
+      <div className="min-h-[70vh] bg-[#FAF8F5] flex flex-col items-center justify-center px-4 text-center">
+        <h2 className="text-3xl font-heading font-bold text-[#2B070B] mb-3">Product Not Found</h2>
+        <p className="text-[#5A4E42] text-base mb-8 max-w-md">The bespoke silhouette or handcrafted carpet you are looking for is currently unavailable or has been archived.</p>
+        <Link href="/collections" className="bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017] px-8 py-3.5 text-xs uppercase tracking-widest font-heading font-semibold rounded-none transition-all">
           Explore All Collections
         </Link>
       </div>
@@ -627,40 +627,39 @@ export default function ProductDetailClient({
   const images = Array.isArray(product.images) && product.images.length > 0 ? product.images : [product.image || ""];
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-[#2B2520] pt-3 sm:pt-3.5 pb-20">
-      
+    <div className="min-h-screen bg-[#FAF8F5] text-[#2B070B] pt-3 sm:pt-3.5 pb-20">
+
       {/* 🧭 Breadcrumb Navigation (Desktop Only - Hidden on Mobile) */}
       <div className="hidden sm:block max-w-7xl mx-auto px-6 lg:px-8 mb-6">
-        <nav className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#7A7065] font-heading font-medium">
-          <Link href="/" className="hover:text-[#2B2520] transition-colors">Home</Link>
+        <nav className="flex items-center space-x-2 text-xs uppercase tracking-widest text-[#8C6B38] font-heading font-medium">
+          <Link href="/" className="hover:text-[#2B070B] transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/collections" className="hover:text-[#2B2520] transition-colors">Collections</Link>
+          <Link href="/collections" className="hover:text-[#2B070B] transition-colors">Collections</Link>
           <span>/</span>
-          <Link href={`/collections?category=${encodeURIComponent(product.category || "")}`} className="hover:text-[#2B2520] transition-colors">
+          <Link href={`/collections?category=${encodeURIComponent(product.category || "")}`} className="hover:text-[#2B070B] transition-colors">
             {product.category || "Carpets"}
           </Link>
           <span>/</span>
-          <span className="text-[#2B2520] font-bold truncate max-w-[200px] sm:max-w-none">{product.name}</span>
+          <span className="text-[#2B070B] font-bold truncate max-w-[200px] sm:max-w-none">{product.name}</span>
         </nav>
       </div>
 
       <div id="product-showcase-section" className="max-w-7xl mx-auto px-[5px] sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
+
           {/* ========================================================================= */}
           {/* 🖼️ LEFT COLUMN: IMAGE SHOWCASE WITH INTERACTIVE ZOOM SLIDER & PAN */}
           {/* ========================================================================= */}
-          <div 
-            id="product-sticky-gallery" 
+          <div
+            id="product-sticky-gallery"
             className="lg:col-span-7 flex flex-col items-center lg:sticky lg:top-32 xl:top-32 self-start"
           >
-            
+
             {/* Primary Big Frame Container */}
-            <div 
+            <div
               ref={containerRef}
-              className={`relative w-full aspect-[3/3.8] sm:aspect-[4/4.2] max-h-[560px] lg:max-h-[580px] bg-[#F7F4EE] rounded-3xl overflow-hidden shadow-sm group select-none border border-[#EAEAEB]/70 transition-colors ${
-                zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
-              }`}
+              className={`relative w-full aspect-[3/3.8] sm:aspect-[4/4.2] max-h-[560px] lg:max-h-[580px] bg-[#F7F4EE] rounded-none overflow-hidden shadow-sm group select-none border border-[#EAEAEB]/70 transition-colors ${zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
+                }`}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -720,38 +719,35 @@ export default function ProductDetailClient({
                 return (
                   <div
                     key={idx}
-                    className={`absolute inset-0 transition-opacity duration-300 will-change-transform ${
-                      imageFit === "contain" ? "p-3 sm:p-5 flex items-center justify-center" : ""
-                    } ${
-                      isCurrent ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                    }`}
+                    className={`absolute inset-0 transition-opacity duration-300 will-change-transform ${imageFit === "contain" ? "p-3 sm:p-5 flex items-center justify-center" : ""
+                      } ${isCurrent ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                      }`}
                     style={{
                       transform: isCurrent ? `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})` : "none",
                       transformOrigin: "center center",
                       transition: isDragging ? "none" : "transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease-out",
                     }}
                   >
-                    <Image 
-                      src={img} 
-                      alt={`${product.name} - View ${idx + 1}`} 
+                    <Image
+                      src={img}
+                      alt={`${product.name} - View ${idx + 1}`}
                       fill
                       priority={idx === 0}
                       loading={idx === 0 ? "eager" : "lazy"}
                       decoding="async"
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1600px"
                       quality={95}
-                      className={`pointer-events-none select-none transition-all duration-300 ${
-                        imageFit === "contain" 
-                          ? "object-contain drop-shadow-sm" 
+                      className={`pointer-events-none select-none transition-all duration-300 ${imageFit === "contain"
+                          ? "object-contain drop-shadow-sm"
                           : "object-cover"
-                      }`} 
+                        }`}
                     />
                   </div>
                 );
               })}
 
               {/* 🔍 BOTTOM-LEFT ZOOM SLIDER (Slimmer & Non-Intrusive) */}
-              <div 
+              <div
                 className="absolute left-2.5 sm:left-5 bottom-2.5 sm:bottom-5 z-20 flex items-center gap-1.5 sm:gap-2 bg-white/80 hover:bg-white text-[#2B2520] backdrop-blur-md px-2.5 py-1 sm:px-3.5 sm:py-2 rounded-full border border-[#EAEAEB] shadow-sm select-none transition-all"
                 onClick={(e) => e.stopPropagation()}
                 onDoubleClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
@@ -853,9 +849,8 @@ export default function ProductDetailClient({
                         setActiveImage(img);
                       }}
                       onDoubleClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
-                      className={`relative w-18 h-18 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shrink-0 transition-all border-2 cursor-pointer select-none ${
-                        isSelected ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/30 scale-105" : "border-transparent opacity-70 hover:opacity-100"
-                      }`}
+                      className={`relative w-18 h-18 sm:w-20 sm:h-20 rounded-none overflow-hidden shrink-0 transition-all border-2 cursor-pointer select-none ${isSelected ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/30 scale-105" : "border-transparent opacity-70 hover:opacity-100"
+                        }`}
                     >
                       <Image
                         src={img}
@@ -875,21 +870,21 @@ export default function ProductDetailClient({
           {/* ========================================================================= */}
           {/* 🏷️ RIGHT COLUMN: PRODUCT DETAILS, SIZING, COMMERCE & ACTIONS */}
           {/* ========================================================================= */}
-          <div 
-            id="product-details-column" 
+          <div
+            id="product-details-column"
             className="lg:col-span-5 flex flex-col justify-start text-left"
           >
-            
+
             {/* Header & Badges */}
             <div className="border-b border-[#EAEAEB] pb-5 mb-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs uppercase tracking-[0.25em] text-[#C19A6B] font-heading font-bold">
                   {product.category || "Handcrafted Heritage"}
                 </span>
-                
+
                 {/* Wishlist & Share Action Buttons */}
                 <div className="flex items-center space-x-2">
-                  <button 
+                  <button
                     onClick={handleShare}
                     className="p-2.5 rounded-full border border-[#EAEAEB] hover:border-[#2B2520] text-[#2B2520] transition-colors relative cursor-pointer"
                     title="Share Masterpiece"
@@ -904,13 +899,12 @@ export default function ProductDetailClient({
                     )}
                   </button>
 
-                  <button 
+                  <button
                     onClick={toggleWishlist}
-                    className={`p-2.5 rounded-full border transition-colors cursor-pointer ${
-                      isWishlisted 
-                        ? "border-[#A63C38] bg-[#A63C38]/5 text-[#A63C38]" 
+                    className={`p-2.5 rounded-full border transition-colors cursor-pointer ${isWishlisted
+                        ? "border-[#A63C38] bg-[#A63C38]/5 text-[#A63C38]"
                         : "border-[#EAEAEB] hover:border-[#2B2520] text-[#2B2520]"
-                    }`}
+                      }`}
                     title={isWishlisted ? "Remove from Private Wishlist" : "Save to Private Wishlist"}
                   >
                     <svg className="w-4 h-4" fill={isWishlisted ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
@@ -929,7 +923,7 @@ export default function ProductDetailClient({
                 <span suppressHydrationWarning className="text-2xl sm:text-3xl font-heading font-bold text-[#2B2520]">
                   {formatPrice(selectedVariant?.price || product.price, 1)}
                 </span>
-                
+
                 {product.original_price && Number(product.original_price) > Number(selectedVariant?.price || product.price) && (
                   <span suppressHydrationWarning className="text-base text-[#7A7065] line-through font-body">
                     {formatPrice(product.original_price, 1)}
@@ -944,7 +938,7 @@ export default function ProductDetailClient({
 
             {/* 📏 Variant / Size, Color & Quantity Selectors (Matching Luxury Dropdown Style with Rounded Corners) */}
             <div ref={dropdownRef} className="space-y-4 mb-6">
-              
+
               {/* 1. Size Dropdown */}
               {product.variants && product.variants.length > 0 && (
                 <div>
@@ -962,14 +956,14 @@ export default function ProductDetailClient({
                           {sizeViewMode === "dropdown" ? "View all sizes grid ⊞" : "Switch to dropdown ▾"}
                         </button>
                       )}
-                      {product.studio_image ? (
+                      {/* {product.studio_image ? (
                         <Link 
                           href={`/customize?product=${product.id}`}
                           className="text-xs text-[#C19A6B] hover:text-[#2B2520] underline transition-colors"
                         >
                           Custom size & colors?
                         </Link>
-                      ) : null}
+                      ) : null} */}
                     </div>
                   </div>
 
@@ -978,15 +972,14 @@ export default function ProductDetailClient({
                       <button
                         type="button"
                         onClick={() => setOpenDropdown(openDropdown === "size" ? null : "size")}
-                        className="w-full flex items-center justify-between bg-[#FAFAF8] border border-[#DFD8CC] hover:border-[#C19A6B] focus:border-[#2B2520] rounded-2xl px-4 py-3.5 text-sm font-medium text-[#2B2520] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                        className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                       >
                         <span className="truncate">
                           {selectedVariant ? `${selectedVariant.size} — ${formatPrice(selectedVariant.price, 1)}` : "Select an option"}
                         </span>
                         <svg
-                          className={`w-4 h-4 text-[#7A7065] transition-transform duration-200 shrink-0 ml-2 ${
-                            openDropdown === "size" ? "rotate-180 text-[#2B2520]" : ""
-                          }`}
+                          className={`w-4 h-4 text-[#8C6B38] transition-transform duration-200 shrink-0 ml-2 ${openDropdown === "size" ? "rotate-180 text-[#2B070B]" : ""
+                            }`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -996,7 +989,7 @@ export default function ProductDetailClient({
                       </button>
 
                       {openDropdown === "size" && (
-                        <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-white border border-[#DFD8CC] rounded-2xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                        <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                           {product.variants.map((v: any, idx: number) => {
                             const isChosen = selectedVariant?.size === v.size;
                             return (
@@ -1007,14 +1000,13 @@ export default function ProductDetailClient({
                                   setSelectedVariant(v);
                                   setOpenDropdown(null);
                                 }}
-                                className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${
-                                  isChosen
-                                    ? "bg-[#2B2520] text-white font-semibold"
-                                    : "text-[#2B2520] hover:bg-[#F6F4F0]"
-                                }`}
+                                className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${isChosen
+                                    ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                                    : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                                  }`}
                               >
                                 <span>{v.size}</span>
-                                <span className={isChosen ? "text-[#E6D7C3] font-medium" : "text-[#7A7065] font-medium"}>
+                                <span className={isChosen ? "text-[#FAF5EB] font-bold" : "text-[#8C6B38] font-medium"}>
                                   {formatPrice(v.price, 1)}
                                 </span>
                               </button>
@@ -1032,16 +1024,15 @@ export default function ProductDetailClient({
                             key={idx}
                             type="button"
                             onClick={() => setSelectedVariant(v)}
-                            className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
-                              isChosen
-                                ? "border-[#2B2520] bg-white shadow-sm ring-1 ring-[#2B2520]"
-                                : "border-[#EAEAEB] bg-white/60 hover:bg-white hover:border-[#C19A6B]"
-                            }`}
+                            className={`p-3 rounded-none border text-left transition-all cursor-pointer ${isChosen
+                                ? "border-[#4A1017] bg-[#FAF5EB] shadow-sm ring-1 ring-[#4A1017]"
+                                : "border-[#4A1017]/20 bg-white/60 hover:bg-white hover:border-[#4A1017]"
+                              }`}
                           >
-                            <div className="font-heading font-bold text-xs sm:text-sm text-[#2B2520]">
+                            <div className="font-heading font-bold text-xs sm:text-sm text-[#2B070B]">
                               {v.size}
                             </div>
-                            <div suppressHydrationWarning className="text-[11px] text-[#7A7065] font-medium mt-0.5">
+                            <div suppressHydrationWarning className="text-[11px] text-[#8C6B38] font-medium mt-0.5">
                               {formatPrice(v.price, 1)}
                             </div>
                           </button>
@@ -1055,11 +1046,11 @@ export default function ProductDetailClient({
               {/* 2. Color Dropdown */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-sm font-heading font-semibold text-[#2B2520]">
+                  <label className="text-sm font-heading font-semibold text-[#2B070B]">
                     Color
                   </label>
                   {selectedColor && (
-                    <span className="text-xs text-[#7A7065] font-medium">
+                    <span className="text-xs text-[#8C6B38] font-medium">
                       {selectedColor}
                     </span>
                   )}
@@ -1069,15 +1060,14 @@ export default function ProductDetailClient({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(openDropdown === "color" ? null : "color")}
-                    className="w-full flex items-center justify-between bg-[#FAFAF8] border border-[#DFD8CC] hover:border-[#C19A6B] focus:border-[#2B2520] rounded-2xl px-4 py-3.5 text-sm font-medium text-[#2B2520] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                   >
                     <span className="truncate">
                       {selectedColor || "Select an option"}
                     </span>
                     <svg
-                      className={`w-4 h-4 text-[#7A7065] transition-transform duration-200 shrink-0 ml-2 ${
-                        openDropdown === "color" ? "rotate-180 text-[#2B2520]" : ""
-                      }`}
+                      className={`w-4 h-4 text-[#8C6B38] transition-transform duration-200 shrink-0 ml-2 ${openDropdown === "color" ? "rotate-180 text-[#2B070B]" : ""
+                        }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1087,7 +1077,7 @@ export default function ProductDetailClient({
                   </button>
 
                   {openDropdown === "color" && (
-                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-white border border-[#DFD8CC] rounded-2xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                       {availableColors.map((col: string, idx: number) => {
                         const isChosen = selectedColor.toLowerCase().trim() === col.toLowerCase().trim();
                         const matched = activeColorVariants.find(
@@ -1101,28 +1091,27 @@ export default function ProductDetailClient({
                               handleColorSelect(col);
                               setOpenDropdown(null);
                             }}
-                            className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${
-                              isChosen
-                                ? "bg-[#2B2520] text-white font-semibold"
-                                : "text-[#2B2520] hover:bg-[#F6F4F0]"
-                            }`}
+                            className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${isChosen
+                                ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                                : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                              }`}
                           >
                             <div className="flex items-center gap-2.5">
                               {matched?.image ? (
                                 <img
                                   src={matched.image}
                                   alt={col}
-                                  className="w-5 h-5 rounded-md object-cover border border-black/10 shrink-0"
+                                  className="w-5 h-5 rounded-none object-cover border border-black/10 shrink-0"
                                 />
                               ) : matched?.hex ? (
                                 <span
-                                  className="w-4 h-4 rounded-full border border-black/20 shrink-0"
+                                  className="w-4 h-4 rounded-none border border-black/20 shrink-0"
                                   style={{ backgroundColor: matched.hex }}
                                 />
                               ) : null}
                               <span>{col}</span>
                             </div>
-                            {isChosen && <span className="text-xs text-[#C19A6B]">✓</span>}
+                            {isChosen && <span className="text-xs text-[#FAF5EB]">✓</span>}
                           </button>
                         );
                       })}
@@ -1133,20 +1122,19 @@ export default function ProductDetailClient({
 
               {/* 3. Quantity Dropdown */}
               <div>
-                <label className="block text-sm font-heading font-semibold text-[#2B2520] mb-1.5">
+                <label className="block text-sm font-heading font-semibold text-[#2B070B] mb-1.5">
                   Quantity
                 </label>
                 <div className="relative">
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(openDropdown === "quantity" ? null : "quantity")}
-                    className="w-full flex items-center justify-between bg-[#FAFAF8] border border-[#DFD8CC] hover:border-[#C19A6B] focus:border-[#2B2520] rounded-2xl px-4 py-3.5 text-sm font-medium text-[#2B2520] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                   >
                     <span>{quantity}</span>
                     <svg
-                      className={`w-4 h-4 text-[#7A7065] transition-transform duration-200 shrink-0 ml-2 ${
-                        openDropdown === "quantity" ? "rotate-180 text-[#2B2520]" : ""
-                      }`}
+                      className={`w-4 h-4 text-[#8C6B38] transition-transform duration-200 shrink-0 ml-2 ${openDropdown === "quantity" ? "rotate-180 text-[#2B070B]" : ""
+                        }`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1156,7 +1144,7 @@ export default function ProductDetailClient({
                   </button>
 
                   {openDropdown === "quantity" && (
-                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-white border border-[#DFD8CC] rounded-2xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
                         const isChosen = quantity === num;
                         return (
@@ -1167,14 +1155,13 @@ export default function ProductDetailClient({
                               setQuantity(num);
                               setOpenDropdown(null);
                             }}
-                            className={`w-full flex items-center justify-between px-4 py-2.5 text-left text-sm transition-colors cursor-pointer ${
-                              isChosen
-                                ? "bg-[#2B2520] text-white font-semibold"
-                                : "text-[#2B2520] hover:bg-[#F6F4F0]"
-                            }`}
+                            className={`w-full flex items-center justify-between px-4 py-2.5 text-left text-sm transition-colors cursor-pointer ${isChosen
+                                ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                                : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                              }`}
                           >
                             <span>{num}</span>
-                            {isChosen && <span className="text-xs text-[#C19A6B]">✓</span>}
+                            {isChosen && <span className="text-xs text-[#FAF5EB]">✓</span>}
                           </button>
                         );
                       })}
@@ -1187,17 +1174,16 @@ export default function ProductDetailClient({
 
             {/* 🔢 Action Buttons */}
             <div className="space-y-3 mb-8">
-              {/* Row 1: Add to Atelier Bag + Customise in Studio side-by-side in one line */}
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+              {/* Row 1: Add to Atelier Bag */}
+              <div className="w-full">
                 <button
                   type="button"
                   onClick={handleAddToCart}
                   disabled={isAddingToCart}
-                  className={`w-full py-4 px-3 sm:px-6 rounded-full font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center text-center ${
-                    isInCart
-                      ? "bg-[#1B7042] hover:bg-[#155A34] text-white"
-                      : "bg-[#2B2520] hover:bg-[#C19A6B] text-white"
-                  }`}
+                  className={`w-full py-4 px-3 sm:px-6 rounded-none font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center text-center ${isInCart
+                      ? "bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] border border-[#4A1017]"
+                      : "bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017]"
+                    }`}
                 >
                   {isAddingToCart ? (
                     <span className="flex items-center justify-center gap-1.5">
@@ -1213,32 +1199,13 @@ export default function ProductDetailClient({
                     </span>
                   )}
                 </button>
-
-                {/* 🎨 Customise in Studio Button or Notice */}
-                {product.studio_image ? (
-                  <Link
-                    href={`/customize?product=${product.id}`}
-                    className="w-full py-4 px-3 sm:px-6 rounded-full font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider border border-[#2B2520] bg-white hover:bg-[#2B2520] text-[#2B2520] hover:text-white transition-all duration-300 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer group text-center"
-                  >
-                    <span className="text-[#C19A6B] group-hover:text-white transition-colors">🎨</span>
-                    <span className="truncate">
-                      <span className="hidden sm:inline">Customise in Studio →</span>
-                      <span className="sm:hidden">Customise →</span>
-                    </span>
-                  </Link>
-                ) : (
-                  <div className="w-full py-4 px-2 sm:px-3 rounded-full bg-[#FAFAFA] border border-[#EAEAEB] text-center text-[10px] sm:text-[11px] text-[#7A7065] flex items-center justify-center gap-1">
-                    <span className="text-[#C19A6B]">ℹ️</span>
-                    <span className="truncate">Custom not available</span>
-                  </div>
-                )}
               </div>
 
               {/* Row 2: Instant Buy It Now Button */}
               <button
                 type="button"
                 onClick={handleBuyItNow}
-                className="w-full py-4 px-6 rounded-full font-heading font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#C19A6B] hover:bg-[#2B2520] text-white transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer"
+                className="w-full py-4 px-6 rounded-none font-heading font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#4A1017] hover:bg-[#380C11] text-[#FAF5EB] hover:text-white border border-[#FAF5EB]/40 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
               >
                 Buy It Now — Direct Checkout
               </button>
@@ -1258,9 +1225,9 @@ export default function ProductDetailClient({
                     );
                   }
                 }}
-                className="w-full py-2.5 px-4 rounded-full font-heading font-medium text-xs text-[#7A7065] hover:text-[#2B2520] hover:bg-[#FAF8F5] border border-dashed border-[#DFD8CC] hover:border-[#C19A6B] flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-none font-heading font-medium text-xs text-[#8C6B38] hover:text-[#2B070B] hover:bg-[#FAF5EB] border border-dashed border-[#4A1017]/30 hover:border-[#4A1017] flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 text-[#C19A6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 text-[#8C6B38]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
                 <span>Have a custom size or question? Quick Inquire with Atelier →</span>
@@ -1268,45 +1235,45 @@ export default function ProductDetailClient({
             </div>
 
             {/* 🛡️ Trust & Artisan Guarantee Badges */}
-            <div className="border-t border-[#EAEAEB] pt-5 pb-2">
-              <div className="grid grid-cols-2 gap-2.5 text-xs text-[#2B2520]">
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-white border border-[#EAEAEB]/80 shadow-2xs">
-                  <div className="w-7 h-7 rounded-full bg-[#C19A6B]/10 text-[#C19A6B] flex items-center justify-center shrink-0 text-xs font-bold">
+            <div className="border-t border-[#4A1017]/15 pt-5 pb-2">
+              <div className="grid grid-cols-2 gap-2.5 text-xs text-[#2B070B]">
+                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🛡️
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B2520]">Authentic Bhadohi</h5>
-                    <p className="text-[10.5px] text-[#7A7065] mt-0.5 leading-snug">Woven by generational master weavers.</p>
+                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B070B]">Authentic Bhadohi</h5>
+                    <p className="text-[10.5px] text-[#5A4E42] mt-0.5 leading-snug">Woven by generational master weavers.</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-white border border-[#EAEAEB]/80 shadow-2xs">
-                  <div className="w-7 h-7 rounded-full bg-[#1B7042]/10 text-[#1B7042] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🚚
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B2520]">Insured Delivery</h5>
-                    <p className="text-[10.5px] text-[#7A7065] mt-0.5 leading-snug">Complimentary doorstep transit.</p>
+                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B070B]">Insured Delivery</h5>
+                    <p className="text-[10.5px] text-[#5A4E42] mt-0.5 leading-snug">Complimentary doorstep transit.</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-white border border-[#EAEAEB]/80 shadow-2xs">
-                  <div className="w-7 h-7 rounded-full bg-[#2B2520]/10 text-[#2B2520] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🔄
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B2520]">7-Day Exchange</h5>
-                    <p className="text-[10.5px] text-[#7A7065] mt-0.5 leading-snug">Hassle-free size or shade change.</p>
+                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B070B]">7-Day Exchange</h5>
+                    <p className="text-[10.5px] text-[#5A4E42] mt-0.5 leading-snug">Hassle-free size or shade change.</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-white border border-[#EAEAEB]/80 shadow-2xs">
-                  <div className="w-7 h-7 rounded-full bg-[#C19A6B]/10 text-[#C19A6B] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🔒
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B2520]">Secure Checkout</h5>
-                    <p className="text-[10.5px] text-[#7A7065] mt-0.5 leading-snug">PCI-DSS encrypted via Razorpay.</p>
+                    <h5 className="font-heading font-bold text-[11px] uppercase tracking-wider text-[#2B070B]">Secure Checkout</h5>
+                    <p className="text-[10.5px] text-[#5A4E42] mt-0.5 leading-snug">PCI-DSS encrypted via Razorpay.</p>
                   </div>
                 </div>
               </div>
@@ -1314,7 +1281,7 @@ export default function ProductDetailClient({
 
             {/* 📜 LUXURY PRODUCT DRAWER & ACCORDION (Right Column) */}
             <div className="border-t border-[#EAEAEB] mt-5 divide-y divide-[#EAEAEB]">
-              
+
               {/* 1. Description & Story (Expanded by default) */}
               {product.description && typeof product.description === "string" && product.description.trim().length > 0 && (
                 <div className="py-4.5">
@@ -1334,7 +1301,7 @@ export default function ProductDetailClient({
                   {openSections.desc && (
                     <div className="pt-3.5 text-[13px] sm:text-[14px] text-[#4A4238] leading-relaxed font-body whitespace-pre-line space-y-3">
                       <p>{product.description.trim()}</p>
-                      
+
                       {/* Features if available */}
                       {Array.isArray(product.features) && product.features.length > 0 && (
                         <div className="pt-2 border-t border-[#F2EDE4] mt-3">
@@ -1518,8 +1485,8 @@ export default function ProductDetailClient({
             {/* Product Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 md:gap-8 gap-y-6 sm:gap-y-10">
               {relatedItems.map((item: any, idx: number) => {
-                const displayImg = Array.isArray(item.images) && item.images.length > 0 
-                  ? item.images[0] 
+                const displayImg = Array.isArray(item.images) && item.images.length > 0
+                  ? item.images[0]
                   : (item.image || "");
                 const itemDiscount = item.original_price && Number(item.original_price) > Number(item.price)
                   ? Math.round(((Number(item.original_price) - Number(item.price)) / Number(item.original_price)) * 100)
@@ -1545,11 +1512,11 @@ export default function ProductDetailClient({
 
                       {/* Top Badges */}
                       {itemDiscount > 0 ? (
-                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-white text-[#2B2520] border border-[#EAEAEB] text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full shadow-xs pointer-events-none z-10">
+                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#1B4D3E] text-white border border-[#26624F] text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm pointer-events-none z-10">
                           -{itemDiscount}%
                         </span>
                       ) : item.badge ? (
-                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#1F1A17]/90 text-[#E5C158] text-[9.5px] sm:text-[10px] font-heading font-bold tracking-wider px-2.5 py-0.5 rounded-full shadow-xs border border-white/20 backdrop-blur-xs pointer-events-none z-10">
+                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-white/95 text-[#2B070B] text-[9.5px] sm:text-[10px] font-heading font-bold tracking-wider px-2.5 py-0.5 rounded-md shadow-sm border border-[#4A1017]/20 pointer-events-none z-10">
                           {item.badge}
                         </span>
                       ) : null}
@@ -1560,7 +1527,7 @@ export default function ProductDetailClient({
                         prefetch={true}
                         className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden sm:block"
                       >
-                        <span className="w-full block text-center bg-white/95 hover:bg-white text-[#2B2520] hover:text-[#C19A6B] py-2.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-lg border border-[#EAEAEB] backdrop-blur-md">
+                        <span className="w-full block text-center bg-white hover:bg-[#FAF5EB] text-[#2B070B] hover:text-[#4A1017] py-2.5 rounded-md text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-xl border border-black/10 backdrop-blur-md">
                           View Details →
                         </span>
                       </Link>

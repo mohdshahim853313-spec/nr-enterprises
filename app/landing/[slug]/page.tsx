@@ -282,7 +282,7 @@ export default function DynamicLandingPage({ params }: { params: Promise<{ slug:
                   className="bg-[#FAFAFA] p-6 sm:p-8 rounded-2xl border border-[#DCD0C0] shadow-sm flex flex-col justify-between"
                 >
                   <div>
-                    <div className="text-amber-500 text-sm mb-3">
+                    <div className="text-[#4A1017] text-sm mb-3">
                       {"★".repeat(testi.rating)}
                     </div>
                     <p className="font-serif text-sm sm:text-base text-[#3D3732] italic leading-relaxed mb-6">

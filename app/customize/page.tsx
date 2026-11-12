@@ -478,11 +478,11 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
   if (!product) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-140px)] bg-[#FAF8F5] px-6 text-center py-12">
-        <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#2B2520] mb-3">No Customizable Rug Found</h2>
-        <p className="text-[#7A7065] font-body mb-8 max-w-md text-sm">Please browse our collection atelier to pick an artisanal silhouette.</p>
+        <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#2B070B] mb-3">No Customizable Rug Found</h2>
+        <p className="text-[#5A4E42] font-body mb-8 max-w-md text-sm">Please browse our collection atelier to pick an artisanal silhouette.</p>
         <Link
           href="/collections"
-          className="border border-[#2B2520] text-[#2B2520] px-8 py-3.5 text-xs tracking-widest uppercase hover:bg-[#2B2520] hover:text-white transition rounded-full font-heading font-semibold shadow-xs"
+          className="border border-[#4A1017] text-[#FAF5EB] bg-[#2B070B] hover:bg-[#3D0C12] hover:text-white px-8 py-3.5 text-xs tracking-widest uppercase transition rounded-none font-heading font-semibold shadow-xs"
         >
           Explore Collections
         </Link>
@@ -491,30 +491,30 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
   }
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen pt-2 pb-14 font-sans text-[#2B2520]">
+    <div className="bg-[#FAF8F5] min-h-screen pt-2 pb-14 font-sans text-[#2B070B]">
       {/* COMPACT ATELIER STUDIO HEADER */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 mb-3 sm:mb-4 pb-2 sm:pb-2.5 border-b border-[#EAEAEB] flex flex-wrap items-center justify-between gap-2.5">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 mb-3 sm:mb-4 pb-2 sm:pb-2.5 border-b border-[#4A1017]/20 flex flex-wrap items-center justify-between gap-2.5">
         <div className="min-w-0 flex-1">
           {/* Breadcrumb line */}
           <div className="flex items-center gap-2 text-[10px] sm:text-[11px] mb-0.5">
             <button
               onClick={() => router.back()}
-              className="uppercase tracking-wider text-[#7A7065] hover:text-[#C19A6B] inline-flex items-center gap-1 transition-colors cursor-pointer font-heading font-semibold"
+              className="uppercase tracking-wider text-[#5A4E42] hover:text-[#8C6B38] inline-flex items-center gap-1 transition-colors cursor-pointer font-heading font-semibold"
             >
               ← Back to Atelier
             </button>
-            <span className="text-[#D0C7B8]">•</span>
-            <span className="uppercase tracking-[0.2em] text-[#C19A6B] font-heading font-bold">
+            <span className="text-[#4A1017]/30">•</span>
+            <span className="uppercase tracking-[0.2em] text-[#8C6B38] font-heading font-bold">
               Bespoke Studio
             </span>
-            <span className="text-[#D0C7B8]">•</span>
-            <span className="bg-[#C19A6B]/15 text-[#C19A6B] px-2 py-0.5 rounded-full font-heading font-semibold uppercase tracking-wider text-[9px]">
+            <span className="text-[#4A1017]/30">•</span>
+            <span className="bg-[#4A1017]/10 text-[#2B070B] border border-[#4A1017]/20 px-2 py-0.5 rounded-none font-heading font-semibold uppercase tracking-wider text-[9px]">
               {product?.category || "Bespoke Collection"}
             </span>
           </div>
 
           {/* Compact Product Name */}
-          <h1 className="text-base sm:text-lg lg:text-xl font-heading font-bold text-[#2B2520] tracking-tight truncate max-w-3xl leading-snug">
+          <h1 className="text-base sm:text-lg lg:text-xl font-heading font-bold text-[#2B070B] tracking-tight truncate max-w-3xl leading-snug">
             {product?.name || "Bespoke Floor Sculpture"}
           </h1>
         </div>
@@ -524,17 +524,17 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
           <button
             type="button"
             onClick={handleCopyLink}
-            className="text-[11px] uppercase tracking-wider font-heading font-semibold text-[#7A7065] hover:text-[#2B2520] border border-[#EAEAEB] px-3 py-1.5 rounded-full bg-white hover:border-[#2B2520] transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            className="text-[11px] uppercase tracking-wider font-heading font-semibold text-[#2B070B] hover:text-[#8C6B38] border border-[#4A1017]/20 px-3 py-1.5 rounded-none bg-white hover:border-[#4A1017] transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
           >
-            <svg className="w-3.5 h-3.5 text-[#C19A6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 text-[#8C6B38]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
             </svg>
             <span>{copiedLink ? "Link Copied! ✔" : "Share Config"}</span>
           </button>
 
           <Link
-            href="/process"
-            className="text-[11px] uppercase tracking-wider font-heading font-semibold text-[#7A7065] hover:text-[#2B2520] border border-[#EAEAEB] px-3 py-1.5 rounded-full bg-white hover:border-[#2B2520] transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
+            href="/legacy"
+            className="text-[11px] uppercase tracking-wider font-heading font-semibold text-[#2B070B] hover:text-[#8C6B38] border border-[#4A1017]/20 px-3 py-1.5 rounded-none bg-white hover:border-[#4A1017] transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
           >
             <span>Artisan Process →</span>
           </Link>
@@ -549,9 +549,9 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
           <div className="lg:sticky lg:top-20 space-y-3">
             
             {/* 🌟 BASE PRODUCT SELECTOR / PICK ANY RUG BAR - SLIM */}
-            <div className="bg-white px-3 py-2 rounded-xl border border-[#EAEAEB] shadow-2xs flex items-center justify-between gap-2.5">
+            <div className="bg-white px-3 py-2 rounded-none border border-[#4A1017]/20 shadow-2xs flex items-center justify-between gap-2.5">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#FAF8F5] border border-[#EAEAEB] shrink-0 relative">
+                <div className="w-9 h-9 rounded-none overflow-hidden bg-[#FAF8F5] border border-[#4A1017]/20 shrink-0 relative">
                   {product?.studio_image || product?.images?.[0] || product?.image ? (
                     <img
                       src={product?.studio_image || product.images?.[0] || product.image}
@@ -559,27 +559,27 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-[#7A7065]">
-                      RZ
+                    <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-[#5A4E42]">
+                      NR
                     </div>
                   )}
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[9px] uppercase tracking-wider bg-[#FAFAFA] border border-[#EAEAEB] text-[#C19A6B] px-1.5 py-0.2 rounded font-heading font-bold">
+                    <span className="text-[9px] uppercase tracking-wider bg-[#FAF5EB] border border-[#4A1017]/20 text-[#8C6B38] px-1.5 py-0.2 rounded-none font-heading font-bold">
                       {product?.category || "Bespoke"}
                     </span>
                     {product?.studio_image ? (
-                      <span className="text-[9px] uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 rounded font-heading font-bold">
+                      <span className="text-[9px] uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 rounded-none font-heading font-bold">
                         ✓ Studio Ready
                       </span>
                     ) : (
-                      <span className="text-[9px] uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.2 rounded font-heading font-bold">
-                        ⚠ Studio Shot Not Available
+                      <span className="text-[9px] uppercase tracking-wider bg-[#FAF5EB] text-[#2B070B] border border-[#4A1017]/20 px-1.5 py-0.2 rounded-none font-heading font-bold">
+                        Studio Shot
                       </span>
                     )}
                   </div>
-                  <span className="text-xs font-heading font-bold text-[#2B2520] truncate block max-w-xs sm:max-w-md">
+                  <span className="text-xs font-heading font-bold text-[#2B070B] truncate block max-w-xs sm:max-w-md">
                     {product?.name}
                   </span>
                 </div>
@@ -588,11 +588,11 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
               <button
                 type="button"
                 onClick={() => setIsRugPickerOpen(true)}
-                className="shrink-0 bg-[#2B2520] hover:bg-[#C19A6B] text-white px-3 py-1.5 rounded-lg text-[11px] uppercase tracking-wider font-heading font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
+                className="shrink-0 bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white px-3 py-1.5 rounded-none text-[11px] uppercase tracking-wider font-heading font-bold transition-colors flex items-center gap-1 cursor-pointer shadow-2xs border border-[#4A1017]/30"
               >
                 <span>🔄 Change Rug</span>
                 {products.length > 0 && (
-                  <span className="text-[9px] bg-white/20 px-1.5 py-0.2 rounded-full hidden sm:inline">
+                  <span className="text-[9px] bg-white/20 px-1.5 py-0.2 rounded-none hidden sm:inline">
                     {products.length}
                   </span>
                 )}
@@ -601,7 +601,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
             {/* VISUALIZER CANVAS CONTAINER WITH REALISTIC FLOOR BACKGROUNDS */}
             <div
-              className={`relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-[#EAEAEB] shadow-md transition-all duration-500 flex items-center justify-center ${
+              className={`relative w-full rounded-none overflow-hidden border border-[#4A1017]/20 shadow-md transition-all duration-500 flex items-center justify-center ${
                 zoomPreview ? "h-[460px] sm:h-[540px]" : "h-[330px] sm:h-[380px] lg:h-[410px]"
               }`}
               style={{
@@ -647,9 +647,9 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   {product?.studio_image ? (
                     /* 🎨 REALISTIC PHOTOGRAPHIC DYE OVERLAY ENGINE (TOP-DOWN STUDIO SHOT) - PRESERVES EXACT UPLOAD FRAME */
                     <div
-                      className="relative overflow-hidden rounded-2xl transition-all duration-300 flex items-center justify-center max-w-full max-h-full"
+                      className="relative overflow-hidden rounded-none transition-all duration-300 flex items-center justify-center max-w-full max-h-full"
                       style={{
-                        boxShadow: "0 22px 38px -10px rgba(0,0,0,0.35)",
+                        boxShadow: "0 22px 38px -10px rgba(74,16,23,0.35)",
                       }}
                     >
                       {/* Rug Base High-Resolution Top-Down Studio Photo - 100% Full Frame (No Crop) */}
@@ -737,8 +737,8 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                       onClick={() => setFloorScene(f)}
                       className={`px-2.5 py-1 text-[10px] uppercase tracking-wider font-heading font-semibold rounded-full transition-colors cursor-pointer ${
                         floorScene === f
-                          ? "bg-[#2B2520] text-white shadow-xs"
-                          : "bg-[#FAFAFA] text-[#7A7065] hover:bg-[#EAEAEB] border border-[#EAEAEB]"
+                          ? "bg-[#2B070B] text-[#FAF5EB] shadow-xs"
+                          : "bg-[#FAF5EB] text-[#5A4E42] hover:bg-[#FAF8F5] border border-[#4A1017]/20"
                       }`}
                     >
                       {f}
@@ -749,15 +749,15 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
               {/* Zoom & Color Indicators */}
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 bg-[#FAF8F5] px-2.5 py-1 rounded-full border border-[#E8DFD5] text-[10px] text-[#C19A6B] font-heading font-semibold shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-[#C19A6B] shadow-[0_0_6px_rgba(193,154,107,0.6)]" />
+                <div className="flex items-center gap-1.5 bg-[#FAF5EB] px-2.5 py-1 rounded-none border border-[#4A1017]/20 text-[10px] text-[#8C6B38] font-heading font-semibold shadow-2xs">
+                  <span className="w-2 h-2 rounded-full bg-[#8C6B38] shadow-[0_0_6px_rgba(140,107,56,0.6)]" />
                   <span>{photoFilters.saturation}% Sat • {photoFilters.hue}° Hue</span>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => setZoomPreview(!zoomPreview)}
-                  className="flex items-center gap-1 px-3 py-1 rounded-full border border-[#EAEAEB] bg-[#FAFAFA] hover:bg-white text-[#7A7065] hover:text-[#2B2520] transition-colors cursor-pointer text-[10px] uppercase tracking-wider font-heading font-bold"
+                  className="flex items-center gap-1 px-3 py-1 rounded-none border border-[#4A1017]/20 bg-white hover:bg-[#FAF5EB] text-[#2B070B] hover:text-[#8C6B38] transition-colors cursor-pointer text-[10px] uppercase tracking-wider font-heading font-bold"
                   title={zoomPreview ? "Normal View" : "Zoom In"}
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -774,27 +774,27 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
             {/* STATS PILLS */}
             <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-              <div className="bg-white p-3.5 rounded-2xl border border-[#EAEAEB] shadow-xs">
-                <span className="text-[9px] uppercase tracking-widest text-[#7A7065] font-heading font-semibold block mb-0.5">
+              <div className="bg-white p-3.5 rounded-none border border-[#4A1017]/20 shadow-xs">
+                <span className="text-[9px] uppercase tracking-widest text-[#5A4E42] font-heading font-semibold block mb-0.5">
                   Coverage
                 </span>
-                <span className="font-heading font-bold text-[#2B2520]">
-                  {areaSqFt.toFixed(1)} sq ft <span className="text-[10px] text-[#7A7065] font-normal">({areaSqMeters.toFixed(2)} m²)</span>
+                <span className="font-heading font-bold text-[#2B070B]">
+                  {areaSqFt.toFixed(1)} sq ft <span className="text-[10px] text-[#5A4E42] font-normal">({areaSqMeters.toFixed(2)} m²)</span>
                 </span>
               </div>
-              <div className="bg-white p-3.5 rounded-2xl border border-[#EAEAEB] shadow-xs">
-                <span className="text-[9px] uppercase tracking-widest text-[#7A7065] font-heading font-semibold block mb-0.5">
+              <div className="bg-white p-3.5 rounded-none border border-[#4A1017]/20 shadow-xs">
+                <span className="text-[9px] uppercase tracking-widest text-[#5A4E42] font-heading font-semibold block mb-0.5">
                   Style / Category
                 </span>
-                <span className="font-heading font-bold text-[#C19A6B] truncate block">
+                <span className="font-heading font-bold text-[#8C6B38] truncate block">
                   {product?.category || "Handcrafted"}
                 </span>
               </div>
-              <div className="bg-white p-3.5 rounded-2xl border border-[#EAEAEB] shadow-xs">
-                <span className="text-[9px] uppercase tracking-widest text-[#7A7065] font-heading font-semibold block mb-0.5">
+              <div className="bg-white p-3.5 rounded-none border border-[#4A1017]/20 shadow-xs">
+                <span className="text-[9px] uppercase tracking-widest text-[#5A4E42] font-heading font-semibold block mb-0.5">
                   Material
                 </span>
-                <span className="font-heading font-bold text-[#2B2520] truncate block">
+                <span className="font-heading font-bold text-[#2B070B] truncate block">
                   {product?.material || "Artisan Natural Fibers"}
                 </span>
               </div>
@@ -805,12 +805,12 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
         {/* =========================================================
             RIGHT COLUMN: SETTINGS & CONTROLS
         ========================================================= */}
-        <div className="w-full lg:w-7/12 xl:w-1/2 space-y-8 bg-white p-6 sm:p-8 md:p-10 rounded-3xl border border-[#EAEAEB]/80 shadow-sm">
+        <div className="w-full lg:w-7/12 xl:w-1/2 space-y-8 bg-white p-6 sm:p-8 md:p-10 rounded-none border border-[#4A1017]/20 shadow-sm">
           
           {/* =========================================================
               🌟 ARTISAN PHOTO COLOR & DYE CONTROLS
           ========================================================= */}
-          <div className="bg-[#FAF8F5] p-6 sm:p-7 rounded-3xl border border-[#E8DFD5] shadow-xs space-y-5">
+          <div className="bg-[#FAF8F5] p-6 sm:p-7 rounded-none border border-[#4A1017]/20 shadow-xs space-y-5">
               <style dangerouslySetInnerHTML={{ __html: `
                 .studio-glow-slider {
                   -webkit-appearance: none;
@@ -818,7 +818,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   width: 100%;
                   height: 4px;
                   background: #E8E2D9;
-                  border-radius: 9999px;
+                  border-radius: 0px;
                   outline: none;
                 }
                 .studio-glow-slider::-webkit-slider-thumb {
@@ -826,27 +826,27 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   appearance: none;
                   width: 18px;
                   height: 18px;
-                  border-radius: 50%;
-                  background: #C19A6B;
+                  border-radius: 0px;
+                  background: #4A1017;
                   cursor: pointer;
-                  box-shadow: 0 0 10px 2px rgba(193, 154, 107, 0.45);
+                  box-shadow: 0 0 10px 2px rgba(74, 16, 23, 0.45);
                   border: 2px solid #FFFFFF;
                   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
                 }
                 .studio-glow-slider::-webkit-slider-thumb:hover {
                   transform: scale(1.18);
-                  box-shadow: 0 0 14px 3px rgba(193, 154, 107, 0.7);
+                  box-shadow: 0 0 14px 3px rgba(74, 16, 23, 0.7);
                 }
                 .studio-glow-slider::-webkit-slider-thumb:active {
                   transform: scale(1.25);
-                  background: #2B2520;
-                  box-shadow: 0 0 16px 3px rgba(43, 37, 32, 0.5);
+                  background: #2B070B;
+                  box-shadow: 0 0 16px 3px rgba(43, 7, 11, 0.5);
                 }
                 .studio-glow-slider::-moz-range-thumb {
                   width: 18px;
                   height: 18px;
-                  border-radius: 50%;
-                  background: #C19A6B;
+                  border-radius: 0px;
+                  background: #4A1017;
                   cursor: pointer;
                   box-shadow: 0 0 10px 2px rgba(193, 154, 107, 0.45);
                   border: 2px solid #FFFFFF;
@@ -1029,10 +1029,10 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   key={s.id}
                   type="button"
                   onClick={() => setShape(s.id)}
-                  className={`flex flex-col items-center justify-center p-3.5 rounded-2xl border transition-all cursor-pointer ${
+                  className={`flex flex-col items-center justify-center p-3.5 rounded-none border transition-all cursor-pointer ${
                     shape === s.id
-                      ? "border-[#C19A6B] bg-[#FAFAFA] text-[#C19A6B] shadow-xs"
-                      : "border-[#EAEAEB] text-[#7A7065] hover:border-[#C19A6B]/60 bg-white"
+                      ? "border-[#4A1017] bg-[#FAF5EB] text-[#4A1017] shadow-xs"
+                      : "border-[#4A1017]/20 text-[#5A4E42] hover:border-[#4A1017]/60 bg-white"
                   }`}
                 >
                   <svg className="w-6 h-6 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1049,21 +1049,21 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
           {/* =========================================================
               DIMENSIONS & QUICK SIZES
           ========================================================= */}
-          <div className="border-t border-[#EAEAEB] pt-8">
+          <div className="border-t border-[#4A1017]/20 pt-8">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs uppercase tracking-[0.2em] font-heading font-bold text-[#7A7065]">
+              <span className="text-xs uppercase tracking-[0.2em] font-heading font-bold text-[#5A4E42]">
                 Dimensions & Sizing
               </span>
               
               {/* Unit Toggle */}
-              <div className="flex items-center gap-1 bg-[#FAFAFA] p-1 rounded-full border border-[#EAEAEB]">
+              <div className="flex items-center gap-1 bg-[#FAF5EB] p-1 rounded-none border border-[#4A1017]/20">
                 {(["ft", "cm", "in"] as const).map((u) => (
                   <button
                     key={u}
                     type="button"
                     onClick={() => handleUnitChange(u)}
-                    className={`px-3 py-0.5 text-[10px] uppercase font-heading font-bold rounded-full transition-colors cursor-pointer ${
-                      unit === u ? "bg-[#2B2520] text-white" : "text-[#7A7065] hover:text-[#2B2520]"
+                    className={`px-3 py-0.5 text-[10px] uppercase font-heading font-bold rounded-none transition-colors cursor-pointer ${
+                      unit === u ? "bg-[#2B070B] text-[#FAF5EB]" : "text-[#5A4E42] hover:text-[#2B070B]"
                     }`}
                   >
                     {u}
@@ -1074,7 +1074,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
             {/* Quick Preset Buttons for active shape */}
             <div className="mb-4 flex flex-wrap gap-2">
-              <span className="text-[10px] uppercase font-heading font-bold text-[#7A7065] self-center mr-1">
+              <span className="text-[10px] uppercase font-heading font-bold text-[#5A4E42] self-center mr-1">
                 Popular:
               </span>
               {PRESET_SIZES.filter((p) => p.shape === shape).map((preset) => (
@@ -1082,7 +1082,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   key={preset.label}
                   type="button"
                   onClick={() => applyPreset(preset)}
-                  className="px-3 py-1 text-xs font-heading font-semibold border border-[#EAEAEB] hover:border-[#C19A6B] rounded-full bg-[#FAFAFA] text-[#2B2520] transition-colors cursor-pointer"
+                  className="px-3 py-1 text-xs font-heading font-semibold border border-[#4A1017]/20 hover:border-[#4A1017] rounded-none bg-[#FAF5EB] text-[#2B070B] transition-colors cursor-pointer"
                 >
                   {preset.label}
                 </button>
@@ -1091,9 +1091,9 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
             {/* Dimension Inputs */}
             {shape === "Round" ? (
-              <div className="bg-[#FAFAFA] p-5 rounded-2xl border border-[#EAEAEB] flex items-center gap-4">
+              <div className="bg-[#FAF5EB] p-5 rounded-none border border-[#4A1017]/20 flex items-center gap-4">
                 <div className="flex-1">
-                  <label className="text-[10px] uppercase font-heading font-bold text-[#7A7065] block mb-1.5">
+                  <label className="text-[10px] uppercase font-heading font-bold text-[#5A4E42] block mb-1.5">
                     Diameter ({unit})
                   </label>
                   <input
@@ -1103,17 +1103,17 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                     value={diameter}
                     onChange={(e) => setDiameter(e.target.value)}
                     placeholder="e.g. 6"
-                    className="w-full bg-white border border-[#EAEAEB] p-3 text-lg font-heading font-bold text-[#2B2520] rounded-xl focus:outline-none focus:border-[#C19A6B]"
+                    className="w-full bg-white border border-[#4A1017]/20 p-3 text-lg font-heading font-bold text-[#2B070B] rounded-none focus:outline-none focus:border-[#4A1017]"
                   />
                 </div>
-                <div className="text-xs font-body text-[#7A7065] pt-5">
-                  Circular area: <strong className="text-[#2B2520] font-heading">{areaSqFt.toFixed(1)} sq ft</strong>
+                <div className="text-xs font-body text-[#5A4E42] pt-5">
+                  Circular area: <strong className="text-[#2B070B] font-heading">{areaSqFt.toFixed(1)} sq ft</strong>
                 </div>
               </div>
             ) : (
-              <div className="bg-[#FAFAFA] p-5 rounded-2xl border border-[#EAEAEB] grid grid-cols-2 gap-4 items-center">
+              <div className="bg-[#FAF5EB] p-5 rounded-none border border-[#4A1017]/20 grid grid-cols-2 gap-4 items-center">
                 <div>
-                  <label className="text-[10px] uppercase font-heading font-bold text-[#7A7065] block mb-1.5">
+                  <label className="text-[10px] uppercase font-heading font-bold text-[#5A4E42] block mb-1.5">
                     Width ({unit})
                   </label>
                   <input
@@ -1123,11 +1123,11 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
                     placeholder="e.g. 5"
-                    className="w-full bg-white border border-[#EAEAEB] p-3 text-lg font-heading font-bold text-[#2B2520] rounded-xl focus:outline-none focus:border-[#C19A6B]"
+                    className="w-full bg-white border border-[#4A1017]/20 p-3 text-lg font-heading font-bold text-[#2B070B] rounded-none focus:outline-none focus:border-[#4A1017]"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase font-heading font-bold text-[#7A7065] block mb-1.5">
+                  <label className="text-[10px] uppercase font-heading font-bold text-[#5A4E42] block mb-1.5">
                     Length ({unit})
                   </label>
                   <input
@@ -1137,7 +1137,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                     placeholder="e.g. 8"
-                    className="w-full bg-white border border-[#EAEAEB] p-3 text-lg font-heading font-bold text-[#2B2520] rounded-xl focus:outline-none focus:border-[#C19A6B]"
+                    className="w-full bg-white border border-[#4A1017]/20 p-3 text-lg font-heading font-bold text-[#2B070B] rounded-none focus:outline-none focus:border-[#4A1017]"
                   />
                 </div>
               </div>
@@ -1145,8 +1145,8 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
           </div>
 
           {/* ARTISAN NOTES */}
-          <div className="border-t border-[#EAEAEB] pt-8 space-y-2">
-            <label className="text-xs uppercase tracking-[0.2em] font-heading font-bold text-[#7A7065] block">
+          <div className="border-t border-[#4A1017]/20 pt-8 space-y-2">
+            <label className="text-xs uppercase tracking-[0.2em] font-heading font-bold text-[#5A4E42] block">
               Weaver Notes & Special Instructions (Optional)
             </label>
             <textarea
@@ -1154,29 +1154,29 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
               value={specialInstructions}
               onChange={(e) => setSpecialInstructions(e.target.value)}
               placeholder="Any specific door clearance notes or placement requests for the Bhadohi weavers..."
-              className="w-full bg-[#FAFAFA] border border-[#EAEAEB] p-3.5 text-xs font-body text-[#2B2520] focus:outline-none focus:border-[#C19A6B] rounded-2xl"
+              className="w-full bg-[#FAF5EB] border border-[#4A1017]/20 p-3.5 text-xs font-body text-[#2B070B] focus:outline-none focus:border-[#4A1017] rounded-none"
             />
           </div>
 
           {/* =========================================================
               PRICE & ACTION CTA BAR
           ========================================================= */}
-          <div className="border-t-2 border-[#2B2520] pt-6 space-y-4">
+          <div className="border-t-2 border-[#4A1017] pt-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
               <div>
-                <span className="text-[10px] uppercase tracking-widest text-[#7A7065] font-heading font-bold block">
+                <span className="text-[10px] uppercase tracking-widest text-[#5A4E42] font-heading font-bold block">
                   Bespoke Order Total
                 </span>
                 <div className="flex items-baseline gap-2 mt-0.5">
-                  <span className="text-3xl sm:text-4xl font-heading font-bold text-[#2B2520]">
+                  <span className="text-3xl sm:text-4xl font-heading font-bold text-[#2B070B]">
                     {formatPrice(calculatedPrice)}
                   </span>
-                  <span className="text-xs text-[#7A7065] font-body">
+                  <span className="text-xs text-[#5A4E42] font-body">
                     ({areaSqFt.toFixed(1)} sq ft)
                   </span>
                 </div>
               </div>
-              <span className="text-xs text-[#7A7065] font-body text-left sm:text-right">
+              <span className="text-xs text-[#5A4E42] font-body text-left sm:text-right">
                 Includes custom concentric weaving & insured express delivery
               </span>
             </div>
@@ -1191,9 +1191,9 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                   setRequestError("");
                   setShowRequestModal(true);
                 }}
-                className="w-full min-h-[52px] border border-[#2B2520] bg-white hover:bg-[#2B2520] text-[#2B2520] hover:text-white px-4 py-3.5 uppercase tracking-[0.14em] text-xs font-heading font-bold transition-all rounded-full shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full min-h-[52px] border border-[#4A1017] bg-white hover:bg-[#FAF5EB] text-[#2B070B] hover:text-[#4A1017] px-4 py-3.5 uppercase tracking-[0.14em] text-xs font-heading font-bold transition-all rounded-none shadow-xs flex items-center justify-center gap-2 cursor-pointer"
               >
-                <svg className="w-4 h-4 text-[#C19A6B] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-[#8C6B38] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <span className="truncate">Send Order Request</span>
@@ -1203,11 +1203,11 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                 type="button"
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className="w-full min-h-[52px] bg-[#C19A6B] text-white hover:bg-[#B89258] px-5 py-3.5 uppercase tracking-[0.14em] text-xs font-heading font-bold transition-colors rounded-full shadow-md disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full min-h-[52px] bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white px-5 py-3.5 uppercase tracking-[0.14em] text-xs font-heading font-bold transition-colors rounded-none shadow-md disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer border border-[#4A1017]"
               >
                 {isAdding ? (
                   <>
-                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-none animate-spin" />
                     <span>Adding to Bag...</span>
                   </>
                 ) : (
@@ -1233,22 +1233,22 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.2 }}
-              className="bg-white max-w-lg w-full rounded-3xl border border-[#EAEAEB] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              className="bg-white max-w-lg w-full rounded-none border border-[#4A1017]/30 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
               {/* MODAL HEADER */}
-              <div className="bg-[#FAFAFA] border-b border-[#EAEAEB] p-6 flex items-center justify-between">
+              <div className="bg-[#240609] border-b border-[#4A1017] p-6 flex items-center justify-between text-[#FAF5EB]">
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-heading font-bold text-[#C19A6B] block">
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-heading font-bold text-[#FAF5EB] block">
                     Bespoke Atelier Request
                   </span>
-                  <h3 className="text-xl font-heading font-bold text-[#2B2520]">
+                  <h3 className="text-xl font-heading font-bold text-[#FAF5EB]">
                     {requestSuccess ? "Request Submitted Successfully" : "Send Custom Order to Atelier"}
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowRequestModal(false)}
-                  className="p-2 text-[#7A7065] hover:text-[#2B2520] rounded-full transition-colors cursor-pointer"
+                  className="p-2 text-[#D8C9C5] hover:text-[#FAF5EB] rounded-none transition-colors cursor-pointer"
                   title="Close modal"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1443,29 +1443,29 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25 }}
-              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-[#EAEAEB]"
+              className="bg-white rounded-none max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-[#4A1017]/30"
             >
               {/* Modal Header */}
-              <div className="p-6 border-b border-[#EAEAEB] flex items-center justify-between">
+              <div className="p-6 border-b border-[#4A1017]/20 flex items-center justify-between bg-[#240609] text-[#FAF5EB]">
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#C19A6B] font-heading font-bold block">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#FAF5EB] font-heading font-bold block">
                     Bespoke Atelier Collection
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-[#2B2520] mt-0.5">
+                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-[#FAF5EB] mt-0.5">
                     Select Any Rug to Customise
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsRugPickerOpen(false)}
-                  className="w-10 h-10 rounded-full border border-[#EAEAEB] flex items-center justify-center text-[#7A7065] hover:text-[#2B2520] hover:bg-[#FAFAFA] transition-colors cursor-pointer"
+                  className="w-10 h-10 rounded-none border border-[#4A1017] flex items-center justify-center text-[#D8C9C5] hover:text-[#FAF5EB] hover:bg-[#2B070B] transition-colors cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
               {/* Category Filter Tabs */}
-              <div className="px-6 py-3 border-b border-[#EAEAEB] bg-[#FAFAFA] overflow-x-auto flex items-center gap-2 no-scrollbar">
+              <div className="px-6 py-3 border-b border-[#4A1017]/20 bg-[#FAF5EB] overflow-x-auto flex items-center gap-2 no-scrollbar">
                 {[
                   "All",
                   "Hand-Tufted",
@@ -1480,10 +1480,10 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                     key={cat}
                     type="button"
                     onClick={() => setSelectedCategoryFilter(cat)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-heading font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                    className={`px-3.5 py-1.5 rounded-none text-xs font-heading font-semibold whitespace-nowrap transition-all cursor-pointer ${
                       selectedCategoryFilter === cat
-                        ? "bg-[#2B2520] text-white shadow-xs"
-                        : "bg-white text-[#7A7065] hover:text-[#2B2520] border border-[#EAEAEB]"
+                        ? "bg-[#2B070B] text-[#FAF5EB] shadow-xs"
+                        : "bg-white text-[#5A4E42] hover:text-[#2B070B] border border-[#4A1017]/20"
                     }`}
                   >
                     {cat}
@@ -1492,7 +1492,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
               </div>
 
               {/* Rug Grid */}
-              <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)]">
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)] bg-[#FAF8F5]">
                 {(() => {
                   const filtered = products.filter((p) => {
                     if (selectedCategoryFilter === "All") return true;
@@ -1513,7 +1513,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
 
                   if (filtered.length === 0) {
                     return (
-                      <div className="text-center py-12 text-[#7A7065] font-body text-sm">
+                      <div className="text-center py-12 text-[#5A4E42] font-body text-sm">
                         No rugs found in this category. Select &quot;All&quot; to browse all {products.length} artisanal rugs.
                       </div>
                     );
@@ -1537,14 +1537,14 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                                 window.history.replaceState(null, "", url.toString());
                               }
                             }}
-                            className={`group relative rounded-2xl border p-3 cursor-pointer transition-all flex flex-col justify-between ${
+                            className={`group relative rounded-none border p-3 cursor-pointer transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(74,16,23,0.38)] ${
                               isCurrent
-                                ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/50 bg-[#FAF8F5] shadow-md"
-                                : "border-[#EAEAEB] bg-white hover:border-[#2B2520] hover:shadow-md"
+                                ? "border-[#4A1017] ring-2 ring-[#4A1017] bg-[#FAF5EB] shadow-md"
+                                : "border-[#4A1017]/20 bg-white"
                             }`}
                           >
                             <div>
-                              <div className="aspect-square rounded-xl overflow-hidden bg-[#FAF8F5] mb-2.5 relative">
+                              <div className="aspect-square rounded-none overflow-hidden bg-[#FAF8F5] mb-2.5 relative">
                                 {rugImg ? (
                                   <img
                                     src={rugImg}
@@ -1552,38 +1552,38 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                   />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center text-xs font-bold text-[#7A7065]">
-                                    RZ
+                                  <div className="w-full h-full flex items-center justify-center text-xs font-bold text-[#5A4E42]">
+                                    NR
                                   </div>
                                 )}
                                 {isCurrent && (
-                                  <span className="absolute top-2 right-2 bg-[#2B2520] text-white text-[9px] uppercase tracking-wider font-heading font-bold px-2 py-0.5 rounded-full shadow-xs">
+                                  <span className="absolute top-2 right-2 bg-[#2B070B] text-[#FAF5EB] text-[9px] uppercase tracking-wider font-heading font-bold px-2 py-0.5 rounded-none shadow-xs border border-[#4A1017]">
                                     Active
                                   </span>
                                 )}
                                 {hasStudio ? (
-                                  <span className="absolute bottom-2 left-2 bg-emerald-800 text-white text-[8.5px] uppercase tracking-wider font-heading font-bold px-2 py-0.5 rounded-full shadow-xs">
+                                  <span className="absolute bottom-2 left-2 bg-[#4A1017] text-[#FAF5EB] text-[8.5px] uppercase tracking-wider font-heading font-bold px-2 py-0.5 rounded-none shadow-xs">
                                     ✓ Studio Image
                                   </span>
                                 ) : (
-                                  <span className="absolute bottom-2 left-2 bg-gray-600/90 text-white text-[8.5px] uppercase tracking-wider font-heading font-semibold px-2 py-0.5 rounded-full shadow-xs">
+                                  <span className="absolute bottom-2 left-2 bg-[#240609]/80 text-[#FAF5EB] text-[8.5px] uppercase tracking-wider font-heading font-semibold px-2 py-0.5 rounded-none shadow-xs">
                                     Studio Pending
                                   </span>
                                 )}
                               </div>
-                              <span className="text-[9px] uppercase tracking-widest text-[#C19A6B] font-heading font-bold block mb-0.5">
+                              <span className="text-[9px] uppercase tracking-widest text-[#8C6B38] font-heading font-bold block mb-0.5">
                                 {p.category || "Bespoke"}
                               </span>
-                              <h4 className="text-xs sm:text-sm font-heading font-bold text-[#2B2520] line-clamp-1 group-hover:text-[#C19A6B] transition-colors">
+                              <h4 className="text-xs sm:text-sm font-heading font-bold text-[#2B070B] line-clamp-1 group-hover:text-[#8C6B38] transition-colors">
                                 {p.name}
                               </h4>
                             </div>
 
-                            <div className="mt-3 pt-2.5 border-t border-[#EAEAEB] flex items-center justify-between">
-                              <span className="text-xs font-heading font-bold text-[#2B2520]">
+                            <div className="mt-3 pt-2.5 border-t border-[#4A1017]/20 flex items-center justify-between">
+                              <span className="text-xs font-heading font-bold text-[#2B070B]">
                                 {formatPrice(p.price || 0)}
                               </span>
-                              <span className={`text-[10px] uppercase font-heading font-bold group-hover:underline ${hasStudio ? "text-[#C19A6B]" : "text-gray-500"}`}>
+                              <span className={`text-[10px] uppercase font-heading font-bold ${hasStudio ? "text-[#8C6B38]" : "text-[#5A4E42]"}`}>
                                 {hasStudio ? "Customise →" : "View →"}
                               </span>
                             </div>

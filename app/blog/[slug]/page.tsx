@@ -23,9 +23,9 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center pt-32 pb-32 text-center">
-        <div className="w-10 h-10 border-2 border-[#C19A6B] border-t-transparent rounded-full animate-spin mb-3"></div>
-        <p className="text-xs font-heading uppercase tracking-widest text-[#7A7065] font-semibold">Loading Journal Article...</p>
+      <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center pt-32 pb-32 text-center">
+        <div className="w-10 h-10 border-2 border-[#4A1017] border-t-transparent rounded-full animate-spin mb-3"></div>
+        <p className="text-xs font-heading uppercase tracking-widest text-[#5A4E42] font-semibold">Loading Journal Article...</p>
       </div>
     );
   }
@@ -52,24 +52,24 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
   };
 
   return (
-    <article className="min-h-screen bg-[#FAFAFA] text-[#2B2520] pt-3 sm:pt-4 pb-20 sm:pb-28">
+    <article className="min-h-screen bg-[#FAF8F5] text-[#2B070B] pt-3 sm:pt-4 pb-20 sm:pb-28">
       {/* 🌟 BREADCRUMB & HEADER */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <nav className="flex items-center gap-2 text-xs font-heading uppercase tracking-wider text-[#7A7065] font-medium mb-6">
-          <Link href="/" className="hover:text-[#2B2520] transition-colors">
+        <nav className="flex items-center gap-2 text-xs font-heading uppercase tracking-wider text-[#8C6B38] font-medium mb-6">
+          <Link href="/" className="hover:text-[#2B070B] transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link href="/blog" className="hover:text-[#2B2520] transition-colors">
+          <Link href="/blog" className="hover:text-[#2B070B] transition-colors">
             Journal
           </Link>
           <span>/</span>
-          <span className="text-[#C19A6B] truncate max-w-[200px] sm:max-w-xs">{category}</span>
+          <span className="text-[#8C6B38] truncate max-w-[200px] sm:max-w-xs">{category}</span>
         </nav>
 
         {/* Category & Read Time */}
-        <div className="flex flex-wrap items-center gap-3 text-xs font-heading uppercase tracking-wider text-[#7A7065] font-semibold mb-4">
-          <span className="px-3.5 py-1 rounded-full bg-white text-[#2B2520] border border-[#EAEAEB] shadow-xs">
+        <div className="flex flex-wrap items-center gap-3 text-xs font-heading uppercase tracking-wider text-[#5A4E42] font-semibold mb-4">
+          <span className="px-3.5 py-1 rounded-none bg-[#FAF5EB] text-[#2B070B] border border-[#4A1017]/30 shadow-xs">
             {category}
           </span>
           <span>•</span>
@@ -79,32 +79,32 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
         </div>
 
         {/* Title & Subtitle */}
-        <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-[#2B2520] tracking-tight leading-[1.15] mb-4">
+        <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl text-[#2B070B] tracking-tight leading-[1.15] mb-4">
           {blog.title}
         </h1>
 
         {blog.subtitle && (
-          <p className="font-body text-base sm:text-lg text-[#7A7065] leading-relaxed mb-6">
+          <p className="font-body text-base sm:text-lg text-[#5A4E42] leading-relaxed mb-6">
             {blog.subtitle}
           </p>
         )}
 
         {/* Author Byline & Share */}
-        <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-[#EAEAEB] mb-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-[#4A1017]/15 mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#C19A6B] text-white flex items-center justify-center font-heading text-base font-bold shadow-xs">
+            <div className="w-10 h-10 rounded-none bg-[#2B070B] text-[#FAF5EB] border border-[#4A1017] flex items-center justify-center font-heading text-base font-bold shadow-xs">
               {authorName[0]}
             </div>
             <div>
-              <p className="text-sm font-heading font-semibold text-[#2B2520]">{authorName}</p>
-              <p className="text-xs font-body text-[#7A7065]">{authorRole}</p>
+              <p className="text-sm font-heading font-semibold text-[#2B070B]">{authorName}</p>
+              <p className="text-xs font-body text-[#5A4E42]">{authorRole}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-2 text-xs font-heading font-semibold px-4 py-2 rounded-full border border-[#EAEAEB] bg-white text-[#2B2520] hover:border-[#C19A6B] hover:text-[#C19A6B] transition-colors shadow-xs"
+              className="inline-flex items-center gap-2 text-xs font-heading font-semibold px-4 py-2 rounded-none border border-[#4A1017]/30 bg-white text-[#2B070B] hover:border-[#4A1017] hover:text-[#8C6B38] transition-colors shadow-xs cursor-pointer"
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -117,7 +117,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
       {/* 🌟 HERO FEATURED IMAGE */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
-        <div className="relative h-72 sm:h-96 md:h-[480px] w-full rounded-3xl overflow-hidden border border-[#EAEAEB]/80 shadow-md">
+        <div className="relative h-72 sm:h-96 md:h-[480px] w-full rounded-none overflow-hidden border border-[#4A1017]/30 shadow-md">
           <Image
             src={featuredImg}
             alt={blog.title}
@@ -132,7 +132,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Intro Excerpt Callout */}
         {blog.excerpt && (
-          <div className="p-6 sm:p-7 bg-white rounded-3xl border border-[#EAEAEB] mb-10 text-base sm:text-lg text-[#2B2520] font-body leading-relaxed shadow-xs">
+          <div className="p-6 sm:p-7 bg-white rounded-none border border-[#4A1017]/25 mb-10 text-base sm:text-lg text-[#2B070B] font-body leading-relaxed shadow-xs">
             "{blog.excerpt}"
           </div>
         )}
@@ -218,11 +218,11 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
         {/* Curated Products Mentioned */}
         {blog.relatedProducts && blog.relatedProducts.length > 0 && (
-          <div className="my-12 p-6 sm:p-8 bg-white rounded-3xl border border-[#EAEAEB] shadow-sm">
-            <span className="text-[10px] font-heading uppercase tracking-widest text-[#C19A6B] px-3 py-1 rounded-full bg-[#FAFAFA] inline-block mb-2 font-semibold border border-[#EAEAEB]">
+          <div className="my-12 p-6 sm:p-8 bg-white rounded-none border border-[#4A1017]/25 shadow-sm">
+            <span className="text-[10px] font-heading uppercase tracking-widest text-[#8C6B38] px-3 py-1 rounded-none bg-[#FAF5EB] inline-block mb-2 font-semibold border border-[#4A1017]/30">
               Curated from this story
             </span>
-            <h3 className="font-heading font-bold text-xl sm:text-2xl text-[#2B2520] mb-4">
+            <h3 className="font-heading font-bold text-xl sm:text-2xl text-[#2B070B] mb-4">
               Explore Rugs Inspired by This Guide
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -230,15 +230,15 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                 <Link
                   key={pIdx}
                   href={prod.link}
-                  className="group flex items-center justify-between p-4 bg-[#FAFAFA] rounded-2xl border border-[#EAEAEB] hover:border-[#C19A6B] transition-all"
+                  className="group flex items-center justify-between p-4 bg-[#FAF8F5] rounded-none border border-[#4A1017]/20 hover:border-[#4A1017] transition-all"
                 >
                   <div>
-                    <p className="text-sm font-heading font-semibold text-[#2B2520] group-hover:text-[#C19A6B] transition-colors">
+                    <p className="text-sm font-heading font-semibold text-[#2B070B] group-hover:text-[#8C6B38] transition-colors">
                       {prod.title}
                     </p>
-                    <span className="text-xs font-body text-[#7A7065]">{prod.tag}</span>
+                    <span className="text-xs font-body text-[#5A4E42]">{prod.tag}</span>
                   </div>
-                  <span className="text-xs font-heading font-bold text-[#C19A6B] group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs font-heading font-bold text-[#8C6B38] group-hover:translate-x-1 transition-transform">
                     →
                   </span>
                 </Link>
@@ -250,19 +250,19 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
       {/* 🌟 RELATED ARTICLES */}
       {relatedBlogs.length > 0 && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-16 pt-12 border-t border-[#EAEAEB]">
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 mt-16 pt-12 border-t border-[#4A1017]/15">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <span className="text-xs font-heading uppercase tracking-wider text-[#7A7065] font-semibold">
+              <span className="text-xs font-heading uppercase tracking-wider text-[#8C6B38] font-semibold">
                 More from Journal
               </span>
-              <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#2B2520]">
+              <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#2B070B]">
                 Recommended Reading
               </h3>
             </div>
             <Link
               href="/blog"
-              className="text-xs font-heading font-semibold text-[#C19A6B] hover:underline uppercase tracking-wider"
+              className="text-xs font-heading font-semibold text-[#8C6B38] hover:text-[#2B070B] hover:underline uppercase tracking-wider"
             >
               View All Articles →
             </Link>
@@ -275,10 +275,10 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                 <Link
                   key={rel.id}
                   href={`/blog/${rel.slug || rel.id}`}
-                  className="bg-white p-5 sm:p-6 shadow-sm hover:shadow-xl hover:shadow-[#2B2520]/5 hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between rounded-3xl border border-[#EAEAEB]"
+                  className="bg-white p-5 sm:p-6 shadow-sm hover:shadow-[0_22px_45px_rgba(74,16,23,0.38)] hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between rounded-none border border-[#4A1017]/20"
                 >
                   <div className="flex flex-col flex-grow">
-                    <div className="overflow-hidden relative mb-5 rounded-2xl bg-[#EAEAEB] aspect-[16/10] flex items-center justify-center">
+                    <div className="overflow-hidden relative mb-5 rounded-none bg-[#EAEAEB] aspect-[16/10] flex items-center justify-center border border-[#4A1017]/15">
                       <Image
                         src={relImg}
                         alt={rel.title}
@@ -287,24 +287,24 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                         className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="bg-white/90 backdrop-blur-sm text-[#2B2520] font-heading text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-full font-semibold shadow-xs border border-[#EAEAEB]">
+                        <span className="bg-[#2B070B]/90 backdrop-blur-sm text-[#FAF5EB] font-heading text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-none font-semibold shadow-xs border border-[#4A1017]">
                           {rel.category || "Journal"}
                         </span>
                       </div>
                     </div>
 
-                    <span className="text-[11px] font-heading uppercase tracking-wider text-[#7A7065] font-semibold mb-2 block">
+                    <span className="text-[11px] font-heading uppercase tracking-wider text-[#8C6B38] font-semibold mb-2 block">
                       {rel.readTime || "5 min read"} • {rel.publishDate || "Latest Edition"}
                     </span>
-                    <h4 className="text-lg sm:text-xl font-heading font-bold text-[#2B2520] group-hover:text-[#C19A6B] transition-colors leading-snug mb-2 line-clamp-2">
+                    <h4 className="text-lg sm:text-xl font-heading font-bold text-[#2B070B] group-hover:text-[#8C6B38] transition-colors leading-snug mb-2 line-clamp-2">
                       {rel.title}
                     </h4>
-                    <p className="font-body text-[#7A7065] text-xs sm:text-sm mb-5 leading-relaxed line-clamp-3">
+                    <p className="font-body text-[#5A4E42] text-xs sm:text-sm mb-5 leading-relaxed line-clamp-3">
                       {rel.excerpt}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-[#EAEAEB] flex items-center justify-between text-xs uppercase tracking-[0.14em] text-[#C19A6B] font-heading font-bold">
+                  <div className="pt-3 border-t border-[#4A1017]/15 flex items-center justify-between text-xs uppercase tracking-[0.14em] text-[#8C6B38] font-heading font-bold">
                     <span>Read Story</span>
                     <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
                   </div>
