@@ -91,9 +91,8 @@ export default function QuickInquireDrawer() {
       {/* Floating Contact Action Button (Synchronized with bottom nav animation) */}
       <aside
         aria-label="Contact Atelier"
-        className={`fixed bottom-20 lg:bottom-6 right-3.5 sm:right-6 z-[85] print:hidden transition-transform duration-300 ease-in-out ${
-          scrollDirection === "down" ? "translate-y-[130px]" : "translate-y-0"
-        } ${pathname === "/contact" ? "hidden" : ""}`}
+        className={`fixed bottom-20 lg:bottom-6 right-3.5 sm:right-6 z-[85] print:hidden transition-transform duration-300 ease-in-out ${scrollDirection === "down" ? "translate-y-[130px]" : "translate-y-0"
+          } ${pathname === "/contact" ? "hidden" : ""}`}
       >
         <Link
           href="/contact"
