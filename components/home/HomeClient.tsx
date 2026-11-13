@@ -1240,6 +1240,22 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
             onTouchEnd={handleHeroTouchEnd}
             className="relative w-full h-[340px] sm:h-[430px] md:h-[485px] lg:h-[530px] xl:h-[555px] 2xl:h-[580px] rounded-none overflow-hidden bg-[#240609] border border-[#EAE6DF] shadow-[0_10px_35px_rgba(0,0,0,0.08)] select-none group isolate [transform:translateZ(0)]"
           >
+            {/* 🌟 Big Hero Banner Top Right Corner: Shop on Etsy Floating Button */}
+            {etsyConfig.show !== false && (
+              <a
+                href={etsyConfig.url || "https://www.etsy.com/shop/NREnterprises"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-3 sm:top-5 right-3 sm:right-5 z-20 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#F1641E] hover:bg-[#D95314] text-white text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs"
+                title="Shop NR Enterprises on Etsy"
+              >
+                <span>{etsyConfig.btnText || "Shop on Etsy"}</span>
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
+
             {/* Background Image Carousel with Ultra-Slow Majestic Zoom-In & Seamless Crossfade */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none rounded-none">
               <AnimatePresence initial={false}>

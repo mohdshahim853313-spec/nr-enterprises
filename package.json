@@ -9,6 +9,7 @@
     "build:worker": "opennextjs-cloudflare build",
     "deploy": "opennextjs-cloudflare build && wrangler deploy",
     "start": "next start -p 3005",
+    "sync:etsy": "node scripts/sync-etsy.js",
     "lint": "eslint"
   },
   "dependencies": {
@@ -17,8 +18,10 @@
     "browser-image-compression": "^2.0.2",
     "dotenv": "^17.4.2",
     "framer-motion": "^13.1.0",
+    "jszip": "^3.10.2",
     "lenis": "^1.3.26",
     "next": "^16.3.8",
+    "piexifjs": "^1.0.6",
     "razorpay": "^2.9.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",

@@ -1210,6 +1210,25 @@ export default function ProductDetailClient({
                 Buy It Now — Direct Checkout
               </button>
 
+              {/* Row 3: Order on Etsy (Direct Link) */}
+              {(product.etsy_url || product.show_etsy) && (
+                <a
+                  href={product.etsy_url || "https://www.etsy.com/shop/NREnterprises"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-6 rounded-none font-heading font-bold text-xs uppercase tracking-wider bg-[#F1641E] hover:bg-[#D95314] text-white flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                  title="View and order this listing directly on our official Etsy shop"
+                >
+                  <span className="w-4 h-4 rounded-full bg-white text-[#F1641E] flex items-center justify-center font-bold text-[10px]">
+                    E
+                  </span>
+                  <span>Order on Etsy</span>
+                  <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+
               {/* Quick Inquire for this Product */}
               <button
                 type="button"

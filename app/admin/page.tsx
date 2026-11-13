@@ -8,6 +8,9 @@ import { compressAndConvertToWebP } from "@/lib/compressImage";
 import { deleteStorageImage } from "@/lib/deleteStorageImage";
 import BlogManager from "@/components/admin/BlogManager";
 import QuickPasteListingModal from "@/components/admin/QuickPasteListingModal";
+import EtsySyncModal from "@/components/admin/EtsySyncModal";
+import EtsyDeletedManager from "@/components/admin/EtsyDeletedManager";
+import EtsyPackStudioModal from "@/components/admin/EtsyPackStudioModal";
 import { DEFAULT_FILTER_SETTINGS, FilterSettings } from "@/lib/filterConfig";
 
 const InputField = ({ label, name, placeholder, required = false, type = "text", value, onChange }: any) => (
@@ -34,7 +37,8 @@ export default function AdminUpload() {
   
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [isQuickPasteOpen, setIsQuickPasteOpen] = useState(false);
-
+  const [isEtsySyncOpen, setIsEtsySyncOpen] = useState(false);
+  const [packStudioProductId, setPackStudioProductId] = useState<string | null>(null);
   
   const [editingProductId, setEditingProductId] = useState<string>("");
 
@@ -149,8 +153,8 @@ export default function AdminUpload() {
   // Inquiries State
   const [inquiries, setInquiries] = useState<any[]>([]);
 
-  // Navigation View State: "listings" | "filters" | "blogs" | "payments" | "inquiries"
-  const [adminView, setAdminView] = useState<"listings" | "filters" | "blogs" | "payments" | "inquiries">("listings");
+  // Navigation View State: "listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted"
+  const [adminView, setAdminView] = useState<"listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted">("listings");
 
   const [showCelebration, setShowCelebration] = useState(false);
   const [newlyCreatedId, setNewlyCreatedId] = useState<string | null>(null);
@@ -335,6 +339,16 @@ export default function AdminUpload() {
 
   useEffect(() => {
     fetchData();
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("etsy_connected") === "true") {
+        alert("🎉 Etsy Shop Connected Successfully! Direct Draft push is now active.");
+        window.history.replaceState({}, "", "/admin");
+      } else if (params.get("etsy_error")) {
+        alert("Etsy Connection Note: " + params.get("etsy_error"));
+        window.history.replaceState({}, "", "/admin");
+      }
+    }
   }, []);
 
   // 🌟 Filter Settings CRUD Handlers
@@ -1161,6 +1175,7 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               {adminView === "blogs" && "Editorial Journal Studio"}
               {adminView === "payments" && "Payment Gateways Configuration"}
               {adminView === "inquiries" && `Customer Inquiries Inbox (${inquiries.length})`}
+              {adminView === "etsy_deleted" && "Deleted on Etsy Protection Archive"}
             </h1>
           </div>
           
@@ -1281,7 +1296,21 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
             )}
           </button>
 
-          {/* Tab 6: Web Page & Home Edit CMS */}
+          {/* Tab 6: Deleted on Etsy Protection Archive */}
+          <button
+            type="button"
+            onClick={() => setAdminView("etsy_deleted")}
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              adminView === "etsy_deleted"
+                ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-amber-600"
+                : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
+            }`}
+            title="Items deleted/inactive on Etsy but safely preserved on NR Enterprises"
+          >
+            <span>🗑️ Deleted on Etsy</span>
+          </button>
+
+          {/* Tab 7: Web Page & Home Edit CMS */}
           <Link
             href="/admin/content"
             className="py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer bg-gradient-to-r from-[#2A241F] to-[#1C1917] text-[#FAFAFA] hover:bg-[#C19A6B] shadow-md border-b-2 border-[#C19A6B]"
@@ -1325,13 +1354,47 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Right: Clean, cohesive luxury Action Bar */}
+            <div className="flex flex-wrap items-center gap-2.5">
               {mode === "edit" && availableProducts.length > 0 && (
-                <span className="text-xs text-[#8C7A63] font-serif italic hidden md:inline">
-                  {availableProducts.length} published products
+                <span className="text-xs text-[#8C7A63] font-serif italic hidden md:inline mr-1">
+                  ({availableProducts.length} published products)
                 </span>
               )}
 
+              {/* 1. Etsy Safe Pack Studio */}
+              <button
+                type="button"
+                onClick={() => {
+                  const targetId = editingProductId || (availableProducts.length > 0 ? availableProducts[0].id : null);
+                  if (!targetId) {
+                    alert("Please select a product first or add a product to generate an Etsy Safe Pack.");
+                    return;
+                  }
+                  setPackStudioProductId(targetId);
+                }}
+                className="inline-flex items-center gap-2 px-3.5 py-2 bg-[#1C1917] hover:bg-[#3A332C] text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-xs transition-all cursor-pointer border border-[#1C1917]"
+                title="Open Etsy Safe Pack Studio (Micro-grain, Sony EXIF, Bhadohi Geotag, 1-Click ZIP, Push to Etsy)"
+              >
+                <span>📦</span>
+                <span>Safe Pack Studio</span>
+                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded-full font-mono">
+                  AI Shield
+                </span>
+              </button>
+
+              {/* 2. Sync from Etsy */}
+              <button
+                type="button"
+                onClick={() => setIsEtsySyncOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#FAF5F0] hover:bg-[#F3EBE1] text-[#D95314] text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer border border-[#E8DCCF]"
+                title="Sync listings directly from your Etsy shop (NR Enterprises)"
+              >
+                <span>🛍️</span>
+                <span>Sync Etsy</span>
+              </button>
+
+              {/* 3. AI / Code Quick Paste */}
               <button
                 type="button"
                 onClick={() => {
@@ -1341,14 +1404,11 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
                   }
                   setIsQuickPasteOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#2A241F] to-[#1C1917] hover:from-[#C19A6B] hover:to-[#967448] text-[#FAFAFA] text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-[#C19A6B]/30"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-[#F6F4F0] text-[#1C1917] text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer border border-[#DFD8CC]"
                 title={mode === "edit" ? "Copy, modify, or paste code to edit this product" : "Paste JSON code to auto-fill new product listing"}
               >
-                <span className="text-sm">✨</span>
-                <span>{mode === "edit" ? "Edit with Code / AI" : "AI / Code Quick Paste"}</span>
-                <span className="text-[10px] bg-[#C19A6B] text-white px-1.5 py-0.5 rounded-full font-mono uppercase">
-                  {mode === "edit" ? "Modify" : "Auto-Fill"}
-                </span>
+                <span>✨</span>
+                <span>{mode === "edit" ? "Code / AI" : "AI Quick Paste"}</span>
               </button>
             </div>
           </div>
@@ -1595,6 +1655,14 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               </button>
             </div>
           </div>
+        )}
+
+        {/* 🌟 4. DELETED ON ETSY ARCHIVE MANAGER PANEL */}
+        {adminView === "etsy_deleted" && (
+          <EtsyDeletedManager
+            onClose={() => setAdminView("listings")}
+            onOpenPackStudio={(productId) => setPackStudioProductId(productId)}
+          />
         )}
 
         {/* 🌟 3. FILTER OPTIONS MANAGEMENT (ONLY WHEN adminView === 'filters') */}
@@ -2687,6 +2755,23 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           onApply={handleApplyQuickPaste}
           filterSettings={filterSettings}
         />
+
+        {/* 🛍️ Etsy Live Catalog Sync Modal */}
+        <EtsySyncModal
+          isOpen={isEtsySyncOpen}
+          onClose={() => setIsEtsySyncOpen(false)}
+          onSyncComplete={fetchData}
+        />
+
+        {/* 📦 Etsy Safe Pack Studio Modal */}
+        {packStudioProductId && (
+          <EtsyPackStudioModal
+            productId={packStudioProductId}
+            availableProducts={availableProducts}
+            onClose={() => setPackStudioProductId(null)}
+            onSelectProduct={(id) => setPackStudioProductId(id)}
+          />
+        )}
 
         </>
       )}
