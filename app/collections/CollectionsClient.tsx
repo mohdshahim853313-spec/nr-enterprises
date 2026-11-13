@@ -432,8 +432,12 @@ export default function Shop({ initialPageContent, initialFilterConfig, initialP
     return <div className="min-h-screen bg-[#FAF8F5]" />;
   }
 
-  const heroBg = pageContent?.hero?.bgImage;
-  const hasBgImage = typeof heroBg === "string" && heroBg.trim() !== "";
+  const rawHeroBg = pageContent?.hero?.bgImage;
+  const heroBg = (rawHeroBg && !rawHeroBg.includes(".r2.dev") && !rawHeroBg.startsWith("/uploads/"))
+    ? rawHeroBg
+    : "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85";
+  const hasBgImage = Boolean(heroBg);
+  const heroTag = (pageContent?.hero?.tag || "THE PREMIUM NR ENTERPRISES PRODUCTS").replace(/RUGZORA/gi, "NR ENTERPRISES");
 
   return (
     <div className="bg-[#FAF8F5] pt-3 pb-20 px-[5px] sm:px-6 md:px-10 min-h-screen font-sans text-[#2B070B]">
@@ -455,7 +459,7 @@ export default function Shop({ initialPageContent, initialFilterConfig, initialP
 
             <motion.div variants={fadeUpVariant} initial="hidden" animate="visible" className="relative z-10 px-4 sm:px-6 max-w-5xl mx-auto">
               <span className="text-[11px] uppercase tracking-[0.28em] text-[#FAF5EB] font-heading font-bold mb-2 block drop-shadow-xs">
-                {pageContent?.hero?.tag || "THE PREMIUM NR ENTERPRISES PRODUCTS"}
+                {heroTag}
               </span>
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-2.5 text-white leading-tight drop-shadow-md sm:whitespace-nowrap">
                 {pageContent?.hero?.title || "Artisanal Floor Sculptures"}
@@ -468,7 +472,7 @@ export default function Shop({ initialPageContent, initialFilterConfig, initialP
         ) : (
           <motion.div variants={fadeUpVariant} initial="hidden" animate="visible" className="text-center pt-2 mb-8 sm:mb-10 max-w-5xl mx-auto">
             <span className="text-xs uppercase tracking-[0.25em] text-[#4A1017] font-heading font-bold mb-2 block">
-              {pageContent?.hero?.tag || "THE PREMIUM NR ENTERPRISES PRODUCTS"}
+              {heroTag}
             </span>
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-3 text-[#2B070B] leading-tight tracking-tight sm:whitespace-nowrap">
               {pageContent?.hero?.title || "Artisanal Floor Sculptures"}
@@ -969,9 +973,10 @@ export default function Shop({ initialPageContent, initialFilterConfig, initialP
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 md:gap-8 gap-y-6 sm:gap-y-12">
             <AnimatePresence>
               {filteredProducts.map((item: any, index: number) => {
-                const displayImg = Array.isArray(item.images) && item.images.length > 0
-                  ? item.images[0]
-                  : item.image || "/images/placeholder.jpg";
+                const rawImg = Array.isArray(item.images) && item.images.length > 0 ? item.images[0] : item.image;
+                const displayImg = rawImg && !rawImg.startsWith("/uploads/") && !rawImg.includes("undefined")
+                  ? rawImg
+                  : null;
                 const itemDiscount = item.discount_percent || item.variants?.[0]?.discount_percent || 0;
                 const itemOriginalPrice = item.original_price || (item.variants?.[0]?.original_price ? (item.variants[0].original_price.toString().startsWith('₹') ? item.variants[0].original_price : `₹${item.variants[0].original_price}`) : null);
                 const isItemWishlisted = wishlist.includes(item.id);

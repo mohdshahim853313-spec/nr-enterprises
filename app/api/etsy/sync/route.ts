@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 
 const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "zylzcsf84xn2i4z8fvz26w6x";
 const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "3v9703wmcpd4ol5y00wq5ha44";
-const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67518977";
+const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 const ETSY_SHOP_NAME = process.env.ETSY_SHOP_NAME || "AHADGLOBALRUGS";
 
 const getEtsyHeaders = () => ({
@@ -110,23 +110,42 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get("limit") || "100", 10);
     const offset = parseInt(searchParams.get("offset") || "0", 10);
 
-    // 1. Fetch active listings from Etsy
-    const etsyUrl = `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=${limit}&offset=${offset}`;
-    const etsyRes = await fetch(etsyUrl, {
-      headers: getEtsyHeaders(),
-      next: { revalidate: 60 },
-    });
+    // 1. Fetch all active listings from Etsy (bidirectional merge to exceed 100 anonymous offset limit)
+    const listingsMap = new Map<number, any>();
 
-    if (!etsyRes.ok) {
-      const errText = await etsyRes.text();
-      return NextResponse.json(
-        { success: false, error: `Etsy API error: ${errText}` },
-        { status: etsyRes.status }
-      );
+    // Batch 1: Newest 100 listings (DESC)
+    const resDesc = await fetch(
+      `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=desc`,
+      { headers: getEtsyHeaders(), next: { revalidate: 30 } }
+    );
+
+    let totalShopCount = 0;
+    if (resDesc.ok) {
+      const dataDesc = await resDesc.json();
+      totalShopCount = dataDesc.count || 0;
+      (dataDesc.results || []).forEach((item: any) => listingsMap.set(item.listing_id, item));
     }
 
-    const etsyData = await etsyRes.json();
-    const etsyListings = etsyData.results || [];
+    // Batch 2: If shop has > 100 listings, fetch oldest listings (ASC) to capture all 146 without hitting offset limit
+    if (totalShopCount > 100) {
+      try {
+        const resAsc = await fetch(
+          `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=asc`,
+          { headers: getEtsyHeaders(), next: { revalidate: 30 } }
+        );
+        if (resAsc.ok) {
+          const dataAsc = await resAsc.json();
+          (dataAsc.results || []).forEach((item: any) => listingsMap.set(item.listing_id, item));
+        }
+      } catch (err) {
+        console.warn("Could not fetch ASC batch for Etsy:", err);
+      }
+    }
+
+    // Sort all combined listings by creation timestamp descending
+    const etsyListings = Array.from(listingsMap.values()).sort(
+      (a: any, b: any) => (b.original_creation_timestamp || b.created_timestamp || 0) - (a.original_creation_timestamp || a.created_timestamp || 0)
+    );
 
     // 2. Fetch existing products from Supabase to check synced status and deleted status
     const { data: existingProducts } = await supabase
@@ -174,7 +193,7 @@ export async function GET(req: Request) {
         shop_name: ETSY_SHOP_NAME,
         shop_url: `https://www.etsy.com/shop/${ETSY_SHOP_NAME}`,
       },
-      total: etsyData.count || listingsWithStatus.length,
+      total: totalShopCount || listingsWithStatus.length,
       syncedCount: listingsWithStatus.filter((l: any) => l.is_synced).length,
       deletedOnEtsyCount: deletedOnEtsy.length,
       deletedOnEtsy: deletedOnEtsy,
@@ -195,7 +214,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { listingIds = [], syncAll = false } = body;
+    const { listingIds = [], syncAll = false, markupPercent = 0 } = body;
 
     // 1. Fetch listings from Etsy
     const etsyUrl = `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100`;
@@ -229,12 +248,15 @@ export async function POST(req: Request) {
     const results = [];
     const errors = [];
 
+    const markupMultiplier = Number(markupPercent) > 0 ? (1 + Number(markupPercent) / 100) : 1;
+
     for (const listing of targetListings) {
       try {
         const sku = `ETSY-${listing.listing_id}`;
-        const basePriceNum = listing.price?.amount
+        const rawEtsyPrice = listing.price?.amount
           ? Math.round(listing.price.amount / listing.price.divisor)
           : 5000;
+        const basePriceNum = Math.round(rawEtsyPrice * markupMultiplier);
         const originalPriceNum = Math.round(basePriceNum * 1.5); // 33% discount display
 
         // Fetch all images for this listing from Etsy
@@ -343,6 +365,20 @@ export async function POST(req: Request) {
         console.error(`Error syncing listing ${listing.listing_id}:`, itemErr);
         errors.push({ listing_id: listing.listing_id, error: itemErr.message });
       }
+    }
+
+    if (results.length === 0 && errors.length > 0) {
+      const firstErr = errors[0]?.error || "Database insert failed";
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Database sync failed: ${firstErr}. Supabase me 'products' table nahi mili — pehle SQL Editor me schema run karein.`,
+          syncedCount: 0,
+          errorsCount: errors.length,
+          errors,
+        },
+        { status: 400 }
+      );
     }
 
     return NextResponse.json({

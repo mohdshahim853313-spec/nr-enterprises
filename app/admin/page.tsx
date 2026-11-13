@@ -11,7 +11,9 @@ import QuickPasteListingModal from "@/components/admin/QuickPasteListingModal";
 import EtsySyncModal from "@/components/admin/EtsySyncModal";
 import EtsyDeletedManager from "@/components/admin/EtsyDeletedManager";
 import EtsyPackStudioModal from "@/components/admin/EtsyPackStudioModal";
+import BulkPriceMarkupModal from "@/components/admin/BulkPriceMarkupModal";
 import { DEFAULT_FILTER_SETTINGS, FilterSettings } from "@/lib/filterConfig";
+import HeroSlidesManager from "@/components/admin/HeroSlidesManager";
 
 const InputField = ({ label, name, placeholder, required = false, type = "text", value, onChange }: any) => (
   <div className="w-full">
@@ -38,6 +40,7 @@ export default function AdminUpload() {
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [isQuickPasteOpen, setIsQuickPasteOpen] = useState(false);
   const [isEtsySyncOpen, setIsEtsySyncOpen] = useState(false);
+  const [isBulkMarkupOpen, setIsBulkMarkupOpen] = useState(false);
   const [packStudioProductId, setPackStudioProductId] = useState<string | null>(null);
 
   const [editingProductId, setEditingProductId] = useState<string>("");
@@ -153,8 +156,8 @@ export default function AdminUpload() {
   // Inquiries State
   const [inquiries, setInquiries] = useState<any[]>([]);
 
-  // Navigation View State: "listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted"
-  const [adminView, setAdminView] = useState<"listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted">("listings");
+  // Navigation View State: "listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted" | "hero_slides"
+  const [adminView, setAdminView] = useState<"listings" | "filters" | "blogs" | "payments" | "inquiries" | "etsy_deleted" | "hero_slides">("listings");
 
   const [showCelebration, setShowCelebration] = useState(false);
   const [newlyCreatedId, setNewlyCreatedId] = useState<string | null>(null);
@@ -1176,6 +1179,7 @@ export default function AdminUpload() {
               {adminView === "payments" && "Payment Gateways Configuration"}
               {adminView === "inquiries" && `Customer Inquiries Inbox (${inquiries.length})`}
               {adminView === "etsy_deleted" && "Deleted on Etsy Protection Archive"}
+              {adminView === "hero_slides" && "Homepage Hero Carousel (5 Slides)"}
             </h1>
           </div>
 
@@ -1303,7 +1307,20 @@ export default function AdminUpload() {
             <span>🗑️ Deleted on Etsy</span>
           </button>
 
-          {/* Tab 7: Web Page & Home Edit CMS */}
+          {/* Tab 7: 5 Hero Slides Manager */}
+          <button
+            type="button"
+            onClick={() => setAdminView("hero_slides")}
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "hero_slides"
+                ? "bg-[#4A1017] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
+                : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
+              }`}
+            title="Edit 5 Homepage Hero Carousel Images from PC"
+          >
+            <span>🖼️ 5 Hero Slides</span>
+          </button>
+
+          {/* Tab 8: Web Page & Home Edit CMS */}
           <Link
             href="/admin/content"
             className="py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer bg-gradient-to-r from-[#2A241F] to-[#1C1917] text-[#FAFAFA] hover:bg-[#C19A6B] shadow-md border-b-2 border-[#C19A6B]"
@@ -1379,10 +1396,21 @@ export default function AdminUpload() {
                 type="button"
                 onClick={() => setIsEtsySyncOpen(true)}
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#FAF5F0] hover:bg-[#F3EBE1] text-[#D95314] text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer border border-[#E8DCCF]"
-                title="Sync listings directly from your Etsy shop (NR Enterprises)"
+                title="Sync listings directly from your Etsy shop (AHADGLOBALRUGS)"
               >
                 <span>🛍️</span>
                 <span>Sync Etsy</span>
+              </button>
+
+              {/* 2.5 Bulk Price Markup */}
+              <button
+                type="button"
+                onClick={() => setIsBulkMarkupOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#2B070B] hover:bg-[#3D0C12] text-[#D4AF37] hover:text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-xs border border-[#4A1017]"
+                title="Bulk adjust or markup listing prices across India, US, and Everywhere Else in 1 click"
+              >
+                <span>⚡</span>
+                <span>Bulk Price Markup</span>
               </button>
 
               {/* 3. AI / Code Quick Paste */}
@@ -1654,6 +1682,11 @@ export default function AdminUpload() {
             onClose={() => setAdminView("listings")}
             onOpenPackStudio={(productId) => setPackStudioProductId(productId)}
           />
+        )}
+
+        {/* 🌟 5. HOMEPAGE HERO CAROUSEL 5 SLIDES MANAGER */}
+        {adminView === "hero_slides" && (
+          <HeroSlidesManager />
         )}
 
         {/* 🌟 3. FILTER OPTIONS MANAGEMENT (ONLY WHEN adminView === 'filters') */}
@@ -2749,6 +2782,14 @@ export default function AdminUpload() {
               isOpen={isEtsySyncOpen}
               onClose={() => setIsEtsySyncOpen(false)}
               onSyncComplete={fetchData}
+            />
+
+            {/* ⚡ Bulk Price Markup Modal */}
+            <BulkPriceMarkupModal
+              isOpen={isBulkMarkupOpen}
+              onClose={() => setIsBulkMarkupOpen(false)}
+              totalProductsCount={availableProducts.length}
+              onSuccess={fetchData}
             />
 
             {/* 📦 Etsy Safe Pack Studio Modal */}

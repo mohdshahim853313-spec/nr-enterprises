@@ -2,7 +2,7 @@ import crypto from "crypto";
 import { supabase } from "./supabase";
 
 const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "zylzcsf84xn2i4z8fvz26w6x";
-const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67518977";
+const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 
 function base64UrlEncode(buffer: Buffer): string {
   return buffer

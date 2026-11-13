@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 import { motion, AnimatePresence } from "framer-motion";
 import { compressAndConvertToWebP } from "@/lib/compressImage";
 import { deleteStorageImage } from "@/lib/deleteStorageImage";
+import HeroSlidesManager from "@/components/admin/HeroSlidesManager";
 
 function ImageUploader({
   label,
@@ -815,16 +816,17 @@ export default function SiteContentAdmin() {
         `[CMS Upload] ${file.name} | Original: ${(file.size / 1024).toFixed(0)} KB -> Compressed: ${(optimizedFile.size / 1024).toFixed(0)} KB`
       );
 
-      // 🌟 Save permanently to Cloudflare R2 Bucket with Supabase Backup
-      setStatusMsg(`Uploading optimized WebP image to Cloudflare R2...`);
+      // 🌟 Save permanently to Supabase Storage with local fallback
+      setStatusMsg(`Uploading optimized WebP image to secure storage...`);
       const formData = new FormData();
       formData.append("file", optimizedFile);
+      formData.append("folder", "cms-content");
       if (oldUrl) {
         formData.append("oldUrl", oldUrl);
       }
 
       try {
-        const res = await fetch("/api/r2-upload", {
+        const res = await fetch("/api/admin/upload-image", {
           method: "POST",
           body: formData,
         });
@@ -832,13 +834,13 @@ export default function SiteContentAdmin() {
         const data = await res.json();
         if (res.ok && data.success && data.url) {
           callback(data.url);
-          setStatusMsg("Photo optimized & uploaded to Cloudflare R2! ✔");
+          setStatusMsg("Photo optimized & uploaded! ✔");
         } else {
-          throw new Error(data.error || "R2 upload failed");
+          throw new Error(data.error || "Upload failed");
         }
-      } catch (r2Error: any) {
-        console.error("Cloudflare R2 upload error:", r2Error);
-        throw new Error(`Cloudflare R2 upload failed: ${r2Error.message || r2Error}`);
+      } catch (uploadErr: any) {
+        console.error("Upload error:", uploadErr);
+        throw new Error(`Upload failed: ${uploadErr.message || uploadErr}`);
       }
       setTimeout(() => setStatusMsg(""), 3500);
     } catch (err: any) {
@@ -1594,544 +1596,54 @@ export default function SiteContentAdmin() {
               isSavingToCode={isSavingToCode}
             />
 
-            {/* 🌟 1. HERO SHOWCASE SLIDER & HIGHLIGHT CARDS */}
-            <div className="bg-white border border-[#EAEAEB] rounded-sm shadow-sm overflow-hidden space-y-6">
-              <div className="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 shadow-xs">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <span className="text-indigo-300 uppercase tracking-[0.2em] font-bold text-[10px] block mb-1">
-                      Hero Showcase Module
-                    </span>
-                    <h2 className="text-xl sm:text-2xl font-serif text-white flex items-center gap-2.5">
-                      <span>1. Hero Showcase Slider & Floating Cards</span>
-                    </h2>
-                    <p className="text-xs text-indigo-200/80 mt-1">
-                      Manage background carousel slides (up to 5), top Etsy button, and the 2 bottom highlight cards per slide.
-                    </p>
-                  </div>
-                  <span className="text-xs font-bold px-3 py-1.5 bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 rounded-full">
-                    ⚡ Auto-rotates every 4s
-                  </span>
-                </div>
+            {/* 🌟 1. HERO 5 SLIDES PC PICKER & MANAGER (REPLACES OLD COMPLEX FORM) */}
+            <HeroSlidesManager
+              onSaveCallback={(newSlides) => {
+                setSiteContent((prev) => ({
+                  ...prev,
+                  home: {
+                    ...(prev.home || {}),
+                    heroSlides: newSlides,
+                  },
+                }));
+              }}
+            />
+
+            {/* 🌟 Etsy Floating Button Config */}
+            <div className="p-5 bg-gradient-to-r from-amber-50/70 via-orange-50/40 to-stone-50 border border-amber-200/80 rounded-2xl space-y-4 shadow-xs">
+              <div className="flex items-center justify-between border-b border-amber-200/60 pb-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#3A332C] flex items-center gap-2">
+                  <span className="text-base">🛍️</span>
+                  <span>Etsy Floating Button (Homepage Top Right)</span>
+                </span>
+                <label className="flex items-center gap-2 text-xs font-bold text-[#3A332C] cursor-pointer bg-white px-3 py-1.5 rounded-lg border border-amber-200 shadow-2xs">
+                  <input
+                    type="checkbox"
+                    checked={currentContent.etsy?.show !== false}
+                    onChange={(e) => updateField("etsy", "show", e.target.checked)}
+                    className="accent-[#4A1017] w-4 h-4 cursor-pointer"
+                  />
+                  <span>Show Etsy Button</span>
+                </label>
               </div>
-
-              <div className="p-6 sm:p-8 pt-2 space-y-8">
-                {/* Etsy Floating Button Config */}
-                <div className="p-4 bg-gradient-to-r from-indigo-50/60 to-purple-50/40 border border-indigo-200/80 rounded-md space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-indigo-950 flex items-center gap-1.5">
-                      <span>🛍️</span>
-                      <span>Etsy Floating Button (Top Right of Hero)</span>
-                    </span>
-                    <label className="flex items-center gap-2 text-xs font-bold text-[#3A332C] cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={currentContent.etsy?.show !== false}
-                        onChange={(e) => updateField("etsy", "show", e.target.checked)}
-                        className="accent-indigo-600 w-4 h-4"
-                      />
-                      <span>Show Etsy Button</span>
-                    </label>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Button Text</label>
-                      <input
-                        type="text"
-                        value={currentContent.etsy?.btnText || "Shop on Etsy"}
-                        onChange={(e) => updateField("etsy", "btnText", e.target.value)}
-                        className="w-full border border-indigo-200/80 p-2 text-xs bg-white outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600/30 rounded-xs"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Etsy Shop URL</label>
-                      <input
-                        type="text"
-                        value={currentContent.etsy?.url || "https://www.etsy.com/shop/AHADGLOBALRUGS"}
-                        onChange={(e) => updateField("etsy", "url", e.target.value)}
-                        className="w-full border border-indigo-200/80 p-2 text-xs bg-white outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600/30 rounded-xs"
-                      />
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] uppercase font-bold text-[#8C7A63] mb-1">Button Text</label>
+                  <input
+                    type="text"
+                    value={currentContent.etsy?.btnText || "Shop on Etsy"}
+                    onChange={(e) => updateField("etsy", "btnText", e.target.value)}
+                    className="w-full border border-amber-200/80 p-2.5 text-xs bg-white outline-none focus:border-[#4A1017] focus:ring-1 focus:ring-[#4A1017]/20 rounded-xl text-stone-800"
+                  />
                 </div>
-
-                {/* Hero Carousel Slides (Slide 1 Main + Dropdown for Extra Slides 2-5) */}
-                <div className="space-y-8">
-                  {(() => {
-                    const currentSlides = currentContent.heroSlides || defaultData.home.heroSlides;
-                    const slide1 = currentSlides[0] || defaultData.home.heroSlides[0];
-                    const effectiveExtraIdx = Math.min(Math.max(1, selectedExtraSlide), currentSlides.length - 1);
-                    const activeExtraSlide = currentSlides.length > 1 ? currentSlides[effectiveExtraIdx] : null;
-
-                    const renderSlideForm = (slide: any, idx: number, isPrimary: boolean) => (
-                      <div className="bg-white border-2 border-[#E5DDD2] rounded-2xl shadow-sm overflow-hidden space-y-6">
-                        {/* Slide Header */}
-                        <div className="bg-gradient-to-r from-[#1C1917] via-[#2A241F] to-[#1C1917] p-4 sm:p-5 flex items-center justify-between text-white border-b-2 border-[#C19A6B]/40 shadow-inner">
-                          <div className="flex items-center gap-3">
-                            <span className="w-8 h-8 rounded-full bg-[#C19A6B] text-white flex items-center justify-center text-xs font-bold font-serif shadow-xs">
-                              {idx + 1}
-                            </span>
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-bold font-serif text-white">
-                                  {isPrimary ? "Primary Hero Slide #1" : `Carousel Slide #${idx + 1}`}: {slide.title || `Slide ${idx + 1}`}
-                                </span>
-                                <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-[#C19A6B]/20 text-[#DFC8A4] border border-[#C19A6B]/30">
-                                  {isPrimary ? "Default Showcase" : `Slide ${idx + 1} of ${currentSlides.length}`}
-                                </span>
-                              </div>
-                              <p className="text-[11px] text-stone-300 mt-0.5">
-                                3 Images total: 1 Big Banner background + 2 Bottom floating highlight cards
-                              </p>
-                            </div>
-                          </div>
-
-                          {!isPrimary && currentSlides.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                if (window.confirm(`Kya aap Slide #${idx + 1} ko delete karna chahte hain?`)) {
-                                  const updated = currentSlides.filter((_: any, sIdx: number) => sIdx !== idx);
-                                  setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  setSelectedExtraSlide(1);
-                                }
-                              }}
-                              className="text-[11px] text-red-200 hover:text-white bg-red-950/70 hover:bg-red-800 font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer border border-red-500/40 shadow-xs"
-                            >
-                              ✕ Delete Slide
-                            </button>
-                          )}
-                        </div>
-
-                        <div className="p-5 sm:p-7 space-y-6">
-                          {/* 🌟 1. BIG BANNER COPY & IMAGE */}
-                          <div className="bg-[#FAFAFA] border border-[#E5DDD2] rounded-xl p-5 space-y-4 shadow-2xs">
-                            <div className="flex items-center justify-between pb-2 border-b border-[#E5DDD2]">
-                              <span className="text-xs uppercase tracking-widest font-bold text-[#1C1917] flex items-center gap-2">
-                                <span>🏞️</span>
-                                <span>1. Big Banner Details & Background (1st Image)</span>
-                              </span>
-                              <span className="text-[10px] font-bold text-[#8C7A63] uppercase tracking-wider bg-white px-2.5 py-0.5 rounded-full border border-[#E5DDD2]">
-                                Slide Background
-                              </span>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Slide Tag / Badge</label>
-                                <input
-                                  type="text"
-                                  value={slide.tag ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], tag: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  placeholder="e.g. NEW • MASTERPIECE COLLECTION"
-                                  className="w-full border border-[#DFD8CC] p-2.5 text-xs bg-white outline-none focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B]/30 rounded-lg"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Slide Title</label>
-                                <input
-                                  type="text"
-                                  value={slide.title ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], title: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  placeholder="e.g. Masterpiece Rugs"
-                                  className="w-full border border-[#DFD8CC] p-2.5 text-xs bg-white outline-none focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B]/30 font-serif rounded-lg"
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Slide Description</label>
-                              <textarea
-                                rows={2}
-                                value={slide.description ?? ""}
-                                onChange={(e) => {
-                                  const updated = [...currentSlides];
-                                  updated[idx] = { ...updated[idx], description: e.target.value };
-                                  setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                }}
-                                className="w-full border border-[#DFD8CC] p-2.5 text-xs bg-white outline-none focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B]/30 rounded-lg"
-                              />
-                            </div>
-
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                              <div>
-                                <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Primary Btn Text</label>
-                                <input
-                                  type="text"
-                                  value={slide.ctaText ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], ctaText: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Primary Btn Link</label>
-                                <input
-                                  type="text"
-                                  value={slide.ctaLink ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], ctaLink: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Sec Btn Text</label>
-                                <input
-                                  type="text"
-                                  value={slide.secText ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], secText: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Sec Btn Link</label>
-                                <input
-                                  type="text"
-                                  value={slide.secLink ?? ""}
-                                  onChange={(e) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], secLink: e.target.value };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Big Banner Background Image (1st Image) */}
-                            <div className="pt-2">
-                              <ImageUploader
-                                label="Big Banner Background Image (1st Image)"
-                                value={slide.bgImage || ""}
-                                recommendedSize="1920 × 1080 px (16:9 Landscape)"
-                                onChange={(url) => {
-                                  const updated = [...currentSlides];
-                                  updated[idx] = { ...updated[idx], bgImage: url };
-                                  setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                }}
-                                onUpload={handleImageUpload}
-                                isUploading={isUploading}
-                              />
-                              <p className="text-[10px] text-[#8C7A63] mt-1.5 flex items-center gap-1.5">
-                                <span>💡</span>
-                                <span>Yeh Big Banner image hi homepage ke bottom-left selector box mein auto-thumbnail ke roop mein dikhegi.</span>
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* 🌟 2. TWO HIGHLIGHT CARDS (Images 2 & 3) */}
-                          <div className="pt-4 border-t border-[#E5DDD2] space-y-4">
-                            <span className="text-xs uppercase tracking-widest font-bold text-[#1C1917] block">
-                              2. Two Floating Cards Below This Big Banner
-                            </span>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                              {/* Card 1 (Left Card - Warm Bronze) */}
-                              <div className="p-5 bg-[#FAF6F0] border-2 border-[#E5D7C5] rounded-xl space-y-3 shadow-2xs">
-                                <div className="flex items-center justify-between border-b border-[#E5D7C5] pb-2">
-                                  <span className="text-xs font-bold uppercase tracking-wider text-[#3A332C] flex items-center gap-1.5">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#C19A6B]"></span>
-                                    Card #1 (Left Floating Card)
-                                  </span>
-                                  <span className="text-[10px] font-bold bg-[#C19A6B] text-white px-2.5 py-0.5 rounded-full shadow-2xs">
-                                    Highlight 1
-                                  </span>
-                                </div>
-                                <ImageUploader
-                                  label="Card 1 Image (2nd Image)"
-                                  value={slide.card1Img || ""}
-                                  recommendedSize="200 × 200 px"
-                                  onChange={(url) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], card1Img: url };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  onUpload={handleImageUpload}
-                                  isUploading={isUploading}
-                                />
-                                <div className="grid grid-cols-2 gap-3">
-                                  <div>
-                                    <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Title</label>
-                                    <input
-                                      type="text"
-                                      value={slide.card1Title ?? ""}
-                                      onChange={(e) => {
-                                        const updated = [...currentSlides];
-                                        updated[idx] = { ...updated[idx], card1Title: e.target.value };
-                                        setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                      }}
-                                      placeholder="Artisan Jute"
-                                      className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Price (₹)</label>
-                                    <input
-                                      type="number"
-                                      value={slide.card1Price ?? ""}
-                                      onChange={(e) => {
-                                        const updated = [...currentSlides];
-                                        updated[idx] = { ...updated[idx], card1Price: Number(e.target.value) };
-                                        setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                      }}
-                                      placeholder="3199"
-                                      className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                    />
-                                  </div>
-                                </div>
-                                <div>
-                                  <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Description</label>
-                                  <input
-                                    type="text"
-                                    value={slide.card1Desc ?? ""}
-                                    onChange={(e) => {
-                                      const updated = [...currentSlides];
-                                      updated[idx] = { ...updated[idx], card1Desc: e.target.value };
-                                      setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                    }}
-                                    placeholder="Natural fiber, sustainable craftsmanship"
-                                    className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                  />
-                                </div>
-                                <div>
-                                  <label className="block text-[9.5px] uppercase font-bold text-[#8C7A63] mb-1">Target Link</label>
-                                  <input
-                                    type="text"
-                                    value={slide.card1Link ?? ""}
-                                    onChange={(e) => {
-                                      const updated = [...currentSlides];
-                                      updated[idx] = { ...updated[idx], card1Link: e.target.value };
-                                      setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                    }}
-                                    placeholder="/collections?category=Jute"
-                                    className="w-full border border-[#DFD8CC] p-2 text-xs bg-white outline-none focus:border-[#C19A6B] rounded-lg"
-                                  />
-                                </div>
-                              </div>
-
-                              {/* Card 2 (Right Card - Sage Olive) */}
-                              <div className="p-5 bg-[#F5F8F5] border-2 border-[#D3E0D4] rounded-xl space-y-3 shadow-2xs">
-                                <div className="flex items-center justify-between border-b border-[#D3E0D4] pb-2">
-                                  <span className="text-xs font-bold uppercase tracking-wider text-[#2D5A3C] flex items-center gap-1.5">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#2D5A3C]"></span>
-                                    Card #2 (Right Floating Card)
-                                  </span>
-                                  <span className="text-[10px] font-bold bg-[#2D5A3C] text-white px-2.5 py-0.5 rounded-full shadow-2xs">
-                                    Highlight 2
-                                  </span>
-                                </div>
-                                <ImageUploader
-                                  label="Card 2 Image (3rd Image)"
-                                  value={slide.card2Img || ""}
-                                  recommendedSize="200 × 200 px"
-                                  onChange={(url) => {
-                                    const updated = [...currentSlides];
-                                    updated[idx] = { ...updated[idx], card2Img: url };
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                  }}
-                                  onUpload={handleImageUpload}
-                                  isUploading={isUploading}
-                                />
-                                <div className="grid grid-cols-2 gap-3">
-                                  <div>
-                                    <label className="block text-[9.5px] uppercase font-bold text-[#2D5A3C] mb-1">Title</label>
-                                    <input
-                                      type="text"
-                                      value={slide.card2Title ?? ""}
-                                      onChange={(e) => {
-                                        const updated = [...currentSlides];
-                                        updated[idx] = { ...updated[idx], card2Title: e.target.value };
-                                        setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                      }}
-                                      placeholder="Plush Shaggy"
-                                      className="w-full border border-[#D3E0D4] p-2 text-xs bg-white outline-none focus:border-[#2D5A3C] rounded-lg"
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="block text-[9.5px] uppercase font-bold text-[#2D5A3C] mb-1">Price (₹)</label>
-                                    <input
-                                      type="number"
-                                      value={slide.card2Price ?? ""}
-                                      onChange={(e) => {
-                                        const updated = [...currentSlides];
-                                        updated[idx] = { ...updated[idx], card2Price: Number(e.target.value) };
-                                        setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                      }}
-                                      placeholder="2625"
-                                      className="w-full border border-[#D3E0D4] p-2 text-xs bg-white outline-none focus:border-[#2D5A3C] rounded-lg"
-                                    />
-                                  </div>
-                                </div>
-                                <div>
-                                  <label className="block text-[9.5px] uppercase font-bold text-[#2D5A3C] mb-1">Description</label>
-                                  <input
-                                    type="text"
-                                    value={slide.card2Desc ?? ""}
-                                    onChange={(e) => {
-                                      const updated = [...currentSlides];
-                                      updated[idx] = { ...updated[idx], card2Desc: e.target.value };
-                                      setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                    }}
-                                    placeholder="Soft, plush texture for cozy comfort"
-                                    className="w-full border border-[#D3E0D4] p-2 text-xs bg-white outline-none focus:border-[#2D5A3C] rounded-lg"
-                                  />
-                                </div>
-                                <div>
-                                  <label className="block text-[9.5px] uppercase font-bold text-[#2D5A3C] mb-1">Target Link</label>
-                                  <input
-                                    type="text"
-                                    value={slide.card2Link ?? ""}
-                                    onChange={(e) => {
-                                      const updated = [...currentSlides];
-                                      updated[idx] = { ...updated[idx], card2Link: e.target.value };
-                                      setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                    }}
-                                    placeholder="/collections?category=Shag"
-                                    className="w-full border border-[#D3E0D4] p-2 text-xs bg-white outline-none focus:border-[#2D5A3C] rounded-lg"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-
-                    return (
-                      <div className="space-y-6">
-                        {/* 🌟 1. PRIMARY SLIDE 1 (DIRECTLY VISIBLE) */}
-                        <div>
-                          <div className="flex items-center justify-between mb-3">
-                            <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-[#1C1917] flex items-center gap-2">
-                              <span>⭐</span>
-                              <span>Slide #1 (Main Default Hero Slide)</span>
-                            </h4>
-                            <span className="text-[11px] font-bold px-3 py-1 bg-[#1C1917] text-[#FAFAFA] rounded-full shadow-2xs">
-                              {currentSlides.length} / 5 Slides Configured
-                            </span>
-                          </div>
-                          {renderSlideForm(slide1, 0, true)}
-                        </div>
-
-                        {/* 🌟 2. DROPDOWN ACCORDION FOR EXTRA SLIDES (SLIDE 2 TO 5) */}
-                        <div className="bg-[#FAFAFA] border-2 border-[#DFD8CC] rounded-2xl p-5 sm:p-7 space-y-6 shadow-xs">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DFD8CC] pb-4">
-                            <div>
-                              <div className="flex items-center gap-2.5">
-                                <span className="text-sm font-bold font-serif text-[#1C1917] flex items-center gap-2">
-                                  <span>📂</span>
-                                  <span>Additional Carousel Slides (Slide 2 to 5)</span>
-                                </span>
-                                <span className="text-[10px] font-bold px-2.5 py-0.5 bg-[#C19A6B]/20 text-[#3A332C] border border-[#C19A6B]/40 rounded-full">
-                                  {currentSlides.length > 1 ? `${currentSlides.length - 1} Extra Slide(s)` : "None Added Yet"}
-                                </span>
-                              </div>
-                              <p className="text-xs text-[#7A7065] mt-1">
-                                Dropdown se slide select karke uski details aur images edit karein.
-                              </p>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-3">
-                              {/* Dropdown Selector */}
-                              {currentSlides.length > 1 && (
-                                <div className="flex items-center gap-2">
-                                  <label className="text-[11px] font-bold uppercase tracking-wider text-[#8C7A63]">
-                                    Select Slide:
-                                  </label>
-                                  <select
-                                    value={effectiveExtraIdx}
-                                    onChange={(e) => setSelectedExtraSlide(Number(e.target.value))}
-                                    className="bg-white border-2 border-[#C19A6B] text-[#1C1917] text-xs font-bold px-3.5 py-2 rounded-lg outline-none cursor-pointer shadow-xs focus:ring-2 focus:ring-[#C19A6B]/20"
-                                  >
-                                    {currentSlides.slice(1).map((s: any, sIdx: number) => {
-                                      const actualIdx = sIdx + 1;
-                                      return (
-                                        <option key={actualIdx} value={actualIdx}>
-                                          Slide #${actualIdx + 1}: {s.title || `Slide ${actualIdx + 1}`}
-                                        </option>
-                                      );
-                                    })}
-                                  </select>
-                                </div>
-                              )}
-
-                              {currentSlides.length < 5 && (
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const nextIdx = currentSlides.length + 1;
-                                    const newSlide = {
-                                      id: `slide-${Date.now()}`,
-                                      tag: "NEW • CURATED COLLECTION",
-                                      title: `Artisanal Rugs ${nextIdx}`,
-                                      description: "Handcrafted luxury carpets woven with pure natural fibers and timeless elegance.",
-                                      ctaText: "Shop the Collection",
-                                      ctaLink: "/collections",
-                                      secText: "Custom Sizing",
-                                      secLink: "/customize",
-                                      bgImage: "/uploads/scandinavian_living_room_centered-1790130932889.webp",
-                                      card1Title: "Artisan Jute",
-                                      card1Desc: "Natural fiber, sustainable craftsmanship",
-                                      card1Price: 3199,
-                                      card1Img: "/uploads/braided_rug_patio-1790142906085.webp",
-                                      card1Link: "/collections?category=Jute",
-                                      card2Title: "Plush Shaggy",
-                                      card2Desc: "Soft, plush texture for cozy comfort",
-                                      card2Price: 2625,
-                                      card2Img: "/uploads/cozy_reading_nook_1-1790142709808.webp",
-                                      card2Link: "/collections?category=Shag",
-                                    };
-                                    const updated = [...currentSlides, newSlide];
-                                    setSiteContent((prev) => ({ ...prev, home: { ...prev.home, heroSlides: updated } }));
-                                    setSelectedExtraSlide(updated.length - 1);
-                                  }}
-                                  className="px-4 py-2 bg-[#1C1917] hover:bg-[#C19A6B] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-xs flex items-center gap-1.5 cursor-pointer shrink-0"
-                                >
-                                  <span>➕ Add Slide #${currentSlides.length + 1}</span>
-                                </button>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Selected Extra Slide View */}
-                          {activeExtraSlide ? (
-                            <div className="space-y-4">
-                              <div className="flex items-center justify-between text-xs text-[#8C7A63]">
-                                <span>Editing extra slide: <strong>Slide #${effectiveExtraIdx + 1}</strong></span>
-                                <span className="font-mono text-[11px] bg-white px-2 py-0.5 rounded border border-[#DFD8CC]">
-                                  Index: {effectiveExtraIdx}
-                                </span>
-                              </div>
-                              {renderSlideForm(activeExtraSlide, effectiveExtraIdx, false)}
-                            </div>
-                          ) : (
-                            <div className="text-center py-8 text-xs text-[#8C7A63] bg-white rounded-xl border border-dashed border-[#DFD8CC]">
-                              <p className="font-semibold text-sm text-[#3A332C] mb-1">Abhi sirf 1 Main Hero Slide active hai.</p>
-                              <p>Agar aap chahte hain ki homepage par hero banner auto-slide ho, toh upar <strong className="text-[#1C1917]">"+ Add Slide #2"</strong> button par click karein.</p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })()}
+                <div>
+                  <label className="block text-[11px] uppercase font-bold text-[#8C7A63] mb-1">Etsy Shop URL</label>
+                  <input
+                    type="text"
+                    value={currentContent.etsy?.url || "https://www.etsy.com/shop/AHADGLOBALRUGS"}
+                    onChange={(e) => updateField("etsy", "url", e.target.value)}
+                    className="w-full border border-amber-200/80 p-2.5 text-xs bg-white outline-none focus:border-[#4A1017] focus:ring-1 focus:ring-[#4A1017]/20 rounded-xl text-stone-800"
+                  />
                 </div>
               </div>
             </div>

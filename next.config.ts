@@ -10,7 +10,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "qjpjltaiazwybhsmnkve.supabase.co",
+        hostname: "i.etsystatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.etsystatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ycykuweoprcspzwvcezw.supabase.co",
       },
       {
         protocol: "https",
@@ -27,10 +35,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "**.r2.dev",
-      },
-      {
-        protocol: "https",
-        hostname: "pub-2e34993142914e8e88a0050bb9e323a1.r2.dev",
       },
     ],
   },

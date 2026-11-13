@@ -24,7 +24,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
       story:
         "In the quiet labyrinthine lanes of Bhadohi, Uttar Pradesh, our grandfather anchored a single wooden pit-loom in the shaded courtyard of our ancestral home. Here, master weaving was never treated as automated commerce—it was sacred prayer. Every skein of hand-spun raw wool was hand-graded by touch, and every knot honored a lineage spanning over four centuries of Mughal court weavers.",
       quote: "A true carpet is not merely laid upon a floor; it holds the silent patience of hands that refused to hurry.",
-      img: "/uploads/ai_rug_hand_knotted_luxury_v1.webp",
+      img: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=800&q=80",
       badge: "Ancestral Origins",
       stats: { primary: "1 Loom", secondary: "Pure Hand-Knotted" },
     },
@@ -36,7 +36,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
       story:
         "As the atelier expanded, we pioneered traditional herb-infused textile cleansing and sun-curing across open brick terraces. Pure rainwater and organic plant infusions unlocked an iridescent natural luster in long-staple New Zealand wool that synthetic chemical washes could never replicate. International patrons began discovering our private workshop through word of mouth.",
       quote: "The sun in Bhadohi doesn't merely dry wool; it sets the immortal soul into every fiber.",
-      img: "/uploads/braided_rug_closeup-1790142830679.webp",
+      img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
       badge: "Solar Patina Alchemy",
       stats: { primary: "40+ Looms", secondary: "100% Organic Dyes" },
     },
@@ -48,7 +48,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
       story:
         "With architectural minimalism transforming modern homes, our generational weavers mastered tactile 3D relief carving using specialized curved hand-shears. Braided organic golden jute from Bengal and sustainable plant fibers were woven into concentric spirals and organic contours—redefining rugs as sculptural flooring.",
       quote: "We do not simply make rugs; we sculpt architectural grounding for mindful living.",
-      img: "/uploads/ai_rug_tufted_geometric_relief_v1.webp",
+      img: "https://images.unsplash.com/photo-1579656381226-5fc0f0100c3b?auto=format&fit=crop&w=800&q=80",
       badge: "Sculptural Innovation",
       stats: { primary: "150+ Artisans", secondary: "Hand-Carved Relief" },
     },
@@ -60,7 +60,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
       story:
         "Today, NR Enterprises brings authentic museum-grade Bhadohi craftsmanship directly to homes worldwide. By cutting out luxury boutiques, distributors, and importer markups, we ensure fair master artisan compensation, certified sustainable rPET and organic fibers, and unmatched bespoke tailoring for your home.",
       quote: "Direct maker integrity: Honest pricing, fair artisan wages, and carpets built to outlive generations.",
-      img: "https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/modern-luxury-hall-rug-1791629806105.webp",
+      img: "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=80",
       badge: "Maker to Sanctuary",
       stats: { primary: "400+ Master Looms", secondary: "Zero Middlemen" },
     },
@@ -72,42 +72,42 @@ export default function LegacyClient({ initialData }: StoryProps) {
       category: "looms",
       title: "Traditional Wooden Pit-Loom",
       subtitle: "Where generational tension and hand-knotting unfold",
-      img: "/uploads/ai_rug_hand_knotted_luxury_v1.webp",
+      img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
       tag: "Heritage Craft",
     },
     {
       category: "artisan",
       title: "Precision 3D Pile Sculpting",
       subtitle: "Curved shearing scissors creating high-low relief",
-      img: "/uploads/ai_rug_tufted_geometric_relief_v1.webp",
+      img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
       tag: "Artisan Hands",
     },
     {
       category: "fibers",
       title: "Organic Bengal Golden Jute",
       subtitle: "Hand-braided sustainable plant cords with organic tensile strength",
-      img: "/uploads/ai_rug_artisan_jute_v1.webp",
+      img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
       tag: "Natural Fibers",
     },
     {
       category: "artisan",
       title: "Solar Patio Textile Curing",
       subtitle: "Natural courtyard curing under the warm Indian sun",
-      img: "/uploads/braided_rug_closeup-1790142830679.webp",
+      img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800&q=80",
       tag: "Ancient Alchemy",
     },
     {
       category: "looms",
       title: "Reversible Dhurrie Weft Tightening",
       subtitle: "Heavy wooden combs striking each weft into tight alignment",
-      img: "/uploads/ai_rug_flatweave_dhurrie_v1.webp",
+      img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
       tag: "Heritage Weft",
     },
     {
       category: "fibers",
       title: "Recycled Eco-PET & Pure NZ Wool",
       subtitle: "Plush, stain-resistant yarns spun for mindful luxury living",
-      img: "/uploads/pet_fiber_yarn_hand-1789701082880.webp",
+      img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80",
       tag: "Conscious Materials",
     },
   ];
@@ -125,7 +125,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
         {/* Background Ambience */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/modern-luxury-hall-rug-1791629806105.webp"
+            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80"
             alt="NR Enterprises Bhadohi Heritage"
             fill
             priority

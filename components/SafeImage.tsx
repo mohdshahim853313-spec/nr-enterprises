@@ -8,7 +8,6 @@ interface SafeImageProps extends Omit<ImageProps, "onError"> {
   showLogo?: boolean;
 }
 
-// In-memory cache of already loaded image URLs to prevent re-flashing skeletons on carousels/re-renders
 const loadedUrlsCache = new Set<string>();
 
 export default function SafeImage({
@@ -20,40 +19,40 @@ export default function SafeImage({
   fill,
   ...rest
 }: SafeImageProps) {
-  const isCached = typeof src === "string" ? loadedUrlsCache.has(src) : false;
-
-  const [hasError, setHasError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(() => isCached);
-
-  useEffect(() => {
-    setHasError(false);
-    if (typeof src === "string" && loadedUrlsCache.has(src)) {
-      setIsLoaded(true);
-    } else {
-      setIsLoaded(false);
-    }
-  }, [src]);
-
   const isValidSrc =
     typeof src === "string"
       ? src.trim().length > 0 &&
         !src.includes("undefined") &&
-        !src.includes("null") &&
-        !src.endsWith("/undefined")
+        !src.includes("null")
       : Boolean(src);
 
-  if (!isValidSrc || hasError) {
+  const [imgSrc, setImgSrc] = useState<string>(() => (isValidSrc && typeof src === "string" ? src : ""));
+  const [hasError, setHasError] = useState(false);
+  const isDirectCdn = typeof imgSrc === "string" && (imgSrc.includes("etsystatic.com") || imgSrc.includes(".r2.dev") || imgSrc.includes("supabase.co") || imgSrc.startsWith("/uploads/"));
+  const [isLoaded, setIsLoaded] = useState(() => (typeof imgSrc === "string" ? loadedUrlsCache.has(imgSrc) || isDirectCdn : false));
+
+  useEffect(() => {
+    if (typeof src === "string" && src.trim() && !src.includes("undefined") && !src.includes("null")) {
+      setImgSrc(src);
+      setHasError(false);
+      setIsLoaded(loadedUrlsCache.has(src) || src.includes("etsystatic.com") || src.includes(".r2.dev") || src.includes("supabase.co") || src.startsWith("/uploads/"));
+    } else {
+      setImgSrc(fallbackSrc || "");
+      setHasError(!fallbackSrc);
+      setIsLoaded(Boolean(fallbackSrc));
+    }
+  }, [src, fallbackSrc]);
+
+  // If source is invalid or failed to load
+  if (!isValidSrc || (hasError && !fallbackSrc)) {
     return (
       <div
         className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#3D0C12] via-[#2A080C] to-[#1A0407] border border-[#4A1017] select-none ${className}`}
         title={alt}
       >
-        {/* Subtle glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(250,245,235,0.06),transparent_70%)] pointer-events-none" />
-
-        {/* NR Enterprises Emblem Placeholder */}
-        <div className="relative z-10 flex flex-col items-center justify-center p-4 text-center w-full max-w-[320px]">
-          <div className="w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-1 mb-2">
+        <div className="relative z-10 flex flex-col items-center justify-center p-3 text-center w-full max-w-[280px]">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center p-1 mb-1.5">
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
@@ -63,48 +62,60 @@ export default function SafeImage({
               }}
             />
           </div>
-          <span className="text-xs sm:text-sm font-heading font-bold uppercase tracking-[0.25em] text-[#FAF5EB] drop-shadow-sm">
+          <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-[0.22em] text-[#FAF5EB] drop-shadow-sm">
             NR Enterprises
           </span>
-          <span className="text-[10px] sm:text-[11.5px] text-[#FAF5EB]/80 font-serif italic mt-0.5">
-            Bespoke Carpet Atelier • Bhadohi
+          <span className="text-[9.5px] sm:text-[10.5px] text-[#FAF5EB]/70 font-serif italic mt-0.5">
+            Artisanal Bhadohi Atelier
           </span>
         </div>
       </div>
     );
   }
 
+  const effectiveSrc = hasError && fallbackSrc ? fallbackSrc : imgSrc;
+  const isUnoptimized = Boolean(
+    rest.unoptimized ||
+    (typeof effectiveSrc === "string" && (effectiveSrc.includes("etsystatic.com") || effectiveSrc.includes(".r2.dev")))
+  );
+
   return (
     <>
-      {/* Background Skeleton while image is downloading - Solid Dark Maroon (Zero White Flash) */}
       {!isLoaded && (
         <div className="absolute inset-0 z-0 bg-[#240609] flex flex-col items-center justify-center p-4 select-none">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center p-1 mb-2">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center p-1 mb-1.5">
             <img
               src="/nr-logo.png"
               alt="NR Enterprises"
               className="w-full h-full object-contain opacity-75 drop-shadow-[0_2px_12px_rgba(74,16,23,0.35)]"
             />
           </div>
-          <span className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-[0.2em] text-[#FAF5EB]/80">
+          <span className="text-[10px] font-heading font-bold uppercase tracking-[0.2em] text-[#FAF5EB]/80">
             NR Enterprises
           </span>
         </div>
       )}
 
-      {/* Main Next.js Image with Crystal-Clear Full-Definition Support */}
       <Image
-        src={src}
+        src={effectiveSrc}
         alt={alt}
         fill={fill}
-        quality={rest.quality || 95}
-        unoptimized={Boolean(rest.unoptimized || (typeof src === "string" && (src.includes(".r2.dev") || src.startsWith("/uploads/"))))}
-        className={`${className} transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        quality={rest.quality || 90}
+        unoptimized={isUnoptimized}
+        className={`${className} transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
         onLoad={() => {
-          if (typeof src === "string") loadedUrlsCache.add(src);
+          if (typeof effectiveSrc === "string") loadedUrlsCache.add(effectiveSrc);
           setIsLoaded(true);
         }}
-        onError={() => setHasError(true)}
+        onError={() => {
+          if (!hasError && fallbackSrc) {
+            setHasError(true);
+            setImgSrc(fallbackSrc);
+            setIsLoaded(true);
+          } else {
+            setHasError(true);
+          }
+        }}
         {...rest}
       />
     </>

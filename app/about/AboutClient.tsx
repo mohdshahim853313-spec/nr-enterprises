@@ -49,7 +49,7 @@ export default function AboutClient({ initialData }: AboutClientProps) {
   const displayImage =
     (typeof aboutData?.footerImage === "string" && aboutData.footerImage.trim()) ||
     (typeof aboutData?.hero?.image === "string" && aboutData.hero.image.trim()) ||
-    "https://pub-2e34993142914e8e88a0050bb9e323a1.r2.dev/image-20261011-131206-1792210279453.webp";
+    "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=800&q=80";
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] font-sans text-[#2B070B] selection:bg-[#4A1017] selection:text-[#FAF5EB]">

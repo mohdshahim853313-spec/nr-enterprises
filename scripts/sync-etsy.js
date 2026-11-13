@@ -3,7 +3,7 @@ require("dotenv").config({ path: ".env.local" });
 
 const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "zylzcsf84xn2i4z8fvz26w6x";
 const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "3v9703wmcpd4ol5y00wq5ha44";
-const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67518977";
+const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

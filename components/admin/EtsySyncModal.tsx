@@ -32,6 +32,7 @@ export default function EtsySyncModal({
   onSyncComplete,
 }: EtsySyncModalProps) {
   const [listings, setListings] = useState<EtsyListing[]>([]);
+  const [markupPercent, setMarkupPercent] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncProgress, setSyncProgress] = useState<{ current: number; total: number; currentTitle: string } | null>(null);
@@ -121,6 +122,7 @@ export default function EtsySyncModal({
       // Chunk sync in batches of 4 for smooth progress feedback
       const BATCH_SIZE = 4;
       let totalSuccess = 0;
+      let lastErrorMessage = "";
 
       for (let i = 0; i < idsToSync.length; i += BATCH_SIZE) {
         const batch = idsToSync.slice(i, i + BATCH_SIZE);
@@ -134,18 +136,23 @@ export default function EtsySyncModal({
         const res = await fetch("/api/etsy/sync", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ listingIds: batch }),
+          body: JSON.stringify({ listingIds: batch, markupPercent }),
         });
 
         const data = await res.json();
-        if (data.success) {
+        if (data.success && (data.syncedCount || 0) > 0) {
           totalSuccess += data.syncedCount || 0;
         } else {
+          lastErrorMessage = data.error || "Batch sync failed";
           console.warn("Batch sync error:", data.error);
         }
       }
 
-      setSuccessMsg(`🎉 Successfully synced ${totalSuccess} listings from Etsy!`);
+      if (totalSuccess > 0) {
+        setSuccessMsg(`🎉 Successfully synced ${totalSuccess} listings from Etsy!`);
+      } else {
+        setErrorMsg(lastErrorMessage || "0 listings synced. Supabase database me 'products' table banani hogi.");
+      }
       await fetchEtsyListings();
       setSelectedIds(new Set());
       if (onSyncComplete) onSyncComplete();
@@ -172,29 +179,29 @@ export default function EtsySyncModal({
   const newCount = listings.length - syncedCount;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex justify-center items-start sm:items-center p-2 sm:p-4 md:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-[#E5DDD2] overflow-hidden flex flex-col max-h-[92vh]"
+        className="bg-white w-full max-w-5xl rounded-2xl sm:rounded-3xl shadow-2xl border border-[#E5DDD2] overflow-hidden flex flex-col max-h-[88vh] my-auto relative"
       >
         {/* Header with Etsy Brand Accent */}
-        <div className="bg-[#1C1917] text-white px-6 py-5 flex items-center justify-between border-b-4 border-[#F1641E]">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-[#F1641E] flex items-center justify-center font-bold text-white text-xl shadow-md">
+        <div className="bg-[#1C1917] text-white px-5 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between border-b-4 border-[#F1641E] shrink-0 sticky top-0 z-30 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#F1641E] flex items-center justify-center font-bold text-white text-lg sm:text-xl shadow-md shrink-0">
               E
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-lg sm:text-xl font-bold font-heading">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold font-heading">
                   Etsy Live Catalog Sync
                 </h2>
-                <span className="bg-[#F1641E]/20 text-[#F1641E] border border-[#F1641E]/40 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="bg-[#F1641E]/20 text-[#F1641E] border border-[#F1641E]/40 text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                   Live API
                 </span>
               </div>
-              <p className="text-xs text-neutral-400">
+              <p className="text-[11px] sm:text-xs text-neutral-400">
                 Connected to <strong className="text-white">AHADGLOBALRUGS</strong> (https://www.etsy.com/shop/AHADGLOBALRUGS)
               </p>
             </div>
@@ -203,14 +210,14 @@ export default function EtsySyncModal({
           <button
             onClick={onClose}
             disabled={isSyncing}
-            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white flex items-center justify-center text-lg font-bold transition-colors cursor-pointer disabled:opacity-50"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-300 hover:text-white flex items-center justify-center text-base sm:text-lg font-bold transition-colors cursor-pointer disabled:opacity-50 shrink-0 ml-2"
           >
             ✕
           </button>
         </div>
 
         {/* Quick Stats & Controls Bar */}
-        <div className="bg-[#FAF8F5] border-b border-[#E8DFD3] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+        <div className="bg-[#FAF8F5] border-b border-[#E8DFD3] p-3.5 sm:p-5 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3 sm:gap-6">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -260,9 +267,38 @@ export default function EtsySyncModal({
           </div>
         </div>
 
+        {/* 🌟 Price Markup on Sync Bar */}
+        <div className="bg-[#FAF8F5] border-b border-[#EAE6DF] px-5 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="font-heading font-bold text-[#2B070B] flex items-center gap-1.5">
+              <span>⚡ Price Markup on Sync:</span>
+            </span>
+            <span className="text-[11px] text-[#8C7A6B]">
+              (Auto-scales India, US & Everywhere Else)
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            {[0, 10, 15, 20, 25, 30, 50].map((pct) => (
+              <button
+                key={pct}
+                type="button"
+                onClick={() => setMarkupPercent(pct)}
+                className={`px-2.5 py-1 rounded-lg font-bold text-xs transition-all cursor-pointer ${
+                  markupPercent === pct
+                    ? "bg-[#2B070B] text-white shadow-2xs"
+                    : "bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-300"
+                }`}
+              >
+                {pct === 0 ? "Original (0%)" : `+${pct}%`}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Live Sync Progress Bar Overlay */}
         {isSyncing && syncProgress && (
-          <div className="bg-amber-50 border-b border-amber-200 px-6 py-3.5 flex flex-col gap-2">
+          <div className="bg-amber-50 border-b border-amber-200 px-5 sm:px-6 py-3 flex flex-col gap-2 shrink-0">
             <div className="flex items-center justify-between text-xs font-bold text-amber-900">
               <span className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" />
@@ -297,7 +333,7 @@ export default function EtsySyncModal({
         )}
 
         {/* Filters & Search */}
-        <div className="px-6 py-3.5 border-b border-[#E8DFD3] flex flex-wrap items-center justify-between gap-3 bg-white">
+        <div className="px-5 sm:px-6 py-3 border-b border-[#E8DFD3] flex flex-wrap items-center justify-between gap-3 bg-white shrink-0">
           <div className="flex items-center gap-2">
             <button
               type="button"

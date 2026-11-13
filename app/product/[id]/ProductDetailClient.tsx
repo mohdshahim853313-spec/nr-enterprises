@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
+import { DUMMY_RUG_IMAGES, DUMMY_RUG_GALLERY } from "@/lib/dummyImages";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../../../lib/supabase";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -624,7 +626,9 @@ export default function ProductDetailClient({
     );
   }
 
-  const images = Array.isArray(product.images) && product.images.length > 0 ? product.images : [product.image || ""];
+  const rawImages: string[] = Array.isArray(product.images) && product.images.length > 0 ? product.images : (product.image ? [product.image] : []);
+  const validImages = rawImages.filter((img: string) => img && !img.startsWith("/uploads/") && !img.includes("undefined"));
+  const images = validImages.length > 0 ? validImages : [];
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#2B070B] pt-3 sm:pt-3.5 pb-20">
@@ -672,13 +676,13 @@ export default function ProductDetailClient({
               {/* 🎨 Ambient Studio Glow (soft blur behind uncropped rug for seamless luxury presentation) */}
               {imageFit === "contain" && (
                 <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 filter blur-3xl scale-125 transition-opacity duration-500">
-                  <Image
+                  <SafeImage
                     src={activeImage || images[0]}
                     alt=""
                     fill
                     sizes="120px"
                     className="object-cover"
-                    priority={false}
+                    fallbackSrc={DUMMY_RUG_IMAGES.defaultCarpet}
                   />
                 </div>
               )}
@@ -728,13 +732,11 @@ export default function ProductDetailClient({
                       transition: isDragging ? "none" : "transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.3s ease-out",
                     }}
                   >
-                    <Image
+                    <SafeImage
                       src={img}
                       alt={`${product.name} - View ${idx + 1}`}
                       fill
                       priority={idx === 0}
-                      loading={idx === 0 ? "eager" : "lazy"}
-                      decoding="async"
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1600px"
                       quality={95}
                       className={`pointer-events-none select-none transition-all duration-300 ${imageFit === "contain"
@@ -852,7 +854,7 @@ export default function ProductDetailClient({
                       className={`relative w-18 h-18 sm:w-20 sm:h-20 rounded-none overflow-hidden shrink-0 transition-all border-2 cursor-pointer select-none ${isSelected ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/30 scale-105" : "border-transparent opacity-70 hover:opacity-100"
                         }`}
                     >
-                      <Image
+                      <SafeImage
                         src={img}
                         alt=""
                         fill
