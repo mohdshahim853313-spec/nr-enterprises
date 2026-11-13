@@ -1349,11 +1349,11 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
                     aria-label={`Select ${slide.thumbLabel || slide.title || `Slide ${idx + 1}`}`}
                   >
                     <Image
-                      src={slide.bgImage || slide.thumb || "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80"}
+                      src={slide.bgImage || slide.thumb || "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1920&q=100"}
                       alt={slide.title || "Slide"}
                       fill
                       unoptimized
-                      quality={90}
+                      quality={100}
                       sizes="(max-width: 640px) 20vw, 300px"
                       className="object-cover transition-transform duration-500 group-hover/thumb:scale-108"
                     />

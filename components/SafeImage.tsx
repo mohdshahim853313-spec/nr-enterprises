@@ -10,6 +10,31 @@ interface SafeImageProps extends Omit<ImageProps, "onError"> {
 
 const loadedUrlsCache = new Set<string>();
 
+// 🌟 Full-Quality Image Link Booster
+function optimizeLinkForFullQuality(url: string): string {
+  if (!url || typeof url !== "string") return url;
+  let clean = url.trim();
+
+  // 1. Etsy CDN: Upgrade any thumbnail resolution (e.g. 570xN, 340x270) to raw fullxfull master
+  if (clean.includes("etsystatic.com")) {
+    clean = clean
+      .replace(/\/il_\d+x\w+\./, "/il_fullxfull.")
+      .replace(/\/il_\d+x\d+\./, "/il_fullxfull.");
+  }
+
+  // 2. Unsplash: Upgrade resolution to 2400px & 100% maximum clarity
+  if (clean.includes("images.unsplash.com")) {
+    if (clean.includes("?")) {
+      clean = clean
+        .replace(/w=\d+/, "w=2400")
+        .replace(/q=\d+/, "q=100");
+      if (!clean.includes("q=100")) clean += "&q=100";
+    }
+  }
+
+  return clean;
+}
+
 export default function SafeImage({
   src,
   alt = "NR Enterprises Carpet",
@@ -19,29 +44,38 @@ export default function SafeImage({
   fill,
   ...rest
 }: SafeImageProps) {
+  const processedSrc = typeof src === "string" ? optimizeLinkForFullQuality(src) : src;
   const isValidSrc =
-    typeof src === "string"
-      ? src.trim().length > 0 &&
-        !src.includes("undefined") &&
-        !src.includes("null")
-      : Boolean(src);
+    typeof processedSrc === "string"
+      ? processedSrc.trim().length > 0 &&
+        !processedSrc.includes("undefined") &&
+        !processedSrc.includes("null")
+      : Boolean(processedSrc);
 
-  const [imgSrc, setImgSrc] = useState<string>(() => (isValidSrc && typeof src === "string" ? src : ""));
+  const [imgSrc, setImgSrc] = useState<string>(() => (isValidSrc && typeof processedSrc === "string" ? processedSrc : ""));
   const [hasError, setHasError] = useState(false);
-  const isDirectCdn = typeof imgSrc === "string" && (imgSrc.includes("etsystatic.com") || imgSrc.includes(".r2.dev") || imgSrc.includes("supabase.co") || imgSrc.startsWith("/uploads/"));
+  const isDirectCdn = typeof imgSrc === "string" && (
+    imgSrc.startsWith("http://") ||
+    imgSrc.startsWith("https://") ||
+    imgSrc.includes("etsystatic.com") ||
+    imgSrc.includes(".r2.dev") ||
+    imgSrc.includes("supabase.co") ||
+    imgSrc.startsWith("/uploads/")
+  );
   const [isLoaded, setIsLoaded] = useState(() => (typeof imgSrc === "string" ? loadedUrlsCache.has(imgSrc) || isDirectCdn : false));
 
   useEffect(() => {
     if (typeof src === "string" && src.trim() && !src.includes("undefined") && !src.includes("null")) {
-      setImgSrc(src);
+      const highRes = optimizeLinkForFullQuality(src);
+      setImgSrc(highRes);
       setHasError(false);
-      setIsLoaded(loadedUrlsCache.has(src) || src.includes("etsystatic.com") || src.includes(".r2.dev") || src.includes("supabase.co") || src.startsWith("/uploads/"));
+      setIsLoaded(loadedUrlsCache.has(highRes) || isDirectCdn);
     } else {
       setImgSrc(fallbackSrc || "");
       setHasError(!fallbackSrc);
       setIsLoaded(Boolean(fallbackSrc));
     }
-  }, [src, fallbackSrc]);
+  }, [src, fallbackSrc, isDirectCdn]);
 
   // If source is invalid or failed to load
   if (!isValidSrc || (hasError && !fallbackSrc)) {
@@ -76,7 +110,15 @@ export default function SafeImage({
   const effectiveSrc = hasError && fallbackSrc ? fallbackSrc : imgSrc;
   const isUnoptimized = Boolean(
     rest.unoptimized ||
-    (typeof effectiveSrc === "string" && (effectiveSrc.includes("etsystatic.com") || effectiveSrc.includes(".r2.dev")))
+    (typeof effectiveSrc === "string" && (
+      effectiveSrc.startsWith("http://") ||
+      effectiveSrc.startsWith("https://") ||
+      effectiveSrc.includes("etsystatic.com") ||
+      effectiveSrc.includes("supabase.co") ||
+      effectiveSrc.includes(".r2.dev") ||
+      effectiveSrc.includes("unsplash.com") ||
+      effectiveSrc.startsWith("/uploads/")
+    ))
   );
 
   return (
@@ -100,7 +142,7 @@ export default function SafeImage({
         src={effectiveSrc}
         alt={alt}
         fill={fill}
-        quality={rest.quality || 90}
+        quality={rest.quality || 100}
         unoptimized={isUnoptimized}
         className={`${className} transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
         onLoad={() => {
