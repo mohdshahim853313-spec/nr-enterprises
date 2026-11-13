@@ -78,9 +78,9 @@ export default function Navbar() {
 
   const userMemberSince = user?.created_at
     ? new Date(user.created_at).toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      })
+      month: "short",
+      year: "numeric",
+    })
     : "2026";
 
   const headerRef = useRef<HTMLElement>(null);
@@ -210,7 +210,7 @@ export default function Navbar() {
       setSelectedCountry(countryName);
       try {
         localStorage.setItem("user_country", countryName);
-      } catch {}
+      } catch { }
     }
     setIsCurrencyDropdownOpen(false);
   };
@@ -354,7 +354,7 @@ export default function Navbar() {
         setIsCurrencyDropdownOpen(false);
       }
       // Scrolling Up (Down to Top) -> Smoothly slide header down into view!
-      else if (scrollDelta < -4 && !currentVisible) {
+      else if (scrollDelta < -2 && !currentVisible) {
         currentVisible = true;
         setIsHeaderVisible(true);
       }
@@ -377,9 +377,8 @@ export default function Navbar() {
   return (
     <>
       <div
-        className={`w-full sticky top-0 z-50 transform-gpu will-change-transform transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isHeaderVisible ? "translate-y-0" : "-translate-y-full shadow-none"
-        }`}
+        className={`w-full sticky top-0 z-50 transform-gpu will-change-transform transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${isHeaderVisible ? "translate-y-0" : "-translate-y-full shadow-none"
+          }`}
       >
         {/* 🌟 1. TOP ANNOUNCEMENT STRIP (Royal Heritage Maroon Ribbon) */}
         <div className="w-full bg-[#4A1017] text-[#FAF5EB] text-[11px] sm:text-xs py-1.5 px-4 tracking-wider uppercase flex items-center justify-center text-center relative border-b border-[#380C11] font-medium shadow-xs">
@@ -396,10 +395,10 @@ export default function Navbar() {
           ref={headerRef}
           className="w-full bg-[#2B070B] border-b border-[#4A1017] shadow-md transition-all duration-300 text-white"
         >
-          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] sm:h-[76px] flex items-center justify-between gap-3 lg:gap-6">
-            
-            {/* Left: Mobile Burger + Luxury Brand Monogram & Name */}
-            <div className="flex items-center gap-3 shrink-0">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] sm:h-[76px] flex items-center justify-between gap-3 lg:gap-6 relative">
+
+            {/* Left: Mobile Burger + Mobile Search & Desktop Brand Logo */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-[#FAF5EB] hover:text-white transition-colors rounded-lg border border-[#4A1017] hover:border-[#FAF5EB] bg-[#3D0C12] cursor-pointer"
@@ -410,19 +409,54 @@ export default function Navbar() {
                 </svg>
               </button>
 
+              {/* 🌟 Mobile Search Trigger: Placed on Left of Logo for Perfect 2-and-2 Symmetry */}
+              <button
+                onClick={() => {
+                  setIsSearchOpen(!isSearchOpen);
+                  if (isSearchOpen) setSearchQuery("");
+                }}
+                className="lg:hidden p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] cursor-pointer"
+                aria-label="Search"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+
+              {/* Desktop Logo (hidden on mobile, visible on desktop) */}
               <Link
                 href="/"
-                className="flex items-center group cursor-pointer text-left select-none shrink-0"
+                className="hidden lg:flex items-center group cursor-pointer text-left select-none shrink-0"
                 aria-label="NR Enterprises Atelier Home"
               >
-                <div className="relative h-12 sm:h-14 md:h-15 w-28 sm:w-36 md:w-40 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform group-hover:scale-105 duration-200">
+                <div className="relative h-12 sm:h-14 md:h-15 w-32 sm:w-36 md:w-40 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform group-hover:scale-105 duration-200">
                   <Image
                     src="/nr-logo.png"
                     alt="NR Enterprises"
                     fill
-                    sizes="(max-width: 640px) 120px, 160px"
+                    sizes="160px"
                     priority
                     className="object-contain object-left"
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* 🌟 Center Logo for Mobile Only (Centered between screen edges) */}
+            <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto">
+              <Link
+                href="/"
+                className="flex items-center justify-center group cursor-pointer select-none"
+                aria-label="NR Enterprises Atelier Home"
+              >
+                <div className="relative h-12 w-28 sm:h-14 sm:w-32 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform active:scale-95 duration-150">
+                  <Image
+                    src="/nr-logo.png"
+                    alt="NR Enterprises"
+                    fill
+                    sizes="130px"
+                    priority
+                    className="object-contain object-center"
                   />
                 </div>
               </Link>
@@ -436,15 +470,13 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative py-1.5 transition-colors duration-200 group ${
-                      isActive ? "text-white font-extrabold" : "text-[#E6D7D4] hover:text-[#FAF5EB]"
-                    }`}
+                    className={`relative py-1.5 transition-colors duration-200 group ${isActive ? "text-white font-extrabold" : "text-[#E6D7D4] hover:text-[#FAF5EB]"
+                      }`}
                   >
                     <span>{link.name}</span>
                     <span
-                      className={`absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full transition-all duration-300 ${
-                        isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
-                      }`}
+                      className={`absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full transition-all duration-300 ${isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
+                        }`}
                     />
                   </Link>
                 );
@@ -463,7 +495,7 @@ export default function Navbar() {
 
             {/* Right: Currency Switcher, Search, Wishlist, Cart, Account */}
             <div className="flex items-center space-x-2 sm:space-x-3 text-white shrink-0">
-              
+
               {/* Admin Dev Pill */}
               {mounted && isLocalhost && (
                 <div className="hidden sm:flex items-center mr-0.5">
@@ -505,9 +537,8 @@ export default function Navbar() {
                             key={`${currency.country}-${currency.code}`}
                             type="button"
                             onClick={() => handleCurrencyChange(currency.code, currency.country)}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs uppercase tracking-wider text-left transition-all rounded-xl cursor-pointer ${
-                              isSelected ? "text-white font-bold bg-[#4A1017]" : "text-[#D8C9C5] hover:bg-[#3D0C12] hover:text-white"
-                            }`}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs uppercase tracking-wider text-left transition-all rounded-xl cursor-pointer ${isSelected ? "text-white font-bold bg-[#4A1017]" : "text-[#D8C9C5] hover:bg-[#3D0C12] hover:text-white"
+                              }`}
                           >
                             <span className="font-semibold">{currency.symbol} - {currency.code}</span>
                             <span className="text-[11px] text-[#A89895] font-normal normal-case ml-2 truncate">
@@ -521,13 +552,13 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              {/* Search Trigger */}
+              {/* Search Trigger (Desktop: right side; Mobile: on left of logo) */}
               <button
                 onClick={() => {
                   setIsSearchOpen(!isSearchOpen);
                   if (isSearchOpen) setSearchQuery("");
                 }}
-                className="p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] cursor-pointer"
+                className="hidden lg:flex p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] cursor-pointer"
                 aria-label="Search"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -535,10 +566,10 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              {/* Wishlist */}
+              {/* Wishlist (Mobile & Desktop) */}
               <Link
                 href="/wishlist"
-                className="p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] relative"
+                className="flex p-2 text-[#FAF5EB] hover:text-white hover:bg-[#3D0C12] transition-colors rounded-lg border border-transparent hover:border-[#4A1017] relative cursor-pointer"
                 aria-label="Wishlist"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -761,7 +792,7 @@ export default function Navbar() {
                       Explore Atelier
                     </span>
                     <a
-                      href="https://www.etsy.com/shop/NREnterprises"
+                      href="https://www.etsy.com/shop/AHADGLOBALRUGS"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F1641E] hover:bg-[#D95314] text-white text-[9.5px] font-bold uppercase tracking-wider rounded-full shadow-sm transition-colors"
@@ -781,11 +812,10 @@ export default function Navbar() {
                           key={link.name}
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`group flex items-center justify-between px-3 py-2.5 rounded-xl font-heading text-[14px] font-semibold transition-all ${
-                            isActive
-                              ? "bg-[#3D0C12] text-white border-l-2 border-[#FAF5EB] shadow-xs font-bold"
-                              : "text-[#D8C9C5] hover:bg-[#350A10] hover:text-[#FAF5EB]"
-                          }`}
+                          className={`group flex items-center justify-between px-3 py-2.5 rounded-xl font-heading text-[14px] font-semibold transition-all ${isActive
+                            ? "bg-[#3D0C12] text-white border-l-2 border-[#FAF5EB] shadow-xs font-bold"
+                            : "text-[#D8C9C5] hover:bg-[#350A10] hover:text-[#FAF5EB]"
+                            }`}
                         >
                           <div className="flex items-center gap-2">
                             {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FAF5EB]" />}

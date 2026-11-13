@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const logoPath = path.join(process.cwd(), "public", "logo.png");
+const logoPath = path.join(process.cwd(), "public", "icon.png");
 if (fs.existsSync(logoPath)) {
   const targets = [
     path.join(process.cwd(), "public", "icon.png"),

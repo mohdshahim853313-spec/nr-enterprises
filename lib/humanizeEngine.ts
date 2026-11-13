@@ -104,7 +104,7 @@ export async function humanizeImageBuffer(
     if (fs.existsSync(logoPath)) {
       const logoBuf = fs.readFileSync(logoPath);
       const logoB64 = logoBuf.toString("base64");
-      
+
       const logoSize = Math.max(120, Math.round(targetWidth * 0.088));
       const rightMargin = Math.round(targetWidth * 0.025);
       const bottomMargin = Math.round(targetHeight * 0.03);
@@ -138,7 +138,7 @@ export async function humanizeImageBuffer(
             text-anchor="end"
             style="text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 1px rgba(0,0,0,0.9);"
           >
-            RugZora Atelier • Bhadohi • Handcrafted in Pure Wool
+            NR Enterprises Atelier • Bhadohi • Handcrafted in Pure Wool
           </text>
         </svg>
       `;
@@ -163,8 +163,8 @@ export async function humanizeImageBuffer(
   zeroth[piexif.ImageIFD.Model] = cameraModel;
   zeroth[piexif.ImageIFD.Software] = `${cameraModel} v2.00`;
   zeroth[piexif.ImageIFD.DateTime] = settings.shootDate;
-  zeroth[piexif.ImageIFD.Artist] = "RugZora Atelier Bhadohi";
-  zeroth[piexif.ImageIFD.Copyright] = "RugZora Handmade Carpets";
+  zeroth[piexif.ImageIFD.Artist] = "NR Enterprises Atelier Bhadohi";
+  zeroth[piexif.ImageIFD.Copyright] = "NR Enterprises Handmade Carpets";
 
   exif[piexif.ExifIFD.DateTimeOriginal] = settings.shootDate;
   exif[piexif.ExifIFD.DateTimeDigitized] = settings.shootDate;

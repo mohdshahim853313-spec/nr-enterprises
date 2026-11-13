@@ -195,7 +195,7 @@ export default function EtsySyncModal({
                 </span>
               </div>
               <p className="text-xs text-neutral-400">
-                Connected to <strong className="text-white">NR Enterprises</strong> (https://www.etsy.com/shop/NREnterprises)
+                Connected to <strong className="text-white">AHADGLOBALRUGS</strong> (https://www.etsy.com/shop/AHADGLOBALRUGS)
               </p>
             </div>
           </div>
@@ -302,33 +302,30 @@ export default function EtsySyncModal({
             <button
               type="button"
               onClick={() => setFilterTab("all")}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-                filterTab === "all"
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${filterTab === "all"
                   ? "bg-[#1C1917] text-white"
                   : "bg-neutral-100 text-[#5C5247] hover:bg-neutral-200"
-              }`}
+                }`}
             >
               All ({listings.length})
             </button>
             <button
               type="button"
               onClick={() => setFilterTab("new")}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-                filterTab === "new"
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${filterTab === "new"
                   ? "bg-[#F1641E] text-white"
                   : "bg-neutral-100 text-[#5C5247] hover:bg-neutral-200"
-              }`}
+                }`}
             >
               New Only ({newCount})
             </button>
             <button
               type="button"
               onClick={() => setFilterTab("synced")}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-                filterTab === "synced"
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${filterTab === "synced"
                   ? "bg-emerald-700 text-white"
                   : "bg-neutral-100 text-[#5C5247] hover:bg-neutral-200"
-              }`}
+                }`}
             >
               Already Synced ({syncedCount})
             </button>
@@ -391,11 +388,10 @@ export default function EtsySyncModal({
                 return (
                   <div
                     key={listing.listing_id}
-                    className={`bg-white border rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all shadow-2xs hover:shadow-md ${
-                      isSelected
+                    className={`bg-white border rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all shadow-2xs hover:shadow-md ${isSelected
                         ? "border-[#F1641E] bg-[#FFF9F5]"
                         : "border-[#E8DFD3] hover:border-[#C19A6B]"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-start gap-3.5 flex-1 min-w-0">
                       <input
@@ -408,11 +404,10 @@ export default function EtsySyncModal({
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <span
-                            className={`text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                              listing.is_synced
+                            className={`text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${listing.is_synced
                                 ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
                                 : "bg-amber-100 text-amber-900 border border-amber-300"
-                            }`}
+                              }`}
                           >
                             {listing.is_synced ? "✓ Synced on Website" : "✨ New Listing"}
                           </span>

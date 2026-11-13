@@ -1,6 +1,7 @@
 "use client";
 
 import defaultData from "@/lib/siteContent";
+import CarpetSphere from "@/components/home/CarpetSphere";
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -50,7 +51,7 @@ function ImageUploader({
           </span>
         )}
       </div>
-      
+
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <div className="flex flex-col items-center gap-1 flex-shrink-0">
           <div className="w-20 h-20 bg-[#EAEAEB] border border-[#DFD8CC] rounded-sm overflow-hidden relative group shadow-2xs">
@@ -67,9 +68,8 @@ function ImageUploader({
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
-            className={`border-2 border-dashed p-2.5 text-center rounded-sm transition-colors cursor-pointer ${
-              isDragging ? "border-[#C19A6B] bg-[#F5F5F7]" : "border-[#DFD8CC] bg-[#FAFAF8] hover:border-[#C19A6B]"
-            }`}
+            className={`border-2 border-dashed p-2.5 text-center rounded-sm transition-colors cursor-pointer ${isDragging ? "border-[#C19A6B] bg-[#F5F5F7]" : "border-[#DFD8CC] bg-[#FAFAF8] hover:border-[#C19A6B]"
+              }`}
           >
             <p className="text-xs text-[#7A7065]">
               {isUploading ? "Optimizing & Uploading..." : "Drag & Drop image here, or "}
@@ -167,7 +167,7 @@ function CodebasePublishBar({
 
       {/* 2 Clear, Unambiguous Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-        
+
         {/* CARD 1: ADMIN ➔ CODE FILE */}
         <div className="bg-white p-4 rounded-xl border border-[#DFD8CC] shadow-2xs flex flex-col justify-between gap-3">
           <div>
@@ -347,8 +347,8 @@ function CollectionProductPickerModal({
     const numOrig = rawOrig
       ? parseFloat(rawOrig.toString().replace(/[^0-9.]/g, ""))
       : numPrice > 0
-      ? Math.round(numPrice * 1.8)
-      : null;
+        ? Math.round(numPrice * 1.8)
+        : null;
 
     const chosenImg =
       specificImg || (Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : "");
@@ -394,9 +394,8 @@ function CollectionProductPickerModal({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`w-full py-2.5 px-3 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer ${
-            matchedProduct ? theme.btnMatched : theme.btnUnmatched
-          }`}
+          className={`w-full py-2.5 px-3 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer ${matchedProduct ? theme.btnMatched : theme.btnUnmatched
+            }`}
         >
           <span>🖼️</span>
           <span>{matchedProduct ? "Change Rug (Open Gallery)" : "Choose from Collection Gallery"}</span>
@@ -424,7 +423,7 @@ function CollectionProductPickerModal({
       {isOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-3 sm:p-6 animate-fadeIn">
           <div className="bg-[#FAF8F5] w-full max-w-6xl max-h-[92vh] rounded-2xl sm:rounded-3xl shadow-2xl border-2 border-[#DFD8CC] flex flex-col overflow-hidden">
-            
+
             {/* Modal Header */}
             <div className="p-4 sm:p-5 bg-gradient-to-r from-[#2B2520] via-stone-900 to-[#1C1917] text-white flex items-center justify-between gap-4 border-b border-[#3A332C]">
               <div>
@@ -478,11 +477,10 @@ function CollectionProductPickerModal({
                     key={cat}
                     type="button"
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 rounded-full text-[11px] font-bold transition-all shrink-0 cursor-pointer ${
-                      selectedCategory === cat
+                    className={`px-3 py-1.5 rounded-full text-[11px] font-bold transition-all shrink-0 cursor-pointer ${selectedCategory === cat
                         ? "bg-[#2B2520] text-[#E5C158] shadow-xs"
                         : "bg-[#EAE6DF] hover:bg-[#DFD8CC] text-[#4A3E31]"
-                    }`}
+                      }`}
                   >
                     {cat}
                   </button>
@@ -515,11 +513,10 @@ function CollectionProductPickerModal({
                       <div
                         key={p.id}
                         onClick={() => handleSelect(p)}
-                        className={`group bg-white rounded-xl border-2 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1 ${
-                          isSelected
+                        className={`group bg-white rounded-xl border-2 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1 ${isSelected
                             ? "border-emerald-600 ring-2 ring-emerald-500/30"
                             : "border-[#E5DDD2] hover:border-[#C19A6B]"
-                        }`}
+                          }`}
                       >
                         {/* Rug Photo (Exact 4:5 Aspect Ratio like collections) */}
                         <div className="relative aspect-[4/5] w-full bg-[#ECE7DE] overflow-hidden">
@@ -798,7 +795,7 @@ export default function SiteContentAdmin() {
   }, []);
 
   const handleImageUpload = async (
-    file: File, 
+    file: File,
     callback: (url: string) => void,
     oldUrl?: string
   ) => {
@@ -920,7 +917,7 @@ export default function SiteContentAdmin() {
             if (page.id === "home") {
               localStorage.setItem("rz_home_content_v9", JSON.stringify(pageData));
             }
-          } catch (e) {}
+          } catch (e) { }
         }
       }
 
@@ -1266,7 +1263,7 @@ export default function SiteContentAdmin() {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
     return searchableEntries
-      .filter((item) => 
+      .filter((item) =>
         item.valueText.toLowerCase().includes(q) ||
         item.fieldLabel.toLowerCase().includes(q) ||
         item.sectionTitle.toLowerCase().includes(q) ||
@@ -1306,7 +1303,7 @@ export default function SiteContentAdmin() {
   return (
     <div className="bg-[#F5F5F7] min-h-screen pt-4 sm:pt-6 md:pt-8 pb-32 px-3 sm:px-6 md:px-8 lg:px-10 font-sans">
       <div className="max-w-[1180px] w-full mx-auto">
-        
+
         {/* 🌟 0. TOP HEADER WITH EDIT LISTING / ADMIN NAVIGATION & STORAGE TOGGLE */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-sm border border-[#EAEAEB] shadow-xs">
           <div>
@@ -1420,11 +1417,10 @@ export default function SiteContentAdmin() {
                 <button
                   key={page.id}
                   onClick={() => setActiveTab(page.id)}
-                  className={`px-4 py-2 text-xs uppercase tracking-widest font-bold rounded-sm transition-all cursor-pointer ${
-                    isActive
+                  className={`px-4 py-2 text-xs uppercase tracking-widest font-bold rounded-sm transition-all cursor-pointer ${isActive
                       ? theme?.activeBg || "bg-[#3A332C] text-[#F5F5F7] shadow-sm"
                       : "bg-[#F5F5F7] text-[#6B6054] hover:bg-[#EAEAEB] hover:text-[#3A332C]"
-                  }`}
+                    }`}
                 >
                   {page.label}
                 </button>
@@ -1651,7 +1647,7 @@ export default function SiteContentAdmin() {
                       <label className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-1">Etsy Shop URL</label>
                       <input
                         type="text"
-                        value={currentContent.etsy?.url || "https://www.etsy.com/shop/NREnterprises"}
+                        value={currentContent.etsy?.url || "https://www.etsy.com/shop/AHADGLOBALRUGS"}
                         onChange={(e) => updateField("etsy", "url", e.target.value)}
                         className="w-full border border-indigo-200/80 p-2 text-xs bg-white outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600/30 rounded-xs"
                       />
@@ -2719,177 +2715,177 @@ export default function SiteContentAdmin() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {(currentContent.trendingSection?.products || defaultData.home.trendingSection.products).map((prod: any, idx: number) => (
-                    <div key={idx} className="p-4 border-2 border-amber-200/90 bg-gradient-to-b from-amber-50/50 via-white to-white rounded-md space-y-3 shadow-2xs">
-                      <div className="flex items-center justify-between border-b border-amber-200/80 pb-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
-                          Trending Product #{idx + 1}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (confirm(`Trending Product #${idx + 1} ("${prod.name || 'Rug'}") ko delete karna chahte hain?`)) {
-                              const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                              updated.splice(idx, 1);
-                              setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
-                            }
-                          }}
-                          className="text-[10px] text-red-600 hover:text-red-800 font-bold px-2 py-0.5 hover:bg-red-50 rounded cursor-pointer"
-                        >
-                          ✕ Remove
-                        </button>
-                      </div>
+                    {(currentContent.trendingSection?.products || defaultData.home.trendingSection.products).map((prod: any, idx: number) => (
+                      <div key={idx} className="p-4 border-2 border-amber-200/90 bg-gradient-to-b from-amber-50/50 via-white to-white rounded-md space-y-3 shadow-2xs">
+                        <div className="flex items-center justify-between border-b border-amber-200/80 pb-1.5">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
+                            Trending Product #{idx + 1}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (confirm(`Trending Product #${idx + 1} ("${prod.name || 'Rug'}") ko delete karna chahte hain?`)) {
+                                const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                                updated.splice(idx, 1);
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
+                              }
+                            }}
+                            className="text-[10px] text-red-600 hover:text-red-800 font-bold px-2 py-0.5 hover:bg-red-50 rounded cursor-pointer"
+                          >
+                            ✕ Remove
+                          </button>
+                        </div>
 
-                      {/* ⚡ Collection Visual Gallery Modal Picker */}
-                      <CollectionProductPickerModal
-                        currentProductId={prod.productId}
-                        currentLink={prod.link}
-                        currentImg={prod.img}
-                        currentName={prod.name}
-                        currentPrice={prod.price}
-                        availableProducts={availableProducts}
-                        accent="amber"
-                        onSelectProduct={(selected) => {
-                          const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                          updated[idx] = {
-                            ...updated[idx],
-                            productId: selected.productId,
-                            name: selected.name,
-                            price: selected.price,
-                            originalPrice: selected.originalPrice,
-                            link: selected.link,
-                            img: selected.img || updated[idx].img,
-                          };
-                          setSiteContent((prev) => ({
-                            ...prev,
-                            home: {
-                              ...prev.home,
-                              trendingSection: {
-                                ...prev.home?.trendingSection,
-                                products: updated,
-                              },
-                            },
-                          }));
-                        }}
-                      />
-
-                      {/* Thumbnail Image (Auto-filled or Custom Override) */}
-                      <ImageUploader
-                        label="Product Photo (Listing photo or upload custom override)"
-                        value={prod.img || ""}
-                        recommendedSize="600 × 750 px (4:5 Portrait)"
-                        onChange={(url) => {
-                          const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                          updated[idx] = { ...updated[idx], img: url };
-                          setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
-                        }}
-                        onUpload={handleImageUpload}
-                        isUploading={isUploading}
-                      />
-                      <div>
-                        <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Product Title</label>
-                        <input
-                          type="text"
-                          value={prod.name ?? ""}
-                          onChange={(e) => {
+                        {/* ⚡ Collection Visual Gallery Modal Picker */}
+                        <CollectionProductPickerModal
+                          currentProductId={prod.productId}
+                          currentLink={prod.link}
+                          currentImg={prod.img}
+                          currentName={prod.name}
+                          currentPrice={prod.price}
+                          availableProducts={availableProducts}
+                          accent="amber"
+                          onSelectProduct={(selected) => {
                             const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                            updated[idx] = { ...updated[idx], name: e.target.value };
+                            updated[idx] = {
+                              ...updated[idx],
+                              productId: selected.productId,
+                              name: selected.name,
+                              price: selected.price,
+                              originalPrice: selected.originalPrice,
+                              link: selected.link,
+                              img: selected.img || updated[idx].img,
+                            };
+                            setSiteContent((prev) => ({
+                              ...prev,
+                              home: {
+                                ...prev.home,
+                                trendingSection: {
+                                  ...prev.home?.trendingSection,
+                                  products: updated,
+                                },
+                              },
+                            }));
+                          }}
+                        />
+
+                        {/* Thumbnail Image (Auto-filled or Custom Override) */}
+                        <ImageUploader
+                          label="Product Photo (Listing photo or upload custom override)"
+                          value={prod.img || ""}
+                          recommendedSize="600 × 750 px (4:5 Portrait)"
+                          onChange={(url) => {
+                            const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                            updated[idx] = { ...updated[idx], img: url };
                             setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
                           }}
-                          className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs font-semibold"
+                          onUpload={handleImageUpload}
+                          isUploading={isUploading}
                         />
-                      </div>
-                      <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">
-                            Badge / Offer Text
-                          </label>
+                          <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Product Title</label>
                           <input
                             type="text"
-                            value={prod.badge ?? ""}
+                            value={prod.name ?? ""}
                             onChange={(e) => {
                               const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                              updated[idx] = { ...updated[idx], badge: e.target.value };
-                              setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
-                            }}
-                            placeholder="e.g. ARCHITECTURAL, -50% OFF, LIMITED"
-                            className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs font-semibold"
-                          />
-                          <span className="text-[8px] text-amber-800 block mt-0.5">Apna manchaaha text likhein</span>
-                        </div>
-                        <div>
-                          <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Price (₹)</label>
-                          <input
-                            type="number"
-                            value={prod.price ?? ""}
-                            onChange={(e) => {
-                              const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                              updated[idx] = { ...updated[idx], price: Number(e.target.value) };
+                              updated[idx] = { ...updated[idx], name: e.target.value };
                               setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
                             }}
                             className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs font-semibold"
                           />
                         </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">
+                              Badge / Offer Text
+                            </label>
+                            <input
+                              type="text"
+                              value={prod.badge ?? ""}
+                              onChange={(e) => {
+                                const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                                updated[idx] = { ...updated[idx], badge: e.target.value };
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
+                              }}
+                              placeholder="e.g. ARCHITECTURAL, -50% OFF, LIMITED"
+                              className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs font-semibold"
+                            />
+                            <span className="text-[8px] text-amber-800 block mt-0.5">Apna manchaaha text likhein</span>
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Price (₹)</label>
+                            <input
+                              type="number"
+                              value={prod.price ?? ""}
+                              onChange={(e) => {
+                                const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                                updated[idx] = { ...updated[idx], price: Number(e.target.value) };
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
+                              }}
+                              className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs font-semibold"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">MRP (₹)</label>
+                            <input
+                              type="number"
+                              value={prod.originalPrice ?? ""}
+                              onChange={(e) => {
+                                const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                                updated[idx] = { ...updated[idx], originalPrice: e.target.value ? Number(e.target.value) : null };
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
+                              }}
+                              placeholder="Optional"
+                              className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs"
+                            />
+                          </div>
+                        </div>
                         <div>
-                          <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">MRP (₹)</label>
+                          <div className="flex items-center justify-between mb-0.5">
+                            <label className="block text-[9px] uppercase font-bold text-amber-900">
+                              Color Hex Codes (comma-separated)
+                            </label>
+                            {prod.colors && (
+                              <div className="flex items-center gap-1">
+                                {(Array.isArray(prod.colors) ? prod.colors : String(prod.colors).split(",").map(c => c.trim()).filter(Boolean)).map((hex: string, ci: number) => (
+                                  <span key={ci} className="w-2.5 h-2.5 rounded-full border border-black/20" style={{ backgroundColor: hex }} />
+                                ))}
+                              </div>
+                            )}
+                          </div>
                           <input
-                            type="number"
-                            value={prod.originalPrice ?? ""}
+                            type="text"
+                            value={Array.isArray(prod.colors) ? prod.colors.join(", ") : (prod.colors || "")}
                             onChange={(e) => {
                               const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                              updated[idx] = { ...updated[idx], originalPrice: e.target.value ? Number(e.target.value) : null };
+                              updated[idx] = { ...updated[idx], colors: e.target.value.split(",").map(c => c.trim()).filter(Boolean) };
                               setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
                             }}
-                            placeholder="Optional"
+                            placeholder="#2D5A3C, #C19A6B, #826C99"
+                            className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Product Link (Homepage click target)</label>
+                          <input
+                            type="text"
+                            value={prod.link ?? ""}
+                            onChange={(e) => {
+                              const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
+                              updated[idx] = { ...updated[idx], link: e.target.value };
+                              setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
+                            }}
+                            placeholder="/product/[id] or /collections"
                             className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs"
                           />
                         </div>
                       </div>
-                      <div>
-                        <div className="flex items-center justify-between mb-0.5">
-                          <label className="block text-[9px] uppercase font-bold text-amber-900">
-                            Color Hex Codes (comma-separated)
-                          </label>
-                          {prod.colors && (
-                            <div className="flex items-center gap-1">
-                              {(Array.isArray(prod.colors) ? prod.colors : String(prod.colors).split(",").map(c => c.trim()).filter(Boolean)).map((hex: string, ci: number) => (
-                                <span key={ci} className="w-2.5 h-2.5 rounded-full border border-black/20" style={{ backgroundColor: hex }} />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <input
-                          type="text"
-                          value={Array.isArray(prod.colors) ? prod.colors.join(", ") : (prod.colors || "")}
-                          onChange={(e) => {
-                            const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                            updated[idx] = { ...updated[idx], colors: e.target.value.split(",").map(c => c.trim()).filter(Boolean) };
-                            setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
-                          }}
-                          placeholder="#2D5A3C, #C19A6B, #826C99"
-                          className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[9px] uppercase font-bold text-amber-900 mb-0.5">Product Link (Homepage click target)</label>
-                        <input
-                          type="text"
-                          value={prod.link ?? ""}
-                          onChange={(e) => {
-                            const updated = [...(currentContent.trendingSection?.products || defaultData.home.trendingSection.products)];
-                            updated[idx] = { ...updated[idx], link: e.target.value };
-                            setSiteContent((prev) => ({ ...prev, home: { ...prev.home, trendingSection: { ...prev.home?.trendingSection, products: updated } } }));
-                          }}
-                          placeholder="/product/[id] or /collections"
-                          className="w-full border border-amber-200 p-1.5 text-xs bg-white outline-none focus:border-amber-600 rounded-xs"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
             {/* 🌟 4. SECTION 3: COLLECTIONS BY COLOR (FIND YOUR SHADE) */}
             <div className="bg-white border border-[#EAEAEB] rounded-sm shadow-sm overflow-hidden space-y-6">
@@ -2953,7 +2949,11 @@ export default function SiteContentAdmin() {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {(currentContent.colorSection?.swatches || defaultData.home.colorSection.swatches).map((swatch: any, idx: number) => (
                       <div key={idx} className="p-3.5 border-2 border-rose-200/90 bg-gradient-to-b from-rose-50/40 via-white to-white rounded-md space-y-2.5 shadow-2xs">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2.5">
+                          {/* Live 3D Texture Sphere Preview */}
+                          <div className="w-10 h-10 rounded-full shrink-0 shadow-sm border border-black/10 overflow-hidden relative">
+                            <CarpetSphere hex={swatch.hex || "#C19A6B"} code={swatch.code} name={swatch.name} />
+                          </div>
                           <input
                             type="color"
                             value={swatch.hex || "#C19A6B"}
@@ -2963,6 +2963,7 @@ export default function SiteContentAdmin() {
                               setSiteContent((prev) => ({ ...prev, home: { ...prev.home, colorSection: { ...prev.home?.colorSection, swatches: updated } } }));
                             }}
                             className="w-8 h-8 rounded-full border border-black/20 cursor-pointer shrink-0 shadow-xs"
+                            title="Pick Color"
                           />
                           <input
                             type="text"
@@ -3235,103 +3236,103 @@ export default function SiteContentAdmin() {
                     <span>5 Material Product Cards</span>
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {(currentContent.materialsSection?.products || defaultData.home.materialsSection.products).map((item: any, idx: number) => (
-                    <div key={idx} className="p-4 border-2 border-emerald-200/90 bg-gradient-to-b from-emerald-50/50 via-white to-white rounded-md shadow-2xs space-y-3 transition-all hover:border-emerald-300">
-                      <div className="flex items-center justify-between pb-1 border-b border-emerald-100">
-                        <span className="text-xs font-bold font-serif text-emerald-950">Item #{idx + 1}</span>
-                        <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Material</span>
-                      </div>
+                    {(currentContent.materialsSection?.products || defaultData.home.materialsSection.products).map((item: any, idx: number) => (
+                      <div key={idx} className="p-4 border-2 border-emerald-200/90 bg-gradient-to-b from-emerald-50/50 via-white to-white rounded-md shadow-2xs space-y-3 transition-all hover:border-emerald-300">
+                        <div className="flex items-center justify-between pb-1 border-b border-emerald-100">
+                          <span className="text-xs font-bold font-serif text-emerald-950">Item #{idx + 1}</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Material</span>
+                        </div>
 
-                      {/* ⚡ Collection Visual Gallery Modal Picker */}
-                      <CollectionProductPickerModal
-                        currentProductId={item.productId}
-                        currentLink={item.link}
-                        currentImg={item.img}
-                        currentName={item.name}
-                        availableProducts={availableProducts}
-                        accent="emerald"
-                        onSelectProduct={(selected) => {
-                          const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
-                          updated[idx] = {
-                            ...updated[idx],
-                            productId: selected.productId,
-                            name: selected.name,
-                            link: selected.link,
-                            img: selected.img || updated[idx].img,
-                          };
-                          setSiteContent((prev) => ({
-                            ...prev,
-                            home: {
-                              ...prev.home,
-                              materialsSection: {
-                                ...prev.home?.materialsSection,
-                                products: updated,
-                              },
-                            },
-                          }));
-                        }}
-                      />
-
-                      <ImageUploader
-                        label="Product Photo (Or choose from gallery above)"
-                        value={item.img || ""}
-                        recommendedSize="600 × 750 px (4:5 Portrait)"
-                        onChange={(url) => {
-                          const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
-                          updated[idx] = { ...updated[idx], img: url };
-                          setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
-                        }}
-                        onUpload={handleImageUpload}
-                        isUploading={isUploading}
-                      />
-                      <div>
-                        <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Product Title</label>
-                        <input
-                          type="text"
-                          value={item.name ?? ""}
-                          onChange={(e) => {
+                        {/* ⚡ Collection Visual Gallery Modal Picker */}
+                        <CollectionProductPickerModal
+                          currentProductId={item.productId}
+                          currentLink={item.link}
+                          currentImg={item.img}
+                          currentName={item.name}
+                          availableProducts={availableProducts}
+                          accent="emerald"
+                          onSelectProduct={(selected) => {
                             const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
-                            updated[idx] = { ...updated[idx], name: e.target.value };
+                            updated[idx] = {
+                              ...updated[idx],
+                              productId: selected.productId,
+                              name: selected.name,
+                              link: selected.link,
+                              img: selected.img || updated[idx].img,
+                            };
+                            setSiteContent((prev) => ({
+                              ...prev,
+                              home: {
+                                ...prev.home,
+                                materialsSection: {
+                                  ...prev.home?.materialsSection,
+                                  products: updated,
+                                },
+                              },
+                            }));
+                          }}
+                        />
+
+                        <ImageUploader
+                          label="Product Photo (Or choose from gallery above)"
+                          value={item.img || ""}
+                          recommendedSize="600 × 750 px (4:5 Portrait)"
+                          onChange={(url) => {
+                            const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
+                            updated[idx] = { ...updated[idx], img: url };
                             setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
                           }}
-                          className="w-full border border-emerald-200 p-1.5 text-xs bg-white outline-none focus:border-emerald-600 rounded-xs"
+                          onUpload={handleImageUpload}
+                          isUploading={isUploading}
                         />
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Badge / Tag (Optional)</label>
+                          <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Product Title</label>
                           <input
                             type="text"
-                            value={item.badge ?? ""}
+                            value={item.name ?? ""}
                             onChange={(e) => {
                               const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
-                              updated[idx] = { ...updated[idx], badge: e.target.value };
-                              setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
-                            }}
-                            placeholder="e.g. 100% Organic, Jute"
-                            className="w-full border border-emerald-200 p-1.5 text-xs bg-white outline-none focus:border-emerald-600 rounded-xs"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Link</label>
-                          <input
-                            type="text"
-                            value={item.link ?? ""}
-                            onChange={(e) => {
-                              const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
-                              updated[idx] = { ...updated[idx], link: e.target.value };
+                              updated[idx] = { ...updated[idx], name: e.target.value };
                               setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
                             }}
                             className="w-full border border-emerald-200 p-1.5 text-xs bg-white outline-none focus:border-emerald-600 rounded-xs"
                           />
                         </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Badge / Tag (Optional)</label>
+                            <input
+                              type="text"
+                              value={item.badge ?? ""}
+                              onChange={(e) => {
+                                const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
+                                updated[idx] = { ...updated[idx], badge: e.target.value };
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
+                              }}
+                              placeholder="e.g. 100% Organic, Jute"
+                              className="w-full border border-emerald-200 p-1.5 text-xs bg-white outline-none focus:border-emerald-600 rounded-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] uppercase font-bold text-emerald-900 mb-0.5">Link</label>
+                            <input
+                              type="text"
+                              value={item.link ?? ""}
+                              onChange={(e) => {
+                                const updated = [...(currentContent.materialsSection?.products || defaultData.home.materialsSection.products)];
+                                updated[idx] = { ...updated[idx], link: e.target.value };
+                                setSiteContent((prev) => ({ ...prev, home: { ...prev.home, materialsSection: { ...prev.home?.materialsSection, products: updated } } }));
+                              }}
+                              className="w-full border border-emerald-200 p-1.5 text-xs bg-white outline-none focus:border-emerald-600 rounded-xs"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
             {/* 🌟 7. SECTION 6: Our Story (EXCLUSIVE CARPETS) */}
             <div className="bg-white p-6 sm:p-8 border-2 border-amber-200/80 rounded-xl shadow-xs space-y-6">
@@ -4562,9 +4563,9 @@ export default function SiteContentAdmin() {
             </div>
           </div>
         )}
-        </div>
+      </div>
 
-        {/* 🌟 1. FULLSCREEN DARK BACKDROP WITH ROUND GREEN SPINNER */}
+      {/* 🌟 1. FULLSCREEN DARK BACKDROP WITH ROUND GREEN SPINNER */}
       <AnimatePresence>
         {isSaving && (
           <motion.div

@@ -235,10 +235,10 @@ export default function ProductDetailClient({
     setIsWishlisted(exists);
   }, [product]);
 
-  // 📜 Interactive Product Detail Drawer Sections (Description open by default)
+  // 📜 Interactive Product Detail Drawer Sections (All minimized by default)
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
-    desc: true,
-    specs: true,
+    desc: false,
+    specs: false,
     care: false,
     shipping: false,
   });
@@ -738,8 +738,8 @@ export default function ProductDetailClient({
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1600px"
                       quality={95}
                       className={`pointer-events-none select-none transition-all duration-300 ${imageFit === "contain"
-                          ? "object-contain drop-shadow-sm"
-                          : "object-cover"
+                        ? "object-contain drop-shadow-sm"
+                        : "object-cover"
                         }`}
                     />
                   </div>
@@ -902,8 +902,8 @@ export default function ProductDetailClient({
                   <button
                     onClick={toggleWishlist}
                     className={`p-2.5 rounded-full border transition-colors cursor-pointer ${isWishlisted
-                        ? "border-[#A63C38] bg-[#A63C38]/5 text-[#A63C38]"
-                        : "border-[#EAEAEB] hover:border-[#2B2520] text-[#2B2520]"
+                      ? "border-[#A63C38] bg-[#A63C38]/5 text-[#A63C38]"
+                      : "border-[#EAEAEB] hover:border-[#2B2520] text-[#2B2520]"
                       }`}
                     title={isWishlisted ? "Remove from Private Wishlist" : "Save to Private Wishlist"}
                   >
@@ -972,7 +972,7 @@ export default function ProductDetailClient({
                       <button
                         type="button"
                         onClick={() => setOpenDropdown(openDropdown === "size" ? null : "size")}
-                        className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                        className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-xl px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                       >
                         <span className="truncate">
                           {selectedVariant ? `${selectedVariant.size} — ${formatPrice(selectedVariant.price, 1)}` : "Select an option"}
@@ -989,7 +989,7 @@ export default function ProductDetailClient({
                       </button>
 
                       {openDropdown === "size" && (
-                        <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                        <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                           {product.variants.map((v: any, idx: number) => {
                             const isChosen = selectedVariant?.size === v.size;
                             return (
@@ -1001,8 +1001,8 @@ export default function ProductDetailClient({
                                   setOpenDropdown(null);
                                 }}
                                 className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${isChosen
-                                    ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
-                                    : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                                  ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                                  : "text-[#2B070B] hover:bg-[#FAF5EB]"
                                   }`}
                               >
                                 <span>{v.size}</span>
@@ -1024,9 +1024,9 @@ export default function ProductDetailClient({
                             key={idx}
                             type="button"
                             onClick={() => setSelectedVariant(v)}
-                            className={`p-3 rounded-none border text-left transition-all cursor-pointer ${isChosen
-                                ? "border-[#4A1017] bg-[#FAF5EB] shadow-sm ring-1 ring-[#4A1017]"
-                                : "border-[#4A1017]/20 bg-white/60 hover:bg-white hover:border-[#4A1017]"
+                            className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${isChosen
+                              ? "border-[#4A1017] bg-[#FAF5EB] shadow-sm ring-1 ring-[#4A1017]"
+                              : "border-[#4A1017]/20 bg-white/60 hover:bg-white hover:border-[#4A1017]"
                               }`}
                           >
                             <div className="font-heading font-bold text-xs sm:text-sm text-[#2B070B]">
@@ -1060,7 +1060,7 @@ export default function ProductDetailClient({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(openDropdown === "color" ? null : "color")}
-                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-xl px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                   >
                     <span className="truncate">
                       {selectedColor || "Select an option"}
@@ -1077,7 +1077,7 @@ export default function ProductDetailClient({
                   </button>
 
                   {openDropdown === "color" && (
-                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                       {availableColors.map((col: string, idx: number) => {
                         const isChosen = selectedColor.toLowerCase().trim() === col.toLowerCase().trim();
                         const matched = activeColorVariants.find(
@@ -1092,8 +1092,8 @@ export default function ProductDetailClient({
                               setOpenDropdown(null);
                             }}
                             className={`w-full flex items-center justify-between px-4 py-3 text-left text-sm transition-colors cursor-pointer ${isChosen
-                                ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
-                                : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                              ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                              : "text-[#2B070B] hover:bg-[#FAF5EB]"
                               }`}
                           >
                             <div className="flex items-center gap-2.5">
@@ -1101,11 +1101,11 @@ export default function ProductDetailClient({
                                 <img
                                   src={matched.image}
                                   alt={col}
-                                  className="w-5 h-5 rounded-none object-cover border border-black/10 shrink-0"
+                                  className="w-5 h-5 rounded-md object-cover border border-black/10 shrink-0"
                                 />
                               ) : matched?.hex ? (
                                 <span
-                                  className="w-4 h-4 rounded-none border border-black/20 shrink-0"
+                                  className="w-4 h-4 rounded-full border border-black/20 shrink-0"
                                   style={{ backgroundColor: matched.hex }}
                                 />
                               ) : null}
@@ -1129,7 +1129,7 @@ export default function ProductDetailClient({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(openDropdown === "quantity" ? null : "quantity")}
-                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-none px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
+                    className="w-full flex items-center justify-between bg-[#FAF8F5] border border-[#4A1017]/25 hover:border-[#4A1017] focus:border-[#2B070B] rounded-xl px-4 py-3.5 text-sm font-medium text-[#2B070B] outline-none transition-all cursor-pointer shadow-2xs text-left"
                   >
                     <span>{quantity}</span>
                     <svg
@@ -1144,7 +1144,7 @@ export default function ProductDetailClient({
                   </button>
 
                   {openDropdown === "quantity" && (
-                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-none shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
+                    <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-[#FAF8F5] border border-[#4A1017] rounded-xl shadow-xl overflow-hidden py-1 max-h-60 overflow-y-auto">
                       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
                         const isChosen = quantity === num;
                         return (
@@ -1156,8 +1156,8 @@ export default function ProductDetailClient({
                               setOpenDropdown(null);
                             }}
                             className={`w-full flex items-center justify-between px-4 py-2.5 text-left text-sm transition-colors cursor-pointer ${isChosen
-                                ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
-                                : "text-[#2B070B] hover:bg-[#FAF5EB]"
+                              ? "bg-[#2B070B] text-[#FAF5EB] font-semibold"
+                              : "text-[#2B070B] hover:bg-[#FAF5EB]"
                               }`}
                           >
                             <span>{num}</span>
@@ -1174,15 +1174,15 @@ export default function ProductDetailClient({
 
             {/* 🔢 Action Buttons */}
             <div className="space-y-3 mb-8">
-              {/* Row 1: Add to Atelier Bag */}
+              {/* Row 1: Add to Bag */}
               <div className="w-full">
                 <button
                   type="button"
                   onClick={handleAddToCart}
                   disabled={isAddingToCart}
-                  className={`w-full py-4 px-3 sm:px-6 rounded-none font-heading font-bold text-[11px] sm:text-xs uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer flex items-center justify-center text-center ${isInCart
-                      ? "bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] border border-[#4A1017]"
-                      : "bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017]"
+                  className={`w-full py-3.5 sm:py-4 px-3 sm:px-6 rounded-xl font-heading font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 text-center ${isInCart
+                    ? "bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] border border-[#4A1017]"
+                    : "bg-[#2B070B] hover:bg-[#1F0508] text-[#FAF5EB] hover:text-white border border-[#4A1017]/50"
                     }`}
                 >
                   {isAddingToCart ? (
@@ -1191,32 +1191,37 @@ export default function ProductDetailClient({
                       <span>Adding...</span>
                     </span>
                   ) : isInCart ? (
-                    <span>✓ In Bag • Add</span>
+                    <span>✓ In Bag • Add Another</span>
                   ) : (
-                    <span>
-                      <span className="hidden sm:inline">Add to Atelier Bag</span>
-                      <span className="sm:hidden">Add to Bag</span>
-                    </span>
+                    <>
+                      <svg className="w-4 h-4 text-[#D4AF37] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      <span>Add to Bag</span>
+                    </>
                   )}
                 </button>
               </div>
 
-              {/* Row 2: Instant Buy It Now Button */}
+              {/* Row 2: Instant Buy It Now Button (Warm Camel Artisan Gold) */}
               <button
                 type="button"
                 onClick={handleBuyItNow}
-                className="w-full py-4 px-6 rounded-none font-heading font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#4A1017] hover:bg-[#380C11] text-[#FAF5EB] hover:text-white border border-[#FAF5EB]/40 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                className="w-full py-3.5 sm:py-4 px-6 rounded-xl font-heading font-bold text-xs sm:text-sm uppercase tracking-widest bg-[#C19A6B] hover:bg-[#2B070B] text-white transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer flex items-center justify-center gap-2 border border-[#C19A6B]/30"
               >
-                Buy It Now — Direct Checkout
+                <svg className="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span>Buy It Now</span>
               </button>
 
               {/* Row 3: Order on Etsy (Direct Link) */}
               {(product.etsy_url || product.show_etsy) && (
                 <a
-                  href={product.etsy_url || "https://www.etsy.com/shop/NREnterprises"}
+                  href={product.etsy_url || "https://www.etsy.com/shop/AHADGLOBALRUGS"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 px-6 rounded-none font-heading font-bold text-xs uppercase tracking-wider bg-[#F1641E] hover:bg-[#D95314] text-white flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                  className="w-full py-3.5 px-6 rounded-xl font-heading font-bold text-xs uppercase tracking-wider bg-[#F1641E] hover:bg-[#D95314] text-white flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
                   title="View and order this listing directly on our official Etsy shop"
                 >
                   <span className="w-4 h-4 rounded-full bg-white text-[#F1641E] flex items-center justify-center font-bold text-[10px]">
@@ -1244,7 +1249,7 @@ export default function ProductDetailClient({
                     );
                   }
                 }}
-                className="w-full py-2.5 px-4 rounded-none font-heading font-medium text-xs text-[#8C6B38] hover:text-[#2B070B] hover:bg-[#FAF5EB] border border-dashed border-[#4A1017]/30 hover:border-[#4A1017] flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl font-heading font-medium text-xs text-[#8C6B38] hover:text-[#2B070B] hover:bg-[#FAF5EB] border border-dashed border-[#4A1017]/30 hover:border-[#4A1017] flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5 text-[#8C6B38]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -1256,8 +1261,8 @@ export default function ProductDetailClient({
             {/* 🛡️ Trust & Artisan Guarantee Badges */}
             <div className="border-t border-[#4A1017]/15 pt-5 pb-2">
               <div className="grid grid-cols-2 gap-2.5 text-xs text-[#2B070B]">
-                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
-                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🛡️
                   </div>
                   <div>
@@ -1266,8 +1271,8 @@ export default function ProductDetailClient({
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
-                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🚚
                   </div>
                   <div>
@@ -1276,8 +1281,8 @@ export default function ProductDetailClient({
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
-                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🔄
                   </div>
                   <div>
@@ -1286,8 +1291,8 @@ export default function ProductDetailClient({
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-none bg-white border border-[#4A1017]/20 shadow-2xs">
-                  <div className="w-7 h-7 rounded-none bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#4A1017]/20 shadow-2xs">
+                  <div className="w-7 h-7 rounded-lg bg-[#2B070B]/10 text-[#4A1017] flex items-center justify-center shrink-0 text-xs font-bold">
                     🔒
                   </div>
                   <div>
@@ -1513,8 +1518,8 @@ export default function ProductDetailClient({
 
                 return (
                   <div key={item.id || idx} className="flex flex-col group cursor-pointer">
-                    {/* Seamless 3:4 Image Container */}
-                    <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-2xl overflow-hidden bg-[#ECE7DE] shadow-xs group-hover:shadow-lg active:scale-[0.98] transition-all duration-300 mb-3">
+                    {/* Seamless 3:4 Image Container (Square Corners) */}
+                    <div className="relative aspect-[3/4] sm:aspect-4/5 w-full rounded-none overflow-hidden bg-[#ECE7DE] shadow-xs group-hover:shadow-lg active:scale-[0.98] transition-all duration-300 mb-3">
                       <Link href={`/product/${item.id}`} prefetch={true} className="block w-full h-full">
                         {displayImg && (
                           <Image
@@ -1531,11 +1536,11 @@ export default function ProductDetailClient({
 
                       {/* Top Badges */}
                       {itemDiscount > 0 ? (
-                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#1B4D3E] text-white border border-[#26624F] text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm pointer-events-none z-10">
+                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-[#1B4D3E] text-white border border-[#26624F] text-[9.5px] sm:text-[10.5px] font-heading font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-none shadow-sm pointer-events-none z-10">
                           -{itemDiscount}%
                         </span>
                       ) : item.badge ? (
-                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-white/95 text-[#2B070B] text-[9.5px] sm:text-[10px] font-heading font-bold tracking-wider px-2.5 py-0.5 rounded-md shadow-sm border border-[#4A1017]/20 pointer-events-none z-10">
+                        <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 bg-white/95 text-[#2B070B] text-[9.5px] sm:text-[10px] font-heading font-bold tracking-wider px-2.5 py-0.5 rounded-none shadow-sm border border-[#4A1017]/20 pointer-events-none z-10">
                           {item.badge}
                         </span>
                       ) : null}
@@ -1546,7 +1551,7 @@ export default function ProductDetailClient({
                         prefetch={true}
                         className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden sm:block"
                       >
-                        <span className="w-full block text-center bg-white hover:bg-[#FAF5EB] text-[#2B070B] hover:text-[#4A1017] py-2.5 rounded-md text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-xl border border-black/10 backdrop-blur-md">
+                        <span className="w-full block text-center bg-white hover:bg-[#FAF5EB] text-[#2B070B] hover:text-[#4A1017] py-2.5 rounded-none text-xs font-heading font-bold uppercase tracking-wider transition-all duration-300 shadow-xl border border-black/10 backdrop-blur-md">
                           View Details →
                         </span>
                       </Link>

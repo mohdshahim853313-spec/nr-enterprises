@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useCurrency } from "@/context/CurrencyContext";
 import StackedCardsDeck from "@/components/home/StackedCardsDeck";
+import CarpetSphere from "@/components/home/CarpetSphere";
 
 // ============================================================================
 // 🌟 BESPOKE HANDCRAFTED LUXURY SVGS (Minimalist Line Art)
@@ -647,6 +648,8 @@ function cleanClientData(raw: any) {
   if (!raw) return raw;
   try {
     const str = JSON.stringify(raw)
+      .replaceAll("https://www.etsy.com/shop/RugZora", "https://www.etsy.com/shop/AHADGLOBALRUGS")
+      .replaceAll("https://www.etsy.com/shop/NREnterprises", "https://www.etsy.com/shop/AHADGLOBALRUGS")
       .replaceAll("w=600&q=80", "w=1400&q=95")
       .replaceAll("w=400&q=80", "w=1200&q=95")
       .replaceAll("w=600", "w=1400")
@@ -711,7 +714,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       localStorage.removeItem("rz_home_content_v6");
       localStorage.removeItem("rz_home_content_v7");
       localStorage.removeItem("rz_home_content_v8");
-      const cached = localStorage.getItem("rz_home_content_v9");
+      const cached = localStorage.getItem("nr_home_content_v1");
       if (cached) {
         setSiteData(cleanClientData(JSON.parse(cached)));
       }
@@ -728,7 +731,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
         if (data && data.data) {
           const cleaned = cleanClientData(data.data);
           setSiteData(cleaned);
-          localStorage.setItem("rz_home_content_v9", JSON.stringify(cleaned));
+          localStorage.setItem("nr_home_content_v1", JSON.stringify(cleaned));
         }
       } catch (err) {
         console.error("Error fetching home content:", err);
@@ -787,11 +790,13 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
     ];
   }, [heroSlides, currentHeroSlide, siteData]);
 
-  const etsyConfig = siteData?.etsy || {
-    show: true,
-    url: "https://www.etsy.com/shop/NREnterprises",
-    btnText: "Shop on Etsy",
-  };
+  const etsyConfig = useMemo(() => {
+    return {
+      show: siteData?.etsy?.show !== false,
+      url: "https://www.etsy.com/shop/AHADGLOBALRUGS",
+      btnText: siteData?.etsy?.btnText || "Shop on Etsy",
+    };
+  }, [siteData]);
 
   const collectionsSection = siteData?.collectionsSection || {
     tag: "HANDCRAFTED WEAVES",
@@ -1244,12 +1249,12 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
             onTouchStart={handleHeroTouchStart}
             onTouchMove={handleHeroTouchMove}
             onTouchEnd={handleHeroTouchEnd}
-            className="relative w-full h-[340px] sm:h-[430px] md:h-[485px] lg:h-[530px] xl:h-[555px] 2xl:h-[580px] rounded-none overflow-hidden bg-[#240609] border border-[#EAE6DF] shadow-[0_10px_35px_rgba(0,0,0,0.08)] select-none group isolate [transform:translateZ(0)]"
+            className="relative w-full h-[420px] sm:h-[460px] md:h-[495px] lg:h-[530px] xl:h-[555px] 2xl:h-[580px] rounded-none overflow-hidden bg-[#240609] border border-[#EAE6DF] shadow-[0_10px_35px_rgba(0,0,0,0.08)] select-none group isolate [transform:translateZ(0)]"
           >
             {/* 🌟 Big Hero Banner Top Right Corner: Shop on Etsy Floating Button */}
             {etsyConfig.show !== false && (
               <a
-                href={etsyConfig.url || "https://www.etsy.com/shop/NREnterprises"}
+                href={etsyConfig.url || "https://www.etsy.com/shop/AHADGLOBALRUGS"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-3 sm:top-5 right-3 sm:right-5 z-20 inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#F1641E] hover:bg-[#D95314] text-white text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xs"
@@ -1372,7 +1377,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
             {collectionsSection.tag || "HANDCRAFTED WEAVES"}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#1A1715] mb-3 tracking-tight">
-            {collectionsSection.title?.replace("NR Enterprises Collections", "NR Collections").replace("RugZora Collections", "NR Collections") || "NR Collections"}
+            {collectionsSection.title?.replace("NR Enterprises Collections", "NR Collections").replace("NR Enterprises Collections", "NR Collections") || "NR Collections"}
           </h2>
           {collectionsSection.desc && (
             <p className="text-[13.5px] sm:text-[15px] text-[#6B5E51] font-medium max-w-lg mx-auto mb-10 sm:mb-12 leading-relaxed">
@@ -1876,42 +1881,29 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
             </p>
           )}
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-6 mb-6">
+          {/* 🌟 Color Swatches: Horizontal Scroll on Mobile, Full Grid on Desktop (Strict Top-Aligned Spheres) */}
+          <div className="flex overflow-x-auto sm:overflow-visible sm:grid sm:grid-cols-4 lg:grid-cols-8 gap-5 sm:gap-4 md:gap-6 pt-3.5 sm:pt-4 pb-4 sm:pb-2 px-3 sm:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory justify-start sm:justify-center items-start mb-6">
             {swatchesList.map((swatch: any) => (
               <Link
                 key={swatch.code || swatch.name}
                 href={`/collections?color=${swatch.code}`}
-                className="group flex flex-col items-center cursor-pointer"
+                className="group relative flex flex-col items-center cursor-pointer shrink-0 snap-center w-[96px] sm:w-auto hover:z-10"
               >
-                <div className="w-22 h-22 sm:w-26 sm:h-26 rounded-full bg-[#3D0C12] border border-[#4A1017] shadow-md group-hover:border-[#FAF5EB]/50 group-hover:shadow-[0_4px_20px_rgba(74,16,23,0.3)] group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2 mb-2.5">
-                  <div
-                    className="w-full h-full rounded-full relative overflow-hidden border border-black/25 shadow-[inset_0_2px_5px_rgba(255,255,255,0.35),inset_0_-3px_6px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-102"
-                    style={{
-                      backgroundColor: swatch.hex,
-                      backgroundImage: `
-                        radial-gradient(circle at 35% 28%, rgba(255,255,255,0.28) 0%, transparent 60%),
-                        repeating-linear-gradient(45deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1.5px, transparent 1.5px, transparent 4px),
-                        repeating-linear-gradient(-45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1.5px, transparent 1.5px, transparent 4px)
-                      `,
-                    }}
-                  >
-                    {/* Fine Carpet Micro-Weave Loop Grid */}
-                    <div
-                      className="absolute inset-0 rounded-full opacity-65 mix-blend-overlay pointer-events-none"
-                      style={{
-                        backgroundImage: `
-                          radial-gradient(circle, rgba(255,255,255,0.8) 0.6px, transparent 0.6px),
-                          radial-gradient(circle, rgba(0,0,0,0.7) 0.6px, transparent 0.6px)
-                        `,
-                        backgroundSize: "3px 3px, 3px 3px",
-                        backgroundPosition: "0 0, 1.5px 1.5px",
-                      }}
+                {/* 🌟 Luxury 3D Carpet Shader Sphere */}
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-full p-[3px] sm:p-1 bg-gradient-to-b from-[#C19A6B]/70 via-[#3D0C12] to-[#180305] shadow-[0_8px_24px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.35)] group-hover:shadow-[0_12px_32px_rgba(232,200,106,0.45),0_0_0_2px_rgba(232,200,106,0.85)] group-hover:scale-108 transition-all duration-300 flex items-center justify-center mb-2.5">
+                  <div className="w-full h-full rounded-full overflow-hidden relative shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)]">
+                    <CarpetSphere
+                      hex={swatch.hex}
+                      code={swatch.code}
+                      name={swatch.name}
                     />
                   </div>
                 </div>
-                <span className="text-xs font-bold text-[#FAF5EB] group-hover:text-white transition-colors">
-                  {swatch.name}
-                </span>
+                <div className="w-full h-8 sm:h-9 flex items-start justify-center">
+                  <span className="text-[11px] sm:text-xs font-heading font-bold uppercase tracking-wider text-[#FAF5EB] group-hover:text-[#E8C86A] transition-colors text-center leading-tight">
+                    {swatch.name}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

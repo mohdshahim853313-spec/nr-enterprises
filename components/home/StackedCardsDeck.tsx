@@ -345,14 +345,14 @@ export default function StackedCardsDeck({
           ←
         </button>
 
-        {/* Dynamic Pagination Pill Indicators */}
-        <div className="flex items-center gap-1.5">
-          {items.slice(0, 6).map((item, i) => {
+        {/* Dynamic Pagination Pill Indicators matching exact product count */}
+        <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-[200px]">
+          {items.map((item, i) => {
             const isActive = activeProduct?.id === item.id;
             return (
               <span
                 key={item.id || i}
-                className={`h-1.5 rounded-full transition-all duration-200 ${
+                className={`h-1.5 rounded-full transition-all duration-300 ${
                   isActive ? "w-5 bg-gradient-to-r from-[#4A1017] to-[#7A1D27]" : "w-1.5 bg-[#E0D3BE]"
                 }`}
               />

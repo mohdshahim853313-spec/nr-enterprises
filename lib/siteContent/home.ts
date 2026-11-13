@@ -94,7 +94,7 @@ export const homeContent = {
   // 🌟 3. Etsy Strip Configuration
   etsy: {
     show: true,
-    url: "https://www.etsy.com/shop/NREnterprises",
+    url: "https://www.etsy.com/shop/AHADGLOBALRUGS",
     btnText: "Shop on Etsy",
   },
 
