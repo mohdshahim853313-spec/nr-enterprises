@@ -649,6 +649,9 @@ function cleanClientData(raw: any) {
   if (!raw) return raw;
   try {
     const str = JSON.stringify(raw)
+      .replaceAll("RugZora", "NR Enterprises")
+      .replaceAll("Rugzora", "NR Enterprises")
+      .replaceAll("rugzora", "nrenterprises")
       .replaceAll("https://www.etsy.com/shop/RugZora", "https://www.etsy.com/shop/AHADGLOBALRUGS")
       .replaceAll("https://www.etsy.com/shop/NREnterprises", "https://www.etsy.com/shop/AHADGLOBALRUGS")
       .replaceAll("w=600&q=80", "w=1400&q=95")
