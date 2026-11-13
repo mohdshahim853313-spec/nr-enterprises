@@ -16,7 +16,7 @@ export const contactContent = {
   },
   info: {
     address: "Bhadohi — 221401, Uttar Pradesh, India.",
-    email: "nrenterprises@gmail.com",
+    email: "nasimshah2441@gmail.com",
     desk: "Atelier Quick Inquire",
   },
 };

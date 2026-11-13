@@ -304,7 +304,7 @@ export default function QuickInquireDrawer() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   <a
-                    href="mailto:nrenterprises@gmail.com"
+                    href="mailto:nasimshah2441@gmail.com"
                     className="flex items-center gap-2 p-2.5 rounded-none bg-white border border-[#4A1017]/20 text-[#2B070B] hover:border-[#4A1017] hover:bg-[#FAF8F5] transition-colors"
                   >
                     <div className="w-7 h-7 rounded-none bg-[#FAF8F5] text-[#8C6B38] flex items-center justify-center shrink-0 border border-[#4A1017]/20">
@@ -314,7 +314,7 @@ export default function QuickInquireDrawer() {
                     </div>
                     <div className="truncate">
                       <div className="text-[10px] text-[#8C6B38] uppercase tracking-wider font-semibold">Email Directly</div>
-                      <div className="text-xs font-semibold text-[#2B070B] truncate">nrenterprises@gmail.com</div>
+                      <div className="text-xs font-semibold text-[#2B070B] truncate">nasimshah2441@gmail.com</div>
                     </div>
                   </a>
                   <div className="flex items-center gap-2 p-2.5 rounded-none bg-white border border-[#4A1017]/20 text-[#2B070B]">

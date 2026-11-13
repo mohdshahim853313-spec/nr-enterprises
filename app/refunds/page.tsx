@@ -67,7 +67,7 @@ export default function RefundPolicyPage() {
               Every shipment is carefully wrapped in weather-resistant dual-layer protective packaging. In the rare event that your package arrives damaged or you receive an incorrect item:
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-2">
-              <li>Please notify us within <strong className="text-[#2B2520]">48 hours</strong> of delivery with clear photographs of the packaging and damage at <a href="mailto:nrenterprises@gmail.com" className="text-[#C19A6B] underline font-semibold">nrenterprises@gmail.com</a>.</li>
+              <li>Please notify us within <strong className="text-[#2B2520]">48 hours</strong> of delivery with clear photographs of the packaging and damage at <a href="mailto:nasimshah2441@gmail.com" className="text-[#C19A6B] underline font-semibold">nasimshah2441@gmail.com</a>.</li>
               <li>We will arrange an immediate complimentary replacement or a 100% full refund including all shipping costs.</li>
             </ul>
           </section>
@@ -94,7 +94,7 @@ export default function RefundPolicyPage() {
             </p>
             <div className="mt-4 p-5 bg-[#FAFAFA] border border-[#EAEAEB] rounded-2xl text-xs sm:text-sm space-y-1">
               <p className="font-heading font-semibold text-[#2B2520]">NR Enterprises Returns Concierge</p>
-              <p>Email: <a href="mailto:nrenterprises@gmail.com" className="text-[#C19A6B] font-semibold underline">nrenterprises@gmail.com</a></p>
+              <p>Email: <a href="mailto:nasimshah2441@gmail.com" className="text-[#C19A6B] font-semibold underline">nasimshah2441@gmail.com</a></p>
               <p>Subject Line: <em>Return Request - [Your Order ID]</em></p>
               <p>Contact Form: <Link href="/contact" className="text-[#C19A6B] underline font-semibold">Visit Contact Page</Link></p>
             </div>

@@ -568,10 +568,10 @@ export const homeContent = {
     ],
   },
 
-  // 🌟 10. Our Legacy Highlight on Home Page (4 Unique Masterpiece Images)
+  // 🌟 10. Premium Carpets Highlight on Home Page (4 Unique Masterpiece Images)
   legacySection: {
     tag: "ATELIER MASTERPIECES",
-    title: "Our Legacy",
+    title: "Premium Carpets",
     desc: "Limited-edition high-density sculpted carpets crafted by master artisans in Bhadohi, India.",
     ctaText: "View All",
     ctaLink: "/collections?category=Irregular",
@@ -622,9 +622,9 @@ export const homeContent = {
     feature2Title: "Pan India & Global Shipping",
     feature2Desc: "Tracked express doorstep delivery",
     feature3Title: "Atelier Concierge Desk",
-    phone: "Quick Inquire",
-    email: "nrenterprises@gmail.com",
-    whatsappNumber: "",
+    phone: "+91 6394472035",
+    email: "nasimshah2441@gmail.com",
+    whatsappNumber: "919151452441",
     whatsappText: "Hi NR Enterprises, I need help choosing or customizing a carpet",
   },
 };

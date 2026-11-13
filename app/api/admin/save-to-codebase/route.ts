@@ -16,7 +16,7 @@ const EXPORT_MAP: Record<string, { filename: string; exportName: string; title: 
   legacy: {
     filename: "legacy.ts",
     exportName: "legacyContent",
-    title: "NR Enterprises Our Legacy Content Configuration",
+    title: "NR Enterprises Our Story Content Configuration",
   },
   about: {
     filename: "about.ts",

@@ -1299,7 +1299,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                     </div>
 
                     <p className="text-xs font-body text-[#7A7065] leading-relaxed">
-                      Your custom design coordinates, fiber color codes, and dimensions have been dispatched directly to <strong className="text-[#2B2520]">nrenterprises@gmail.com</strong>. We will contact you at <strong className="text-[#2B2520]">{custEmail}</strong> shortly.
+                      Your custom design coordinates, fiber color codes, and dimensions have been dispatched directly to <strong className="text-[#2B2520]">nasimshah2441@gmail.com</strong>. We will contact you at <strong className="text-[#2B2520]">{custEmail}</strong> shortly.
                     </p>
 
                     <button
@@ -1418,7 +1418,7 @@ export function CustomizerContent({ initialProductId }: { initialProductId?: str
                           </>
                         ) : (
                           <>
-                            <span>Send to nrenterprises@gmail.com</span>
+                            <span>Send to nasimshah2441@gmail.com</span>
                             <span>→</span>
                           </>
                         )}

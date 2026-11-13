@@ -87,7 +87,7 @@ export default function DisclaimerPage() {
             </h2>
             <p>
               If you have any questions regarding these disclosures, please contact us at{" "}
-              <a href="mailto:nrenterprises@gmail.com" className="text-[#C19A6B] font-semibold underline">nrenterprises@gmail.com</a>.
+              <a href="mailto:nasimshah2441@gmail.com" className="text-[#C19A6B] font-semibold underline">nasimshah2441@gmail.com</a>.
             </p>
           </section>
 

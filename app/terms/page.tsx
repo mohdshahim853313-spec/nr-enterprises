@@ -102,7 +102,7 @@ export default function TermsPage() {
             </h2>
             <p>
               For any clarification regarding these terms, reach our legal desk at{" "}
-              <a href="mailto:nrenterprises@gmail.com" className="text-[#C19A6B] font-semibold underline">nrenterprises@gmail.com</a>.
+              <a href="mailto:nasimshah2441@gmail.com" className="text-[#C19A6B] font-semibold underline">nasimshah2441@gmail.com</a>.
             </p>
           </section>
 

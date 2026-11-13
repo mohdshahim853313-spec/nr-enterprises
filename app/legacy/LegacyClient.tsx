@@ -513,7 +513,7 @@ export default function LegacyClient({ initialData }: StoryProps) {
             </Link>
 
             <a
-              href="https://wa.me/918874585277?text=Hello%20NR%20Enterprises%20Atelier,%20I%20am%20interested%20in%20learning%20more%20about%20your%20story%20and%20handcrafted%20rugs."
+              href="https://wa.me/919151452441?text=Hello%20NR%20Enterprises%20Atelier,%20I%20am%20interested%20in%20learning%20more%20about%20your%20story%20and%20handcrafted%20rugs."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#2B070B] hover:bg-[#3D0C12] text-[#FAF5EB] hover:text-white border border-[#4A1017] px-8 py-3.5 text-xs font-heading font-bold tracking-[0.16em] uppercase rounded-full transition-all duration-300 cursor-pointer w-full sm:w-auto inline-flex items-center justify-center gap-2"

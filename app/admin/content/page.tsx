@@ -628,7 +628,7 @@ function CollectionProductPickerModal({
 const PAGES = [
   { id: "home", label: "Home", livePath: "/" },
   { id: "collections", label: "Collections", livePath: "/collections" },
-  { id: "legacy", label: "Our Legacy", livePath: "/legacy" },
+  { id: "legacy", label: "Our Story", livePath: "/legacy" },
   { id: "about", label: "About Us", livePath: "/about" },
   { id: "contact", label: "Contact", livePath: "/contact" }
 ];
@@ -1144,8 +1144,8 @@ export default function SiteContentAdmin() {
 
   const handlePublishAllCodeDefaults = async (overwriteImages: boolean = false) => {
     const confirmMsg = overwriteImages
-      ? `Kya aap SABHI 5 Pages (Home, Collections, Our Legacy, About Us, Contact) ka pura content (TEXT + IMAGES) codebase files (lib/siteContent/) se live Supabase par publish karna chahte hain?\n\n⚠️ NOTE: Code files ke naye texts aur image URLs live ho jayenge.`
-      : `Kya aap SABHI 5 Pages (Home, Collections, Our Legacy, About Us, Contact) ke texts ko Codebase Defaults se live publish karna chahte hain?\n\n📸 NOTE: Sabhi pages ki images safe rahengi, sirf texts hi code se update honge.`;
+      ? `Kya aap SABHI 5 Pages (Home, Collections, Our Story, About Us, Contact) ka pura content (TEXT + IMAGES) codebase files (lib/siteContent/) se live Supabase par publish karna chahte hain?\n\n⚠️ NOTE: Code files ke naye texts aur image URLs live ho jayenge.`
+      : `Kya aap SABHI 5 Pages (Home, Collections, Our Story, About Us, Contact) ke texts ko Codebase Defaults se live publish karna chahte hain?\n\n📸 NOTE: Sabhi pages ki images safe rahengi, sirf texts hi code se update honge.`;
 
     const confirmReset = window.confirm(confirmMsg);
     if (!confirmReset) return;
@@ -3333,7 +3333,7 @@ export default function SiteContentAdmin() {
             </div>
           </div>
 
-            {/* 🌟 7. SECTION 6: OUR LEGACY (EXCLUSIVE CARPETS) */}
+            {/* 🌟 7. SECTION 6: Our Story (EXCLUSIVE CARPETS) */}
             <div className="bg-white p-6 sm:p-8 border-2 border-amber-200/80 rounded-xl shadow-xs space-y-6">
               <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-stone-900 -mx-6 -mt-6 sm:-mx-8 sm:-mt-8 p-6 sm:p-8 rounded-t-xl text-white flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-amber-500/40 shadow-inner">
                 <div>
@@ -3344,7 +3344,7 @@ export default function SiteContentAdmin() {
                     <span className="text-xs text-amber-200/70 font-mono">Module 06</span>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-serif text-white tracking-wide mt-1">
-                    7. Section 6: Our Legacy (Atelier Masterpieces)
+                    7. Section 6: Premium Carpets (Atelier Masterpieces)
                   </h2>
                   <p className="text-xs text-amber-100/70 mt-1 max-w-xl">
                     Manage the heritage showcase header and 4 exclusive high-density masterpieces.
@@ -3370,7 +3370,7 @@ export default function SiteContentAdmin() {
                   <label className="block text-[10px] uppercase font-bold text-amber-900 mb-1">Section Title</label>
                   <input
                     type="text"
-                    value={currentContent.legacySection?.title ?? "Our Legacy"}
+                    value={currentContent.legacySection?.title ?? "Premium Carpets"}
                     onChange={(e) => updateField("legacySection", "title", e.target.value)}
                     className="w-full border border-amber-200 p-2 text-xs bg-white outline-none focus:border-amber-600 font-serif rounded-xs"
                   />
@@ -3781,12 +3781,12 @@ export default function SiteContentAdmin() {
           </div>
         )}
 
-        {/* --- TAB 3: OUR LEGACY --- */}
+        {/* --- TAB 3: Our Story --- */}
         {activeTab === "legacy" && (
           <div className="space-y-10">
             <CodebasePublishBar
               pageId="legacy"
-              pageName="Our Legacy"
+              pageName="Our Story"
               filePath="lib/siteContent/legacy.ts"
               onPublishToWebsite={handlePublishCodeDefaults}
               onSaveToCodebase={handleSaveAdminToCodebase}

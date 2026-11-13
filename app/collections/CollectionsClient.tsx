@@ -1105,7 +1105,7 @@ export default function Shop({ initialPageContent, initialFilterConfig, initialP
             </p>
           </div>
           <a
-            href="https://wa.me/918874585277?text=Hello%20NR%20Enterprises%20Atelier,%20I%20would%20like%20to%20discuss%20a%20custom%20rug%20order."
+            href="https://wa.me/919151452441?text=Hello%20NR%20Enterprises%20Atelier,%20I%20would%20like%20to%20discuss%20a%20custom%20rug%20order."
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#FAF5EB] hover:bg-white text-[#240609] hover:text-[#240609] px-8 py-3.5 text-xs font-heading font-bold tracking-[0.2em] uppercase transition-all duration-300 rounded-full shadow-lg shrink-0 cursor-pointer"

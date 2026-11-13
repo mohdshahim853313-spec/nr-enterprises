@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
             <div className="mt-4 p-5 bg-[#FAFAFA] border border-[#EAEAEB] rounded-2xl text-xs sm:text-sm space-y-1">
               <p className="font-heading font-semibold text-[#2B2520]">NR Enterprises Atelier</p>
               <p>Bhadohi, Uttar Pradesh, 221401, India</p>
-              <p>Email: <a href="mailto:nrenterprises@gmail.com" className="text-[#C19A6B] font-semibold underline">nrenterprises@gmail.com</a></p>
+              <p>Email: <a href="mailto:nasimshah2441@gmail.com" className="text-[#C19A6B] font-semibold underline">nasimshah2441@gmail.com</a></p>
               <p>Concierge Desk: <span className="text-[#2B2520] font-semibold">Available via Website Quick Inquire & Email</span></p>
             </div>
           </section>

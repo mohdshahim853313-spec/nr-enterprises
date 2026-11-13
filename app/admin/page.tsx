@@ -16,14 +16,14 @@ import { DEFAULT_FILTER_SETTINGS, FilterSettings } from "@/lib/filterConfig";
 const InputField = ({ label, name, placeholder, required = false, type = "text", value, onChange }: any) => (
   <div className="w-full">
     <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">{label}</label>
-    <input 
-      type={type} 
-      name={name} 
-      required={required} 
-      value={value} 
-      onChange={onChange} 
-      placeholder={placeholder} 
-      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B]" 
+    <input
+      type={type}
+      name={name}
+      required={required}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B]"
     />
   </div>
 );
@@ -34,12 +34,12 @@ export default function AdminUpload() {
   const [loadingAction, setLoadingAction] = useState<"publish" | "draft" | "copy" | "load" | "delete" | null>(null);
   const [lastSubmittedStatus, setLastSubmittedStatus] = useState<"publish" | "draft">("publish");
   const [statusMsg, setStatusMsg] = useState("");
-  
+
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [isQuickPasteOpen, setIsQuickPasteOpen] = useState(false);
   const [isEtsySyncOpen, setIsEtsySyncOpen] = useState(false);
   const [packStudioProductId, setPackStudioProductId] = useState<string | null>(null);
-  
+
   const [editingProductId, setEditingProductId] = useState<string>("");
 
   const [images, setImages] = useState<ImageFile[]>([]);
@@ -106,7 +106,7 @@ export default function AdminUpload() {
           id: "studio_rug_images",
           data: updatedRegistry,
         });
-      } catch {}
+      } catch { }
 
       alert("Listing and all its photos have been deleted successfully!");
       resetForm();
@@ -200,9 +200,9 @@ export default function AdminUpload() {
   ];
 
   const initialFormState = {
-    name: "", original_name: "", sku: "", quantity: "1", 
-    category: "Braided (rPET)", custom_category: "", 
-    color: "", shape: "Rectangular", custom_shape: "", style: "", room: "", pattern: "", 
+    name: "", original_name: "", sku: "", quantity: "1",
+    category: "Braided (rPET)", custom_category: "",
+    color: "", shape: "Rectangular", custom_shape: "", style: "", room: "", pattern: "",
     material: "100% Recycled PET (rPET)", custom_material: "",
     tags: "", features: "100% Reversible, Shed-free, Stain-resistant, Wool-like soft feel", description: "",
     processing_type: "Made to Order",
@@ -215,7 +215,7 @@ export default function AdminUpload() {
     markup_percent: "",
     discount_percent: "",
     related_products: [] as string[],
-    variants: [{ dimensions: "3 x 5", unit: "ft", price: "4500" }] 
+    variants: [{ dimensions: "3 x 5", unit: "ft", price: "4500" }]
   };
 
   const [formData, setFormData] = useState(initialFormState);
@@ -539,7 +539,7 @@ export default function AdminUpload() {
       return;
     }
 
-    setLoadingAction("load"); 
+    setLoadingAction("load");
     setStatusMsg("Loading product specifications & photos...");
     try {
       const { data, error } = await supabase.from("products").select("*").eq("id", productId).maybeSingle();
@@ -609,7 +609,7 @@ export default function AdminUpload() {
             if (sReg?.data?.[productId]) {
               loadedStudioImg = sReg.data[productId];
             }
-          } catch {}
+          } catch { }
         }
 
         if (loadedStudioImg) {
@@ -634,7 +634,7 @@ export default function AdminUpload() {
             if (cReg?.data?.[productId]) {
               loadedColorVariants = cReg.data[productId];
             }
-          } catch {}
+          } catch { }
         }
         setColorVariants(Array.isArray(loadedColorVariants) ? loadedColorVariants : []);
       }
@@ -649,7 +649,7 @@ export default function AdminUpload() {
   // 🌟 Etsy-Style One-Click Copy / Duplicate Listing
   const duplicateProductListing = async (productId: string) => {
     if (!productId) return;
-    setLoadingAction("copy"); 
+    setLoadingAction("copy");
     setStatusMsg("Cloning listing details, variants & photos (Etsy style)...");
     try {
       const { data, error } = await supabase.from("products").select("*").eq("id", productId).maybeSingle();
@@ -719,7 +719,7 @@ export default function AdminUpload() {
             if (sReg?.data?.[productId]) {
               loadedStudioImg = sReg.data[productId];
             }
-          } catch {}
+          } catch { }
         }
 
         if (loadedStudioImg) {
@@ -744,7 +744,7 @@ export default function AdminUpload() {
             if (cReg?.data?.[productId]) {
               loadedColorVariants = cReg.data[productId];
             }
-          } catch {}
+          } catch { }
         }
         setColorVariants(Array.isArray(loadedColorVariants) ? loadedColorVariants : []);
 
@@ -811,7 +811,7 @@ export default function AdminUpload() {
     setColorVariants((prev) => prev.filter((_, i) => i !== idx));
   };
 
-  
+
   // 🌟 AI / Code Quick Paste Auto-Fill Handler
   const handleApplyQuickPaste = (data: {
     formData: any;
@@ -854,50 +854,50 @@ export default function AdminUpload() {
     });
   };
 
-// 🌟 Auto WebP Compress on Selection
-const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.files) {
-    const selectedFiles = Array.from(e.target.files);
-    setStatusMsg("Optimizing & converting images to WebP...");
+  // 🌟 Auto WebP Compress on Selection
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const selectedFiles = Array.from(e.target.files);
+      setStatusMsg("Optimizing & converting images to WebP...");
 
-    const processedFiles: ImageFile[] = [];
+      const processedFiles: ImageFile[] = [];
 
-    for (const file of selectedFiles) {
+      for (const file of selectedFiles) {
+        const optimizedWebpFile = await compressAndConvertToWebP(file);
+
+        // 🌟 यहाँ पर लॉग जुड़ेगा
+        console.log(
+          `Image: ${file.name} | Original: ${(file.size / 1024).toFixed(0)} KB -> Compressed: ${(optimizedWebpFile.size / 1024).toFixed(0)} KB`
+        );
+
+        processedFiles.push({
+          id: Math.random().toString(36).substring(2, 9),
+          file: optimizedWebpFile,
+          preview: URL.createObjectURL(optimizedWebpFile),
+          isExisting: false,
+        });
+      }
+
+      setImages((prev) => [...prev, ...processedFiles]);
+      setStatusMsg("");
+    }
+  };
+
+  // 🌟 Studio Image File Selection (Dedicated Top-Down Flatlay Shot)
+  const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setStatusMsg("Optimizing & converting Studio top-down shot to WebP...");
       const optimizedWebpFile = await compressAndConvertToWebP(file);
-
-      // 🌟 यहाँ पर लॉग जुड़ेगा
-      console.log(
-        `Image: ${file.name} | Original: ${(file.size / 1024).toFixed(0)} KB -> Compressed: ${(optimizedWebpFile.size / 1024).toFixed(0)} KB`
-      );
-      
-      processedFiles.push({
-        id: Math.random().toString(36).substring(2, 9),
+      setStudioImage({
+        id: "studio_" + Math.random().toString(36).substring(2, 9),
         file: optimizedWebpFile,
         preview: URL.createObjectURL(optimizedWebpFile),
         isExisting: false,
       });
+      setStatusMsg("");
     }
-
-    setImages((prev) => [...prev, ...processedFiles]);
-    setStatusMsg("");
-  }
-};
-
-// 🌟 Studio Image File Selection (Dedicated Top-Down Flatlay Shot)
-const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.files && e.target.files[0]) {
-    const file = e.target.files[0];
-    setStatusMsg("Optimizing & converting Studio top-down shot to WebP...");
-    const optimizedWebpFile = await compressAndConvertToWebP(file);
-    setStudioImage({
-      id: "studio_" + Math.random().toString(36).substring(2, 9),
-      file: optimizedWebpFile,
-      preview: URL.createObjectURL(optimizedWebpFile),
-      isExisting: false,
-    });
-    setStatusMsg("");
-  }
-};
+  };
 
   const handleDragStart = (e: React.DragEvent, position: number) => { dragItem.current = position; };
   const handleDragEnter = (e: React.DragEvent, position: number) => { dragOverItem.current = position; };
@@ -940,16 +940,16 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
     const finalMaterial = formData.material === "Custom" ? formData.custom_material.trim() : formData.material;
 
     setLastSubmittedStatus(statusType);
-    setLoadingAction(statusType); 
+    setLoadingAction(statusType);
     setStatusMsg(
       statusType === "publish"
         ? "Uploading files & synchronizing live to NR Enterprises..."
         : "Saving listing as a draft..."
     );
-    
+
     try {
       const finalImageUrls: string[] = [];
-      
+
       for (let i = 0; i < images.length; i++) {
         const img = images[i];
         if (img.isExisting) {
@@ -957,7 +957,7 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
         } else if (img.file) {
           setStatusMsg(`Optimizing & uploading image ${i + 1} of ${images.length} to Cloudflare R2...`);
           const compressed = await compressAndConvertToWebP(img.file);
-          
+
           let uploadedUrl: string | null = null;
           try {
             const uploadFormData = new FormData();
@@ -1047,7 +1047,7 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           color_variants: idx === 0 ? colorVariants : undefined,
         };
       });
-      
+
       const basePrice = constructedVariants[0]?.price || "0";
       const baseOriginalPrice = constructedVariants[0]?.original_price || null;
       const sizesArray = constructedVariants.map(v => v.size);
@@ -1055,39 +1055,39 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
       const featuresArray = formData.features ? formData.features.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
       const productPayload: any = {
-        name: formData.name, 
+        name: formData.name,
         original_name: formData.original_name,
-        price: `₹${basePrice}`, 
+        price: `₹${basePrice}`,
         original_price: baseOriginalPrice ? `₹${baseOriginalPrice}` : null,
         markup_percent: markup,
         discount_percent: discount,
-        sizes: sizesArray, 
+        sizes: sizesArray,
         variants: constructedVariants,
         sku: formData.sku,
-        stock_quantity: parseInt(formData.quantity) || 1, 
-        category: finalCategory, 
+        stock_quantity: parseInt(formData.quantity) || 1,
+        category: finalCategory,
         color: formData.color,
-        shape: finalShape || "Rectangular", 
-        style: formData.style, 
-        room: formData.room, 
-        pattern: formData.pattern, 
+        shape: finalShape || "Rectangular",
+        style: formData.style,
+        room: formData.room,
+        pattern: formData.pattern,
         material: finalMaterial || "100% Recycled PET (rPET)",
-        tags: tagsArray, 
-        features: featuresArray, 
+        tags: tagsArray,
+        features: featuresArray,
         description: formData.description,
         processing_type: formData.processing_type,
-        care_instructions: formData.care_instructions, 
-        processing_time: formData.processing_time, 
+        care_instructions: formData.care_instructions,
+        processing_time: formData.processing_time,
         return_policy: formData.return_policy,
-        is_customizable: formData.is_customizable, 
+        is_customizable: formData.is_customizable,
         customization_surcharge: parseFloat(formData.customization_surcharge) || 20,
         free_delivery: formData.free_delivery,
         show_etsy: formData.show_etsy,
         etsy_url: formData.etsy_url.trim(),
-        images: finalImageUrls, 
+        images: finalImageUrls,
         studio_image: finalStudioImageUrl,
         related_products: formData.related_products,
-        status: statusType === "publish" ? "published" : "draft" 
+        status: statusType === "publish" ? "published" : "draft"
       };
 
       let submittedId = null;
@@ -1148,10 +1148,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           console.warn("Failed to update color variants registry:", cRegErr);
         }
       }
-      
+
       setLoadingAction(null);
       setShowCelebration(true);
-      
+
     } catch (err: any) {
       console.error(err);
       alert(`Error saving listing: ${err.message || 'Please check database fields'}`);
@@ -1162,7 +1162,7 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
   return (
     <div className="bg-[#F5F5F7] min-h-screen pt-4 sm:pt-6 md:pt-8 pb-24 px-3 sm:px-6 md:px-8 lg:px-10 relative">
       <div className="max-w-[1180px] w-full mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-sm border border-[#E5DDD2]">
-        
+
         {/* 🌟 1. TOP HEADER (TITLE & QUICK ACTIONS) */}
         <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAEAEB] pb-5">
           <div>
@@ -1178,7 +1178,7 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               {adminView === "etsy_deleted" && "Deleted on Etsy Protection Archive"}
             </h1>
           </div>
-          
+
           <div className="flex flex-wrap items-center gap-3">
             {/* Global Currency Rate Box */}
             <div className="flex items-center gap-2 bg-[#FAFAFA] border border-[#DFD8CC] px-3.5 py-1.5 rounded-xl shadow-2xs">
@@ -1187,18 +1187,18 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               </span>
               <div className="flex items-center gap-1">
                 <span className="text-[#6B6054] font-medium text-xs">₹</span>
-                <input 
-                  type="number" 
-                  value={globalUsdRate} 
-                  onChange={(e) => setGlobalUsdRate(e.target.value)} 
-                  className="w-16 text-xs font-semibold text-[#C19A6B] border-b border-[#DFD8CC] focus:outline-none focus:border-[#C19A6B] text-center bg-transparent py-0.5" 
+                <input
+                  type="number"
+                  value={globalUsdRate}
+                  onChange={(e) => setGlobalUsdRate(e.target.value)}
+                  className="w-16 text-xs font-semibold text-[#C19A6B] border-b border-[#DFD8CC] focus:outline-none focus:border-[#C19A6B] text-center bg-transparent py-0.5"
                 />
               </div>
               {globalUsdRate !== initialUsdRate && !rateSavedSuccess && (
-                <button 
-                  type="button" 
-                  onClick={saveGlobalRate} 
-                  disabled={isSavingRate} 
+                <button
+                  type="button"
+                  onClick={saveGlobalRate}
+                  disabled={isSavingRate}
                   className="text-[10px] uppercase bg-[#1C1917] text-white px-2.5 py-1 rounded-lg hover:bg-[#C19A6B] transition-colors cursor-pointer font-bold"
                 >
                   {isSavingRate ? "..." : "Save"}
@@ -1228,11 +1228,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("listings")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "listings"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "listings"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
           >
             <span>🏷️ Listings</span>
           </button>
@@ -1241,11 +1240,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("filters")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "filters"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "filters"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
           >
             <span>⚙️ Filters</span>
           </button>
@@ -1254,11 +1252,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("blogs")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "blogs"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "blogs"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
           >
             <span>📰 Blogs</span>
           </button>
@@ -1267,11 +1264,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("payments")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "payments"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "payments"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
           >
             <span>💳 Payments</span>
           </button>
@@ -1280,17 +1276,15 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("inquiries")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "inquiries"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "inquiries"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-[#C19A6B]"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
           >
             <span>📬 Inquiries</span>
             {inquiries.length > 0 && (
-              <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
-                adminView === "inquiries" ? "bg-[#C19A6B] text-white" : "bg-[#8C7A63] text-white"
-              }`}>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${adminView === "inquiries" ? "bg-[#C19A6B] text-white" : "bg-[#8C7A63] text-white"
+                }`}>
                 {inquiries.length}
               </span>
             )}
@@ -1300,11 +1294,10 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
           <button
             type="button"
             onClick={() => setAdminView("etsy_deleted")}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              adminView === "etsy_deleted"
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${adminView === "etsy_deleted"
                 ? "bg-[#1C1917] text-[#FAFAFA] shadow-md border-b-2 border-amber-600"
                 : "text-[#7A7065] hover:text-[#1C1917] hover:bg-white"
-            }`}
+              }`}
             title="Items deleted/inactive on Etsy but safely preserved on NR Enterprises"
           >
             <span>🗑️ Deleted on Etsy</span>
@@ -1329,25 +1322,23 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
                 Listing Mode:
               </span>
               <div className="flex bg-[#FAFAFA] p-1 rounded-xl border border-[#DFD8CC]">
-                <button 
-                  type="button" 
-                  onClick={() => { setMode("create"); resetForm(); }} 
-                  className={`px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors rounded-lg cursor-pointer ${
-                    mode === "create" 
-                      ? "bg-white text-[#C19A6B] shadow-xs border border-[#DFD8CC]" 
+                <button
+                  type="button"
+                  onClick={() => { setMode("create"); resetForm(); }}
+                  className={`px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors rounded-lg cursor-pointer ${mode === "create"
+                      ? "bg-white text-[#C19A6B] shadow-xs border border-[#DFD8CC]"
                       : "text-[#7A7065] hover:text-[#1C1917]"
-                  }`}
+                    }`}
                 >
                   Create New Listing
                 </button>
-                <button 
-                  type="button" 
-                  onClick={() => setMode("edit")} 
-                  className={`px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors rounded-lg cursor-pointer ${
-                    mode === "edit" 
-                      ? "bg-white text-[#C19A6B] shadow-xs border border-[#DFD8CC]" 
+                <button
+                  type="button"
+                  onClick={() => setMode("edit")}
+                  className={`px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors rounded-lg cursor-pointer ${mode === "edit"
+                      ? "bg-white text-[#C19A6B] shadow-xs border border-[#DFD8CC]"
                       : "text-[#7A7065] hover:text-[#1C1917]"
-                  }`}
+                    }`}
                 >
                   Edit Existing Listing
                 </button>
@@ -1965,9 +1956,9 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
                   )}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-                  <select 
-                    value={editingProductId} 
-                    onChange={(e) => loadProductForEdit(e.target.value)} 
+                  <select
+                    value={editingProductId}
+                    onChange={(e) => loadProductForEdit(e.target.value)}
                     className="flex-1 border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white cursor-pointer rounded-lg shadow-2xs"
                   >
                     <option value="">-- Select a product to edit --</option>
@@ -2058,723 +2049,720 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
               </div>
             )}
 
-        <form id="admin-listing-form" onSubmit={(e) => e.preventDefault()} className={`space-y-10 ${(mode === "edit" && !editingProductId) ? "opacity-40 pointer-events-none" : ""}`}>
-          
-          {/* SECTION 1 */}
-          <div>
-            <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">1. Basic Information & Pricing Variants</h3>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <InputField label="Carpet Title (Public) *" name="name" required value={formData.name} onChange={handleInputChange} placeholder="e.g. Royal Golden Jute Rug" />
-              <InputField label="Original Name (Optional - Internal)" name="original_name" value={formData.original_name} onChange={handleInputChange} placeholder="e.g. Artisan Design Alpha" />
+            <form id="admin-listing-form" onSubmit={(e) => e.preventDefault()} className={`space-y-10 ${(mode === "edit" && !editingProductId) ? "opacity-40 pointer-events-none" : ""}`}>
+
+              {/* SECTION 1 */}
               <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
-                  Rug Category / Weave Type *
-                </label>
-                <select 
-                  name="category" 
-                  value={formData.category} 
-                  onChange={handleInputChange} 
-                  className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
-                >
-                  <optgroup label="Configured Categories">
-                    {filterSettings.types.map((cat) => (
-                      <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                  </optgroup>
-                  <option value="Custom">+ Create New Custom Category</option>
-                </select>
-                {formData.category === "Custom" && (
-                  <input 
-                    type="text" 
-                    name="custom_category" 
-                    value={formData.custom_category} 
-                    onChange={handleInputChange} 
-                    placeholder="Enter new custom category (e.g. Jute, Tufted, Silk)..." 
-                    className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none rounded-xs" 
-                  />
-                )}
-              </div>
-            </div>
-
-            <div className="bg-[#F5F5F7] p-6 border border-[#EAEAEB] rounded-sm">
-              <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-4">Size & Price Configurations</label>
-              <div className="space-y-4">
-                {formData.variants.map((variant, index) => (
-                  <div key={index} className="flex flex-col md:flex-row items-end gap-4 bg-white p-4 border border-[#DFD8CC] shadow-sm rounded-sm">
-                    <div className="w-full">
-                      <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">Dimensions & Unit</label>
-                      <div className="flex">
-                        <input type="text" required value={variant.dimensions} onChange={(e) => handleVariantChange(index, 'dimensions', e.target.value)} placeholder="e.g. 3 x 5" className="w-2/3 border border-[#DFD8CC] border-r-0 p-3 text-sm focus:outline-none focus:border-[#C19A6B]" />
-                        <select value={variant.unit} onChange={(e) => handleVariantChange(index, 'unit', e.target.value)} className="w-1/3 border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-[#F5F5F7]">
-                          <option value="ft">ft</option>
-                          <option value="cm">cm</option>
-                          <option value="m">m</option>
-                          <option value="in">in</option>
-                        </select>
-                      </div>
-                    </div>
-                    <InputField label="Base Price (in ₹)" type="number" required value={variant.price} onChange={(e: any) => handleVariantChange(index, 'price', e.target.value)} placeholder="e.g. 4500" />
-                    <button type="button" onClick={() => removeVariant(index)} className="px-4 py-3 border border-red-200 text-red-600 text-sm font-semibold hover:bg-red-50 transition-colors uppercase tracking-wider mb-px shrink-0">Remove</button>
-                  </div>
-                ))}
-                <button type="button" onClick={addVariant} className="text-[#C19A6B] text-xs font-bold uppercase tracking-wider hover:text-[#3A332C] flex items-center gap-2 mt-4">
-                  <span>+ Add New Size Variant</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Promotional Pricing (% Add & % Off) */}
-            <div className="bg-[#FAFAFA] p-6 border border-[#E3DCCE] rounded-sm mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C]">
-                    Promotional Pricing & Psychology Markup
-                  </label>
-                  <p className="text-xs text-[#7A7065] mt-1">
-                    Set a markup percentage to create an elevated original price (MRP), and a discount percentage to show high-converting discount badges while retaining profit margins.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <InputField
-                    label="% Add (Markup to Create MRP / Original Price)"
-                    name="markup_percent"
-                    type="number"
-                    value={formData.markup_percent}
-                    onChange={handleInputChange}
-                    placeholder="e.g. 50 (for 50% added to base price)"
-                  />
-                  <p className="text-[11px] text-[#7A7065] mt-1">
-                    Example: Base ₹5,000 + 50% = <strong>₹7,500 Original MRP</strong> (Strikethrough)
-                  </p>
-                </div>
-
-                <div>
-                  <InputField
-                    label="% Off (Customer Discount Badge Percentage)"
-                    name="discount_percent"
-                    type="number"
-                    value={formData.discount_percent}
-                    onChange={handleInputChange}
-                    placeholder="e.g. 70 (for 70% OFF badge)"
-                  />
-                  <p className="text-[11px] text-[#7A7065] mt-1">
-                    Example: ₹7,500 MRP with 70% OFF = <strong>₹2,250 Final Selling Price</strong>
-                  </p>
-                </div>
-              </div>
-
-              {/* Live Preview Box */}
-              {(parseFloat(formData.markup_percent) > 0 || parseFloat(formData.discount_percent) > 0) && (
-                <div className="mt-4 p-4 bg-white border border-[#DFD8CC] rounded-sm">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#C19A6B] block mb-2">Live Price Calculation Preview</span>
-                  <div className="space-y-2">
-                    {formData.variants.map((v, i) => {
-                      const raw = parseFloat(v.price) || 0;
-                      const mk = parseFloat(formData.markup_percent) || 0;
-                      const dc = parseFloat(formData.discount_percent) || 0;
-                      const mrp = mk > 0 ? Math.round(raw * (1 + mk / 100)) : raw;
-                      const final = dc > 0 ? Math.round(mrp * (1 - dc / 100)) : mrp;
-                      return (
-                        <div key={i} className="flex flex-wrap items-center justify-between text-xs py-1.5 border-b border-dashed border-[#EAEAEB] last:border-0">
-                          <span className="font-medium text-[#3A332C]">{v.dimensions || "Variant"} {v.unit}:</span>
-                          <div className="flex items-center gap-3">
-                            <span className="text-[#7A7065]">Base: ₹{raw.toLocaleString("en-IN")}</span>
-                            {mk > 0 && <span className="text-[#8C7E72] line-through">MRP: ₹{mrp.toLocaleString("en-IN")}</span>}
-                            <span className="font-bold text-[#1B3624]">Selling: ₹{final.toLocaleString("en-IN")}</span>
-                            {dc > 0 && (
-                              <span className="bg-[#1B3624] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                                {dc}% OFF
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* SECTION 2: IMAGES */}
-          <div>
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-[#DFD8CC] pb-2">
-              <h3 className="text-lg font-serif text-[#3A332C]">2. Visuals</h3>
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-[#1B3624] bg-[#E8F0E8] border border-[#C5DAC5] px-2.5 py-1 rounded-xs shadow-2xs">
-                <span>📐 Best Fit:</span>
-                <strong className="font-bold text-[#1B3624]">1080 × 1350 px (4:5 Portrait) or 1200 × 1200 px (1:1 Square)</strong>
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <label className="bg-[#EAEAEB] text-[#3A332C] px-6 py-3 text-xs tracking-wider uppercase font-semibold cursor-pointer hover:bg-[#C19A6B] hover:text-white transition-colors rounded-sm">
-                + Select Images
-                <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
-              </label>
-              <span className="text-xs text-[#7A7065]">Drag and drop to rearrange order. Automatically converted to WebP.</span>
-            </div>
-            
-            {images.length > 0 && (
-              <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mt-6 p-4 bg-[#F5F5F7] border border-[#EAEAEB] rounded-sm">
-                {images.map((img, index) => (
-                  <div
-                    key={img.id} draggable onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDrop} onDragOver={(e) => e.preventDefault()}
-                    className={`relative aspect-square cursor-grab active:cursor-grabbing rounded-sm overflow-hidden border-2 transition-colors ${index === 0 ? "border-[#C19A6B] shadow-md" : "border-transparent hover:border-[#DFD8CC]"}`}
-                  >
-                    <img src={img.preview} alt="preview" className="w-full h-full object-cover" />
-                    <button type="button" onClick={() => handleRemoveImage(index)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]">✕</button>
-                    {index === 0 && <div className="absolute bottom-0 left-0 w-full bg-[#C19A6B] text-white text-[10px] text-center py-1 uppercase tracking-wider font-semibold">Thumbnail</div>}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* 🌟 2.1 BESPOKE STUDIO TOP-DOWN FLATLAY IMAGE (FOR LIVE CUSTOMIZATION IN STUDIO) */}
-            <div className="mt-8 pt-6 border-t border-[#DFD8CC]">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">🎨</span>
-                  <h4 className="text-base font-serif font-bold text-[#3A332C]">
-                    Bespoke Studio Visualizer Image (Top-Down Flatlay Shot)
-                  </h4>
-                  <span className="bg-[#C19A6B]/15 text-[#C19A6B] text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                    Direct Studio Import
-                  </span>
-                </div>
-                {studioImage ? (
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#1B7042] bg-[#EAF5EF] px-3 py-1 rounded-full border border-[#C5DAC5]">
-                    ✓ Studio Customization Active
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#7A7065] bg-[#F5F5F7] px-2.5 py-1 rounded-full border border-[#DFD8CC]">
-                    Studio Customization Inactive (Upload Top-Down Shot)
-                  </span>
-                )}
-              </div>
-
-              <p className="text-xs text-[#7A7065] mb-4 leading-relaxed max-w-3xl">
-                Upload a <strong>clean, front top-down view of the rug</strong> (flat on the floor or neutral isolated background). 
-                When a user selects this rug to edit in the <strong>Bespoke Studio</strong>, this exact top-down image is directly imported for live yarn dyeing and color customization.
-                If this image is not provided, the studio will inform users that custom editing is not available for this rug.
-              </p>
-
-              {studioImage ? (
-                <div className="flex flex-col sm:flex-row items-start gap-5 p-4 bg-[#FAF8F5] border-2 border-[#C19A6B]/50 rounded-xl shadow-xs">
-                  <div className="relative w-36 h-36 sm:w-44 sm:h-44 aspect-square rounded-xl overflow-hidden border border-[#DFD8CC] shadow-sm bg-white shrink-0">
-                    <img
-                      src={studioImage.preview}
-                      alt="Studio Top-Down Preview"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-2 left-2 bg-[#2B2520] text-white text-[9px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full shadow-xs">
-                      Studio Image
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#2B2520]">Top-Down Flatlay Visualizer Ready</span>
-                      <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
-                        Live Dye Ready
-                      </span>
-                    </div>
-                    <p className="text-xs text-[#7A7065] leading-relaxed max-w-xl">
-                      Patrons customizing this rug will see this high-resolution top-down flatlay photo dynamically re-dyed with their chosen fiber colors in real time.
-                    </p>
-                    <div className="pt-2 flex items-center gap-4">
-                      <label className="text-xs uppercase tracking-wider font-bold text-[#C19A6B] hover:text-[#2B2520] cursor-pointer underline transition-colors">
-                        Replace Studio Image
-                        <input type="file" accept="image/*" onChange={handleStudioFileChange} className="hidden" />
-                      </label>
-                      <span className="text-[#DFD8CC]">|</span>
-                      <button
-                        type="button"
-                        onClick={handleRemoveStudioImage}
-                        className="text-xs uppercase tracking-wider font-bold text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                      >
-                        Remove Studio Image
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap items-center gap-4 p-4 bg-[#FAFAFA] border border-dashed border-[#DFD8CC] rounded-xl">
-                  <label className="bg-[#2B2520] hover:bg-[#C19A6B] text-white px-5 py-3 text-xs tracking-wider uppercase font-semibold cursor-pointer transition-colors rounded-sm flex items-center gap-2 shadow-xs">
-                    <span>+ Upload Top-Down Studio Image</span>
-                    <input type="file" accept="image/*" onChange={handleStudioFileChange} className="hidden" />
-                  </label>
-                  <span className="text-xs text-[#7A7065]">
-                    Flat top-down perspective recommended. Automatically converted to WebP and saved to Cloudflare.
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* 🌟 2.2 COLOR VARIATIONS & PHOTO LINKING (Etsy / Shopify Style) */}
-            <div className="mt-8 pt-6 border-t border-[#DFD8CC]">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-base">🎨</span>
-                  <h4 className="text-sm font-heading font-bold text-[#2B2520] uppercase tracking-wider">
-                    2.2 Color Variations & Photo Linking (Like Etsy / Shopify)
-                  </h4>
-                </div>
-                <span className="text-[11px] text-[#7A7065] bg-[#F5F2EC] px-2.5 py-1 rounded-full border border-[#DFD8CC]">
-                  Links color names directly to photos for live preview switching
-                </span>
-              </div>
-
-              <div className="p-4 sm:p-5 bg-[#FAF8F5] border border-[#DFD8CC] rounded-xl space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-                  {/* Color Name Input */}
-                  <div className="sm:col-span-4">
-                    <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
-                      Color Name *
+                <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">1. Basic Information & Pricing Variants</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                  <InputField label="Carpet Title (Public) *" name="name" required value={formData.name} onChange={handleInputChange} placeholder="e.g. Royal Golden Jute Rug" />
+                  <InputField label="Original Name (Optional - Internal)" name="original_name" value={formData.original_name} onChange={handleInputChange} placeholder="e.g. Artisan Design Alpha" />
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
+                      Rug Category / Weave Type *
                     </label>
-                    <input
-                      type="text"
-                      list="color-preset-list"
-                      placeholder="e.g. Olive Green, Beige, Navy Blue"
-                      value={newColorName}
-                      onChange={(e) => setNewColorName(e.target.value)}
-                      className="w-full border border-[#DFD8CC] p-2.5 text-xs focus:outline-none focus:border-[#C19A6B] bg-white rounded-xs"
-                    />
-                    <datalist id="color-preset-list">
-                      {filterSettings.colors.map((c) => (
-                        <option key={c.name} value={c.name} />
-                      ))}
-                    </datalist>
-                  </div>
-
-                  {/* Optional Hex Color */}
-                  <div className="sm:col-span-2">
-                    <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
-                      Swatch Color
-                    </label>
-                    <div className="flex items-center gap-2 h-[38px] px-2 bg-white border border-[#DFD8CC] rounded-xs">
-                      <input
-                        type="color"
-                        value={newColorHex}
-                        onChange={(e) => setNewColorHex(e.target.value)}
-                        className="w-7 h-7 border-0 cursor-pointer p-0 bg-transparent"
-                      />
-                      <span className="text-[11px] font-mono text-[#52483E]">{newColorHex}</span>
-                    </div>
-                  </div>
-
-                  {/* Linked Image URL / Choice */}
-                  <div className="sm:col-span-6">
-                    <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
-                      Linked Photo (Select from uploaded photos below or paste URL)
-                    </label>
-                    <div className="flex gap-2">
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleInputChange}
+                      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
+                    >
+                      <optgroup label="Configured Categories">
+                        {filterSettings.types.map((cat) => (
+                          <option key={cat} value={cat}>{cat}</option>
+                        ))}
+                      </optgroup>
+                      <option value="Custom">+ Create New Custom Category</option>
+                    </select>
+                    {formData.category === "Custom" && (
                       <input
                         type="text"
-                        placeholder="Select from thumbnails below or paste image URL"
-                        value={newColorImage}
-                        onChange={(e) => setNewColorImage(e.target.value)}
-                        className="flex-1 border border-[#DFD8CC] p-2.5 text-xs focus:outline-none focus:border-[#C19A6B] bg-white rounded-xs truncate"
+                        name="custom_category"
+                        value={formData.custom_category}
+                        onChange={handleInputChange}
+                        placeholder="Enter new custom category (e.g. Jute, Tufted, Silk)..."
+                        className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none rounded-xs"
                       />
-                      <button
-                        type="button"
-                        onClick={handleAddColorVariant}
-                        className="px-4 py-2.5 bg-[#2B2520] hover:bg-[#C19A6B] text-white text-xs font-bold uppercase tracking-wider rounded-xs transition-colors shrink-0 cursor-pointer shadow-xs"
-                      >
-                        + Link Color
-                      </button>
-                    </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Quick 1-Click Link from Uploaded Product Photos */}
-                {images.length > 0 && (
-                  <div className="pt-3 border-t border-[#DFD8CC]">
-                    <span className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-2 tracking-wider">
-                      💡 Quick Link: Click on any uploaded photo to set as this color's image:
-                    </span>
-                    <div className="flex flex-wrap gap-2.5 items-center">
-                      {images.map((img, i) => {
-                        const isSelected = newColorImage === img.preview;
-                        return (
-                          <button
-                            key={i}
-                            type="button"
-                            onClick={() => setNewColorImage(img.preview)}
-                            className={`w-14 h-14 rounded-md border-2 overflow-hidden transition-all cursor-pointer relative group ${
-                              isSelected
-                                ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/40 scale-105"
-                                : "border-[#DFD8CC] hover:border-[#2B2520]"
-                            }`}
-                            title={`Select Photo #${i + 1}`}
-                          >
-                            <img src={img.preview} alt="" className="w-full h-full object-cover" />
-                            {isSelected && (
-                              <span className="absolute inset-0 bg-[#C19A6B]/30 flex items-center justify-center text-white text-xs font-bold">
-                                ✓
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Display List of Linked Color Variations */}
-              {colorVariants.length > 0 ? (
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {colorVariants.map((cv, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-3 p-3 bg-white border border-[#DFD8CC] rounded-xl shadow-2xs hover:border-[#C19A6B] transition-colors"
-                    >
-                      {/* Thumbnail */}
-                      <div className="w-14 h-14 rounded-lg bg-[#ECE7DE] border border-[#DFD8CC] overflow-hidden shrink-0">
-                        {cv.image ? (
-                          <img src={cv.image} alt={cv.color} className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[9px] text-[#8C7A63]">No Photo</div>
-                        )}
-                      </div>
-
-                      {/* Info */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-0.5">
-                          {cv.hex && (
-                            <span
-                              className="w-3 h-3 rounded-full border border-black/20 shrink-0"
-                              style={{ backgroundColor: cv.hex }}
-                            />
-                          )}
-                          <span className="text-xs font-bold text-[#2B2520] truncate block">
-                            {cv.color}
-                          </span>
+                <div className="bg-[#F5F5F7] p-6 border border-[#EAEAEB] rounded-sm">
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-4">Size & Price Configurations</label>
+                  <div className="space-y-4">
+                    {formData.variants.map((variant, index) => (
+                      <div key={index} className="flex flex-col md:flex-row items-end gap-4 bg-white p-4 border border-[#DFD8CC] shadow-sm rounded-sm">
+                        <div className="w-full">
+                          <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">Dimensions & Unit</label>
+                          <div className="flex">
+                            <input type="text" required value={variant.dimensions} onChange={(e) => handleVariantChange(index, 'dimensions', e.target.value)} placeholder="e.g. 3 x 5" className="w-2/3 border border-[#DFD8CC] border-r-0 p-3 text-sm focus:outline-none focus:border-[#C19A6B]" />
+                            <select value={variant.unit} onChange={(e) => handleVariantChange(index, 'unit', e.target.value)} className="w-1/3 border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-[#F5F5F7]">
+                              <option value="ft">ft</option>
+                              <option value="cm">cm</option>
+                              <option value="m">m</option>
+                              <option value="in">in</option>
+                            </select>
+                          </div>
                         </div>
-                        <span className="text-[10px] text-[#1B7042] bg-[#EAF5EF] px-2 py-0.5 rounded-full font-medium inline-block truncate max-w-full">
-                          ✓ Linked to Photo
-                        </span>
+                        <InputField label="Base Price (in ₹)" type="number" required value={variant.price} onChange={(e: any) => handleVariantChange(index, 'price', e.target.value)} placeholder="e.g. 4500" />
+                        <button type="button" onClick={() => removeVariant(index)} className="px-4 py-3 border border-red-200 text-red-600 text-sm font-semibold hover:bg-red-50 transition-colors uppercase tracking-wider mb-px shrink-0">Remove</button>
                       </div>
-
-                      {/* Remove */}
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveColorVariant(idx)}
-                        className="text-stone-400 hover:text-red-600 text-xs font-bold p-1 transition-colors cursor-pointer"
-                        title="Remove color linking"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-3 text-center py-4 bg-white/70 border border-dashed border-[#DFD8CC] rounded-xl text-xs text-[#8C7A63]">
-                  No color variations linked yet. Upar color ka naam aur photo select karke <strong>"+ Link Color"</strong> par click karein.
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* SECTION 3 */}
-          <div>
-            <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">3. Search & Specifications</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              {/* Primary Color Selection with Suggestions */}
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
-                  Primary Color
-                </label>
-                <input 
-                  type="text"
-                  name="color" 
-                  list="color-options-list"
-                  value={formData.color} 
-                  onChange={handleInputChange} 
-                  placeholder="e.g. Ivory, Dark Green, Peach..." 
-                  className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white"
-                />
-                <datalist id="color-options-list">
-                  {filterSettings.colors.map((c) => (
-                    <option key={c.name} value={c.name}>{c.name}</option>
-                  ))}
-                </datalist>
-              </div>
-              
-              {/* Shape Selection */}
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
-                  Shape
-                </label>
-                <select 
-                  name="shape" 
-                  value={formData.shape} 
-                  onChange={handleInputChange} 
-                  className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
-                >
-                  <optgroup label="Configured Shapes">
-                    {filterSettings.shapes.map((shp) => (
-                      <option key={shp} value={shp}>{shp}</option>
                     ))}
-                  </optgroup>
-                  <option value="Custom">+ Custom Shape</option>
-                </select>
-                {formData.shape === "Custom" && (
-                  <input 
-                    type="text" 
-                    name="custom_shape" 
-                    value={formData.custom_shape} 
-                    onChange={handleInputChange} 
-                    placeholder="Enter custom shape..." 
-                    className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none" 
-                  />
-                )}
-              </div>
-
-              {/* Material Composition Selection */}
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
-                  Material Composition
-                </label>
-                <select 
-                  name="material" 
-                  value={formData.material} 
-                  onChange={handleInputChange} 
-                  className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
-                >
-                  <optgroup label="Configured Materials">
-                    {filterSettings.materials.map((mat) => (
-                      <option key={mat} value={mat}>{mat}</option>
-                    ))}
-                  </optgroup>
-                  <option value="Custom">+ Custom Material</option>
-                </select>
-                {formData.material === "Custom" && (
-                  <input 
-                    type="text" 
-                    name="custom_material" 
-                    value={formData.custom_material} 
-                    onChange={handleInputChange} 
-                    placeholder="Enter custom material (e.g. 100% Recycled PET)..." 
-                    className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none" 
-                  />
-                )}
-              </div>
-
-              <InputField label="Style" name="style" value={formData.style} onChange={handleInputChange} placeholder="e.g. Bohemian, Minimalist" />
-              
-              {/* Pattern Selection with Suggestions */}
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
-                  Pattern
-                </label>
-                <input 
-                  type="text"
-                  name="pattern" 
-                  list="pattern-options-list"
-                  value={formData.pattern} 
-                  onChange={handleInputChange} 
-                  placeholder="e.g. Geometric, Floral, Abstract..." 
-                  className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white"
-                />
-                <datalist id="pattern-options-list">
-                  {filterSettings.patterns.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
-                </datalist>
-              </div>
-
-              <InputField label="Room Context" name="room" value={formData.room} onChange={handleInputChange} placeholder="e.g. Living Room, Bedroom" />
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2 flex items-center justify-between">
-                  <span>Description</span>
-                  <span className="text-[10px] text-[#8C7A63] font-normal normal-case">Expanded writing area • Drag bottom corner to resize</span>
-                </label>
-                <textarea 
-                  name="description" 
-                  rows={9} 
-                  value={formData.description} 
-                  onChange={handleInputChange} 
-                  placeholder="Detailed product description, artisan weaving story, texture & fiber details..." 
-                  className="w-full min-h-[200px] md:min-h-[240px] border border-[#DFD8CC] p-4 text-sm leading-relaxed text-[#3A332C] bg-[#FAFAF8] focus:bg-white focus:outline-none focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B] rounded-sm transition-all resize-y" 
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputField label="Tags (Comma Separated)" name="tags" value={formData.tags} onChange={handleInputChange} placeholder="handmade rug, living room carpet" />
-                <InputField label="Features (Comma Separated)" name="features" value={formData.features} onChange={handleInputChange} placeholder="100% Reversible, Shed-free, Stain-resistant" />
-                <InputField label="Care Instructions" name="care_instructions" value={formData.care_instructions} onChange={handleInputChange} placeholder="Spot clean or hose wash..." />
-                <InputField label="SKU / Internal Ref" name="sku" value={formData.sku} onChange={handleInputChange} placeholder="e.g. RUG-PET-001" />
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 4 */}
-          <div>
-            <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">4. Operations & External Channels</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">Processing Type</label>
-                <select name="processing_type" value={formData.processing_type} onChange={handleInputChange} className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white">
-                  <option value="Made to Order">Made to Order</option>
-                  <option value="Ready to Ship">Ready to Ship</option>
-                </select>
-              </div>
-              <InputField label="Estimated Processing Time" name="processing_time" value={formData.processing_time} onChange={handleInputChange} placeholder="e.g. 2-3 days" />
-              <InputField label="Inventory Quantity" name="quantity" type="number" value={formData.quantity} onChange={handleInputChange} placeholder="10" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 items-start">
-              <InputField label="Return Policy" name="return_policy" value={formData.return_policy} onChange={handleInputChange} placeholder="e.g. Returns accepted within 14 days" />
-               
-              <div className="flex flex-col space-y-3">
-                <div className="flex items-center space-x-3 bg-white p-3 border border-[#DFD8CC] rounded-sm">
-                  <input type="checkbox" name="is_customizable" id="is_customizable" checked={formData.is_customizable} onChange={handleInputChange} className="w-4 h-4 text-[#C19A6B]" />
-                  <label htmlFor="is_customizable" className="text-sm text-[#3A332C] font-medium cursor-pointer">Accept Customization Requests</label>
-                </div>
-
-                <div className="flex items-center space-x-3 bg-emerald-50 p-3 border border-emerald-100 rounded-sm">
-                  <input type="checkbox" name="free_delivery" id="free_delivery" checked={formData.free_delivery} onChange={handleInputChange} className="w-4 h-4 text-emerald-600" />
-                  <label htmlFor="free_delivery" className="text-sm text-emerald-800 font-bold cursor-pointer">Offer Free Worldwide Delivery</label>
-                </div>
-
-                {/* View on Etsy */}
-                <div className="flex flex-col bg-[#FAFAFA] p-4 border border-[#E4DCce] rounded-sm gap-3">
-                  <div className="flex items-center space-x-3">
-                    <input type="checkbox" name="show_etsy" id="show_etsy" checked={formData.show_etsy} onChange={handleInputChange} className="w-4 h-4 text-[#C19A6B]" />
-                    <label htmlFor="show_etsy" className="text-sm text-[#3A332C] font-semibold cursor-pointer flex items-center gap-2">
-                      <span>View on Etsy</span>
-                      <span className="text-[10px] uppercase tracking-wider bg-[#F26522]/10 text-[#F26522] px-2 py-0.5 rounded font-bold">Channel</span>
-                    </label>
+                    <button type="button" onClick={addVariant} className="text-[#C19A6B] text-xs font-bold uppercase tracking-wider hover:text-[#3A332C] flex items-center gap-2 mt-4">
+                      <span>+ Add New Size Variant</span>
+                    </button>
                   </div>
-                  {formData.show_etsy && (
-                    <div className="pl-7 pt-1">
-                      <input 
-                        type="url" 
-                        name="etsy_url" 
-                        value={formData.etsy_url} 
-                        onChange={handleInputChange} 
-                        placeholder="https://www.etsy.com/listing/..." 
-                        className="w-full border border-[#DFD8CC] bg-white p-2.5 text-sm outline-none focus:border-[#C19A6B]" 
+                </div>
+
+                {/* Promotional Pricing (% Add & % Off) */}
+                <div className="bg-[#FAFAFA] p-6 border border-[#E3DCCE] rounded-sm mt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C]">
+                        Promotional Pricing & Psychology Markup
+                      </label>
+                      <p className="text-xs text-[#7A7065] mt-1">
+                        Set a markup percentage to create an elevated original price (MRP), and a discount percentage to show high-converting discount badges while retaining profit margins.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <InputField
+                        label="% Add (Markup to Create MRP / Original Price)"
+                        name="markup_percent"
+                        type="number"
+                        value={formData.markup_percent}
+                        onChange={handleInputChange}
+                        placeholder="e.g. 50 (for 50% added to base price)"
                       />
+                      <p className="text-[11px] text-[#7A7065] mt-1">
+                        Example: Base ₹5,000 + 50% = <strong>₹7,500 Original MRP</strong> (Strikethrough)
+                      </p>
+                    </div>
+
+                    <div>
+                      <InputField
+                        label="% Off (Customer Discount Badge Percentage)"
+                        name="discount_percent"
+                        type="number"
+                        value={formData.discount_percent}
+                        onChange={handleInputChange}
+                        placeholder="e.g. 70 (for 70% OFF badge)"
+                      />
+                      <p className="text-[11px] text-[#7A7065] mt-1">
+                        Example: ₹7,500 MRP with 70% OFF = <strong>₹2,250 Final Selling Price</strong>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Live Preview Box */}
+                  {(parseFloat(formData.markup_percent) > 0 || parseFloat(formData.discount_percent) > 0) && (
+                    <div className="mt-4 p-4 bg-white border border-[#DFD8CC] rounded-sm">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-[#C19A6B] block mb-2">Live Price Calculation Preview</span>
+                      <div className="space-y-2">
+                        {formData.variants.map((v, i) => {
+                          const raw = parseFloat(v.price) || 0;
+                          const mk = parseFloat(formData.markup_percent) || 0;
+                          const dc = parseFloat(formData.discount_percent) || 0;
+                          const mrp = mk > 0 ? Math.round(raw * (1 + mk / 100)) : raw;
+                          const final = dc > 0 ? Math.round(mrp * (1 - dc / 100)) : mrp;
+                          return (
+                            <div key={i} className="flex flex-wrap items-center justify-between text-xs py-1.5 border-b border-dashed border-[#EAEAEB] last:border-0">
+                              <span className="font-medium text-[#3A332C]">{v.dimensions || "Variant"} {v.unit}:</span>
+                              <div className="flex items-center gap-3">
+                                <span className="text-[#7A7065]">Base: ₹{raw.toLocaleString("en-IN")}</span>
+                                {mk > 0 && <span className="text-[#8C7E72] line-through">MRP: ₹{mrp.toLocaleString("en-IN")}</span>}
+                                <span className="font-bold text-[#1B3624]">Selling: ₹{final.toLocaleString("en-IN")}</span>
+                                {dc > 0 && (
+                                  <span className="bg-[#1B3624] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    {dc}% OFF
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* SECTION 5 */}
-          <div>
-            <div className="flex items-center justify-between border-b border-[#DFD8CC] pb-2 mb-4">
-              <h3 className="text-lg font-serif text-[#3A332C]">5. Related Products Merchandising</h3>
-              <span className="text-xs font-semibold px-2.5 py-1 bg-[#EAEAEB] text-[#3A332C] rounded-full">
-                {formData.related_products.length} / 4 Selected
-              </span>
-            </div>
-            
-            <div className="max-h-64 overflow-y-auto border border-[#DFD8CC] rounded-sm p-4 bg-[#F5F5F7]/50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {availableProducts.filter(p => p.id !== editingProductId).map(p => {
-                const selectedIndex = formData.related_products.indexOf(p.id);
-                const isSelected = selectedIndex !== -1;
-                return (
-                  <div 
-                    key={p.id} 
-                    onClick={() => handleRelatedProductChange(p.id)}
-                    className={`flex items-center space-x-3 cursor-pointer p-3 rounded-sm border select-none transition-all ${
-                      isSelected ? 'bg-white border-[#C19A6B] shadow-sm ring-1 ring-[#C19A6B]' : 'bg-transparent border-transparent hover:bg-white hover:border-[#EAEAEB]'
-                    }`}
-                  >
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                      isSelected ? 'bg-[#C19A6B] text-white shadow-sm' : 'border border-[#DFD8CC] text-[#7A7065] bg-white'
-                    }`}>
-                      {isSelected ? `#${selectedIndex + 1}` : ''}
-                    </div>
-                    <span className="text-sm text-[#3A332C] font-medium truncate flex-1">{p.name}</span>
+              {/* SECTION 2: IMAGES */}
+              <div>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-[#DFD8CC] pb-2">
+                  <h3 className="text-lg font-serif text-[#3A332C]">2. Visuals</h3>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-[#1B3624] bg-[#E8F0E8] border border-[#C5DAC5] px-2.5 py-1 rounded-xs shadow-2xs">
+                    <span>📐 Best Fit:</span>
+                    <strong className="font-bold text-[#1B3624]">1080 × 1350 px (4:5 Portrait) or 1200 × 1200 px (1:1 Square)</strong>
+                  </span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <label className="bg-[#EAEAEB] text-[#3A332C] px-6 py-3 text-xs tracking-wider uppercase font-semibold cursor-pointer hover:bg-[#C19A6B] hover:text-white transition-colors rounded-sm">
+                    + Select Images
+                    <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+                  </label>
+                  <span className="text-xs text-[#7A7065]">Drag and drop to rearrange order. Automatically converted to WebP.</span>
+                </div>
+
+                {images.length > 0 && (
+                  <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mt-6 p-4 bg-[#F5F5F7] border border-[#EAEAEB] rounded-sm">
+                    {images.map((img, index) => (
+                      <div
+                        key={img.id} draggable onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDrop} onDragOver={(e) => e.preventDefault()}
+                        className={`relative aspect-square cursor-grab active:cursor-grabbing rounded-sm overflow-hidden border-2 transition-colors ${index === 0 ? "border-[#C19A6B] shadow-md" : "border-transparent hover:border-[#DFD8CC]"}`}
+                      >
+                        <img src={img.preview} alt="preview" className="w-full h-full object-cover" />
+                        <button type="button" onClick={() => handleRemoveImage(index)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]">✕</button>
+                        {index === 0 && <div className="absolute bottom-0 left-0 w-full bg-[#C19A6B] text-white text-[10px] text-center py-1 uppercase tracking-wider font-semibold">Thumbnail</div>}
+                      </div>
+                    ))}
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                )}
 
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-4 border-t border-[#DFD8CC]">
-            {mode === "edit" && editingProductId && (
-              <>
-                <button 
-                  type="button" 
-                  onClick={handleDeleteProduct} 
-                  disabled={loadingAction !== null} 
-                  className="w-full sm:w-auto px-6 bg-red-50 border-2 border-red-200 text-red-700 py-4 text-xs tracking-[0.15em] uppercase font-bold hover:bg-red-600 hover:text-white transition cursor-pointer"
-                  title="Delete listing and all its photos from storage permanently"
+                {/* 🌟 2.1 BESPOKE STUDIO TOP-DOWN FLATLAY IMAGE (FOR LIVE CUSTOMIZATION IN STUDIO) */}
+                <div className="mt-8 pt-6 border-t border-[#DFD8CC]">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🎨</span>
+                      <h4 className="text-base font-serif font-bold text-[#3A332C]">
+                        Bespoke Studio Visualizer Image (Top-Down Flatlay Shot)
+                      </h4>
+                      <span className="bg-[#C19A6B]/15 text-[#C19A6B] text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        Direct Studio Import
+                      </span>
+                    </div>
+                    {studioImage ? (
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#1B7042] bg-[#EAF5EF] px-3 py-1 rounded-full border border-[#C5DAC5]">
+                        ✓ Studio Customization Active
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#7A7065] bg-[#F5F5F7] px-2.5 py-1 rounded-full border border-[#DFD8CC]">
+                        Studio Customization Inactive (Upload Top-Down Shot)
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-xs text-[#7A7065] mb-4 leading-relaxed max-w-3xl">
+                    Upload a <strong>clean, front top-down view of the rug</strong> (flat on the floor or neutral isolated background).
+                    When a user selects this rug to edit in the <strong>Bespoke Studio</strong>, this exact top-down image is directly imported for live yarn dyeing and color customization.
+                    If this image is not provided, the studio will inform users that custom editing is not available for this rug.
+                  </p>
+
+                  {studioImage ? (
+                    <div className="flex flex-col sm:flex-row items-start gap-5 p-4 bg-[#FAF8F5] border-2 border-[#C19A6B]/50 rounded-xl shadow-xs">
+                      <div className="relative w-36 h-36 sm:w-44 sm:h-44 aspect-square rounded-xl overflow-hidden border border-[#DFD8CC] shadow-sm bg-white shrink-0">
+                        <img
+                          src={studioImage.preview}
+                          alt="Studio Top-Down Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 left-2 bg-[#2B2520] text-white text-[9px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full shadow-xs">
+                          Studio Image
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-[#2B2520]">Top-Down Flatlay Visualizer Ready</span>
+                          <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">
+                            Live Dye Ready
+                          </span>
+                        </div>
+                        <p className="text-xs text-[#7A7065] leading-relaxed max-w-xl">
+                          Patrons customizing this rug will see this high-resolution top-down flatlay photo dynamically re-dyed with their chosen fiber colors in real time.
+                        </p>
+                        <div className="pt-2 flex items-center gap-4">
+                          <label className="text-xs uppercase tracking-wider font-bold text-[#C19A6B] hover:text-[#2B2520] cursor-pointer underline transition-colors">
+                            Replace Studio Image
+                            <input type="file" accept="image/*" onChange={handleStudioFileChange} className="hidden" />
+                          </label>
+                          <span className="text-[#DFD8CC]">|</span>
+                          <button
+                            type="button"
+                            onClick={handleRemoveStudioImage}
+                            className="text-xs uppercase tracking-wider font-bold text-red-600 hover:text-red-800 cursor-pointer transition-colors"
+                          >
+                            Remove Studio Image
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-wrap items-center gap-4 p-4 bg-[#FAFAFA] border border-dashed border-[#DFD8CC] rounded-xl">
+                      <label className="bg-[#2B2520] hover:bg-[#C19A6B] text-white px-5 py-3 text-xs tracking-wider uppercase font-semibold cursor-pointer transition-colors rounded-sm flex items-center gap-2 shadow-xs">
+                        <span>+ Upload Top-Down Studio Image</span>
+                        <input type="file" accept="image/*" onChange={handleStudioFileChange} className="hidden" />
+                      </label>
+                      <span className="text-xs text-[#7A7065]">
+                        Flat top-down perspective recommended. Automatically converted to WebP and saved to Cloudflare.
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* 🌟 2.2 COLOR VARIATIONS & PHOTO LINKING (Etsy / Shopify Style) */}
+                <div className="mt-8 pt-6 border-t border-[#DFD8CC]">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">🎨</span>
+                      <h4 className="text-sm font-heading font-bold text-[#2B2520] uppercase tracking-wider">
+                        2.2 Color Variations & Photo Linking (Like Etsy / Shopify)
+                      </h4>
+                    </div>
+                    <span className="text-[11px] text-[#7A7065] bg-[#F5F2EC] px-2.5 py-1 rounded-full border border-[#DFD8CC]">
+                      Links color names directly to photos for live preview switching
+                    </span>
+                  </div>
+
+                  <div className="p-4 sm:p-5 bg-[#FAF8F5] border border-[#DFD8CC] rounded-xl space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                      {/* Color Name Input */}
+                      <div className="sm:col-span-4">
+                        <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
+                          Color Name *
+                        </label>
+                        <input
+                          type="text"
+                          list="color-preset-list"
+                          placeholder="e.g. Olive Green, Beige, Navy Blue"
+                          value={newColorName}
+                          onChange={(e) => setNewColorName(e.target.value)}
+                          className="w-full border border-[#DFD8CC] p-2.5 text-xs focus:outline-none focus:border-[#C19A6B] bg-white rounded-xs"
+                        />
+                        <datalist id="color-preset-list">
+                          {filterSettings.colors.map((c) => (
+                            <option key={c.name} value={c.name} />
+                          ))}
+                        </datalist>
+                      </div>
+
+                      {/* Optional Hex Color */}
+                      <div className="sm:col-span-2">
+                        <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
+                          Swatch Color
+                        </label>
+                        <div className="flex items-center gap-2 h-[38px] px-2 bg-white border border-[#DFD8CC] rounded-xs">
+                          <input
+                            type="color"
+                            value={newColorHex}
+                            onChange={(e) => setNewColorHex(e.target.value)}
+                            className="w-7 h-7 border-0 cursor-pointer p-0 bg-transparent"
+                          />
+                          <span className="text-[11px] font-mono text-[#52483E]">{newColorHex}</span>
+                        </div>
+                      </div>
+
+                      {/* Linked Image URL / Choice */}
+                      <div className="sm:col-span-6">
+                        <label className="block text-[10px] uppercase font-bold text-[#6B6054] mb-1.5 tracking-wider">
+                          Linked Photo (Select from uploaded photos below or paste URL)
+                        </label>
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            placeholder="Select from thumbnails below or paste image URL"
+                            value={newColorImage}
+                            onChange={(e) => setNewColorImage(e.target.value)}
+                            className="flex-1 border border-[#DFD8CC] p-2.5 text-xs focus:outline-none focus:border-[#C19A6B] bg-white rounded-xs truncate"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleAddColorVariant}
+                            className="px-4 py-2.5 bg-[#2B2520] hover:bg-[#C19A6B] text-white text-xs font-bold uppercase tracking-wider rounded-xs transition-colors shrink-0 cursor-pointer shadow-xs"
+                          >
+                            + Link Color
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Quick 1-Click Link from Uploaded Product Photos */}
+                    {images.length > 0 && (
+                      <div className="pt-3 border-t border-[#DFD8CC]">
+                        <span className="block text-[10px] uppercase font-bold text-[#8C7A63] mb-2 tracking-wider">
+                          💡 Quick Link: Click on any uploaded photo to set as this color's image:
+                        </span>
+                        <div className="flex flex-wrap gap-2.5 items-center">
+                          {images.map((img, i) => {
+                            const isSelected = newColorImage === img.preview;
+                            return (
+                              <button
+                                key={i}
+                                type="button"
+                                onClick={() => setNewColorImage(img.preview)}
+                                className={`w-14 h-14 rounded-md border-2 overflow-hidden transition-all cursor-pointer relative group ${isSelected
+                                    ? "border-[#C19A6B] ring-2 ring-[#C19A6B]/40 scale-105"
+                                    : "border-[#DFD8CC] hover:border-[#2B2520]"
+                                  }`}
+                                title={`Select Photo #${i + 1}`}
+                              >
+                                <img src={img.preview} alt="" className="w-full h-full object-cover" />
+                                {isSelected && (
+                                  <span className="absolute inset-0 bg-[#C19A6B]/30 flex items-center justify-center text-white text-xs font-bold">
+                                    ✓
+                                  </span>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Display List of Linked Color Variations */}
+                  {colorVariants.length > 0 ? (
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                      {colorVariants.map((cv, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-3 p-3 bg-white border border-[#DFD8CC] rounded-xl shadow-2xs hover:border-[#C19A6B] transition-colors"
+                        >
+                          {/* Thumbnail */}
+                          <div className="w-14 h-14 rounded-lg bg-[#ECE7DE] border border-[#DFD8CC] overflow-hidden shrink-0">
+                            {cv.image ? (
+                              <img src={cv.image} alt={cv.color} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-[9px] text-[#8C7A63]">No Photo</div>
+                            )}
+                          </div>
+
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              {cv.hex && (
+                                <span
+                                  className="w-3 h-3 rounded-full border border-black/20 shrink-0"
+                                  style={{ backgroundColor: cv.hex }}
+                                />
+                              )}
+                              <span className="text-xs font-bold text-[#2B2520] truncate block">
+                                {cv.color}
+                              </span>
+                            </div>
+                            <span className="text-[10px] text-[#1B7042] bg-[#EAF5EF] px-2 py-0.5 rounded-full font-medium inline-block truncate max-w-full">
+                              ✓ Linked to Photo
+                            </span>
+                          </div>
+
+                          {/* Remove */}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveColorVariant(idx)}
+                            className="text-stone-400 hover:text-red-600 text-xs font-bold p-1 transition-colors cursor-pointer"
+                            title="Remove color linking"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mt-3 text-center py-4 bg-white/70 border border-dashed border-[#DFD8CC] rounded-xl text-xs text-[#8C7A63]">
+                      No color variations linked yet. Upar color ka naam aur photo select karke <strong>"+ Link Color"</strong> par click karein.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* SECTION 3 */}
+              <div>
+                <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">3. Search & Specifications</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  {/* Primary Color Selection with Suggestions */}
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
+                      Primary Color
+                    </label>
+                    <input
+                      type="text"
+                      name="color"
+                      list="color-options-list"
+                      value={formData.color}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Ivory, Dark Green, Peach..."
+                      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white"
+                    />
+                    <datalist id="color-options-list">
+                      {filterSettings.colors.map((c) => (
+                        <option key={c.name} value={c.name}>{c.name}</option>
+                      ))}
+                    </datalist>
+                  </div>
+
+                  {/* Shape Selection */}
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
+                      Shape
+                    </label>
+                    <select
+                      name="shape"
+                      value={formData.shape}
+                      onChange={handleInputChange}
+                      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
+                    >
+                      <optgroup label="Configured Shapes">
+                        {filterSettings.shapes.map((shp) => (
+                          <option key={shp} value={shp}>{shp}</option>
+                        ))}
+                      </optgroup>
+                      <option value="Custom">+ Custom Shape</option>
+                    </select>
+                    {formData.shape === "Custom" && (
+                      <input
+                        type="text"
+                        name="custom_shape"
+                        value={formData.custom_shape}
+                        onChange={handleInputChange}
+                        placeholder="Enter custom shape..."
+                        className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none"
+                      />
+                    )}
+                  </div>
+
+                  {/* Material Composition Selection */}
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
+                      Material Composition
+                    </label>
+                    <select
+                      name="material"
+                      value={formData.material}
+                      onChange={handleInputChange}
+                      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white mb-2"
+                    >
+                      <optgroup label="Configured Materials">
+                        {filterSettings.materials.map((mat) => (
+                          <option key={mat} value={mat}>{mat}</option>
+                        ))}
+                      </optgroup>
+                      <option value="Custom">+ Custom Material</option>
+                    </select>
+                    {formData.material === "Custom" && (
+                      <input
+                        type="text"
+                        name="custom_material"
+                        value={formData.custom_material}
+                        onChange={handleInputChange}
+                        placeholder="Enter custom material (e.g. 100% Recycled PET)..."
+                        className="w-full border border-[#C19A6B] bg-[#F5F5F7] p-3 text-sm focus:outline-none"
+                      />
+                    )}
+                  </div>
+
+                  <InputField label="Style" name="style" value={formData.style} onChange={handleInputChange} placeholder="e.g. Bohemian, Minimalist" />
+
+                  {/* Pattern Selection with Suggestions */}
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">
+                      Pattern
+                    </label>
+                    <input
+                      type="text"
+                      name="pattern"
+                      list="pattern-options-list"
+                      value={formData.pattern}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Geometric, Floral, Abstract..."
+                      className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white"
+                    />
+                    <datalist id="pattern-options-list">
+                      {filterSettings.patterns.map((p) => (
+                        <option key={p} value={p}>{p}</option>
+                      ))}
+                    </datalist>
+                  </div>
+
+                  <InputField label="Room Context" name="room" value={formData.room} onChange={handleInputChange} placeholder="e.g. Living Room, Bedroom" />
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2 flex items-center justify-between">
+                      <span>Description</span>
+                      <span className="text-[10px] text-[#8C7A63] font-normal normal-case">Expanded writing area • Drag bottom corner to resize</span>
+                    </label>
+                    <textarea
+                      name="description"
+                      rows={9}
+                      value={formData.description}
+                      onChange={handleInputChange}
+                      placeholder="Detailed product description, artisan weaving story, texture & fiber details..."
+                      className="w-full min-h-[200px] md:min-h-[240px] border border-[#DFD8CC] p-4 text-sm leading-relaxed text-[#3A332C] bg-[#FAFAF8] focus:bg-white focus:outline-none focus:border-[#C19A6B] focus:ring-1 focus:ring-[#C19A6B] rounded-sm transition-all resize-y"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <InputField label="Tags (Comma Separated)" name="tags" value={formData.tags} onChange={handleInputChange} placeholder="handmade rug, living room carpet" />
+                    <InputField label="Features (Comma Separated)" name="features" value={formData.features} onChange={handleInputChange} placeholder="100% Reversible, Shed-free, Stain-resistant" />
+                    <InputField label="Care Instructions" name="care_instructions" value={formData.care_instructions} onChange={handleInputChange} placeholder="Spot clean or hose wash..." />
+                    <InputField label="SKU / Internal Ref" name="sku" value={formData.sku} onChange={handleInputChange} placeholder="e.g. RUG-PET-001" />
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 4 */}
+              <div>
+                <h3 className="text-lg font-serif text-[#3A332C] mb-4 border-b border-[#DFD8CC] pb-2">4. Operations & External Channels</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                  <div>
+                    <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#3A332C] mb-2">Processing Type</label>
+                    <select name="processing_type" value={formData.processing_type} onChange={handleInputChange} className="w-full border border-[#DFD8CC] p-3 text-sm focus:outline-none focus:border-[#C19A6B] bg-white">
+                      <option value="Made to Order">Made to Order</option>
+                      <option value="Ready to Ship">Ready to Ship</option>
+                    </select>
+                  </div>
+                  <InputField label="Estimated Processing Time" name="processing_time" value={formData.processing_time} onChange={handleInputChange} placeholder="e.g. 2-3 days" />
+                  <InputField label="Inventory Quantity" name="quantity" type="number" value={formData.quantity} onChange={handleInputChange} placeholder="10" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 items-start">
+                  <InputField label="Return Policy" name="return_policy" value={formData.return_policy} onChange={handleInputChange} placeholder="e.g. Returns accepted within 14 days" />
+
+                  <div className="flex flex-col space-y-3">
+                    <div className="flex items-center space-x-3 bg-white p-3 border border-[#DFD8CC] rounded-sm">
+                      <input type="checkbox" name="is_customizable" id="is_customizable" checked={formData.is_customizable} onChange={handleInputChange} className="w-4 h-4 text-[#C19A6B]" />
+                      <label htmlFor="is_customizable" className="text-sm text-[#3A332C] font-medium cursor-pointer">Accept Customization Requests</label>
+                    </div>
+
+                    <div className="flex items-center space-x-3 bg-emerald-50 p-3 border border-emerald-100 rounded-sm">
+                      <input type="checkbox" name="free_delivery" id="free_delivery" checked={formData.free_delivery} onChange={handleInputChange} className="w-4 h-4 text-emerald-600" />
+                      <label htmlFor="free_delivery" className="text-sm text-emerald-800 font-bold cursor-pointer">Offer Free Worldwide Delivery</label>
+                    </div>
+
+                    {/* View on Etsy */}
+                    <div className="flex flex-col bg-[#FAFAFA] p-4 border border-[#E4DCce] rounded-sm gap-3">
+                      <div className="flex items-center space-x-3">
+                        <input type="checkbox" name="show_etsy" id="show_etsy" checked={formData.show_etsy} onChange={handleInputChange} className="w-4 h-4 text-[#C19A6B]" />
+                        <label htmlFor="show_etsy" className="text-sm text-[#3A332C] font-semibold cursor-pointer flex items-center gap-2">
+                          <span>View on Etsy</span>
+                          <span className="text-[10px] uppercase tracking-wider bg-[#F26522]/10 text-[#F26522] px-2 py-0.5 rounded font-bold">Channel</span>
+                        </label>
+                      </div>
+                      {formData.show_etsy && (
+                        <div className="pl-7 pt-1">
+                          <input
+                            type="url"
+                            name="etsy_url"
+                            value={formData.etsy_url}
+                            onChange={handleInputChange}
+                            placeholder="https://www.etsy.com/listing/..."
+                            className="w-full border border-[#DFD8CC] bg-white p-2.5 text-sm outline-none focus:border-[#C19A6B]"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 5 */}
+              <div>
+                <div className="flex items-center justify-between border-b border-[#DFD8CC] pb-2 mb-4">
+                  <h3 className="text-lg font-serif text-[#3A332C]">5. Related Products Merchandising</h3>
+                  <span className="text-xs font-semibold px-2.5 py-1 bg-[#EAEAEB] text-[#3A332C] rounded-full">
+                    {formData.related_products.length} / 4 Selected
+                  </span>
+                </div>
+
+                <div className="max-h-64 overflow-y-auto border border-[#DFD8CC] rounded-sm p-4 bg-[#F5F5F7]/50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {availableProducts.filter(p => p.id !== editingProductId).map(p => {
+                    const selectedIndex = formData.related_products.indexOf(p.id);
+                    const isSelected = selectedIndex !== -1;
+                    return (
+                      <div
+                        key={p.id}
+                        onClick={() => handleRelatedProductChange(p.id)}
+                        className={`flex items-center space-x-3 cursor-pointer p-3 rounded-sm border select-none transition-all ${isSelected ? 'bg-white border-[#C19A6B] shadow-sm ring-1 ring-[#C19A6B]' : 'bg-transparent border-transparent hover:bg-white hover:border-[#EAEAEB]'
+                          }`}
+                      >
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isSelected ? 'bg-[#C19A6B] text-white shadow-sm' : 'border border-[#DFD8CC] text-[#7A7065] bg-white'
+                          }`}>
+                          {isSelected ? `#${selectedIndex + 1}` : ''}
+                        </div>
+                        <span className="text-sm text-[#3A332C] font-medium truncate flex-1">{p.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-4 border-t border-[#DFD8CC]">
+                {mode === "edit" && editingProductId && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleDeleteProduct}
+                      disabled={loadingAction !== null}
+                      className="w-full sm:w-auto px-6 bg-red-50 border-2 border-red-200 text-red-700 py-4 text-xs tracking-[0.15em] uppercase font-bold hover:bg-red-600 hover:text-white transition cursor-pointer"
+                      title="Delete listing and all its photos from storage permanently"
+                    >
+                      🗑️ Delete Listing
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => duplicateProductListing(editingProductId)}
+                      disabled={loadingAction !== null}
+                      className="w-full sm:w-auto px-6 bg-[#FAF7F2] border-2 border-[#C19A6B]/50 text-[#8C6D45] py-4 text-xs tracking-[0.15em] uppercase font-bold hover:bg-[#C19A6B] hover:text-white transition cursor-pointer flex items-center justify-center gap-2"
+                      title="Clone this listing as a brand new product (Etsy style)"
+                    >
+                      <span>📋</span>
+                      <span>Duplicate as New Listing</span>
+                    </button>
+                  </>
+                )}
+                <button
+                  type="button"
+                  onClick={() => submitData("draft")}
+                  disabled={loadingAction !== null}
+                  className="w-full sm:w-1/3 bg-[#F5F5F7] border-2 border-[#DFD8CC] text-[#6B6054] py-4 text-sm tracking-[0.2em] uppercase font-bold hover:bg-[#EAEAEB] transition cursor-pointer"
                 >
-                  🗑️ Delete Listing
+                  Save as Draft
                 </button>
-                <button 
-                  type="button" 
-                  onClick={() => duplicateProductListing(editingProductId)} 
-                  disabled={loadingAction !== null} 
-                  className="w-full sm:w-auto px-6 bg-[#FAF7F2] border-2 border-[#C19A6B]/50 text-[#8C6D45] py-4 text-xs tracking-[0.15em] uppercase font-bold hover:bg-[#C19A6B] hover:text-white transition cursor-pointer flex items-center justify-center gap-2"
-                  title="Clone this listing as a brand new product (Etsy style)"
+                <button
+                  type="button"
+                  onClick={() => submitData("publish")}
+                  disabled={loadingAction !== null}
+                  className="w-full sm:flex-1 bg-[#3A332C] text-[#F5F5F7] py-4 text-sm tracking-[0.2em] uppercase font-bold hover:bg-[#C19A6B] transition shadow-lg cursor-pointer"
                 >
-                  <span>📋</span>
-                  <span>Duplicate as New Listing</span>
+                  {mode === "create" ? "Publish New Listing" : "Update Listing"}
                 </button>
-              </>
+              </div>
+            </form>
+
+            {/* ✨ AI / Code Quick Paste Auto-Fill Modal */}
+            <QuickPasteListingModal
+              isOpen={isQuickPasteOpen}
+              onClose={() => setIsQuickPasteOpen(false)}
+              mode={mode}
+              editingProductName={availableProducts.find(p => p.id === editingProductId)?.name}
+              currentJsonString={currentListingJsonString}
+              onApply={handleApplyQuickPaste}
+              filterSettings={filterSettings}
+            />
+
+            {/* 🛍️ Etsy Live Catalog Sync Modal */}
+            <EtsySyncModal
+              isOpen={isEtsySyncOpen}
+              onClose={() => setIsEtsySyncOpen(false)}
+              onSyncComplete={fetchData}
+            />
+
+            {/* 📦 Etsy Safe Pack Studio Modal */}
+            {packStudioProductId && (
+              <EtsyPackStudioModal
+                productId={packStudioProductId}
+                availableProducts={availableProducts}
+                onClose={() => setPackStudioProductId(null)}
+                onSelectProduct={(id) => setPackStudioProductId(id)}
+              />
             )}
-            <button 
-              type="button" 
-              onClick={() => submitData("draft")} 
-              disabled={loadingAction !== null} 
-              className="w-full sm:w-1/3 bg-[#F5F5F7] border-2 border-[#DFD8CC] text-[#6B6054] py-4 text-sm tracking-[0.2em] uppercase font-bold hover:bg-[#EAEAEB] transition cursor-pointer"
-            >
-              Save as Draft
-            </button>
-            <button 
-              type="button" 
-              onClick={() => submitData("publish")} 
-              disabled={loadingAction !== null} 
-              className="w-full sm:flex-1 bg-[#3A332C] text-[#F5F5F7] py-4 text-sm tracking-[0.2em] uppercase font-bold hover:bg-[#C19A6B] transition shadow-lg cursor-pointer"
-            >
-              {mode === "create" ? "Publish New Listing" : "Update Listing"}
-            </button>
-          </div>
-        </form>
 
-        {/* ✨ AI / Code Quick Paste Auto-Fill Modal */}
-        <QuickPasteListingModal
-          isOpen={isQuickPasteOpen}
-          onClose={() => setIsQuickPasteOpen(false)}
-          mode={mode}
-          editingProductName={availableProducts.find(p => p.id === editingProductId)?.name}
-          currentJsonString={currentListingJsonString}
-          onApply={handleApplyQuickPaste}
-          filterSettings={filterSettings}
-        />
-
-        {/* 🛍️ Etsy Live Catalog Sync Modal */}
-        <EtsySyncModal
-          isOpen={isEtsySyncOpen}
-          onClose={() => setIsEtsySyncOpen(false)}
-          onSyncComplete={fetchData}
-        />
-
-        {/* 📦 Etsy Safe Pack Studio Modal */}
-        {packStudioProductId && (
-          <EtsyPackStudioModal
-            productId={packStudioProductId}
-            availableProducts={availableProducts}
-            onClose={() => setPackStudioProductId(null)}
-            onSelectProduct={(id) => setPackStudioProductId(id)}
-          />
+          </>
         )}
-
-        </>
-      )}
       </div>
 
       {/* 🌟 1. FULLSCREEN LOADING OVERLAY */}
@@ -2811,17 +2799,17 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
       {/* 🌟 2. SUCCESS MODAL */}
       <AnimatePresence>
         {showCelebration && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 z-[130] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 select-none"
           >
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0, y: 20 }} 
-              animate={{ scale: 1, opacity: 1, y: 0 }} 
-              exit={{ scale: 0.9, opacity: 0, y: 10 }} 
-              transition={{ type: "spring", damping: 25, stiffness: 300 }} 
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="bg-white rounded-sm max-w-md w-full p-8 text-center shadow-2xl border-t-4 border-emerald-500 relative overflow-hidden"
             >
               <div className="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
@@ -2837,11 +2825,11 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
                   transition={{ type: "spring", stiffness: 260, damping: 20 }}
                   className="w-20 h-20 bg-emerald-50 border-2 border-emerald-500 rounded-full flex items-center justify-center shadow-inner relative z-10"
                 >
-                  <svg 
-                    className="w-10 h-10 text-emerald-600" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor" 
+                  <svg
+                    className="w-10 h-10 text-emerald-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                     strokeWidth={3}
                   >
                     <motion.path
@@ -2869,17 +2857,17 @@ const handleStudioFileChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
 
               <div className="space-y-3">
                 {newlyCreatedId && lastSubmittedStatus === "publish" && (
-                  <Link 
-                    href={`/product/${newlyCreatedId}`} 
-                    target="_blank" 
+                  <Link
+                    href={`/product/${newlyCreatedId}`}
+                    target="_blank"
                     className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 text-xs uppercase tracking-[0.15em] font-semibold rounded-sm transition-colors shadow-md"
                   >
                     View Live Listing ↗
                   </Link>
                 )}
-                <button 
-                  type="button" 
-                  onClick={resetForm} 
+                <button
+                  type="button"
+                  onClick={resetForm}
                   className="w-full border border-[#DFD8CC] text-[#3A332C] hover:bg-[#F5F5F7] py-3.5 text-xs uppercase tracking-[0.15em] font-semibold rounded-sm transition-colors"
                 >
                   Close Menu

@@ -7,6 +7,7 @@ function cleanData(raw: any) {
   if (!raw) return null;
   try {
     const str = JSON.stringify(raw)
+      .replaceAll("Our Legacy", "Premium Carpets")
       .replaceAll("scandinavian_living_room_rug-1789664963086.webp", "scandinavian_living_room_centered-1790130932889.webp")
       .replaceAll("braided_rug_patio-1790062192117.webp", "braided_rug_patio-1790142906085.webp")
       .replaceAll("cozy_reading_nook_1-1789700818344.webp", "cozy_reading_nook_1-1790142709808.webp")

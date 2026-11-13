@@ -1,7 +1,7 @@
 /**
- * 🌟 NR Enterprises Our Legacy Content Configuration
+ * 🌟 NR Enterprises Our Story Content Configuration
  * 
- * Aap is file ke andar Our Legacy page ke text, quotes, 4 stages of craftsmanship,
+ * Aap is file ke andar Our Story page ke text, quotes, 4 stages of craftsmanship,
  * 4 weaving disciplines, comparison promise, aur CTA ko direct change kar sakte hain.
  * Change karne ke baad Admin Panel (/admin/content) me jaakar
  * "⚡ Publish Codebase Text" par click karein to yeh live Supabase par publish ho jayega.
@@ -112,6 +112,6 @@ export const legacyContent = {
     btnText: "Start Custom Sizing",
     btnLink: "/customize",
     whatsappText: "WhatsApp Concierge",
-    whatsappNumber: "918874585277",
+    whatsappNumber: "919151452441",
   },
 };

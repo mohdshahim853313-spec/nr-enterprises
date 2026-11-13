@@ -56,65 +56,57 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#240609] pt-12 md:pt-20 pb-20 md:pb-12 border-t border-[#4A1017] text-[#D8C9C5]">
+    <footer className="bg-[#240609] pt-8 md:pt-12 pb-16 md:pb-10 border-t border-[#4A1017] text-[#D8C9C5]">
       <div className="w-full px-3.5 sm:px-5 md:px-10 max-w-[1500px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-12 mb-10 md:mb-16 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-12 mb-6 md:mb-8 text-left">
           
           {/* Brand & Heritage */}
           <div className="pb-4 md:pb-0 border-b border-[#4A1017] md:border-b-0">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-4 group cursor-pointer">
-              <div className="relative w-10 h-10 shrink-0 drop-shadow-[0_2px_12px_rgba(250,245,235,0.2)]">
+            <Link href="/" className="inline-block mb-4 group cursor-pointer" aria-label="NR Enterprises Home">
+              <div className="relative h-16 sm:h-20 w-44 sm:w-52 shrink-0 drop-shadow-[0_2px_16px_rgba(232,200,106,0.35)] transition-transform group-hover:scale-105 duration-200">
                 <Image
                   src="/nr-logo.png"
-                  alt="NR Enterprises Logo"
+                  alt="NR Enterprises"
                   fill
-                  sizes="40px"
-                  quality={90}
-                  className="object-contain"
+                  sizes="(max-width: 640px) 176px, 208px"
+                  quality={95}
+                  priority
+                  className="object-contain object-left"
                 />
               </div>
-              <h4 className="text-2xl sm:text-3xl font-serif tracking-tight font-bold text-white group-hover:text-[#FAF5EB] transition-colors">
-                NR Enterprises
-              </h4>
             </Link>
-            <p className="text-sm text-[#D8C9C5] leading-relaxed max-w-xs">
-              Bringing the authentic touch of Bhadohi&apos;s master craftsmanship directly to your modern living spaces with sustainable fibers.
-            </p>
-            <div className="mt-4 text-xs text-[#FAF5EB] font-bold tracking-wider uppercase">
-              Bhadohi, Uttar Pradesh, India
-            </div>
 
-            {/* Direct Contact Information (Always Visible, Clear & Prominent) */}
-            <div className="mt-6 pt-5 border-t border-[#4A1017] space-y-3">
+            {/* Direct Contact Information (Shifted Up for Sleek, Compact Height) */}
+            <div className="space-y-2.5">
               <div className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#FAF5EB]">
                 Atelier Concierge
               </div>
               <div className="text-sm sm:text-[15px] text-[#FAF5EB] font-medium leading-snug">
                 NR Enterprises, Bhadohi, UP - Carpet City
               </div>
-              <div className="space-y-2 pt-1 text-sm sm:text-[15px]">
+              <div className="space-y-1.5 pt-1 text-sm sm:text-[15px]">
                 <a
-                  href="https://wa.me/918874585277"
+                  href="https://wa.me/919151452441"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-[#25D366] transition-colors"
                 >
                   <span className="font-bold text-[#FAF5EB]">WhatsApp:</span>
-                  <span>+91 8874585277</span>
+                  <span>+91 9151452441</span>
                 </a>
                 <a
-                  href="tel:+918874585277"
+                  href="tel:+916394472035"
                   className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
                   <span className="font-bold text-[#FAF5EB]">Phone:</span>
-                  <span>+91 8874585277</span>
+                  <span>+91 6394472035</span>
                 </a>
                 <a
-                  href="mailto:nrenterprises@gmail.com"
+                  href="mailto:nasimshah2441@gmail.com"
                   className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
                   <span className="font-bold text-[#FAF5EB]">Email:</span>
-                  <span>nrenterprises@gmail.com</span>
+                  <span>nasimshah2441@gmail.com</span>
                 </a>
                 <a
                   href="https://instagram.com/nrenterprises"

@@ -19,7 +19,7 @@ export default function AdminLayout({
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   // Configured Admin Email & Master Password
-  const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || "nrenterprises@gmail.com")
+  const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || "nasimshah2441@gmail.com,nrenterprises@gmail.com")
     .toLowerCase()
     .split(",")
     .map((e) => e.trim());
@@ -275,7 +275,7 @@ export default function AdminLayout({
             {user.email}
           </div>
           <p className="text-xs text-[#8C7A63] mb-8 leading-relaxed">
-            This account does not have administrator privileges. Only <strong className="text-[#3A332C]">nrenterprises@gmail.com</strong> is authorized to manage the studio.
+            This account does not have administrator privileges. Only <strong className="text-[#3A332C]">nasimshah2441@gmail.com</strong> is authorized to manage the studio.
           </p>
 
           <div className="space-y-3">
@@ -284,7 +284,7 @@ export default function AdminLayout({
               disabled={isGoogleLoading}
               className="w-full bg-[#3A332C] hover:bg-[#C19A6B] text-[#F5F5F7] py-3.5 px-4 text-xs font-bold uppercase tracking-wider transition-colors rounded-xl shadow-sm cursor-pointer"
             >
-              Switch Account (Login as nrenterprises@gmail.com)
+              Switch Account (Login as nasimshah2441@gmail.com)
             </button>
             <button
               onClick={handleSignOut}

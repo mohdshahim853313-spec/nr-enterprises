@@ -27,7 +27,7 @@ export default function ContactClient({ initialData }: ContactProps) {
     "For bespoke dimensions, custom designs, bulk orders, or manufacturing inquiries directly from our Bhadohi unit.";
   const btnText = contactData?.header?.btnText || "Send Message";
 
-  const displayEmail = contactData?.info?.email || "nrenterprises@gmail.com";
+  const displayEmail = contactData?.info?.email || "nasimshah2441@gmail.com";
   const displayAddress =
     contactData?.info?.address ||
     "Bhadohi — 221401, Uttar Pradesh, India.";

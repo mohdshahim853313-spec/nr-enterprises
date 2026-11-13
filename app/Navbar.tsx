@@ -412,26 +412,18 @@ export default function Navbar() {
 
               <Link
                 href="/"
-                className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer text-left select-none shrink-0"
+                className="flex items-center group cursor-pointer text-left select-none shrink-0"
                 aria-label="NR Enterprises Atelier Home"
               >
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 shrink-0 drop-shadow-[0_2px_12px_rgba(232,200,106,0.35)] transition-transform group-hover:scale-105 duration-200">
+                <div className="relative h-12 sm:h-14 md:h-15 w-28 sm:w-36 md:w-40 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform group-hover:scale-105 duration-200">
                   <Image
                     src="/nr-logo.png"
-                    alt="NR Enterprises Logo"
+                    alt="NR Enterprises"
                     fill
-                    sizes="48px"
+                    sizes="(max-width: 640px) 120px, 160px"
                     priority
-                    className="object-contain"
+                    className="object-contain object-left"
                   />
-                </div>
-                <div className="flex flex-col">
-                  <span className={`text-lg sm:text-xl lg:text-[22px] tracking-wide font-serif font-bold leading-none text-white group-hover:text-[#FAF5EB] transition-colors ${playfair.className}`}>
-                    NR Enterprises
-                  </span>
-                  <span className="hidden sm:block text-[8.5px] uppercase tracking-[0.26em] text-[#FAF5EB] font-sans font-semibold mt-1">
-                    Bespoke Carpet Atelier
-                  </span>
                 </div>
               </Link>
             </div>
@@ -674,16 +666,12 @@ export default function Navbar() {
               className="fixed top-0 left-0 h-full w-[85%] max-w-sm bg-[#240609] text-[#FAF5EB] z-[121] shadow-2xl flex flex-col border-r border-[#4A1017] rounded-r-3xl overflow-hidden"
             >
               {/* Header */}
-              <div className="px-5 py-4 border-b border-[#4A1017] flex items-center justify-between bg-[#2A080C]">
-                <div className="flex items-center space-x-2.5">
-                  <div className="relative w-8 h-8 shrink-0 drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]">
-                    <Image src="/nr-logo.png" alt="NR Enterprises Logo" fill sizes="32px" priority className="object-contain" />
+              <div className="px-5 py-3.5 border-b border-[#4A1017] flex items-center justify-between bg-[#2A080C]">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block">
+                  <div className="relative h-12 w-32 shrink-0 drop-shadow-[0_2px_10px_rgba(212,175,55,0.4)]">
+                    <Image src="/nr-logo.png" alt="NR Enterprises" fill sizes="130px" priority className="object-contain object-left" />
                   </div>
-                  <div>
-                    <span className={`text-xl font-serif font-bold text-white leading-none ${playfair.className}`}>NR Enterprises</span>
-                    <span className="text-[8.5px] uppercase tracking-[0.25em] text-[#FAF5EB] font-bold block mt-0.5 font-heading">Bespoke Atelier</span>
-                  </div>
-                </div>
+                </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-8 h-8 rounded-full bg-[#3D0C12] border border-[#4A1017] flex items-center justify-center text-[#FAF5EB] hover:bg-[#FAF5EB] hover:text-[#240609] transition-all cursor-pointer"

@@ -1331,10 +1331,10 @@ export default function CheckoutPage() {
                 </button>
 
                 <a
-                  href="mailto:nrenterprises@gmail.com"
+                  href="mailto:nasimshah2441@gmail.com"
                   className="w-full py-3.5 px-6 rounded-full font-heading font-semibold text-xs text-[#2B2520] bg-[#FAFAFA] hover:bg-[#F2ECE1] border border-[#EAEAEB] flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <span>✉️ Email Atelier: nrenterprises@gmail.com</span>
+                  <span>✉️ Email Atelier: nasimshah2441@gmail.com</span>
                 </a>
 
                 <button

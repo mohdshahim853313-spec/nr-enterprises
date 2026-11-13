@@ -1145,13 +1145,19 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
   };
   const materialsProducts = materialsSection.products || defaultJuteCarpets;
 
-  const legacySection = siteData?.legacySection || {
+  const legacySectionRaw = siteData?.legacySection || {
     tag: "ATELIER MASTERPIECES",
-    title: "Our Legacy",
+    title: "Premium Carpets",
     desc: "Limited edition high-knot-density heritage carpets woven by master artisans over months.",
     ctaText: "View All",
     ctaLink: "/collections?category=Irregular",
     products: defaultExclusiveCarpets,
+  };
+  const legacySection = {
+    ...legacySectionRaw,
+    title: (legacySectionRaw.title === "Our Legacy" || legacySectionRaw.title === "Our Story")
+      ? "Premium Carpets"
+      : (legacySectionRaw.title || "Premium Carpets"),
   };
   const legacyProducts = legacySection.products || defaultExclusiveCarpets;
 
@@ -1161,9 +1167,9 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
     feature2Title: "Pan India & Global Shipping",
     feature2Desc: "Tracked white-glove doorstep delivery",
     feature3Title: "Atelier Concierge Desk",
-    phone: "Quick Inquire",
-    email: "nrenterprises@gmail.com",
-    whatsappNumber: "",
+    phone: "+91 6394472035",
+    email: "nasimshah2441@gmail.com",
+    whatsappNumber: "919151452441",
     whatsappText: "Hi NR Enterprises, I need help choosing a carpet",
   };
 
@@ -2081,7 +2087,7 @@ export default function HomeClient({ initialSiteData }: { initialSiteData?: any 
       </section>
 
       {/* =========================================================================
-          🌟 6. OUR LEGACY (Silk Alabaster & Linen Atelier Masterpieces)
+          🌟 6. Our Story (Silk Alabaster & Linen Atelier Masterpieces)
          ========================================================================= */}
       <section className="w-full px-[5px] sm:px-6 md:px-10 py-14 md:py-20 bg-[#FAF8F5] border-t border-[#EAE6DF]">
         <div className="max-w-[1500px] mx-auto text-center">
