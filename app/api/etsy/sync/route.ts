@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "zylzcsf84xn2i4z8fvz26w6x";
-const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "3v9703wmcpd4ol5y00wq5ha44";
+const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "z0ru4blh5n07r4rvg9zkkkfh";
+const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "gf5x1nb01d2f3ldcm79zq18qy";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 const ETSY_SHOP_NAME = process.env.ETSY_SHOP_NAME || "AHADGLOBALRUGS";
 
@@ -216,20 +216,43 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { listingIds = [], syncAll = false, markupPercent = 0 } = body;
 
-    // 1. Fetch listings from Etsy
-    const etsyUrl = `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100`;
-    const etsyRes = await fetch(etsyUrl, { headers: getEtsyHeaders() });
+    // 1. Fetch listings from Etsy (bidirectional merge to cover all listings > 100)
+    const listingsMap = new Map<number, any>();
 
-    if (!etsyRes.ok) {
-      const errText = await etsyRes.text();
+    const resDesc = await fetch(
+      `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=desc`,
+      { headers: getEtsyHeaders() }
+    );
+
+    let totalShopCount = 0;
+    if (resDesc.ok) {
+      const dataDesc = await resDesc.json();
+      totalShopCount = dataDesc.count || 0;
+      (dataDesc.results || []).forEach((item: any) => listingsMap.set(item.listing_id, item));
+    } else {
+      const errText = await resDesc.text();
       return NextResponse.json(
         { success: false, error: `Etsy API error: ${errText}` },
-        { status: etsyRes.status }
+        { status: resDesc.status }
       );
     }
 
-    const etsyData = await etsyRes.json();
-    let targetListings = etsyData.results || [];
+    if (totalShopCount > 100) {
+      try {
+        const resAsc = await fetch(
+          `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=asc`,
+          { headers: getEtsyHeaders() }
+        );
+        if (resAsc.ok) {
+          const dataAsc = await resAsc.json();
+          (dataAsc.results || []).forEach((item: any) => listingsMap.set(item.listing_id, item));
+        }
+      } catch (err) {
+        console.warn("Could not fetch ASC batch for Etsy POST sync:", err);
+      }
+    }
+
+    let targetListings = Array.from(listingsMap.values());
 
     if (!syncAll && Array.isArray(listingIds) && listingIds.length > 0) {
       const idSet = new Set(listingIds.map(Number));

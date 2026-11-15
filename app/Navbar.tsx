@@ -395,7 +395,7 @@ export default function Navbar() {
           ref={headerRef}
           className="w-full bg-[#2B070B] border-b border-[#4A1017] shadow-md transition-all duration-300 text-white"
         >
-          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] sm:h-[76px] flex items-center justify-between gap-3 lg:gap-6 relative">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-5 xl:px-8 h-[68px] sm:h-[76px] flex items-center justify-between gap-2.5 lg:gap-3 xl:gap-6 relative">
 
             {/* Left: Mobile Burger + Mobile Search & Desktop Brand Logo */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -429,12 +429,12 @@ export default function Navbar() {
                 className="hidden lg:flex items-center group cursor-pointer text-left select-none shrink-0"
                 aria-label="NR Enterprises Atelier Home"
               >
-                <div className="relative h-12 sm:h-14 md:h-15 w-32 sm:w-36 md:w-40 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform group-hover:scale-105 duration-200">
+                <div className="relative h-11 sm:h-12 lg:h-12 xl:h-14 w-28 sm:w-32 lg:w-32 xl:w-36 shrink-0 drop-shadow-[0_2px_14px_rgba(232,200,106,0.4)] transition-transform group-hover:scale-105 duration-200">
                   <Image
                     src="/nr-logo.png"
                     alt="NR Enterprises"
                     fill
-                    sizes="160px"
+                    sizes="(max-width: 1280px) 130px, 160px"
                     priority
                     className="object-contain object-left"
                   />
@@ -462,18 +462,18 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Center: Sleek Single-Line Navigation Links (Desktop) */}
-            <nav className="hidden lg:flex items-center justify-center space-x-5 xl:space-x-7 text-[11.5px] xl:text-[12.5px] tracking-[0.14em] font-bold font-sans uppercase">
+            {/* Center: Sleek Single-Line Navigation Links (Desktop & Laptop) */}
+            <nav className="hidden lg:flex items-center justify-center gap-3.5 xl:gap-5 2xl:gap-7 text-[11px] lg:text-[11.5px] xl:text-[12.5px] tracking-[0.08em] lg:tracking-[0.1em] xl:tracking-[0.14em] font-bold font-sans uppercase shrink-0">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative py-1.5 transition-colors duration-200 group ${isActive ? "text-white font-extrabold" : "text-[#E6D7D4] hover:text-[#FAF5EB]"
+                    className={`relative py-1.5 whitespace-nowrap shrink-0 transition-colors duration-200 group ${isActive ? "text-white font-extrabold" : "text-[#E6D7D4] hover:text-[#FAF5EB]"
                       }`}
                   >
-                    <span>{link.name}</span>
+                    <span className="whitespace-nowrap">{link.name}</span>
                     <span
                       className={`absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full transition-all duration-300 ${isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
                         }`}
@@ -485,23 +485,23 @@ export default function Navbar() {
               {dynamicCurrentPage && (
                 <Link
                   href={dynamicCurrentPage.href}
-                  className="relative py-1.5 transition-colors duration-200 text-white font-extrabold"
+                  className="relative py-1.5 whitespace-nowrap shrink-0 transition-colors duration-200 text-white font-extrabold"
                 >
-                  <span>{dynamicCurrentPage.name}</span>
+                  <span className="whitespace-nowrap">{dynamicCurrentPage.name}</span>
                   <span className="absolute left-0 bottom-0 h-[2.5px] bg-[#FAF5EB] rounded-full w-full opacity-100" />
                 </Link>
               )}
             </nav>
 
             {/* Right: Currency Switcher, Search, Wishlist, Cart, Account */}
-            <div className="flex items-center space-x-2 sm:space-x-3 text-white shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-3 text-white shrink-0">
 
               {/* Admin Dev Pill */}
               {mounted && isLocalhost && (
-                <div className="hidden sm:flex items-center mr-0.5">
+                <div className="hidden sm:flex items-center mr-0.5 shrink-0">
                   <Link
                     href="/admin"
-                    className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-bold text-[#FAF5EB] border border-[#FAF5EB]/30 bg-[#3D0C12] hover:bg-[#FAF5EB] hover:text-[#240609] rounded-full transition-all shadow-xs"
+                    className="px-2.5 py-0.5 text-[9.5px] xl:text-[10px] uppercase tracking-wider font-bold text-[#FAF5EB] border border-[#FAF5EB]/30 bg-[#3D0C12] hover:bg-[#FAF5EB] hover:text-[#240609] rounded-full transition-all shadow-xs whitespace-nowrap"
                   >
                     Admin
                   </Link>
@@ -509,10 +509,10 @@ export default function Navbar() {
               )}
 
               {/* Currency Selector */}
-              <div ref={currencyDropdownRef} className="relative hidden sm:block">
+              <div ref={currencyDropdownRef} className="relative hidden sm:block shrink-0">
                 <button
                   onClick={() => setIsCurrencyDropdownOpen(!isCurrencyDropdownOpen)}
-                  className="flex items-center space-x-1 text-xs font-bold text-[#FAF5EB] hover:text-white transition-colors p-1.5 rounded-lg border border-[#4A1017] hover:border-[#FAF5EB]/50 bg-[#3D0C12] shadow-xs cursor-pointer"
+                  className="flex items-center space-x-1 text-[11px] xl:text-xs font-bold text-[#FAF5EB] hover:text-white transition-colors px-2 py-1.5 rounded-lg border border-[#4A1017] hover:border-[#FAF5EB]/50 bg-[#3D0C12] shadow-xs cursor-pointer whitespace-nowrap"
                   aria-label="Select Currency"
                 >
                   <span suppressHydrationWarning className="text-[#FAF5EB]">{selectedCurrency}</span>

@@ -1,8 +1,8 @@
 const { createClient } = require("@supabase/supabase-js");
 require("dotenv").config({ path: ".env.local" });
 
-const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "zylzcsf84xn2i4z8fvz26w6x";
-const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "3v9703wmcpd4ol5y00wq5ha44";
+const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "z0ru4blh5n07r4rvg9zkkkfh";
+const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "gf5x1nb01d2f3ldcm79zq18qy";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 
 const supabase = createClient(
@@ -126,20 +126,58 @@ async function main() {
     console.log(`✅ Cleaned ${dummyIds.length} dummy products!`);
   }
 
-  // 2. Fetch all active listings from Etsy
+  // 2. Fetch all active listings from Etsy (bidirectional merge to exceed 100 limit)
   console.log("\n📦 2. Fetching active listings from Etsy shop (ID: " + ETSY_SHOP_ID + ")...");
-  const etsyUrl = `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100`;
-  const etsyRes = await fetch(etsyUrl, { headers: getEtsyHeaders() });
-
-  if (!etsyRes.ok) {
-    const errText = await etsyRes.text();
-    console.error("Etsy API Error:", errText);
-    process.exit(1);
+  
+  // Parse optional CLI markup: e.g. node scripts/sync-etsy.js --markup=20
+  const markupArg = process.argv.find((a) => a.startsWith("--markup="));
+  const markupPercent = markupArg
+    ? parseFloat(markupArg.split("=")[1]) || 0
+    : parseFloat(process.env.MARKUP_PERCENT || "0");
+  const markupMultiplier = markupPercent > 0 ? 1 + markupPercent / 100 : 1;
+  if (markupPercent > 0) {
+    console.log(`📈 Applying Price Markup: +${markupPercent}% (Multiplier: ${markupMultiplier})`);
   }
 
-  const etsyData = await etsyRes.json();
-  const listings = etsyData.results || [];
-  console.log(`Found ${listings.length} active listings on Etsy!`);
+  const listingsMap = new Map();
+
+  // Batch 1: Newest 100 (DESC)
+  const resDesc = await fetch(
+    `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=desc`,
+    { headers: getEtsyHeaders() }
+  );
+
+  let totalShopCount = 0;
+  if (resDesc.ok) {
+    const dataDesc = await resDesc.json();
+    totalShopCount = dataDesc.count || 0;
+    (dataDesc.results || []).forEach((item) => listingsMap.set(item.listing_id, item));
+  } else {
+    const errText = await resDesc.text();
+    console.error("Etsy API Error (DESC):", errText);
+  }
+
+  // Batch 2: If shop has > 100 listings, fetch oldest listings (ASC)
+  if (totalShopCount > 100) {
+    try {
+      const resAsc = await fetch(
+        `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active?limit=100&sort_on=created&sort_order=asc`,
+        { headers: getEtsyHeaders() }
+      );
+      if (resAsc.ok) {
+        const dataAsc = await resAsc.json();
+        (dataAsc.results || []).forEach((item) => listingsMap.set(item.listing_id, item));
+      }
+    } catch (err) {
+      console.warn("Could not fetch ASC batch for Etsy:", err.message);
+    }
+  }
+
+  const listings = Array.from(listingsMap.values()).sort(
+    (a, b) => (b.original_creation_timestamp || b.created_timestamp || 0) - (a.original_creation_timestamp || a.created_timestamp || 0)
+  );
+
+  console.log(`Found total ${listings.length} active listings on Etsy (out of ${totalShopCount} in shop)!`);
 
   // 3. Process each listing
   console.log("\n🔄 3. Syncing listings with HD photos, variants & metadata into Supabase...");
@@ -150,9 +188,10 @@ async function main() {
     const listing = listings[idx];
     const progress = `[${idx + 1}/${listings.length}]`;
     const sku = `ETSY-${listing.listing_id}`;
-    const basePriceNum = listing.price?.amount
+    const rawBasePrice = listing.price?.amount
       ? Math.round(listing.price.amount / listing.price.divisor)
       : 5000;
+    const basePriceNum = Math.round(rawBasePrice * markupMultiplier);
     const originalPriceNum = Math.round(basePriceNum * 1.5); // 33% discount display
 
     try {
