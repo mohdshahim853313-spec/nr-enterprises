@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { getValidEtsyAccessToken } from "@/lib/etsyOAuth";
+
+const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "z0ru4blh5n07r4rvg9zkkkfh";
+const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "gf5x1nb01d2f3ldcm79zq18qy";
+const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "67519876";
 
 export async function POST(req: Request) {
   try {
@@ -9,12 +14,13 @@ export async function POST(req: Request) {
       productIds = [],
       applyToAll = true,
       regions = ["india", "us", "everywhere_else"],
+      syncToEtsy = true,
     } = body;
 
     const numericPercent = parseFloat(percent);
     if (isNaN(numericPercent) || numericPercent === 0) {
       return NextResponse.json(
-        { success: false, error: "Please provide a valid non-zero markup percentage." },
+        { success: false, error: "Please provide a valid non-zero percentage." },
         { status: 400 }
       );
     }
@@ -39,11 +45,23 @@ export async function POST(req: Request) {
         success: true,
         message: "No products found to update.",
         updatedCount: 0,
+        etsyUpdatedCount: 0,
       });
     }
 
-    // 2. Process and update each product
+    // 2. Check if Etsy OAuth token is active for live Etsy Shop update
+    let etsyToken: string | null = null;
+    if (syncToEtsy) {
+      try {
+        etsyToken = await getValidEtsyAccessToken();
+      } catch (tokenErr) {
+        console.warn("Could not retrieve Etsy token:", tokenErr);
+      }
+    }
+
+    // 3. Process and update each product on Website
     let updatedCount = 0;
+    let etsyUpdatedCount = 0;
     const errors: Array<{ id: string; error: string }> = [];
     const samplePreview: any[] = [];
 
@@ -51,28 +69,28 @@ export async function POST(req: Request) {
       try {
         const rawCurrentPrice = product.price ? String(product.price).replace(/[^0-9.]/g, "") : "0";
         const currentPriceNum = parseFloat(rawCurrentPrice) || 0;
-        const newPriceNum = Math.round(currentPriceNum * multiplier);
+        const newPriceNum = Math.max(1, Math.round(currentPriceNum * multiplier));
 
         const rawOrigPrice = product.original_price
           ? String(product.original_price).replace(/[^0-9.]/g, "")
           : null;
         const origPriceNum = rawOrigPrice ? parseFloat(rawOrigPrice) : null;
-        const newOrigPriceNum = origPriceNum ? Math.round(origPriceNum * multiplier) : null;
+        const newOrigPriceNum = origPriceNum ? Math.max(1, Math.round(origPriceNum * multiplier)) : null;
 
         // Recalculate variants
         let updatedVariants = product.variants;
         if (Array.isArray(product.variants) && product.variants.length > 0) {
           updatedVariants = product.variants.map((v: any) => {
             const vPrice = parseFloat(String(v.price || "0").replace(/[^0-9.]/g, "")) || 0;
-            const newVPrice = Math.round(vPrice * multiplier);
+            const newVPrice = Math.max(1, Math.round(vPrice * multiplier));
 
             const vBasePrice = parseFloat(String(v.base_price || v.price || "0").replace(/[^0-9.]/g, "")) || 0;
-            const newVBasePrice = Math.round(vBasePrice * multiplier);
+            const newVBasePrice = Math.max(1, Math.round(vBasePrice * multiplier));
 
             let newVOrigPrice = v.original_price;
             if (v.original_price) {
               const vOrig = parseFloat(String(v.original_price).replace(/[^0-9.]/g, "")) || 0;
-              newVOrigPrice = String(Math.round(vOrig * multiplier));
+              newVOrigPrice = String(Math.max(1, Math.round(vOrig * multiplier)));
             }
 
             return {
@@ -110,16 +128,108 @@ export async function POST(req: Request) {
             variantsCount: Array.isArray(updatedVariants) ? updatedVariants.length : 0,
           });
         }
+
+        // 4. Live update on Etsy Shop (if token available and product has ETSY SKU)
+        if (etsyToken && product.sku && product.sku.startsWith("ETSY-")) {
+          const etsyListingId = product.sku.replace("ETSY-", "");
+          try {
+            // First attempt PATCH /v3/application/shops/{shop_id}/listings/{listing_id}
+            const etsyRes = await fetch(
+              `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/${etsyListingId}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+                  Authorization: `Bearer ${etsyToken}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  price: newPriceNum,
+                }),
+              }
+            );
+
+            if (etsyRes.ok) {
+              etsyUpdatedCount++;
+            } else {
+              // If listing uses variation inventory, attempt inventory update
+              const invRes = await fetch(
+                `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
+                {
+                  headers: {
+                    "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+                    Authorization: `Bearer ${etsyToken}`,
+                    Accept: "application/json",
+                  },
+                }
+              );
+
+              if (invRes.ok) {
+                const invData = await invRes.json();
+                if (Array.isArray(invData.products) && invData.products.length > 0) {
+                  const updatedProducts = invData.products.map((p: any) => ({
+                    ...p,
+                    offerings: (p.offerings || []).map((off: any) => ({
+                      ...off,
+                      price: off.price
+                        ? {
+                            ...off.price,
+                            amount: Math.round(off.price.amount * multiplier),
+                          }
+                        : undefined,
+                    })),
+                  }));
+
+                  const putInvRes = await fetch(
+                    `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
+                    {
+                      method: "PUT",
+                      headers: {
+                        "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+                        Authorization: `Bearer ${etsyToken}`,
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        products: updatedProducts,
+                        price_on_property: invData.price_on_property,
+                        quantity_on_property: invData.quantity_on_property,
+                        sku_on_property: invData.sku_on_property,
+                      }),
+                    }
+                  );
+
+                  if (putInvRes.ok) {
+                    etsyUpdatedCount++;
+                  }
+                }
+              }
+            }
+          } catch (etsyErr: any) {
+            console.warn(`Could not sync price to Etsy for listing ${etsyListingId}:`, etsyErr.message);
+          }
+        }
       } catch (err: any) {
         console.error(`Failed to update product ${product.id}:`, err);
         errors.push({ id: product.id, error: err.message });
       }
     }
 
+    const isPositive = numericPercent > 0;
+    const signLabel = isPositive ? `+${numericPercent}% Markup` : `${numericPercent}% Discount`;
+
+    let successMsg = `🎉 Successfully updated prices for ${updatedCount} listings (${signLabel}) on website!`;
+    if (etsyUpdatedCount > 0) {
+      successMsg += ` Also updated ${etsyUpdatedCount} listings live on Etsy Shop!`;
+    } else if (!etsyToken && syncToEtsy) {
+      successMsg += ` (Note: Website is updated! To sync live to Etsy shop, please click 'Connect Etsy' once in Admin).`;
+    }
+
     return NextResponse.json({
       success: true,
-      message: `🎉 Successfully updated prices for ${updatedCount} listings (+${numericPercent}%) across India, US, and Everywhere Else!`,
+      message: successMsg,
       updatedCount,
+      etsyUpdatedCount,
+      etsyConnected: Boolean(etsyToken),
       percent: numericPercent,
       regions,
       samplePreview,

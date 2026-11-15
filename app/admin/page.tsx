@@ -261,7 +261,10 @@ export default function AdminUpload() {
 
   const fetchData = async () => {
     try {
-      const { data: products } = await supabase.from("products").select("id, name, images").order("created_at", { ascending: false });
+      const { data: products } = await supabase
+        .from("products")
+        .select("id, name, images, price, original_price, sku, category")
+        .order("created_at", { ascending: false });
       if (products) setAvailableProducts(products);
 
       const { data: settings } = await supabase.from("store_settings").select("*").eq("id", 1).maybeSingle();
@@ -2789,6 +2792,7 @@ export default function AdminUpload() {
               isOpen={isBulkMarkupOpen}
               onClose={() => setIsBulkMarkupOpen(false)}
               totalProductsCount={availableProducts.length}
+              products={availableProducts}
               onSuccess={fetchData}
             />
 

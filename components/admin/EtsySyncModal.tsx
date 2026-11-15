@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SafeImage from "@/components/SafeImage";
 
 interface EtsyListing {
   listing_id: number;
@@ -12,6 +13,7 @@ interface EtsyListing {
   currency: string;
   quantity: number;
   url: string;
+  thumbnail?: string | null;
   tags: string[];
   materials: string[];
   category: string;
@@ -436,6 +438,19 @@ export default function EtsySyncModal({
                         onChange={() => toggleSelectOne(listing.listing_id)}
                         className="mt-1 rounded-sm accent-[#F1641E] cursor-pointer shrink-0"
                       />
+
+                      {/* Image Thumbnail */}
+                      {listing.thumbnail && (
+                        <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 shrink-0 shadow-2xs">
+                          <SafeImage
+                            src={listing.thumbnail}
+                            alt={listing.clean_title}
+                            fill
+                            sizes="56px"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
 
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">

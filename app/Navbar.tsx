@@ -436,6 +436,7 @@ export default function Navbar() {
                     fill
                     sizes="(max-width: 1280px) 130px, 160px"
                     priority
+                    unoptimized
                     className="object-contain object-left"
                   />
                 </div>
@@ -456,6 +457,7 @@ export default function Navbar() {
                     fill
                     sizes="130px"
                     priority
+                    unoptimized
                     className="object-contain object-center"
                   />
                 </div>
@@ -463,7 +465,7 @@ export default function Navbar() {
             </div>
 
             {/* Center: Sleek Single-Line Navigation Links (Desktop & Laptop) */}
-            <nav className="hidden lg:flex items-center justify-center gap-3.5 xl:gap-5 2xl:gap-7 text-[11px] lg:text-[11.5px] xl:text-[12.5px] tracking-[0.08em] lg:tracking-[0.1em] xl:tracking-[0.14em] font-bold font-sans uppercase shrink-0">
+            <nav className="hidden lg:flex flex-nowrap items-center justify-center gap-2.5 lg:gap-3 xl:gap-5 2xl:gap-7 text-[11px] lg:text-[11.5px] xl:text-[12.5px] tracking-[0.06em] lg:tracking-[0.08em] xl:tracking-[0.14em] font-bold font-sans uppercase shrink-0">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (

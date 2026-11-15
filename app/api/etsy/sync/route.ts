@@ -152,8 +152,8 @@ export async function GET(req: Request) {
       .from("products")
       .select("id, sku, etsy_url, name, price, images, status, tags, created_at");
 
-    const syncedSkuMap = new Set((existingProducts || []).map((p) => p.sku).filter(Boolean));
-    const syncedUrlMap = new Set((existingProducts || []).map((p) => p.etsy_url).filter(Boolean));
+    const skuToProductMap = new Map((existingProducts || []).map((p) => [p.sku, p]));
+    const urlToProductMap = new Map((existingProducts || []).map((p) => [p.etsy_url, p]));
     const activeEtsyIdSet = new Set(etsyListings.map((l: any) => Number(l.listing_id)));
 
     // Detect products in our database that are no longer active on Etsy
@@ -165,7 +165,9 @@ export async function GET(req: Request) {
 
     const listingsWithStatus = etsyListings.map((item: any) => {
       const sku = `ETSY-${item.listing_id}`;
-      const isSynced = syncedSkuMap.has(sku) || syncedUrlMap.has(item.url);
+      const existing = skuToProductMap.get(sku) || urlToProductMap.get(item.url);
+      const isSynced = Boolean(existing);
+      const thumbnail = Array.isArray(existing?.images) && existing.images.length > 0 ? existing.images[0] : null;
       const basePriceNum = item.price?.amount ? Math.round(item.price.amount / item.price.divisor) : 5000;
 
       return {
@@ -177,6 +179,7 @@ export async function GET(req: Request) {
         currency: item.price?.currency_code || "INR",
         quantity: item.quantity,
         url: item.url,
+        thumbnail,
         tags: item.tags || [],
         materials: item.materials || [],
         category: inferCategory(item.title, item.tags),
