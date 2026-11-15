@@ -132,9 +132,73 @@ export async function POST(req: Request) {
         // 4. Live update on Etsy Shop (if token available and product has ETSY SKU)
         if (etsyToken && product.sku && product.sku.startsWith("ETSY-")) {
           const etsyListingId = product.sku.replace("ETSY-", "");
+          let etsySuccess = false;
+
           try {
-            // First attempt PATCH /v3/application/shops/{shop_id}/listings/{listing_id}
-            const etsyRes = await fetch(
+            // First check if listing has variation offerings in /inventory
+            const invRes = await fetch(
+              `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
+              {
+                headers: {
+                  "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+                  Authorization: `Bearer ${etsyToken}`,
+                  Accept: "application/json",
+                },
+              }
+            );
+
+            if (invRes.ok) {
+              const invData = await invRes.json();
+              if (Array.isArray(invData.products) && invData.products.length > 0) {
+                const productsPayload = invData.products.map((p: any) => ({
+                  sku: p.sku || "",
+                  property_values: (p.property_values || []).map((pv: any) => ({
+                    property_id: pv.property_id,
+                    property_name: pv.property_name || "SIZE CHART",
+                    value_ids: pv.value_ids,
+                    values: pv.values,
+                    scale_id: pv.scale_id || null,
+                  })),
+                  offerings: (p.offerings || []).map((o: any) => {
+                    const rawPrice = o.price ? o.price.amount / o.price.divisor : 5000;
+                    const scaledPrice = Math.max(1, Math.round(rawPrice * multiplier));
+                    return {
+                      price: scaledPrice,
+                      quantity: o.quantity || 1,
+                      is_enabled: o.is_enabled !== false,
+                      readiness_state_id: o.readiness_state_id,
+                    };
+                  }),
+                }));
+
+                const putInvRes = await fetch(
+                  `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
+                  {
+                    method: "PUT",
+                    headers: {
+                      "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+                      Authorization: `Bearer ${etsyToken}`,
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      products: productsPayload,
+                      price_on_property: invData.price_on_property || [],
+                      quantity_on_property: invData.quantity_on_property || [],
+                      sku_on_property: invData.sku_on_property || [],
+                    }),
+                  }
+                );
+
+                if (putInvRes.ok) {
+                  etsySuccess = true;
+                } else {
+                  console.warn(`Etsy inventory PUT error for ${etsyListingId}:`, await putInvRes.text());
+                }
+              }
+            }
+
+            // Also update top-level price on the listing
+            const patchRes = await fetch(
               `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/${etsyListingId}`,
               {
                 method: "PATCH",
@@ -149,60 +213,12 @@ export async function POST(req: Request) {
               }
             );
 
-            if (etsyRes.ok) {
+            if (patchRes.ok) {
+              etsySuccess = true;
+            }
+
+            if (etsySuccess) {
               etsyUpdatedCount++;
-            } else {
-              // If listing uses variation inventory, attempt inventory update
-              const invRes = await fetch(
-                `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
-                {
-                  headers: {
-                    "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
-                    Authorization: `Bearer ${etsyToken}`,
-                    Accept: "application/json",
-                  },
-                }
-              );
-
-              if (invRes.ok) {
-                const invData = await invRes.json();
-                if (Array.isArray(invData.products) && invData.products.length > 0) {
-                  const updatedProducts = invData.products.map((p: any) => ({
-                    ...p,
-                    offerings: (p.offerings || []).map((off: any) => ({
-                      ...off,
-                      price: off.price
-                        ? {
-                            ...off.price,
-                            amount: Math.round(off.price.amount * multiplier),
-                          }
-                        : undefined,
-                    })),
-                  }));
-
-                  const putInvRes = await fetch(
-                    `https://openapi.etsy.com/v3/application/listings/${etsyListingId}/inventory`,
-                    {
-                      method: "PUT",
-                      headers: {
-                        "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
-                        Authorization: `Bearer ${etsyToken}`,
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        products: updatedProducts,
-                        price_on_property: invData.price_on_property,
-                        quantity_on_property: invData.quantity_on_property,
-                        sku_on_property: invData.sku_on_property,
-                      }),
-                    }
-                  );
-
-                  if (putInvRes.ok) {
-                    etsyUpdatedCount++;
-                  }
-                }
-              }
             }
           } catch (etsyErr: any) {
             console.warn(`Could not sync price to Etsy for listing ${etsyListingId}:`, etsyErr.message);
