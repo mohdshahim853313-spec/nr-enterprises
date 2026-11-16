@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { getValidEtsyAccessToken } from "@/lib/etsyOAuth";
 
 const ETSY_API_KEY = process.env.ETSY_KEYSTRING || "z0ru4blh5n07r4rvg9zkkkfh";
 const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "gf5x1nb01d2f3ldcm79zq18qy";
@@ -270,7 +271,14 @@ export async function POST(req: Request) {
       });
     }
 
-    // 2. Process each listing (Fetch images and prepare product record)
+    // 2. Retrieve valid Etsy OAuth token to fetch exact variations & offerings (/inventory)
+    let etsyToken: string | null = null;
+    try {
+      etsyToken = await getValidEtsyAccessToken();
+    } catch (tokenErr) {
+      console.warn("Could not retrieve Etsy token for inventory sync:", tokenErr);
+    }
+
     const results = [];
     const errors = [];
 
@@ -302,24 +310,122 @@ export async function POST(req: Request) {
           console.warn(`Could not fetch images for listing ${listing.listing_id}:`, imgErr);
         }
 
+        // Fetch exact variations & prices directly from Etsy /inventory (Option B: 1:1 Mirror)
+        let variants: any[] = [];
+        let detectedSizes: string[] = [];
+        const detectedColors: string[] = [];
+
+        if (etsyToken) {
+          try {
+            const invRes = await fetch(
+              `https://openapi.etsy.com/v3/application/listings/${listing.listing_id}/inventory`,
+              {
+                headers: {
+                  "x-api-key": `${ETSY_API_KEY}:${ETSY_SHARED_SECRET}`,
+                  Authorization: `Bearer ${etsyToken}`,
+                  Accept: "application/json",
+                },
+              }
+            );
+
+            if (invRes.ok) {
+              const invData = await invRes.json();
+              if (Array.isArray(invData.products) && invData.products.length > 0) {
+                const sizeMap = new Map<string, { price: number; sku?: string }>();
+                const colorSet = new Set<string>();
+
+                for (const prod of invData.products) {
+                  if (prod.is_deleted) continue;
+                  const off =
+                    (prod.offerings || []).find((o: any) => !o.is_deleted && o.is_enabled) ||
+                    prod.offerings?.[0];
+                  if (!off) continue;
+
+                  const offPrice = off.price
+                    ? Math.round(off.price.amount / off.price.divisor)
+                    : rawEtsyPrice;
+
+                  let sizeName = "";
+                  for (const pv of prod.property_values || []) {
+                    const pName = (pv.property_name || "").toLowerCase();
+                    if (pName.includes("color")) {
+                      (pv.values || []).forEach((val: string) => {
+                        if (val && val.trim()) colorSet.add(val.trim());
+                      });
+                    } else {
+                      if (pv.values && pv.values.length > 0 && pv.values[0]?.trim()) {
+                        sizeName = pv.values[0].trim();
+                      }
+                    }
+                  }
+
+                  if (!sizeName && prod.property_values?.[0]?.values?.[0]) {
+                    sizeName = prod.property_values[0].values[0].trim();
+                  }
+
+                  if (sizeName) {
+                    if (!sizeMap.has(sizeName) || offPrice > 0) {
+                      sizeMap.set(sizeName, { price: offPrice, sku: prod.sku || undefined });
+                    }
+                  }
+                }
+
+                if (colorSet.size > 0) {
+                  detectedColors.push(...Array.from(colorSet));
+                }
+
+                if (sizeMap.size > 0) {
+                  variants = Array.from(sizeMap.entries()).map(([sz, info], vIdx) => {
+                    const scaledPrice = Math.max(1, Math.round(info.price * markupMultiplier));
+                    const scaledOrigPrice = Math.round(scaledPrice * 1.5);
+                    return {
+                      size: sz,
+                      dimensions: sz.replace(/ ft runner| ft| runner/gi, "").trim(),
+                      unit: "ft",
+                      price: String(scaledPrice),
+                      base_price: String(scaledPrice),
+                      original_price: String(scaledOrigPrice),
+                      markup_percent: Math.round((markupMultiplier - 1) * 100),
+                      discount_percent: 33,
+                      sku: info.sku || `${sku}-${vIdx + 1}`,
+                    };
+                  });
+                  detectedSizes = variants.map((v) => v.size);
+                }
+              }
+            }
+          } catch (invErr) {
+            console.warn(`Could not fetch inventory for listing ${listing.listing_id}:`, invErr);
+          }
+        }
+
+        // Fallback to standard sizes only if no variations exist on Etsy
+        if (variants.length === 0) {
+          variants = STANDARD_SIZES.map((s) => ({
+            size: s.size,
+            dimensions: s.size.replace(" ft", ""),
+            unit: "ft",
+            price: String(Math.round(basePriceNum * s.multiplier)),
+            base_price: String(Math.round(basePriceNum * s.multiplier)),
+            original_price: String(Math.round(originalPriceNum * s.multiplier)),
+            markup_percent: Math.round((markupMultiplier - 1) * 100),
+            discount_percent: 33,
+          }));
+          detectedSizes = STANDARD_SIZES.map((s) => s.size);
+        }
+
+        // Lowest variant price becomes base catalog display price (e.g. ₹1,685+)
+        const minVariantPrice = variants.length > 0
+          ? Math.min(...variants.map((v) => parseFloat(String(v.price).replace(/[^0-9.]/g, "")) || basePriceNum))
+          : basePriceNum;
+        const minOrigPrice = Math.round(minVariantPrice * 1.5);
+
         const category = inferCategory(listing.title, listing.tags);
         const shape = inferShape(listing.title, listing.tags);
         const primaryMaterial =
           Array.isArray(listing.materials) && listing.materials.length > 0
             ? listing.materials.join(", ")
             : "Pure New Zealand Wool Blend";
-
-        // Generate standard size variants with proportional pricing
-        const variants = STANDARD_SIZES.map((s) => ({
-          size: s.size,
-          dimensions: s.size.replace(" ft", ""),
-          unit: "ft",
-          price: String(Math.round(basePriceNum * s.multiplier)),
-          base_price: String(Math.round(basePriceNum * s.multiplier)),
-          original_price: String(Math.round(originalPriceNum * s.multiplier)),
-          markup_percent: 50,
-          discount_percent: 33,
-        }));
 
         // Check if product already exists by sku
         const { data: existingProduct } = await supabase
@@ -332,13 +438,13 @@ export async function POST(req: Request) {
           name: cleanTitle(listing.title),
           original_name: listing.title,
           sku: sku,
-          price: `₹${basePriceNum}`,
-          original_price: `₹${originalPriceNum}`,
+          price: `₹${minVariantPrice}`,
+          original_price: `₹${minOrigPrice}`,
           discount_percent: 33,
           category: category,
           shape: shape,
           material: primaryMaterial,
-          color: inferColor(listing.title, listing.tags),
+          color: detectedColors.length > 0 ? detectedColors.join(", ") : inferColor(listing.title, listing.tags),
           style: inferStyle(listing.title, listing.tags),
           pattern: inferPattern(listing.title, listing.tags),
           room: "Living Room, Bedroom, Foyer, Lounge",
@@ -348,7 +454,7 @@ export async function POST(req: Request) {
           description: listing.description || `Handcrafted artisanal rug by NR Enterprises Bhadohi atelier.`,
           care_instructions:
             "Vacuum regularly with suction only (do not use revolving beater brush). Spot clean gently with mild wool-safe detergent and cold water. Professional dry clean recommended for longevity.",
-          sizes: STANDARD_SIZES.map((s) => s.size),
+          sizes: detectedSizes,
           variants: variants,
           stock_quantity: listing.quantity || 5,
           tags: listing.tags || [],
@@ -361,6 +467,13 @@ export async function POST(req: Request) {
           show_etsy: true,
           etsy_url: listing.url,
         };
+
+        if (detectedColors.length > 0) {
+          productPayload.color_variants = detectedColors.map((c, cIdx) => ({
+            color: c,
+            image: imageUrls[cIdx] || imageUrls[0] || "",
+          }));
+        }
 
         // Only override images if we got fresh images from Etsy
         if (imageUrls.length > 0) {

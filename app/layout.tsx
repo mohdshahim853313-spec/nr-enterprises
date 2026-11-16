@@ -165,6 +165,16 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <link rel="dns-prefetch" href="https://qjpjltaiazwybhsmnkve.supabase.co" />
         <link rel="preconnect" href="https://checkout.razorpay.com" crossOrigin="" />
         <link rel="preload" as="image" href="/logo.png" type="image/png" fetchPriority="high" />
+        {/* Ensure clean scroll reset on page transitions so products always open from the top with header visible */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+              }
+            `,
+          }}
+        />
         {/* Pre-hydration sync script to eliminate any currency flash */}
         <script
           dangerouslySetInnerHTML={{

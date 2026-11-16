@@ -54,6 +54,12 @@ export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const isHeaderVisibleRef = useRef(true);
+
+  const setHeaderVisible = (visible: boolean) => {
+    isHeaderVisibleRef.current = visible;
+    setIsHeaderVisible(visible);
+  };
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -270,6 +276,7 @@ export default function Navbar() {
     setIsSearchOpen(false);
     setIsMobileMenuOpen(false);
     setSearchQuery("");
+    setHeaderVisible(true);
   }, [pathname]);
 
   useEffect(() => {
@@ -291,18 +298,20 @@ export default function Navbar() {
   // 🌟 Universal Smooth Header Scroll Behavior (Zero-Lag Hardware Accelerated)
   useEffect(() => {
     let lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-    let currentVisible = true;
     let ticking = false;
+
+    // Guaranteed visible on mount and whenever pathname changes
+    setHeaderVisible(true);
 
     const updateScrollDir = () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
       const scrollDelta = scrollY - lastScrollY;
 
-      // Always show at top of the page
-      if (scrollY <= 80) {
-        if (!currentVisible) {
-          currentVisible = true;
-          setIsHeaderVisible(true);
+      // 🌟 At or near the top of the page (scrollY <= 60px):
+      // The header MUST ALWAYS be 100% visible, perfectly filling the top area without leaving empty whitespace.
+      if (scrollY <= 60) {
+        if (!isHeaderVisibleRef.current) {
+          setHeaderVisible(true);
         }
         lastScrollY = scrollY;
         ticking = false;
@@ -311,52 +320,26 @@ export default function Navbar() {
 
       // If search, cart, or mobile menu is open, keep navbar visible
       if (isSearchOpen || isCartOpen || isMobileMenuOpen) {
-        if (!currentVisible) {
-          currentVisible = true;
-          setIsHeaderVisible(true);
+        if (!isHeaderVisibleRef.current) {
+          setHeaderVisible(true);
         }
         lastScrollY = scrollY;
         ticking = false;
         return;
       }
 
-      // 🌟 On Product Detail Page:
-      // Keep header visible while user is scrolling through the right-side detail description & specifications!
-      // Only allow header to slide up once both left & right columns have finished and scroll together into recommendations/footer.
-      if (pathname?.startsWith("/product/")) {
-        const detailsCol = document.getElementById("product-details-column");
-        const stickyGallery = document.getElementById("product-sticky-gallery");
-        if (detailsCol && stickyGallery) {
-          const detailsRect = detailsCol.getBoundingClientRect();
-          const stickyRect = stickyGallery.getBoundingClientRect();
-          const isMobile = window.innerWidth < 1024;
-
-          const isRightColumnStillScrolling = isMobile
-            ? detailsRect.bottom > window.innerHeight + 80
-            : detailsRect.bottom > stickyRect.bottom + 40;
-
-          if (isRightColumnStillScrolling) {
-            if (!currentVisible) {
-              currentVisible = true;
-              setIsHeaderVisible(true);
-            }
-            lastScrollY = scrollY;
-            ticking = false;
-            return;
-          }
+      // 🌟 Scrolling Down: smoothly slide header up out of view once past top area
+      if (scrollDelta > 6 && scrollY > 80) {
+        if (isHeaderVisibleRef.current) {
+          setHeaderVisible(false);
+          setIsCurrencyDropdownOpen(false);
         }
       }
-
-      // Scrolling Down -> Smoothly hide header once scrolled past top area
-      if (scrollDelta > 8 && scrollY > 120 && currentVisible) {
-        currentVisible = false;
-        setIsHeaderVisible(false);
-        setIsCurrencyDropdownOpen(false);
-      }
-      // Scrolling Up (Down to Top) -> Smoothly slide header down into view!
-      else if (scrollDelta < -2 && !currentVisible) {
-        currentVisible = true;
-        setIsHeaderVisible(true);
+      // 🌟 Scrolling Up: smoothly slide header down into view
+      else if (scrollDelta < -4) {
+        if (!isHeaderVisibleRef.current) {
+          setHeaderVisible(true);
+        }
       }
 
       lastScrollY = scrollY;

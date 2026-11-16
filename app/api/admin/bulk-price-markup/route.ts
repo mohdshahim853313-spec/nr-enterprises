@@ -59,6 +59,44 @@ export async function POST(req: Request) {
       }
     }
 
+    // 2.5. Automatic Safety Snapshot: Store exact previous state so admin can 1-click Undo / Rollback anytime
+    const snapshot = {
+      id: `snapshot_${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      description: `${numericPercent > 0 ? "+" : ""}${numericPercent}% on ${products.length} listing(s)`,
+      percent: numericPercent,
+      productsCount: products.length,
+      products: products.map((p) => ({
+        id: p.id,
+        sku: p.sku,
+        name: p.name,
+        price: p.price,
+        original_price: p.original_price,
+        variants: p.variants,
+      })),
+    };
+
+    try {
+      const { data: histDoc } = await supabase
+        .from("site_content")
+        .select("data")
+        .eq("id", "price_markup_history")
+        .maybeSingle();
+
+      const existingSnapshots = Array.isArray(histDoc?.data?.snapshots) ? histDoc.data.snapshots : [];
+      const updatedSnapshots = [snapshot, ...existingSnapshots].slice(0, 10);
+
+      await supabase.from("site_content").upsert({
+        id: "price_markup_history",
+        data: {
+          snapshots: updatedSnapshots,
+          last_snapshot_at: new Date().toISOString(),
+        },
+      });
+    } catch (snapErr) {
+      console.warn("Failed to save price undo snapshot:", snapErr);
+    }
+
     // 3. Process and update each product on Website
     let updatedCount = 0;
     let etsyUpdatedCount = 0;
@@ -249,6 +287,8 @@ export async function POST(req: Request) {
       percent: numericPercent,
       regions,
       samplePreview,
+      snapshotId: snapshot.id,
+      canUndo: true,
       errorsCount: errors.length,
       errors: errors.slice(0, 5),
     });

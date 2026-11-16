@@ -51,13 +51,38 @@ export default function BulkPriceMarkupModal({
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Fetch Etsy OAuth Status on open
+  // Undo / Rollback State
+  const [lastUndoSnapshot, setLastUndoSnapshot] = useState<{
+    id: string;
+    description: string;
+    timestamp: string;
+    productsCount: number;
+  } | null>(null);
+  const [isUndoing, setIsUndoing] = useState(false);
+
+  const fetchUndoHistory = async () => {
+    try {
+      const res = await fetch("/api/admin/bulk-price-markup/undo");
+      const data = await res.json();
+      if (data.success && data.latestSnapshot) {
+        setLastUndoSnapshot(data.latestSnapshot);
+      } else {
+        setLastUndoSnapshot(null);
+      }
+    } catch (e) {
+      console.warn("Could not fetch undo history:", e);
+    }
+  };
+
+  // Fetch Etsy OAuth Status & Undo History on open
   useEffect(() => {
     if (isOpen) {
       fetch("/api/etsy/oauth/status")
         .then((res) => res.json())
         .then((data) => setIsEtsyConnected(Boolean(data.connected)))
         .catch(() => setIsEtsyConnected(false));
+
+      fetchUndoHistory();
     }
   }, [isOpen]);
 
@@ -168,12 +193,46 @@ export default function BulkPriceMarkupModal({
       }
 
       setResultMessage(data.message || `Successfully updated ${data.updatedCount} listings!`);
+      await fetchUndoHistory();
       if (onSuccess) onSuccess();
     } catch (err: any) {
       console.error(err);
       setErrorMessage(err.message || "An error occurred while updating prices.");
     } finally {
       setIsUpdating(false);
+    }
+  };
+
+  const handleUndoPriceChange = async (snapshotId?: string) => {
+    const targetDesc = lastUndoSnapshot?.description || "Previous price update";
+    const confirmUndo = window.confirm(
+      `Are you sure you want to UNDO this price change?\n\nTarget: ${targetDesc}\n\nThis will restore exact previous prices and variants on both Website and Etsy Shop!`
+    );
+    if (!confirmUndo) return;
+
+    setIsUndoing(true);
+    setErrorMessage(null);
+    setResultMessage(null);
+
+    try {
+      const res = await fetch("/api/admin/bulk-price-markup/undo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ snapshotId }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to undo price changes.");
+      }
+
+      setResultMessage(data.message || `Restored listings back to normal prices!`);
+      await fetchUndoHistory();
+      if (onSuccess) onSuccess();
+    } catch (err: any) {
+      console.error(err);
+      setErrorMessage(err.message || "Failed to undo price changes.");
+    } finally {
+      setIsUndoing(false);
     }
   };
 
@@ -251,6 +310,47 @@ export default function BulkPriceMarkupModal({
               </a>
             )}
           </div>
+
+          {/* ↺ UNDO / ROLLBACK SAFETY BANNER */}
+          {lastUndoSnapshot && (
+            <div className="rounded-2xl border p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-amber-50/80 border-amber-300 shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <span className="w-8 h-8 rounded-xl bg-[#2B070B] text-[#FAF5EB] font-bold flex items-center justify-center text-sm shrink-0">
+                  ↺
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-[#2B070B]">Safety Undo Available</span>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                      {new Date(lastUndoSnapshot.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-700 mt-0.5">
+                    Last update was: <strong>"{lastUndoSnapshot.description}"</strong>. Undo will restore exact previous prices & variants on Website and live on Etsy shop.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleUndoPriceChange(lastUndoSnapshot.id)}
+                disabled={isUndoing || isUpdating}
+                className="px-3.5 py-1.5 rounded-xl bg-[#2B070B] hover:bg-[#3D0C12] text-white text-xs font-bold transition-all shadow-xs shrink-0 whitespace-nowrap cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
+              >
+                {isUndoing ? (
+                  <>
+                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Restoring Normal Prices...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>↺</span>
+                    <span>Undo & Restore Normal Prices</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
 
           {/* 1. Target Regions / Columns */}
           <div className="space-y-2.5">
@@ -627,7 +727,7 @@ export default function BulkPriceMarkupModal({
               </div>
             </div>
             <p className="text-[11px] text-[#8C7A6B] leading-relaxed pt-1">
-              ⚡ <em>Proportional Scaling:</em> All size variants (3x5, 4x6, 5x8, 6x9, 8x10, 9x12 ft) for each targeted listing will be adjusted proportionally by{" "}
+              ⚡ <em>Proportional Scaling:</em> All size variants and dropdown offerings for each targeted listing will be adjusted proportionally by{" "}
               <strong>{direction === "increase" ? `+${percentMagnitude}%` : `-${percentMagnitude}%`}</strong>.
             </p>
           </div>
@@ -648,9 +748,21 @@ export default function BulkPriceMarkupModal({
 
           {/* Alerts */}
           {resultMessage && (
-            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-medium flex items-center gap-2">
-              <span>✓</span>
-              <span>{resultMessage}</span>
+            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-medium flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-sm">✓</span>
+                <span>{resultMessage}</span>
+              </div>
+              {lastUndoSnapshot && (
+                <button
+                  type="button"
+                  onClick={() => handleUndoPriceChange(lastUndoSnapshot.id)}
+                  disabled={isUndoing}
+                  className="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer shrink-0 flex items-center gap-1.5 self-start sm:self-auto"
+                >
+                  {isUndoing ? "Restoring..." : "↺ Undo This Change"}
+                </button>
+              )}
             </div>
           )}
 

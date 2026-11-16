@@ -76,6 +76,15 @@ export default function ProductDetailClient({
   const [selectedColor, setSelectedColor] = useState<string>(getInitialColor(initialMapped));
   const [sizeViewMode, setSizeViewMode] = useState<"dropdown" | "grid">("dropdown");
 
+  // 🌟 Ensure product page always opens cleanly at the top (scrollY = 0) with header fully visible
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [id]);
+
   // 🌟 Custom Luxury Dropdowns State & Outside Click Handler
   const [openDropdown, setOpenDropdown] = useState<"size" | "color" | "quantity" | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -656,7 +665,7 @@ export default function ProductDetailClient({
           {/* ========================================================================= */}
           <div
             id="product-sticky-gallery"
-            className="lg:col-span-7 flex flex-col items-center lg:sticky lg:top-32 xl:top-32 self-start"
+            className="lg:col-span-7 flex flex-col items-center lg:sticky lg:top-6 xl:top-6 self-start transition-all duration-300"
           >
 
             {/* Primary Big Frame Container */}
@@ -926,11 +935,18 @@ export default function ProductDetailClient({
                   {formatPrice(selectedVariant?.price || product.price, 1)}
                 </span>
 
-                {product.original_price && Number(product.original_price) > Number(selectedVariant?.price || product.price) && (
-                  <span suppressHydrationWarning className="text-base text-[#7A7065] line-through font-body">
-                    {formatPrice(product.original_price, 1)}
-                  </span>
-                )}
+                {(() => {
+                  const curVal = parseFloat(String(selectedVariant?.price || product.price || "0").replace(/[^0-9.]/g, "")) || 0;
+                  const origVal = parseFloat(String(selectedVariant?.original_price || product.original_price || "0").replace(/[^0-9.]/g, "")) || 0;
+                  if (origVal > curVal) {
+                    return (
+                      <span suppressHydrationWarning className="text-base text-[#7A7065] line-through font-body">
+                        {formatPrice(origVal, 1)}
+                      </span>
+                    );
+                  }
+                  return null;
+                })()}
 
                 <span className="text-[11px] uppercase tracking-wider font-semibold text-[#1B7042] bg-[#EAF5EF] px-2.5 py-0.5 rounded-full">
                   Tax Included • Free Insured Delivery

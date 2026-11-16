@@ -184,6 +184,19 @@ async function main() {
   let synced = 0;
   let failed = 0;
 
+  // Retrieve Etsy OAuth token for /inventory access (Option B: clone exact variations & prices)
+  const { data: tokenDoc } = await supabase
+    .from("site_content")
+    .select("data")
+    .eq("id", "etsy_oauth_tokens")
+    .maybeSingle();
+  let etsyToken = tokenDoc?.data?.access_token || null;
+  if (etsyToken) {
+    console.log("🔑 Etsy OAuth Token detected: Enabling 1:1 Live Variation & Inventory Dropdown Cloning!");
+  } else {
+    console.log("⚠️ No Etsy OAuth Token found in Supabase site_content, using standard size fallback.");
+  }
+
   for (let idx = 0; idx < listings.length; idx++) {
     const listing = listings[idx];
     const progress = `[${idx + 1}/${listings.length}]`;
@@ -208,7 +221,6 @@ async function main() {
 
       const category = inferCategory(listing.title, listing.tags);
       const shape = inferShape(listing.title, listing.tags);
-      const color = inferColor(listing.title, listing.tags);
       const style = inferStyle(listing.title, listing.tags);
       const pattern = inferPattern(listing.title, listing.tags);
       const cleanedTitle = cleanTitle(listing.title);
@@ -218,28 +230,126 @@ async function main() {
           ? listing.materials.join(", ")
           : "100% Pure New Zealand Wool & Natural Cotton Backing";
 
-      const variants = STANDARD_SIZES.map((s) => ({
-        size: s.size,
-        dimensions: s.size.replace(" ft", ""),
-        unit: "ft",
-        price: String(Math.round(basePriceNum * s.multiplier)),
-        base_price: String(Math.round(basePriceNum * s.multiplier)),
-        original_price: String(Math.round(originalPriceNum * s.multiplier)),
-        markup_percent: 50,
-        discount_percent: 33,
-      }));
+      // Option B: Fetch exact variation dropdown and individual prices from Etsy /inventory
+      let variants = [];
+      let detectedSizes = [];
+      const detectedColors = [];
+
+      if (etsyToken) {
+        try {
+          const invRes = await fetch(
+            `https://openapi.etsy.com/v3/application/listings/${listing.listing_id}/inventory`,
+            {
+              headers: {
+                "x-api-key": `${ETSY_API_KEY}:${ETSY_SHARED_SECRET}`,
+                Authorization: `Bearer ${etsyToken}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          if (invRes.ok) {
+            const invData = await invRes.json();
+            if (Array.isArray(invData.products) && invData.products.length > 0) {
+              const sizeMap = new Map();
+              const colorSet = new Set();
+
+              for (const prod of invData.products) {
+                if (prod.is_deleted) continue;
+                const off =
+                  (prod.offerings || []).find((o) => !o.is_deleted && o.is_enabled) ||
+                  prod.offerings?.[0];
+                if (!off) continue;
+
+                const offPrice = off.price
+                  ? Math.round(off.price.amount / off.price.divisor)
+                  : rawBasePrice;
+
+                let sizeName = "";
+                for (const pv of prod.property_values || []) {
+                  const pName = (pv.property_name || "").toLowerCase();
+                  if (pName.includes("color")) {
+                    (pv.values || []).forEach((val) => {
+                      if (val && val.trim()) colorSet.add(val.trim());
+                    });
+                  } else {
+                    if (pv.values && pv.values.length > 0 && pv.values[0]?.trim()) {
+                      sizeName = pv.values[0].trim();
+                    }
+                  }
+                }
+
+                if (!sizeName && prod.property_values?.[0]?.values?.[0]) {
+                  sizeName = prod.property_values[0].values[0].trim();
+                }
+
+                if (sizeName) {
+                  if (!sizeMap.has(sizeName) || offPrice > 0) {
+                    sizeMap.set(sizeName, { price: offPrice, sku: prod.sku || undefined });
+                  }
+                }
+              }
+
+              if (colorSet.size > 0) {
+                detectedColors.push(...Array.from(colorSet));
+              }
+
+              if (sizeMap.size > 0) {
+                variants = Array.from(sizeMap.entries()).map(([sz, info], vIdx) => {
+                  const scaledPrice = Math.max(1, Math.round(info.price * markupMultiplier));
+                  const scaledOrigPrice = Math.round(scaledPrice * 1.5);
+                  return {
+                    size: sz,
+                    dimensions: sz.replace(/ ft runner| ft| runner/gi, "").trim(),
+                    unit: "ft",
+                    price: String(scaledPrice),
+                    base_price: String(scaledPrice),
+                    original_price: String(scaledOrigPrice),
+                    markup_percent: Math.round((markupMultiplier - 1) * 100),
+                    discount_percent: 33,
+                    sku: info.sku || `${sku}-${vIdx + 1}`,
+                  };
+                });
+                detectedSizes = variants.map((v) => v.size);
+              }
+            }
+          }
+        } catch (invErr) {
+          console.warn(`Could not fetch inventory for listing ${listing.listing_id}:`, invErr.message);
+        }
+      }
+
+      // Fallback only if no variants found from Etsy inventory
+      if (variants.length === 0) {
+        variants = STANDARD_SIZES.map((s) => ({
+          size: s.size,
+          dimensions: s.size.replace(" ft", ""),
+          unit: "ft",
+          price: String(Math.round(basePriceNum * s.multiplier)),
+          base_price: String(Math.round(basePriceNum * s.multiplier)),
+          original_price: String(Math.round(originalPriceNum * s.multiplier)),
+          markup_percent: 50,
+          discount_percent: 33,
+        }));
+        detectedSizes = STANDARD_SIZES.map((s) => s.size);
+      }
+
+      // Lowest variant price becomes base catalog display price (e.g. ₹1,685+)
+      const minVariantPrice = variants.length > 0
+        ? Math.min(...variants.map((v) => parseFloat(String(v.price).replace(/[^0-9.]/g, "")) || basePriceNum))
+        : basePriceNum;
+      const minOrigPrice = Math.round(minVariantPrice * 1.5);
 
       const productPayload = {
         name: cleanedTitle,
         original_name: listing.title,
         sku: sku,
-        price: `₹${basePriceNum}`,
-        original_price: `₹${originalPriceNum}`,
+        price: `₹${minVariantPrice}`,
+        original_price: `₹${minOrigPrice}`,
         discount_percent: 33,
-        markup_percent: 50,
+        markup_percent: Math.round((markupMultiplier - 1) * 100),
         category: category,
         shape: shape,
-        color: color,
+        color: detectedColors.length > 0 ? detectedColors.join(", ") : inferColor(listing.title, listing.tags),
         style: style,
         pattern: pattern,
         room: "Living Room, Bedroom, Foyer, Lounge",
@@ -249,7 +359,7 @@ async function main() {
           `Handcrafted artisanal rug by master weavers at NR Enterprises. Features premium plush texture, artisanal finishing, and sustainable natural fibers.`,
         care_instructions:
           "Vacuum regularly with suction-only mode. Rotate periodically for even wear. Spot clean spills immediately with a damp cloth and mild wool-friendly solution. Professional rug cleaning recommended.",
-        sizes: STANDARD_SIZES.map((s) => s.size),
+        sizes: detectedSizes,
         variants: variants,
         stock_quantity: listing.quantity || 5,
         tags: listing.tags || [],
@@ -265,6 +375,13 @@ async function main() {
           (listing.original_creation_timestamp || listing.created_timestamp || Date.now() / 1000) * 1000
         ).toISOString(),
       };
+
+      if (detectedColors.length > 0) {
+        productPayload.color_variants = detectedColors.map((c, cIdx) => ({
+          color: c,
+          image: imageUrls[cIdx] || imageUrls[0] || "",
+        }));
+      }
 
       if (imageUrls.length > 0) {
         productPayload.images = imageUrls;
