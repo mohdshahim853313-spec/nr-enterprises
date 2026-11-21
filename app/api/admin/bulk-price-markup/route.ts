@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     const multiplier = 1 + numericPercent / 100;
 
     // 1. Fetch target products
-    let query = supabase.from("products").select("id, name, sku, price, original_price, variants");
+    let query = supabase.from("products").select("id, name, sku, images, price, original_price, variants");
 
     if (!applyToAll && Array.isArray(productIds) && productIds.length > 0) {
       query = query.in("id", productIds);
@@ -66,14 +66,23 @@ export async function POST(req: Request) {
       description: `${numericPercent > 0 ? "+" : ""}${numericPercent}% on ${products.length} listing(s)`,
       percent: numericPercent,
       productsCount: products.length,
-      products: products.map((p) => ({
-        id: p.id,
-        sku: p.sku,
-        name: p.name,
-        price: p.price,
-        original_price: p.original_price,
-        variants: p.variants,
-      })),
+      products: products.map((p) => {
+        const rawCurrentPrice = p.price ? String(p.price).replace(/[^0-9.]/g, "") : "0";
+        const currentPriceNum = parseFloat(rawCurrentPrice) || 0;
+        const newPriceNum = Math.max(1, Math.round(currentPriceNum * multiplier));
+        const firstImg = Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : "";
+        return {
+          id: p.id,
+          sku: p.sku,
+          name: p.name,
+          image: firstImg,
+          old_price: `₹${currentPriceNum}`,
+          new_price: `₹${newPriceNum}`,
+          price: p.price,
+          original_price: p.original_price,
+          variants: p.variants,
+        };
+      }),
     };
 
     try {

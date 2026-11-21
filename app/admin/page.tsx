@@ -263,7 +263,7 @@ export default function AdminUpload() {
     try {
       const { data: products } = await supabase
         .from("products")
-        .select("id, name, images, price, original_price, sku, category")
+        .select("id, name, images, price, original_price, sku, category, sizes, variants")
         .order("created_at", { ascending: false });
       if (products) setAvailableProducts(products);
 

@@ -25,6 +25,16 @@ export async function GET() {
       description: s.description,
       percent: s.percent,
       productsCount: s.productsCount || (s.products ? s.products.length : 0),
+      products: Array.isArray(s.products)
+        ? s.products.map((p: any) => ({
+            id: p.id,
+            sku: p.sku,
+            name: p.name,
+            image: p.image || (Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : ""),
+            old_price: p.old_price || p.price,
+            new_price: p.new_price || p.price,
+          }))
+        : [],
     }));
 
     return NextResponse.json({
