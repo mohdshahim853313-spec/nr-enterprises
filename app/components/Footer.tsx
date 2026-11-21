@@ -109,13 +109,13 @@ export default function Footer() {
                   <span>nasimshah2441@gmail.com</span>
                 </a>
                 <a
-                  href="https://instagram.com/nrenterprises"
+                  href="https://www.instagram.com/nr_enterprises7⁠"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-[#FAF5EB] hover:text-white transition-colors"
                 >
                   <span className="font-bold text-[#FAF5EB]">Instagram:</span>
-                  <span>@nrenterprises</span>
+                  <span>@nr_enterprises7</span>
                 </a>
               </div>
             </div>
